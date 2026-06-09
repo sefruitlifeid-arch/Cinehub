@@ -1,0 +1,1490 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+<title>CineAI Hub v8</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+body{font-family:"DM Sans",sans-serif;background:#09090b;color:#e4e4e7;margin:0;overflow-x:hidden;}
+::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:#18181b;}::-webkit-scrollbar-thumb{background:#F59E0B;border-radius:2px;}
+.inp{background:#18181b;border:1px solid #3f3f46;color:#e4e4e7;border-radius:6px;padding:8px 12px;width:100%;font-family:"DM Sans",sans-serif;font-size:13px;transition:border-color .2s;}
+.inp:focus{outline:none;border-color:#F59E0B;box-shadow:0 0 0 3px #F59E0B15;}
+.inp::placeholder{color:#52525b;}
+select.inp option{background:#18181b;}
+textarea.inp{resize:vertical;min-height:70px;}
+.lbl{font-size:10px;font-weight:500;color:#71717a;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;display:block;}
+.chip{background:#18181b;border:1px solid #3f3f46;color:#71717a;border-radius:20px;padding:4px 11px;cursor:pointer;font-size:11px;transition:all .15s;user-select:none;white-space:nowrap;display:inline-block;}
+.chip:hover{border-color:#71717a;color:#e4e4e7;}
+.chip.on{background:#F59E0B22;border-color:#F59E0B;color:#FBBF24;font-weight:500;}
+.cg{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px;}
+.btnP{background:linear-gradient(135deg,#F59E0B,#D97706);color:#09090b;font-weight:600;border:none;border-radius:6px;padding:9px 18px;cursor:pointer;font-size:13px;font-family:"DM Sans",sans-serif;transition:all .2s;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;}
+.btnP:hover{transform:translateY(-1px);box-shadow:0 4px 20px #F59E0B40;}
+.btnP:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none;}
+.btnG{background:transparent;color:#71717a;border:1px solid #3f3f46;border-radius:6px;padding:7px 12px;cursor:pointer;font-size:12px;font-family:"DM Sans",sans-serif;transition:all .2s;display:inline-flex;align-items:center;gap:5px;white-space:nowrap;}
+.btnG:hover{border-color:#71717a;color:#e4e4e7;background:#ffffff08;}
+.btnD{background:transparent;color:#f87171;border:1px solid #7f1d1d44;border-radius:6px;padding:6px 10px;cursor:pointer;font-size:11px;font-family:"DM Sans",sans-serif;transition:all .2s;white-space:nowrap;}
+.btnD:hover{background:#7f1d1d22;border-color:#f87171;}
+.card{background:#18181b;border:1px solid #27272a;border-radius:10px;padding:16px;}
+.pbox{background:#0f0f11;border:1px solid #27272a;border-radius:7px;padding:12px 60px 12px 12px;font-family:"JetBrains Mono",monospace;font-size:11px;color:#a1a1aa;line-height:1.8;position:relative;white-space:pre-wrap;word-break:break-word;min-height:60px;}
+.cpBtn{position:absolute;top:8px;right:8px;background:#27272a;color:#71717a;border:none;border-radius:4px;padding:3px 9px;cursor:pointer;font-size:10px;font-family:"DM Sans",sans-serif;transition:all .2s;}
+.cpBtn:hover{background:#F59E0B;color:#09090b;}
+.cpBtn.ok{background:#16a34a;color:#fff;}
+.bA{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:500;background:#F59E0B22;color:#FBBF24;border:1px solid #F59E0B33;}
+.bB{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:500;background:#3b82f622;color:#60a5fa;border:1px solid #3b82f633;}
+.bP{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:500;background:#7c3aed22;color:#a78bfa;border:1px solid #7c3aed33;}
+.bG{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:500;background:#16a34a22;color:#4ade80;border:1px solid #16a34a33;}
+.tbtn{padding:6px 14px;font-size:11px;font-weight:500;border-radius:5px;cursor:pointer;transition:all .2s;color:#71717a;background:transparent;border:1px solid transparent;font-family:"DM Sans",sans-serif;white-space:nowrap;}
+.tbtn.on{background:#F59E0B;color:#09090b;border-color:#F59E0B;}
+.tbtn:hover:not(.on){color:#e4e4e7;border-color:#3f3f46;}
+.tcnt{display:none;}.tcnt.on{display:block;}
+.panel{display:none;}.panel.on{display:block;}
+.divL{border:none;border-top:1px solid #27272a;margin:14px 0;}
+.film{background:repeating-linear-gradient(90deg,#0f0f11 0,#0f0f11 10px,#27272a 10px,#27272a 12px);height:3px;}
+.ptCard{background:#18181b;border:2px solid #27272a;border-radius:9px;padding:12px 10px;cursor:pointer;transition:all .2s;text-align:center;}
+.ptCard:hover{border-color:#F59E0B55;background:#F59E0B08;}
+.ptCard.on{border-color:#F59E0B;background:#F59E0B12;}
+.aiTab{padding:6px 14px;border-radius:5px;font-size:12px;font-weight:500;cursor:pointer;transition:all .2s;border:1px solid #3f3f46;background:transparent;color:#71717a;font-family:"DM Sans",sans-serif;}
+.aiTab.on{background:#F59E0B22;border-color:#F59E0B;color:#FBBF24;}
+.scCard{background:#18181b;border:1px solid #27272a;border-radius:10px;overflow:hidden;margin-bottom:10px;}
+.sBox{background:#0f0f11;border:1px solid #F59E0B33;border-radius:8px;padding:14px;font-family:"JetBrains Mono",monospace;font-size:11px;color:#a1a1aa;line-height:1.7;min-height:80px;white-space:pre-wrap;word-break:break-word;}
+.optHdr{display:flex;align-items:center;justify-content:space-between;cursor:pointer;}
+.optBody{display:none;margin-top:12px;}.optBody.op{display:block;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;}
+@media(max-width:700px){.g4,.g3{grid-template-columns:1fr 1fr;}.g2{grid-template-columns:1fr;}}
+@media(max-width:420px){.g4,.g3,.g2{grid-template-columns:1fr;}}
+#nav{display:flex;align-items:center;gap:6px;padding:10px 0;margin-bottom:4px;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+#nav::-webkit-scrollbar{height:0;}
+.navBtn{padding:7px 16px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid #3f3f46;background:transparent;color:#71717a;font-family:"DM Sans",sans-serif;white-space:nowrap;transition:all .2s;}
+.navBtn.on{background:#F59E0B;color:#09090b;border-color:#F59E0B;}
+.navBtn:hover:not(.on){border-color:#71717a;color:#e4e4e7;}
+.modeToggle{display:flex;background:#18181b;border:1px solid #3f3f46;border-radius:8px;padding:3px;gap:3px;}
+.modeBtn{padding:5px 14px;border-radius:5px;font-size:11px;font-weight:500;cursor:pointer;border:none;background:transparent;color:#71717a;font-family:"DM Sans",sans-serif;transition:all .2s;white-space:nowrap;}
+.modeBtn.on{background:#F59E0B;color:#09090b;}
+.outToggle{display:flex;background:#18181b;border:1px solid #3f3f46;border-radius:7px;padding:3px;gap:3px;}
+.outBtn{padding:5px 14px;border-radius:5px;font-size:11px;font-weight:600;cursor:pointer;border:none;background:transparent;color:#71717a;font-family:"DM Sans",sans-serif;transition:all .2s;}
+.outBtn.on{background:#27272a;color:#e4e4e7;}
+.viralBox{background:#0f0f1a;border:1px solid #7c3aed33;border-radius:8px;padding:12px;font-size:11px;color:#a1a1aa;line-height:1.6;}
+.viralTag{background:#7c3aed22;color:#a78bfa;border:1px solid #7c3aed33;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:500;display:inline-block;margin:2px;}
+.spinner{display:inline-block;width:12px;height:12px;border:2px solid #3f3f46;border-top-color:#F59E0B;border-radius:50%;animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+</style>
+</head>
+<body>
+
+<div style="position:sticky;top:0;z-index:50;background:#09090b;border-bottom:1px solid #27272a;padding:0 16px;">
+  <div style="max-width:860px;margin:0 auto;height:50px;display:flex;align-items:center;gap:10px;">
+    <div class="film" style="width:16px;flex-shrink:0;"></div>
+    <span style="font-family:'Bebas Neue',sans-serif;font-size:21px;letter-spacing:.1em;color:#FBBF24;">CINEAI<span style="color:#52525b;">HUB</span></span>
+    <div class="film" style="width:16px;flex-shrink:0;"></div>
+    <span class="bA" style="font-size:9px;">v8</span>
+    <div style="flex:1;"></div>
+    <div id="savedDot" style="font-size:10px;color:#3f3f46;display:flex;align-items:center;gap:4px;transition:color .3s;">
+      <svg width="7" height="7" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill="currentColor"/></svg>Saved
+    </div>
+    <button class="btnG" style="font-size:11px;" onclick="doExport()">&#8595; Export</button>
+    <button class="btnD" style="font-size:11px;" onclick="doReset()">Reset</button>
+  </div>
+</div>
+
+<div style="max-width:860px;margin:0 auto;padding:16px;">
+
+  <div id="nav">
+    <button class="navBtn on" data-nav="story">&#9998; Story Builder</button>
+    <button class="navBtn" data-nav="scenes">&#127916; Scene Editor</button>
+    <button class="navBtn" data-nav="output">&#9889; Output</button>
+  </div>
+
+  <!-- ══ STORY BUILDER ══ -->
+  <div id="sec-story" class="panel on">
+    <div style="margin-bottom:16px;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.06em;color:#FBBF24;">STORY BUILDER</div>
+      <div style="font-size:12px;color:#52525b;">Set context → get virality brief → generate prompt → paste to AI → import script</div>
+    </div>
+
+    <!-- Mode + Project Type -->
+    <div class="card" style="margin-bottom:12px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:12px;">
+        <span class="bA">PROJECT TYPE</span>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:11px;color:#52525b;">Mode:</span>
+          <div class="modeToggle">
+            <button class="modeBtn on" id="modeReal" onclick="setMode('realistic',this)">&#127916; Realistic</button>
+            <button class="modeBtn" id="modeAnim" onclick="setMode('animated',this)">&#127912; Animated</button>
+          </div>
+        </div>
+      </div>
+      <div id="ptGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;"></div>
+    </div>
+
+    <!-- Core Settings -->
+    <div class="card" style="margin-bottom:12px;">
+      <div style="margin-bottom:10px;"><span class="bB">CORE SETTINGS</span></div>
+      <div class="g3" style="margin-bottom:12px;">
+        <div>
+          <label class="lbl">Platform</label>
+          <select class="inp" id="platform" onchange="save()">
+            <option value="">Select...</option>
+            <option>Instagram Reels (9:16)</option>
+            <option>TikTok (9:16)</option>
+            <option>YouTube Shorts (9:16)</option>
+            <option>YouTube (16:9)</option>
+            <option>Instagram Feed (4:5)</option>
+            <option>Cinema (2.39:1)</option>
+            <option>Short Film (16:9)</option>
+            <option>No specific platform</option>
+          </select>
+        </div>
+        <div>
+          <label class="lbl">Genre</label>
+          <select class="inp" id="genre" onchange="save()">
+            <option value="">Select...</option>
+            <option>Slice of Life</option><option>Drama</option><option>Romance</option>
+            <option>Thriller / Suspense</option><option>Horror</option><option>Comedy</option>
+            <option>Sci-Fi</option><option>Fantasy</option><option>Documentary</option>
+            <option>Action</option><option>Music Video</option><option>Brand Commercial</option>
+            <option>Experimental / Art Film</option>
+          </select>
+        </div>
+        <div>
+          <label class="lbl">General Mood</label>
+          <select class="inp" id="mood" onchange="save()">
+            <option value="">Select...</option>
+            <option>Warm and Nostalgic</option><option>Dark and Moody</option>
+            <option>Bright and Energetic</option><option>Calm and Contemplative</option>
+            <option>Tense and Suspenseful</option><option>Romantic and Intimate</option>
+            <option>Raw and Gritty</option><option>Dreamlike and Surreal</option>
+            <option>Comedic and Playful</option><option>Epic and Grandiose</option>
+            <option>Melancholic and Poetic</option><option>Bold and Confident</option>
+          </select>
+        </div>
+      </div>
+      <div class="g2">
+        <div id="visualStyleWrap">
+          <label class="lbl">Visual Style <span style="color:#ef4444;font-size:9px;">injected first into ALL prompts</span></label>
+          <select class="inp" id="visualStyle" onchange="save()">
+            <option value="">Select style...</option>
+          </select>
+        </div>
+        <div>
+          <label class="lbl">Emotional Core</label>
+          <select class="inp" id="emotionalCore" onchange="save()">
+            <option value="">Select...</option>
+            <option>Longing / Nostalgia</option><option>Joy / Euphoria</option>
+            <option>Grief / Loss</option><option>Love / Connection</option>
+            <option>Anxiety / Unease</option><option>Wonder / Discovery</option>
+            <option>Isolation / Loneliness</option><option>Hope / Rebirth</option>
+            <option>Anger / Frustration</option><option>Peace / Acceptance</option>
+            <option>Identity Crisis</option><option>Bittersweet</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Style Reference -->
+    <div class="card" style="margin-bottom:12px;">
+      <div class="optHdr" onclick="togOpt('styleref')">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:13px;font-weight:600;color:#e4e4e7;">Visual Style Reference</span>
+          <span class="bA" style="font-size:9px;">OPTIONAL</span>
+          <span style="font-size:10px;color:#52525b;">Mood board, visual guide, color palette, brand imagery</span>
+        </div>
+        <svg id="stylerefChev" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="color:#52525b;transition:transform .2s;flex-shrink:0;"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="optBody" id="stylerefBody">
+        <div style="background:#0f0f1a;border:1px solid #F59E0B33;border-radius:6px;padding:10px;font-size:11px;color:#a1a1aa;margin-bottom:10px;line-height:1.5;">
+          &#9888; <strong style="color:#FBBF24;">For visual assets:</strong> mood boards, color palette images, brand visual guides, reference photos. Upload image to ChatGPT/Claude/Gemini with the prompt below → paste AI response here. Injected into all image + video prompts as visual anchor. <strong style="color:#FBBF24;">Note: Shot type per scene still overrides composition — this only affects color, texture, atmosphere.</strong><br><br>
+          <span style="color:#52525b;">Have a brand guidelines PDF with text (audience, tone, messaging)? Use Project DNA below instead.</span>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;">
+          <button class="btnG" style="font-size:11px;" onclick="genStylePrompt()">&#128247; Generate Style Extraction Prompt</button>
+          <button class="cpBtn" id="styleExtCpBtn" style="position:static;display:none;" onclick="cpEl('styleExtPrompt',this)">Copy Prompt</button>
+        </div>
+        <textarea id="styleExtPrompt" class="inp" rows="3" style="display:none;font-family:JetBrains Mono;font-size:10px;margin-bottom:10px;" readonly></textarea>
+        <label class="lbl">Custom Visual Style <span style="color:#52525b;font-size:9px;">(paste AI response here — injected into ALL prompts. Does NOT override shot type/composition.)</span></label>
+        <textarea class="inp" id="customVisualStyle" rows="3" placeholder="e.g. Warm golden-hour palette dominated by amber and terracotta. Soft grain texture reminiscent of 35mm film. Shallow depth of field with creamy bokeh. Intimate handheld framing with natural imperfections. Muted shadows with lifted blacks..." oninput="save()"></textarea>
+      </div>
+    </div>
+
+    <!-- Project DNA -->
+    <div class="card" style="margin-bottom:12px;">
+      <div class="optHdr" onclick="togOpt('dna')">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:13px;font-weight:600;color:#e4e4e7;">Project DNA</span>
+          <span class="bA" style="font-size:9px;">OPTIONAL</span>
+          <span style="font-size:10px;color:#52525b;">Audience, tone, messaging, core conflict — text-based brand brief or PDF</span>
+        </div>
+        <svg id="dnaChev" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="color:#52525b;transition:transform .2s;flex-shrink:0;"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="optBody" id="dnaBody">
+        <div class="g2" style="margin-bottom:10px;">
+          <div><label class="lbl">Title <span style="color:#52525b;font-size:9px;">(film, campaign, or project name)</span></label><input class="inp" id="dnaTitle" placeholder="e.g. After Rain / Nova x Glow Campaign" oninput="save()"/></div>
+          <div><label class="lbl">Project / Brand Name</label><input class="inp" id="dnaName" placeholder="e.g. Nova Skincare / Short film" oninput="save()"/></div>
+        </div>
+        <div style="margin-bottom:10px;"><label class="lbl">Core Message <span style="color:#52525b;font-size:9px;">(what must audience feel / think / do after watching?)</span></label>
+        <input class="inp" id="dnaCoreMessage" placeholder="e.g. Feel that skincare can be simple and joyful, not complicated" oninput="save()"/></div>
+        <div style="margin-bottom:10px;"><label class="lbl">Pain Point / Central Conflict</label>
+        <input class="inp" id="dnaPainPoint" placeholder="e.g. Audience feels overwhelmed by too many skincare steps" oninput="save()"/></div>
+        <div class="g3" style="margin-bottom:10px;">
+          <div><label class="lbl">Target Audience</label><input class="inp" id="dnaAudience" placeholder="e.g. Women 22-35, urban" oninput="save()"/></div>
+          <div>
+            <label class="lbl">Tone of Voice</label>
+            <select class="inp" id="dnaTone" onchange="save()">
+              <option value="">Select...</option>
+              <option>Witty and Playful</option><option>Casual and Friendly</option>
+              <option>Bold and Confident</option><option>Professional and Polished</option>
+              <option>Inspirational</option><option>Minimalist and Premium</option>
+              <option>Raw and Authentic</option><option>Dramatic and Emotional</option>
+            </select>
+          </div>
+          <div><label class="lbl">Custom Instructions</label><input class="inp" id="dnaInstructions" placeholder="e.g. Product in first 3s. No direct camera eye contact." oninput="save()"/></div>
+        </div>
+        <div style="margin-top:12px;border-top:1px solid #27272a;padding-top:12px;">
+          <div style="font-size:11px;color:#52525b;margin-bottom:8px;">Have a brand guideline <strong style="color:#71717a;">PDF</strong> or text document? Generate an extraction prompt → paste to AI → auto-fill fields below. <span style="color:#3f3f46;">For visual brand guides (images, moodboards) → use Visual Style Reference above.</span></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button class="btnG" style="font-size:11px;" onclick="genBrandPrompt()">&#128196; Generate Brand DNA Extraction Prompt</button>
+            <button class="cpBtn" id="brandExtCpBtn" style="position:static;display:none;" onclick="cpEl('brandExtPrompt',this)">Copy Prompt</button>
+          </div>
+          <textarea id="brandExtPrompt" class="inp" rows="3" style="display:none;font-family:JetBrains Mono;font-size:10px;margin-top:8px;" readonly></textarea>
+          <div id="brandPasteWrap" style="margin-top:10px;">
+            <label class="lbl">Paste AI Response to auto-fill DNA fields:</label>
+            <textarea id="brandPasteField" class="inp" rows="4" placeholder="Paste the AI response here (TITLE: ... BRAND_NAME: ... etc)..." style="font-size:11px;margin-bottom:8px;"></textarea>
+            <button class="btnG" style="font-size:11px;" onclick="parseBrandResponse()">&#8594; Auto-fill DNA Fields</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Characters -->
+    <div class="card" style="margin-bottom:12px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:13px;font-weight:600;color:#e4e4e7;">Characters</span>
+          <span class="bA" style="font-size:9px;">OPTIONAL</span>
+        </div>
+        <button class="btnG" style="font-size:11px;" id="addCharBtn" onclick="addChar()">+ Add Character</button>
+      </div>
+      <div id="charModeHint" style="background:#0f0f1a;border:1px solid #3b82f633;border-radius:6px;padding:9px;font-size:11px;color:#60a5fa;margin-bottom:10px;line-height:1.5;">
+        &#9432; <span id="charHintText">Upload photo to AI → paste "Generate Analyze Prompt" → paste AI response as description</span>
+      </div>
+      <div id="charList"></div>
+      <div id="charEmpty" style="font-size:12px;color:#52525b;text-align:center;padding:14px 0;">No characters — leave empty for B-roll only or no specific character</div>
+    </div>
+
+    <!-- Virality Brief -->
+    <div class="card" style="margin-bottom:12px;border-color:#7c3aed33;">
+      <div class="optHdr" onclick="togOpt('viral')">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:13px;font-weight:600;color:#e4e4e7;">&#128200; Virality Brief</span>
+          <span class="bP" style="font-size:9px;">TREND RESEARCH</span>
+        </div>
+        <svg id="viralChev" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="color:#52525b;transition:transform .2s;flex-shrink:0;"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="optBody" id="viralBody">
+        <div style="background:#0f0f1a;border:1px solid #7c3aed33;border-radius:6px;padding:10px;font-size:11px;color:#a1a1aa;margin-bottom:10px;line-height:1.6;">
+          <strong style="color:#a78bfa;">How it works:</strong><br>
+          1. Click "Generate Virality Prompt" → copy → paste into <strong style="color:#e4e4e7;">ChatGPT</strong><br>
+          2. ChatGPT researches current trends and returns insights + a Trend Summary<br>
+          3. Copy the <strong style="color:#FBBF24;">Trend Summary</strong> → paste into the field below<br>
+          4. Go to <strong style="color:#e4e4e7;">Story Prompt</strong> below → Generate → the trend data will be injected automatically
+        </div>
+        <button class="btnG" style="margin-bottom:10px;" id="viralBtn" onclick="genViralPrompt()">&#128200; Generate Virality Prompt</button>
+        <div id="viralPromptWrap" style="display:none;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
+            <label class="lbl" style="margin:0;">Copy this prompt → paste to ChatGPT</label>
+            <button class="cpBtn" style="position:static;" data-cpel="viralPromptBox">Copy</button>
+          </div>
+          <div class="pbox" id="viralPromptBox" style="min-height:100px;"></div>
+        </div>
+        <div style="margin-top:12px;">
+          <label class="lbl">Virality Notes <span style="color:#52525b;font-size:9px;">Paste ChatGPT Trend Summary here — injected into Story Prompt</span></label>
+          <textarea class="inp" id="viralNotes" rows="3" placeholder="e.g. Strong hook formats: 'what nobody tells you about X'. Trending angle: behind-the-scenes authenticity. Peak engagement: 15-30s with a twist at 10s mark..." oninput="save()"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- Story Prompt Generator -->
+    <div class="card" style="margin-bottom:12px;border-color:#F59E0B33;">
+      <div style="margin-bottom:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+        <span class="bA">STORY PROMPT</span>
+        <span style="font-size:10px;color:#52525b;">Copy → paste to ChatGPT / Claude / Gemini</span>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;">
+        <button class="aiTab on" id="aiC" onclick="setAI('chatgpt',this)">ChatGPT</button>
+        <button class="aiTab" id="aiCl" onclick="setAI('claude',this)">Claude</button>
+        <button class="aiTab" id="aiG" onclick="setAI('gemini',this)">Gemini</button>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+        <label class="lbl" style="margin:0;white-space:nowrap;">Scenes:</label>
+        <input type="range" id="scN" min="3" max="20" value="5" oninput="document.getElementById('scNV').textContent=this.value" style="flex:1;accent-color:#F59E0B;">
+        <span id="scNV" style="font-family:'JetBrains Mono';font-size:13px;color:#FBBF24;min-width:20px;">5</span>
+      </div>
+      <div class="sBox" id="storyBox">Click "Generate" to build your story prompt...</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
+        <button class="btnP" onclick="genStory()">&#9889; Generate Story Prompt</button>
+        <button class="btnG" id="storyCpBtn" onclick="cpEl('storyBox',this)" style="display:none;">&#128203; Copy</button>
+      </div>
+    </div>
+
+    <div style="display:flex;justify-content:flex-end;">
+      <button class="btnP" onclick="goTo('scenes')">Next: Scene Editor &#8594;</button>
+    </div>
+  </div>
+
+  <!-- ══ SCENE EDITOR ══ -->
+  <div id="sec-scenes" class="panel">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:14px;">
+      <div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.06em;color:#FBBF24;">SCENE EDITOR</div>
+        <div style="font-size:12px;color:#52525b;">Import AI script → configure per scene → generate output</div>
+      </div>
+      <button class="btnG" onclick="addScene()">+ Add Scene</button>
+    </div>
+
+    <!-- Import -->
+    <div class="card" style="margin-bottom:12px;border-color:#3b82f633;">
+      <div style="margin-bottom:8px;display:flex;align-items:center;gap:8px;">
+        <span class="bB">IMPORT SCRIPT</span>
+        <span style="font-size:10px;color:#52525b;">Paste AI output → auto-populate scenes</span>
+      </div>
+      <div style="background:#0f0f1a;border:1px solid #3b82f633;border-radius:6px;padding:9px;font-size:10px;color:#60a5fa;margin-bottom:8px;line-height:1.5;">
+        Format: <code style="color:#93c5fd;">SCENE_01 | TITLE: ... | BEAT: ... | LOCATION: ... | TIME: ... | CHARACTER: ... | ACTION: ... | DIALOG: ... | MOOD: ... | DURATION: ...</code>
+      </div>
+      <textarea class="inp" id="importField" rows="4" placeholder="Paste AI-generated script here..."></textarea>
+      <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">
+        <button class="btnP" onclick="parseImport()">&#8594; Import Scenes</button>
+        <button class="btnG" onclick="document.getElementById('importField').value=''">Clear</button>
+      </div>
+      <div id="importRes" style="display:none;margin-top:8px;padding:7px 12px;background:#16a34a22;border:1px solid #16a34a33;border-radius:6px;font-size:12px;color:#4ade80;"></div>
+    </div>
+
+    <div id="scList"></div>
+    <div id="scEmpty" class="card" style="text-align:center;padding:36px 20px;">
+      <div style="font-size:30px;margin-bottom:8px;">&#127916;</div>
+      <div style="color:#a1a1aa;font-weight:500;margin-bottom:5px;">No scenes yet</div>
+      <div style="font-size:12px;color:#52525b;margin-bottom:14px;">Import from Story Builder or add manually</div>
+      <button class="btnP" onclick="addScene()">+ Add Scene</button>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;margin-top:14px;flex-wrap:wrap;gap:8px;">
+      <button class="btnG" onclick="goTo('story')">&#8592; Back</button>
+      <button class="btnP" onclick="goTo('output')">&#9889; Generate Output &#8594;</button>
+    </div>
+  </div>
+
+  <!-- ══ OUTPUT ══ -->
+  <div id="sec-output" class="panel">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:14px;">
+      <div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.06em;color:#FBBF24;">AI OUTPUT</div>
+        <div style="font-size:12px;color:#52525b;">Image+Negative — Kling — Seedance</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <div class="outToggle">
+          <button class="outBtn on" id="outSingle" onclick="setOutMode('single',this)">Single Shot</button>
+          <button class="outBtn" id="outMulti" onclick="setOutMode('multi',this)">Multi-Shot</button>
+        </div>
+        <div class="outToggle" style="border-color:#3b82f633;">
+          <button class="outBtn on" id="vidImg2" onclick="setVidMode('img2vid',this)" title="Image already generated — only animate, skip character description in video prompt">Img&#8594;Vid</button>
+          <button class="outBtn" id="vidTxt2" onclick="setVidMode('txt2vid',this)" title="Generate video from text — include character description">Txt&#8594;Vid</button>
+        </div>
+        <button class="btnG" onclick="genAll()">&#8634; Regen</button>
+        <button class="btnP" onclick="copyAll()">Copy All</button>
+      </div>
+    </div>
+    <div id="outBox">
+      <div class="card" style="text-align:center;padding:46px 20px;">
+        <div style="font-size:30px;margin-bottom:8px;">&#9889;</div>
+        <div style="color:#a1a1aa;margin-bottom:14px;">Add scenes and generate</div>
+        <button class="btnP" onclick="goTo('scenes')">Go to Scene Editor</button>
+      </div>
+    </div>
+    <div style="margin-top:14px;"><button class="btnG" onclick="goTo('scenes')">&#8592; Back</button></div>
+  </div>
+
+</div>
+
+<div style="max-width:860px;margin:0 auto;padding:20px 16px 32px;border-top:1px solid #18181b;margin-top:8px;">
+  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+    <div style="font-size:10px;color:#3f3f46;font-family:'JetBrains Mono',monospace;">
+      CineAI Hub v8 &nbsp;·&nbsp; Prompt format: Kling v1.6 / Seedance v1.0 / DALL-E 3 &nbsp;·&nbsp; Last updated: Jun 2025
+    </div>
+    <div style="font-size:10px;color:#3f3f46;">
+      Open source · <a href="https://github.com" style="color:#52525b;text-decoration:none;">GitHub</a> · Zero API keys required
+    </div>
+  </div>
+</div>
+
+<script>
+var S = {
+  proj:{type:'',platform:'',genre:'',mood:'',visualStyle:'',emotionalCore:'',mode:'realistic'},
+  dna:{name:'',audience:'',tone:'',instructions:'',title:'',coreMessage:'',painPoint:''},
+  viralNotes:'',
+  chars:[],scenes:[],
+  aiTool:'chatgpt',
+  outMode:'single',
+  videoMode:'img2vid'
+};
+
+var PT=[
+  {id:'brand',i:'🎯',n:'Brand',d:'Ads'},
+  {id:'sliceoflife',i:'🌿',n:'Slice of Life',d:'Everyday'},
+  {id:'shortfilm',i:'🎬',n:'Short Film',d:'Narrative'},
+  {id:'documentary',i:'📽',n:'Documentary',d:'Real'},
+  {id:'musicvideo',i:'🎵',n:'Music Video',d:'Audio/Visual'},
+  {id:'fashion',i:'👑',n:'Fashion',d:'Lookbook'},
+  {id:'travel',i:'✈',n:'Travel',d:'Places'},
+  {id:'experimental',i:'🎲',n:'Experimental',d:'Abstract'}
+];
+
+var STYLES = {
+  realistic:[
+    {v:'Symmetrical center-frame compositions, pastel color palette, flat graphic lighting, wide angle lens, whimsical deadpan tone, dollhouse framing',l:'Wes Anderson-inspired — Symmetrical, pastel'},
+    {v:'Moody saturated colors, slow motion intimacy, temporal disorientation, close cropped framing, nostalgic urban atmosphere, warm amber and teal tones',l:'Wong Kar-wai-inspired — Moody, saturated'},
+    {v:'Raw naturalistic handheld camera, desaturated muted palette, gritty realism, minimal available lighting, documentary intimacy, unglamorous truth',l:'A24 Arthouse — Raw, naturalistic, gritty'},
+    {v:'Perfectly lit, clean aspirational look, sharp polished imagery, product-flattering angles, upscale lifestyle feel, color-accurate commercial grade',l:'High-end Commercial — Clean, aspirational'},
+    {v:'Handheld organic movement, natural available light, unpolished real moments, genuine unperformed emotions, grain texture, authentic slice of life',l:'Lo-fi Authentic — Handheld, organic, real'},
+    {v:'Visible film grain, light leaks, warm analog tones, slightly soft focus edges, vintage color palette, imperfect analog beauty',l:'Retro Film — 35mm grain, analog, warm'},
+    {v:'Neon signs reflected in rain puddles, futuristic dystopian atmosphere, high contrast, dramatic shadows, LED color accents, alienated future',l:'Cyberpunk / Neo-noir — Neon, rain'},
+    {v:'Golden magic hour light, poetic non-linear structure, whispered intimacy, nature imagery woven through, lyrical visual poetry, impressionistic',l:'Terrence Malick-inspired — Poetic, golden light'},
+    {v:'Neon-lit urban night scenes, digital grain texture, high contrast, urban alienation atmosphere, rain-slicked streets, cold city poetry',l:'Michael Mann-inspired — Neon city, digital grain'},
+    {v:'IMAX-scale epic cinematography, practical effects, cool desaturated palette, Dutch angles, real location grandeur, time-bending tension',l:'Epic Nolan-inspired — IMAX, practical'},
+    {v:'Perfect naturalistic exposure, masterful use of available light, slightly elevated reality, exceptional shadow and highlight detail, grounded',l:'Deakins-inspired — Naturalistic, masterful light'}
+  ],
+  animated:[
+    {v:'Anime aesthetic: hand-drawn line art, large expressive eyes, dynamic motion lines, saturated color palette, emotive facial expressions, cel shading',l:'Anime — Hand-drawn, expressive, cel-shaded'},
+    {v:'Studio Ghibli-inspired aesthetic: warm watercolor backgrounds, soft rounded characters, gentle magical atmosphere, lush natural details, nostalgic warmth',l:'Ghibli-inspired — Soft, watercolor, magical'},
+    {v:'High-energy anime aesthetic: bold dynamic lines, extreme perspective angles, hyper kinetic motion, vivid saturated palette, action impact frames',l:'Action Anime — Dynamic, bold, hyper kinetic'},
+    {v:'Illustrated storybook aesthetic: clean vector shapes, bold outlines, flat color fills, graphic composition, playful character design',l:'Storybook / Flat Illustration'},
+    {v:'Comic book aesthetic: halftone dots, bold ink outlines, high contrast primary colors, dynamic panel-breaking compositions, action typography',l:'Comic Book / Graphic Novel'},
+    {v:'3D stylized animation aesthetic: smooth rounded forms, subsurface skin scattering, exaggerated proportions, vibrant art direction, Pixar-quality polish',l:'3D Stylized — Rounded, vibrant, polished'},
+    {v:'Watercolor animation aesthetic: soft wet edges, translucent overlapping washes, organic brush texture, gentle muted palette, painterly impressionism',l:'Watercolor Animation — Soft, painterly'},
+    {v:'Claymation aesthetic: tactile clay texture, handmade imperfections, warm plasticine color, stop-motion jerkiness, charming physical weight',l:'Claymation — Tactile, handmade, warm'},
+    {v:'Pixel art aesthetic: chunky pixel grid, limited 16-bit color palette, retro game visual language, dithering texture, chiptune energy',l:'Pixel Art — Retro, chunky, limited palette'},
+    {v:'Dark atmospheric anime aesthetic: muted desaturated palette, heavy shadows, introspective mood, detailed environmental storytelling, seinen style',l:'Dark Anime — Atmospheric, muted, introspective'}
+  ]
+};
+
+// Shot type to composition translation map — for image prompts ONLY
+var SHOT_COMPOSITION = {
+  'ECU': 'extreme close-up, subject fills entire frame completely, only one intimate detail visible (eyes, hands, lips), no background, maximum intimacy and tension',
+  'CU': 'close-up shot, face or key object dominates frame, tight crop just below chin or around subject, background softly blurred and secondary',
+  'MCU': 'medium close-up, chest and head visible, conversational framing, subject clearly dominant, environment hinted not dominant',
+  'MS': 'medium shot, subject visible from waist up, balanced relationship between subject and environment, natural storytelling framing',
+  'Cowboy Shot': 'cowboy shot, thighs to head framing, wide stance implied, western-style composition with ground and sky context',
+  'FS': 'full shot, entire body visible head to toe, subject and immediate surroundings in frame, clear spatial relationship',
+  'WS': 'wide shot, full figure visible within environment, location and setting storytelling prominent, environment as narrative context',
+  'Extreme Wide': 'extreme wide shot, subject appears small against vast environment, landscape or architectural environment dominant, epic scale implied',
+  'OTS': 'over-the-shoulder shot, camera positioned behind subject\'s shoulder, secondary subject or focal point visible ahead, depth and perspective layering, foreground shoulder visible',
+  'POV': 'point-of-view shot, camera as eyes of subject, first-person perspective, immersive and subjective framing, no subject visible in frame',
+  'Dutch Angle': 'dutch angle, camera tilted 15-30 degrees creating psychological unease, diagonal horizon line, disorienting tilt conveying tension or instability'
+};
+
+// Camera movement options (separate from shot type)
+var MOVEMENT_OPTS = [
+  'Static (locked off)',
+  'Pan Left','Pan Right',
+  'Tilt Up','Tilt Down',
+  'Dolly In','Dolly Out',
+  'Tracking Shot (follow)',
+  'Arc Left','Arc Right',
+  'Crane Up','Crane Down',
+  'Handheld (organic)',
+  'Steadicam (smooth follow)',
+  'Whip Pan',
+  'Rack Focus',
+  'Drone (aerial)',
+  'Zoom In','Zoom Out'
+];
+
+// Shot size options (separate dropdown)
+var SHOT_OPTS = ['ECU','CU','MCU','MS','Cowboy Shot','FS','WS','Extreme Wide','OTS','POV','Dutch Angle'];
+
+var CHIP = {
+  lighting:['Three-Point','Rembrandt','Butterfly','Split','Rim / Hair Light','High Key','Low Key','Ring Light','Backlit / Silhouette','Chiaroscuro','Practical Only'],
+  lightQuality:['Hard Light','Soft Diffused','Dappled / Organic','Mixed Sources','Backlit Glow'],
+  animEnergy:['Slow and Contemplative','Natural Everyday Pace','Moderate Dynamic','High Energy','Hyper Kinetic','Dramatic Impact Freeze']
+};
+
+var DD_REAL = {
+  cameraBody:['ARRI Alexa Mini LF','RED Dragon 6K','Sony FX3','Sony Venice 2','Blackmagic URSA Mini Pro','Canon EOS C70','iPhone 15 Pro Cinematic','GoPro Hero (POV)','Fujifilm X-T5','DJI Mavic 4 Pro (aerial)'],
+  lensType:['Prime — Fixed focal, sharp','Anamorphic — Oval bokeh, lens flares','Zoom — Variable, versatile','Macro — Extreme detail','Fisheye — Ultra-wide distortion','Tilt-Shift — Selective focus','Vintage Spherical — Soft classic'],
+  focalLength:['14mm — Ultra-wide dramatic','24mm — Wide cinematic','28mm — Street natural','35mm — Human-eye perspective','50mm — True-to-life standard','85mm — Portrait compression','100mm — Medium tele','135mm — Telephoto isolation','200mm — Extreme compression'],
+  aperture:['f/1.2 — Maximum bokeh','f/1.4 — Creamy separation','f/1.8 — Sharp subject soft BG','f/2.8 — Commercial standard','f/4.0 — Moderate depth','f/5.6 — Balanced sharpness','f/8.0 — Landscape depth','f/11 — Deep focus flat','f/16 — Maximum depth'],
+  visualLook:['Teal and Orange — Hollywood blockbuster','Desaturated Matte — Indie gritty','Warm Kodak — Nostalgic film warmth','Cool Bleach Bypass — Harsh desaturated','Vibrant Pop — Anime-inspired saturated','High-end Commercial — Clean crisp','Pastel — Soft whimsical','Moody Low-key — Deep shadows','Retro Super 8 — Heavy grain warm vintage','B&W High Contrast — Timeless editorial','Fuji Velvia — Ultra-saturated rich','Kodak Vision3 — Warm shadows fine grain','Fuji Pro 400H — Pastel soft fashion','Digital Clean — No grain clinical']
+};
+
+var DD_ANIM = {
+  artStyle:['Anime (standard)','Anime (shonen action)','Anime (shojo romance)','Anime (seinen dark)','Studio Ghibli-inspired','Flat vector illustration','Comic book / Graphic novel','Watercolor painted','Claymation / Stop-motion','3D stylized (Pixar-quality)','Pixel art (16-bit)','Ink wash / Sumi-e','Papercraft / Collage'],
+  colorPaletteMood:['Warm saturated — vibrant emotional','Cool muted — contemplative melancholy','High contrast pop — bold graphic energy','Pastel soft — gentle whimsical','Monochrome — stark timeless','Earth tones — grounded organic','Neon vivid — futuristic electric','Retro limited palette — nostalgic charm'],
+  composition:['Wide establishing shot','Medium character shot','Close-up on face / expression','Extreme close-up on detail','Over-the-shoulder','Bird\'s eye view','Low angle looking up','Dynamic dutch angle','Point of view (POV)','Split panel / Multiple frames']
+};
+
+// ═══ INIT ═══
+function init(){
+  loadData(); renderPT(); populateStyleDropdown();
+  renderChars(); renderScenes(); applyForm();
+  // event delegation for virality copy button
+  document.addEventListener('click',function(e){
+    var cpel=e.target.closest('[data-cpel]');
+    if(cpel){cpEl(cpel.getAttribute('data-cpel'),cpel);}
+  });
+}
+
+// ═══ NAV ═══
+function goTo(id){
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on');});
+  document.querySelectorAll('.navBtn').forEach(function(b){b.classList.remove('on');});
+  document.getElementById('sec-'+id).classList.add('on');
+  var nb=document.querySelector('.navBtn[data-nav="'+id+'"]');if(nb)nb.classList.add('on');
+  if(id==='output')genAll();
+  window.scrollTo(0,0);
+}
+document.getElementById('nav').addEventListener('click',function(e){
+  var btn=e.target.closest('.navBtn');if(btn)goTo(btn.getAttribute('data-nav'));
+});
+
+function togOpt(id){
+  var b=document.getElementById(id+'Body'),c=document.getElementById(id+'Chev');
+  b.classList.toggle('op');c.style.transform=b.classList.contains('op')?'rotate(180deg)':'';
+}
+
+// ═══ MODE ═══
+function setMode(mode,btn){
+  S.proj.mode=mode;
+  document.querySelectorAll('.modeBtn').forEach(function(b){b.classList.remove('on');});
+  btn.classList.add('on');
+  populateStyleDropdown();
+  updateCharHint();
+  renderScenes();
+  save();
+}
+
+function populateStyleDropdown(){
+  var sel=document.getElementById('visualStyle');
+  var styles=STYLES[S.proj.mode]||STYLES.realistic;
+  var cur=sel.value;
+  sel.innerHTML='<option value="">Select style...</option>';
+  styles.forEach(function(s){
+    var o=document.createElement('option');o.value=s.v;o.textContent=s.l;sel.appendChild(o);
+  });
+  if(cur)sel.value=cur;
+}
+
+function updateCharHint(){
+  var el=document.getElementById('charHintText');
+  if(!el)return;
+  if(S.proj.mode==='animated'){
+    el.textContent='For animated characters: describe art style, physical traits, outfit, and personality. No photo needed — just describe visually.';
+  }else{
+    el.textContent='Upload photo to AI → use "Generate Analyze Prompt" → paste AI response as character description below.';
+  }
+}
+
+// ═══ OUTPUT MODE ═══
+function setOutMode(mode,btn){
+  S.outMode=mode;
+  document.querySelectorAll('#outSingle,#outMulti').forEach(function(b){b.classList.remove('on');});
+  btn.classList.add('on');
+  save();genAll();
+}
+function setVidMode(mode,btn){
+  S.videoMode=mode;
+  document.querySelectorAll('#vidImg2,#vidTxt2').forEach(function(b){b.classList.remove('on');});
+  btn.classList.add('on');
+  save();genAll();
+}
+
+// ═══ AI TOOL ═══
+function setAI(t,btn){
+  S.aiTool=t;
+  document.querySelectorAll('.aiTab').forEach(function(b){b.classList.remove('on');});
+  btn.classList.add('on');
+}
+
+// ═══ STORAGE ═══
+function save(){
+  collectForm();
+  try{localStorage.setItem('cah7',JSON.stringify(S));}catch(e){}
+  var d=document.getElementById('savedDot');
+  if(d){d.style.color='#4ade80';setTimeout(function(){d.style.color='#3f3f46';},1500);}
+}
+function loadData(){
+  try{
+    var r=localStorage.getItem('cah7')||localStorage.getItem('cah6');
+    if(r){var d=JSON.parse(r);
+      if(d.proj)S.proj=Object.assign(S.proj,d.proj);
+      if(d.dna)S.dna=Object.assign(S.dna,d.dna);
+      if(d.chars)S.chars=d.chars;
+      if(d.scenes){
+        // migrate old scenes: add new fields if missing
+        S.scenes=d.scenes.map(function(sc){
+          return Object.assign({shotType:'',movement:'',movementNotes:'',angle:[],shotSize:[]},sc);
+        });
+      }
+      if(d.aiTool)S.aiTool=d.aiTool;
+      if(d.outMode)S.outMode=d.outMode;
+      if(d.videoMode)S.videoMode=d.videoMode;
+      if(d.viralNotes)S.viralNotes=d.viralNotes;
+    }
+  }catch(e){}
+}
+function collectForm(){
+  ['platform','genre','mood','visualStyle','emotionalCore'].forEach(function(f){var el=document.getElementById(f);if(el)S.proj[f]=el.value;});
+  var cvsEl=document.getElementById('customVisualStyle');if(cvsEl)S.proj.customVisualStyle=cvsEl.value;
+  ['name','audience','tone','instructions','title','coreMessage','painPoint'].forEach(function(f){
+    var el=document.getElementById('dna'+f.charAt(0).toUpperCase()+f.slice(1));
+    if(el)S.dna[f]=el.value;
+  });
+  var vn=document.getElementById('viralNotes');if(vn)S.viralNotes=vn.value;
+}
+function applyForm(){
+  ['platform','genre','mood','emotionalCore'].forEach(function(f){var el=document.getElementById(f);if(el&&S.proj[f])el.value=S.proj[f];});
+  var cvsEl2=document.getElementById('customVisualStyle');if(cvsEl2&&S.proj.customVisualStyle)cvsEl2.value=S.proj.customVisualStyle;
+  ['name','audience','tone','instructions','title','coreMessage','painPoint'].forEach(function(f){
+    var el=document.getElementById('dna'+f.charAt(0).toUpperCase()+f.slice(1));
+    if(el&&S.dna[f])el.value=S.dna[f];
+  });
+  if(S.proj.mode){
+    document.querySelectorAll('.modeBtn').forEach(function(b){b.classList.remove('on');});
+    var mb=document.getElementById(S.proj.mode==='animated'?'modeAnim':'modeReal');
+    if(mb)mb.classList.add('on');
+  }
+  populateStyleDropdown();
+  if(S.proj.visualStyle){setTimeout(function(){document.getElementById('visualStyle').value=S.proj.visualStyle;},50);}
+  if(S.proj.type)selPT(S.proj.type,true);
+  var tabs={chatgpt:'aiC',claude:'aiCl',gemini:'aiG'};
+  document.querySelectorAll('.aiTab').forEach(function(b){b.classList.remove('on');});
+  var tb=document.getElementById(tabs[S.aiTool]||'aiC');if(tb)tb.classList.add('on');
+  if(S.outMode==='multi'){
+    document.querySelectorAll('#outSingle,#outMulti').forEach(function(b){b.classList.remove('on');});
+    var ob=document.getElementById('outMulti');if(ob)ob.classList.add('on');
+  }
+  if(S.videoMode==='txt2vid'){
+    document.querySelectorAll('#vidImg2,#vidTxt2').forEach(function(b){b.classList.remove('on');});
+    var vb=document.getElementById('vidTxt2');if(vb)vb.classList.add('on');
+  }
+  updateCharHint();
+  var vn=document.getElementById('viralNotes');if(vn&&S.viralNotes)vn.value=S.viralNotes;
+}
+
+// ═══ PROJECT TYPE ═══
+function renderPT(){
+  var g=document.getElementById('ptGrid');if(!g)return;
+  var h='';
+  PT.forEach(function(pt){
+    h+='<div class="ptCard'+(S.proj.type===pt.id?' on':'')+'" data-pid="'+pt.id+'">';
+    h+='<div style="font-size:18px;margin-bottom:4px;">'+pt.i+'</div>';
+    h+='<div style="font-size:11px;font-weight:600;color:#e4e4e7;">'+pt.n+'</div>';
+    h+='<div style="font-size:10px;color:#52525b;margin-top:2px;">'+pt.d+'</div></div>';
+  });
+  g.innerHTML=h;
+  g.querySelectorAll('[data-pid]').forEach(function(el){
+    el.addEventListener('click',function(){selPT(this.getAttribute('data-pid'));});
+  });
+}
+function selPT(id,silent){
+  document.querySelectorAll('.ptCard').forEach(function(c){c.classList.remove('on');});
+  var c=document.querySelector('[data-pid="'+id+'"]');if(c)c.classList.add('on');
+  S.proj.type=id;if(!silent)save();
+}
+
+// ═══ VIRALITY — 2-STEP STATIC FRAMEWORK ═══
+function genViralPrompt(){
+  collectForm();
+  var p=S.proj,d=S.dna;
+  var platform=document.getElementById('platform').value||'short-form video';
+  var genre=document.getElementById('genre').value||'';
+  var type=S.proj.type||'';
+  var context=[type,genre,platform].filter(Boolean).join(', ');
+
+  var sceneFormat='SCENE_[nn] | TITLE: [title] | BEAT: [Opening/Build-up/Tension/Climax/Resolution] | LOCATION: [specific location] | TIME: [time of day and light quality] | CHARACTER: [character name or NONE] | ACTION: [detailed visual action] | DIALOG: [exact dialogue or NONE] | MOOD: [emotional tone] | DURATION: [estimated seconds]';
+
+  var dnaCtx='';
+  if(d.title||d.name||d.coreMessage||d.painPoint){
+    dnaCtx+='\n\nPROJECT DNA:\n';
+    if(d.title)dnaCtx+='Title: '+d.title+'\n';
+    if(d.name)dnaCtx+='Project/Brand: '+d.name+'\n';
+    if(d.audience)dnaCtx+='Target Audience: '+d.audience+'\n';
+    if(d.tone)dnaCtx+='Tone: '+d.tone+'\n';
+    if(d.coreMessage)dnaCtx+='Core Message: '+d.coreMessage+'\n';
+    if(d.painPoint)dnaCtx+='Pain Point / Conflict: '+d.painPoint+'\n';
+    if(d.instructions)dnaCtx+='Custom Instructions: '+d.instructions+'\n';
+  }
+
+  var charCtx='';
+  if(S.chars.length){
+    charCtx='\n\nCHARACTERS:\n';
+    S.chars.forEach(function(ch,i){
+      charCtx+=(i+1)+'. '+(ch.name||'Character '+(i+1));
+      if(ch.description)charCtx+=': '+ch.description;
+      charCtx+='\n';
+    });
+  }
+
+  var sceneN=document.getElementById('scN').value||5;
+  var modeNote=p.mode==='animated'?'\n\nPRODUCTION MODE: Animated/Illustrated. All scene descriptions should be written for animation, not live action.':'';
+
+  var prompt='You are a viral content strategist with real-time web search access.\n\n'
+    +'TASK: Research and report current viral content trends for: '+context+'.\n\n'
+    +'Search the web right now and find:\n'
+    +'1. Top 3 hook formats performing best right now on this platform\n'
+    +'2. Content angles driving the most shares and saves\n'
+    +'3. Emotional triggers getting the highest completion rate\n'
+    +'4. Optimal video duration and pacing structure\n'
+    +'5. Platform-specific trends or features to leverage right now\n'
+    +'6. 3 specific content concept ideas that would trend in this niche\n\n'
+    +(dnaCtx?'PROJECT CONTEXT:'+dnaCtx+'\n\n':'')
+    +'Format your response clearly with headers. Be specific — name actual trends, formats, creators, sounds, or templates that are working right now.\n\n'
+    +'End with a one-paragraph "TREND SUMMARY" that captures the key insights in a format ready to paste into a scene script brief.';
+
+  var box=document.getElementById('viralPromptBox');
+  box.textContent=prompt;
+  document.getElementById('viralPromptWrap').style.display='block';
+  document.getElementById('viralBtn').innerHTML='&#128200; Regenerate Virality Prompt';
+}
+
+// ═══ CHARACTERS ═══
+function addChar(){
+  if(S.chars.length>=6){alert('Max 6 characters');return;}
+  S.chars.push({id:Date.now(),name:'',description:''});
+  save();renderChars();
+}
+function removeChar(id){S.chars=S.chars.filter(function(c){return c.id!==id;});save();renderChars();}
+
+function genAnalyzePrompt(id){
+  var isAnim=S.proj.mode==='animated';
+  var prompt=isAnim
+    ?'Describe this animated/illustrated character in detail for use as an AI image/video generation anchor.\n\nInclude: art style, character design (hair color and style, eye shape and color, skin/surface tone, face shape and features), body proportions, outfit/costume description, accessories, distinctive design elements, personality conveyed through design, and overall visual vibe.\n\nFormat as a single detailed paragraph ready to use as a character consistency anchor in AI prompts.'
+    :'Analyze this photo and describe the person in detail for AI image/video generation.\n\nInclude: gender, approximate age, ethnicity, body build, hair color and style, eye color, skin tone, distinctive facial features, current expression, outfit description, accessories.\n\nFormat as a single detailed paragraph ready to use as a character consistency anchor in AI prompts. Be specific.';
+  var box=document.getElementById('apBox'+id);
+  if(box){box.value=prompt;box.style.display='block';}
+  var btn=document.getElementById('apCpBtn'+id);
+  if(btn){btn.style.display='inline-flex';doCopy(prompt,btn);}
+}
+
+function renderChars(){
+  var c=document.getElementById('charList'),em=document.getElementById('charEmpty');
+  if(!S.chars.length){c.innerHTML='';em.style.display='block';return;}
+  em.style.display='none';
+  var isAnim=S.proj.mode==='animated';
+  var h='';
+  S.chars.forEach(function(ch){
+    h+='<div class="card" style="margin-bottom:10px;">';
+    h+='<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">';
+    h+='<input class="inp" style="flex:1;padding:6px 10px;" value="'+ch.name.replace(/"/g,'&quot;')+'" placeholder="Character name..." data-chf="name" data-chid="'+ch.id+'"/>';
+    h+='<button class="btnD" data-rmch="'+ch.id+'">&#10005;</button></div>';
+    h+='<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;">';
+    h+='<button class="btnG" style="font-size:11px;" data-genap="'+ch.id+'">Generate Analyze Prompt</button>';
+    h+='<button class="cpBtn" id="apCpBtn'+ch.id+'" style="position:static;display:none;" data-cpbox="apBox'+ch.id+'">Copy Prompt</button></div>';
+    h+='<textarea id="apBox'+ch.id+'" class="inp" rows="2" style="display:none;font-family:JetBrains Mono;font-size:10px;margin-bottom:8px;" readonly></textarea>';
+    h+='<label class="lbl">'+(isAnim?'Character Design Description':'Character Description (paste AI response)')+'</label>';
+    h+='<textarea class="inp" rows="3" placeholder="'+(isAnim?'e.g. Spiky dark blue hair, large amber eyes...':'e.g. Young Southeast Asian woman, mid 20s...')+'" data-chf="description" data-chid="'+ch.id+'">'+ch.description+'</textarea>';
+    h+='</div>';
+  });
+  c.innerHTML=h;
+  c.querySelectorAll('[data-chf]').forEach(function(el){
+    el.addEventListener('input',function(){
+      var id=parseInt(this.getAttribute('data-chid')),f=this.getAttribute('data-chf');
+      var ch=S.chars.find(function(c){return c.id===id;});
+      if(ch){ch[f]=this.value;save();}
+    });
+  });
+  c.querySelectorAll('[data-rmch]').forEach(function(el){el.addEventListener('click',function(){removeChar(parseInt(this.getAttribute('data-rmch')));});});
+  c.querySelectorAll('[data-genap]').forEach(function(el){el.addEventListener('click',function(){genAnalyzePrompt(parseInt(this.getAttribute('data-genap')));});});
+  c.querySelectorAll('[data-cpbox]').forEach(function(el){el.addEventListener('click',function(){cpEl(this.getAttribute('data-cpbox'),this);});});
+  document.getElementById('addCharBtn').disabled=S.chars.length>=6;
+}
+
+// ═══ STORY PROMPT ═══
+function styleAnch(){
+  var p=S.proj,pts=[];
+  var cvs=document.getElementById('customVisualStyle');
+  var customStyle=cvs?cvs.value.trim():'';
+  if(customStyle)pts.push(customStyle);
+  else if(p.visualStyle)pts.push(p.visualStyle);
+  if(p.mood)pts.push(p.mood+' mood and atmosphere');
+  if(p.emotionalCore)pts.push('emotional undercurrent of '+p.emotionalCore);
+  return pts.join('. ');
+}
+
+function genStory(){
+  collectForm();var p=S.proj,d=S.dna;
+  var n=document.getElementById('scN').value||5;
+  var sa=styleAnch();
+  var charCtx='';
+  if(S.chars.length){
+    charCtx='\n\nCHARACTERS:\n';
+    S.chars.forEach(function(ch,i){charCtx+=(i+1)+'. '+(ch.name||'Character '+(i+1));if(ch.description)charCtx+='\nDescription: '+ch.description;charCtx+='\n';});
+  }
+  var dnaCtx='';
+  if(d.title||d.name||d.instructions||d.coreMessage||d.painPoint){
+    dnaCtx='\n\nPROJECT DNA:\n';
+    if(d.title)dnaCtx+='Title: '+d.title+'\n';
+    if(d.name)dnaCtx+='Project/Brand: '+d.name+'\n';
+    if(d.audience)dnaCtx+='Audience: '+d.audience+'\n';
+    if(d.tone)dnaCtx+='Tone: '+d.tone+'\n';
+    if(d.coreMessage)dnaCtx+='Core Message: '+d.coreMessage+'\n';
+    if(d.painPoint)dnaCtx+='Pain Point / Central Conflict: '+d.painPoint+'\n';
+    if(d.instructions)dnaCtx+='Custom Instructions: '+d.instructions+'\n';
+  }
+  var isAnim=p.mode==='animated';
+  var viralCtx='';
+  var vnEl=document.getElementById('viralNotes');
+  if(vnEl&&vnEl.value.trim())viralCtx='\n\nVIRALITY INSIGHTS (apply to make this script trend-worthy):\n'+vnEl.value.trim();
+  var fmtLine='SCENE_[nn] | TITLE: [title] | BEAT: [Opening/Build-up/Tension/Climax/Resolution/Quiet/Transition] | LOCATION: [specific location or setting] | TIME: [time of day and light quality] | CHARACTER: [character name or NONE] | ACTION: [detailed visual action and movement] | DIALOG: [exact dialogue or NONE] | MOOD: [emotional tone] | DURATION: [estimated seconds]';
+  var fmt='\n\nOUTPUT FORMAT — exactly this, one line per scene:\n'+fmtLine+'\n\nGenerate exactly '+n+' scenes. No markdown. No preamble. Only SCENE_ lines.';
+  var modeNote=isAnim?'\n\nIMPORTANT: This is an animated/illustrated production. All scene descriptions should be written for animation.':'';
+  var intros={chatgpt:'You are a professional film director and screenwriter.\n\n',claude:'<context>\nYou are a professional film director and screenwriter.\n</context>\n\n',gemini:'Act as a professional film director and screenwriter.\n\n'};
+  var prompt=(intros[S.aiTool]||intros.chatgpt)+'Create a detailed visual script breakdown.\n\nPROJECT TYPE: '+(p.type||'Short Film')+'\n'+(p.genre?'GENRE: '+p.genre+'\n':'')+(p.platform?'PLATFORM: '+p.platform+'\n':'')+'\nVISUAL STYLE (apply consistently):\n'+sa+'\n'+(p.emotionalCore?'\nEMOTIONAL CORE: '+p.emotionalCore+'\n':'')+modeNote+charCtx+dnaCtx+viralCtx+fmt;
+  document.getElementById('storyBox').textContent=prompt;
+  document.getElementById('storyCpBtn').style.display='inline-flex';
+}
+
+// ═══ SCENE IMPORT ═══
+function parseImport(){
+  var raw=document.getElementById('importField').value.trim();
+  if(!raw){alert('Nothing to import');return;}
+  var lines=raw.split('\n').filter(function(l){return l.trim().toUpperCase().match(/^SCENE_/);});
+  if(!lines.length){alert('No SCENE_ lines found.');return;}
+  function gf(line,key){var rx=new RegExp('\\|\\s*'+key+':\\s*([^|]+)','i');var m=line.match(rx);return m?m[1].trim():'';}
+  var parsed=lines.map(function(line,idx){
+    var dlgVal=gf(line,'DIALOG');var hasDlgVal=dlgVal&&dlgVal.trim()&&dlgVal.trim().toUpperCase()!=='NONE';
+    return{
+      id:Date.now()+idx,title:gf(line,'TITLE'),script:gf(line,'ACTION'),
+      dialog:dlgVal,showDialog:!!hasDlgVal,
+      location:gf(line,'LOCATION'),time:gf(line,'TIME'),beat:gf(line,'BEAT'),mood:gf(line,'MOOD'),
+      brollOnly:false,collapsed:false,
+      // NEW: separate shot type and movement fields
+      shotType:'',shotNotes:'',movement:'',movementNotes:'',
+      // kept for backward compat
+      angle:[],lighting:[],lightQuality:[],animEnergy:[],
+      cameraBody:'',lensType:'',focalLength:'',aperture:'',visualLook:'',
+      artStyle:'',colorPaletteMood:'',composition:''
+    };
+  });
+  S.scenes=S.scenes.concat(parsed);save();renderScenes();
+  var res=document.getElementById('importRes');res.style.display='block';res.textContent='Imported '+parsed.length+' scene(s). Total: '+S.scenes.length;
+  setTimeout(function(){res.style.display='none';},4000);
+}
+
+// ═══ SCENES ═══
+function addScene(){
+  if(S.scenes.length>=20){alert('Max 20 scenes');return;}
+  S.scenes.push({
+    id:Date.now(),title:'',script:'',dialog:'',showDialog:false,
+    location:'',time:'',beat:'',mood:'',
+    brollOnly:false,collapsed:false,
+    shotType:'',shotNotes:'',movement:'',movementNotes:'',
+  });
+  save();renderScenes();
+}
+function removeScene(id){S.scenes=S.scenes.filter(function(s){return s.id!==id;});save();renderScenes();}
+function togSc(id){var sc=S.scenes.find(function(s){return s.id===id;});if(sc){sc.collapsed=!sc.collapsed;save();renderScenes();}}
+function updSc(id,field,val){var sc=S.scenes.find(function(s){return s.id===id;});if(sc){sc[field]=val;save();}}
+
+function mkDD(scId,field,opts,ph){
+  var sc=S.scenes.find(function(s){return s.id===scId;});var val=sc?sc[field]:'';
+  var h='<select class="inp" data-scid="'+scId+'" data-scf="'+field+'"><option value="">'+ph+'</option>';
+  opts.forEach(function(o){h+='<option'+(o===val?' selected':'')+'>'+o+'</option>';});
+  return h+'</select>';
+}
+
+function rChips(scId,field){
+  var sc=S.scenes.find(function(s){return s.id===scId;});if(!sc)return'';
+  var opts=CHIP[field]||[],vals=sc[field]||[];
+  var h='<div class="cg">';
+  opts.forEach(function(opt){
+    var on=vals.indexOf(opt)>-1;
+    h+='<div class="chip'+(on?' on':'')+'" data-scid="'+scId+'" data-scf="'+field+'" data-val="'+opt.replace(/"/g,'&quot;')+'">'+opt+'</div>';
+  });
+  return h+'</div>';
+}
+
+function renderScenes(){
+  var c=document.getElementById('scList'),em=document.getElementById('scEmpty');
+  if(!S.scenes.length){c.innerHTML='';em.style.display='block';return;}
+  em.style.display='none';
+  var isAnim=S.proj.mode==='animated';
+  var h='';
+  S.scenes.forEach(function(sc,idx){
+    h+='<div class="scCard" id="sc_'+sc.id+'">';
+    // Header
+    h+='<div style="background:#0f0f11;padding:9px 12px;border-bottom:1px solid #27272a;">';
+    h+='<div style="display:flex;align-items:center;gap:6px;justify-content:space-between;flex-wrap:wrap;">';
+    h+='<div style="display:flex;align-items:center;gap:6px;flex:1;min-width:0;">';
+    h+='<div style="width:22px;height:22px;background:linear-gradient(135deg,#F59E0B,#D97706);border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:Bebas Neue;font-size:13px;color:#09090b;flex-shrink:0;">S'+(idx+1)+'</div>';
+    h+='<input class="inp" style="width:150px;padding:4px 8px;font-size:12px;" value="'+sc.title.replace(/"/g,'&quot;')+'" placeholder="Scene title..." data-scid="'+sc.id+'" data-scf="title"/>';
+    if(sc.beat)h+='<span class="bB" style="font-size:9px;">'+sc.beat+'</span>';
+    h+='<label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:11px;color:#71717a;white-space:nowrap;">';
+    h+='<input type="checkbox" '+(sc.brollOnly?'checked':'')+' data-scid="'+sc.id+'" data-scf="brollOnly" style="accent-color:#F59E0B;"/> B-roll only</label>';
+    h+='</div>';
+    h+='<div style="display:flex;gap:4px;">';
+    h+='<button class="btnG" style="padding:3px 8px;font-size:11px;" data-togsc="'+sc.id+'">'+(sc.collapsed?'&#9660;':'&#9650;')+'</button>';
+    h+='<button class="btnD" style="padding:3px 8px;" data-rmsc="'+sc.id+'">&#10005;</button>';
+    h+='</div></div></div>';
+
+    if(!sc.collapsed){
+      h+='<div style="padding:12px;">';
+      // Location/time/mood badges
+      if(sc.location||sc.time||sc.mood){
+        h+='<div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;">';
+        if(sc.location)h+='<span style="font-size:10px;color:#60a5fa;background:#3b82f611;border:1px solid #3b82f622;border-radius:4px;padding:2px 8px;">&#128205; '+sc.location+'</span>';
+        if(sc.time)h+='<span style="font-size:10px;color:#60a5fa;background:#3b82f611;border:1px solid #3b82f622;border-radius:4px;padding:2px 8px;">&#9716; '+sc.time+'</span>';
+        if(sc.mood)h+='<span style="font-size:10px;color:#a78bfa;background:#7c3aed11;border:1px solid #7c3aed22;border-radius:4px;padding:2px 8px;">'+sc.mood+'</span>';
+        h+='</div>';
+      }
+
+      // Script + Dialog
+      h+='<div class="g2" style="margin-bottom:10px;">';
+      h+='<div><label class="lbl">Action / Script</label><textarea class="inp" rows="3" placeholder="Visual action..." data-scid="'+sc.id+'" data-scf="script">'+sc.script+'</textarea></div>';
+      var dlgLabel='<label class="lbl">Dialog / Voice Over <span style="color:#52525b;font-size:9px;">VO = story context only, not injected into video prompt</span></label>';
+      var dlgToggle='<button style="background:none;border:1px solid #3f3f46;border-radius:4px;color:#71717a;font-size:10px;padding:2px 8px;cursor:pointer;margin-bottom:6px;font-family:DM Sans,sans-serif;" data-scid="'+sc.id+'" data-toggledlg="1">'+(sc.showDialog?'&#9660; Hide':'&#43; Show Dialog/VO')+'</button>';
+      var dlgField=sc.showDialog?'<textarea class="inp" rows="2" placeholder="Exact spoken dialogue..." data-scid="'+sc.id+'" data-scf="dialog">'+sc.dialog+'</textarea>':'';
+      h+='<div>'+dlgLabel+dlgToggle+dlgField+'</div>';
+      h+='</div>';
+
+      h+='<div style="border-top:1px solid #1f1f23;margin:10px 0;"></div>';
+
+      if(isAnim){
+        // Animated mode — Shot Type + Movement (same as realistic, always needed)
+        h+='<div class="g2" style="margin-bottom:10px;">';
+        h+='<div>';
+        h+='<label class="lbl">Type of Shot <span style="color:#a78bfa;font-size:9px;">determines composition</span></label>';
+        h+=mkDD(sc.id,'shotType',SHOT_OPTS,'Select shot type...');
+        if(sc.shotType&&SHOT_COMPOSITION[sc.shotType]){
+          h+='<div style="margin-top:5px;padding:5px 8px;background:#0f0f11;border:1px solid #7c3aed22;border-radius:5px;font-size:10px;color:#71717a;font-style:italic;line-height:1.4;">'+SHOT_COMPOSITION[sc.shotType]+'</div>';
+        }
+        h+='<input class="inp" style="margin-top:6px;font-size:11px;" placeholder="Shot notes (e.g. subject left-aligned, negative space right...)" data-scid="'+sc.id+'" data-scf="shotNotes" value="'+(sc.shotNotes||'').replace(/"/g,'&quot;')+'"/>';
+        h+='</div>';
+        h+='<div>';
+        h+='<label class="lbl">Camera Movement <span style="color:#52525b;font-size:9px;">Kling / Seedance only</span></label>';
+        h+=mkDD(sc.id,'movement',MOVEMENT_OPTS,'Select movement...');
+        h+='<input class="inp" style="margin-top:6px;font-size:11px;" placeholder="Movement notes (e.g. slow push in, arc right...)" data-scid="'+sc.id+'" data-scf="movementNotes" value="'+(sc.movementNotes||'').replace(/"/g,'&quot;')+'"/>';
+        h+='</div>';
+        h+='</div>';
+
+        h+='<div style="border-top:1px solid #1f1f23;margin:10px 0;"></div>';
+
+        // Animated-specific fields
+        h+='<div class="g2" style="margin-bottom:10px;">';
+        h+='<div><label class="lbl">Art Style <span style="font-size:9px;color:#52525b;">(</span><button style="font-size:9px;color:#F59E0B;background:none;border:none;cursor:pointer;padding:0;font-family:DM Sans,sans-serif;" data-applyall="artStyle" data-scid="'+sc.id+'">Apply to all</button><span style="font-size:9px;color:#52525b;">)</span></label>'+mkDD(sc.id,'artStyle',DD_ANIM.artStyle,'Art style...')+'</div>';
+        h+='<div><label class="lbl">Color Palette <span style="font-size:9px;color:#52525b;">(</span><button style="font-size:9px;color:#F59E0B;background:none;border:none;cursor:pointer;padding:0;font-family:DM Sans,sans-serif;" data-applyall="colorPaletteMood" data-scid="'+sc.id+'">Apply to all</button><span style="font-size:9px;color:#52525b;">)</span></label>'+mkDD(sc.id,'colorPaletteMood',DD_ANIM.colorPaletteMood,'Color mood...')+'</div>';
+        h+='</div>';
+        h+='<div style="margin-bottom:10px;"><label class="lbl">Animation Energy</label>'+rChips(sc.id,'animEnergy')+'</div>';
+        h+='<div style="margin-bottom:10px;"><label class="lbl">Lighting</label>'+rChips(sc.id,'lighting')+'</div>';
+      } else {
+        // Realistic mode — Type of Shot (separate from Camera Movement)
+        h+='<div class="g2" style="margin-bottom:10px;">';
+        h+='<div>';
+        h+='<label class="lbl">Type of Shot <span style="color:#F59E0B;font-size:9px;">determines image composition</span></label>';
+        h+=mkDD(sc.id,'shotType',SHOT_OPTS,'Select shot type...');
+        // Show composition preview if shot type selected
+        if(sc.shotType&&SHOT_COMPOSITION[sc.shotType]){
+          h+='<div style="margin-top:5px;padding:5px 8px;background:#0f0f11;border:1px solid #F59E0B22;border-radius:5px;font-size:10px;color:#71717a;font-style:italic;line-height:1.4;">'+SHOT_COMPOSITION[sc.shotType]+'</div>';
+        }
+        h+='<input class="inp" style="margin-top:6px;font-size:11px;" placeholder="Shot notes (e.g. subject left-aligned, negative space right...)" data-scid="'+sc.id+'" data-scf="shotNotes" value="'+(sc.shotNotes||'').replace(/"/g,'&quot;')+'"/>';
+        h+='</div>';
+        h+='<div>';
+        h+='<label class="lbl">Camera Movement <span style="color:#52525b;font-size:9px;">Kling / Seedance only</span></label>';
+        h+=mkDD(sc.id,'movement',MOVEMENT_OPTS,'Select movement...');
+        h+='<input class="inp" style="margin-top:6px;font-size:11px;" placeholder="Movement notes (e.g. 180° arc, slow acceleration...)" data-scid="'+sc.id+'" data-scf="movementNotes" value="'+(sc.movementNotes||'').replace(/"/g,'&quot;')+'"/>';
+        h+='</div>';
+        h+='</div>';
+
+        h+='<div style="border-top:1px solid #1f1f23;margin:10px 0;"></div>';
+        h+='<div class="g4" style="margin-bottom:10px;">';
+        h+='<div><label class="lbl">Camera Body <span style="font-size:9px;color:#52525b;">(</span><button style="font-size:9px;color:#F59E0B;background:none;border:none;cursor:pointer;padding:0;font-family:DM Sans,sans-serif;" data-applyall="cameraBody" data-scid="'+sc.id+'">Apply to all</button><span style="font-size:9px;color:#52525b;">)</span></label>'+mkDD(sc.id,'cameraBody',DD_REAL.cameraBody,'Camera...')+'</div>';
+        h+='<div><label class="lbl">Lens Type</label>'+mkDD(sc.id,'lensType',DD_REAL.lensType,'Lens...')+'</div>';
+        h+='<div><label class="lbl">Focal Length</label>'+mkDD(sc.id,'focalLength',DD_REAL.focalLength,'mm...')+'</div>';
+        h+='<div><label class="lbl">Aperture</label>'+mkDD(sc.id,'aperture',DD_REAL.aperture,'f-stop...')+'</div>';
+        h+='</div>';
+        h+='<div style="margin-bottom:10px;"><label class="lbl">Lighting Setup</label>'+rChips(sc.id,'lighting')+'</div>';
+        h+='<div style="margin-bottom:10px;"><label class="lbl">Light Quality</label>'+rChips(sc.id,'lightQuality')+'</div>';
+        h+='<div><label class="lbl">Visual Look / Stock <span style="font-size:9px;color:#52525b;">(</span><button style="font-size:9px;color:#F59E0B;background:none;border:none;cursor:pointer;padding:0;font-family:DM Sans,sans-serif;" data-applyall="visualLook" data-scid="'+sc.id+'">Apply to all</button><span style="font-size:9px;color:#52525b;">)</span></label>'+mkDD(sc.id,'visualLook',DD_REAL.visualLook,'Look...')+'</div>';
+      }
+      h+='</div>';
+    }
+    h+='</div>';
+  });
+  c.innerHTML=h;
+
+  // Event delegation
+  c.querySelectorAll('[data-scf]').forEach(function(el){
+    if(el.type==='checkbox'){
+      el.addEventListener('change',function(){updSc(parseInt(this.getAttribute('data-scid')),this.getAttribute('data-scf'),this.checked);});
+    } else {
+      var ev=(el.tagName==='TEXTAREA'||el.tagName==='INPUT')?'input':'change';
+      el.addEventListener(ev,function(){updSc(parseInt(this.getAttribute('data-scid')),this.getAttribute('data-scf'),this.value);});
+      if(el.tagName==='SELECT'){
+        el.addEventListener('change',function(){
+          updSc(parseInt(this.getAttribute('data-scid')),this.getAttribute('data-scf'),this.value);
+          // Re-render to show composition preview when shotType changes
+          if(this.getAttribute('data-scf')==='shotType')renderScenes();
+        });
+      }
+    }
+  });
+  c.querySelectorAll('.chip[data-scid]').forEach(function(el){
+    el.addEventListener('click',function(){
+      var sid=parseInt(this.getAttribute('data-scid')),fld=this.getAttribute('data-scf'),val=this.getAttribute('data-val');
+      var sc=S.scenes.find(function(s){return s.id===sid;});if(!sc)return;
+      if(!sc[fld])sc[fld]=[];
+      var idx=sc[fld].indexOf(val);
+      if(idx>-1){sc[fld].splice(idx,1);this.classList.remove('on');}
+      else{sc[fld].push(val);this.classList.add('on');}
+      save();
+    });
+  });
+  c.querySelectorAll('[data-togsc]').forEach(function(el){el.addEventListener('click',function(){togSc(parseInt(this.getAttribute('data-togsc')));});});
+  c.querySelectorAll('[data-rmsc]').forEach(function(el){el.addEventListener('click',function(){removeScene(parseInt(this.getAttribute('data-rmsc')));});});
+  c.querySelectorAll('[data-applyall]').forEach(function(el){
+    el.addEventListener('click',function(){
+      var field=this.getAttribute('data-applyall');
+      var sid=parseInt(this.getAttribute('data-scid'));
+      var srcSc=S.scenes.find(function(s){return s.id===sid;});
+      if(!srcSc)return;
+      var val=srcSc[field];
+      if(!val){alert('Select a value first, then click Apply to all.');return;}
+      S.scenes.forEach(function(s){s[field]=val;});
+      save();renderScenes();
+    });
+  });
+  c.querySelectorAll('[data-toggledlg]').forEach(function(el){
+    el.addEventListener('click',function(){
+      var sid=parseInt(this.getAttribute('data-scid'));
+      var sc=S.scenes.find(function(s){return s.id===sid;});
+      if(sc){sc.showDialog=!sc.showDialog;save();renderScenes();}
+    });
+  });
+}
+
+// ═══ PROMPT ENGINE ═══
+function cV(v){return v?v.split('—')[0].split('-')[0].trim():'';}
+function arrS(arr){return(arr||[]).join(', ');}
+
+function charAnchor(brollOnly,forVideo){
+  if(brollOnly||!S.chars.length)return'';
+  if(forVideo&&S.videoMode==='img2vid')return'';
+  return S.chars.map(function(ch){return(ch.name||'Character')+': '+ch.description;}).filter(function(x){return x.length>10;}).join(' | ');
+}
+
+// Shot type → composition description for image prompts
+function shotToComposition(shotType){
+  return SHOT_COMPOSITION[shotType]||'';
+}
+
+// Shot type → short label for video prompts
+function shotToLabel(shotType){
+  return shotType||'';
+}
+
+// Build movement string for video prompts
+function buildMovement(sc){
+  var parts=[];
+  if(sc.movement)parts.push(sc.movement);
+  if(sc.movementNotes&&sc.movementNotes.trim())parts.push(sc.movementNotes.trim());
+  return parts.join(', ');
+}
+
+// REALISTIC IMAGE PROMPT — shot type translated to composition, injected FIRST, brand DNA cannot override
+function bldImg(sc){
+  var p=S.proj;
+  var pts=[];
+
+  // 1. SHOT TYPE + COMPOSITION (highest priority — injected first)
+  var compDesc=shotToComposition(sc.shotType);
+  if(sc.shotType){
+    pts.push('SHOT: '+sc.shotType+(compDesc?' — '+compDesc:'')+(sc.shotNotes&&sc.shotNotes.trim()?'. '+sc.shotNotes.trim():''));
+  }
+
+  // 2. Visual style (color, texture, atmosphere — NOT composition)
+  var sa=styleAnch();
+  if(sa)pts.push('VISUAL STYLE: '+sa);
+
+  // 3. Subject / action
+  if(sc.script)pts.push(sc.script);
+  if(sc.location)pts.push('Location: '+sc.location);
+  if(sc.time)pts.push(sc.time);
+  if(sc.mood)pts.push(sc.mood+' atmosphere');
+
+  // 4. Character (maintain anchor)
+  var charDesc=charAnchor(sc.brollOnly,false);
+  if(charDesc)pts.push('CHARACTER (maintain exactly): '+charDesc);
+
+  // 5. Camera / lens (contributes to image look, not composition override)
+  var lens=cV(sc.lensType),fl=cV(sc.focalLength),ap=cV(sc.aperture),cb=cV(sc.cameraBody);
+  var camParts=[];if(cb)camParts.push(cb);if(lens)camParts.push(lens);if(fl)camParts.push(fl);if(ap)camParts.push(ap);
+  if(camParts.length)pts.push(camParts.join(', '));
+
+  // 6. Lighting
+  var lit=arrS(sc.lighting),lq=arrS(sc.lightQuality);
+  if(lit)pts.push(lit+(lq?' — '+lq:''));
+
+  // 7. Visual look / color grade
+  if(sc.visualLook)pts.push(sc.visualLook);
+
+  // 8. Brand DNA / custom instructions (appended LAST — cannot override composition set in step 1)
+  if(S.dna.instructions)pts.push('Note: '+S.dna.instructions);
+
+  pts.push('Photorealistic, professional cinematography quality');
+  var ar=p.platform&&p.platform.indexOf('9:16')>-1?'9:16':p.platform&&p.platform.indexOf('4:5')>-1?'4:5':p.platform&&p.platform.indexOf('2.39')>-1?'2.39:1':'16:9';
+  return pts.join('. ')+'\nAspect ratio: '+ar+'.';
+}
+
+function bldNeg(sc){
+  var neg=['blurry','distorted anatomy','deformed hands','extra fingers','extra limbs','watermark','text overlay','low quality','pixelated','AI artifacts'];
+  var ap=sc.aperture||'',ln=sc.lensType||'',pt=S.proj.type||'';
+  if(ap.indexOf('f/1.2')>-1||ap.indexOf('f/1.4')>-1)neg.push('sharp background','deep focus background');
+  if(ap.indexOf('f/11')>-1||ap.indexOf('f/16')>-1)neg.push('bokeh','background blur');
+  if(ln.indexOf('Fisheye')>-1)neg.push('straight lines');
+  if(pt==='sliceoflife'||pt==='documentary')neg.push('overly polished','artificial studio lighting');
+  return neg.join(', ');
+}
+
+// KLING — short structured format, shot type as technical label, movement separate
+function bldKling(sc){
+  var p=S.proj,sa=styleAnch();
+  var isAnim=p.mode==='animated';
+  var hasDlg=sc.showDialog&&sc.dialog&&sc.dialog.trim()&&sc.dialog.trim().toUpperCase()!=='NONE';
+  var charDesc=charAnchor(sc.brollOnly,true);
+  var mov=buildMovement(sc);
+
+  if(isAnim){
+    var art=sc.artStyle||'',col=sc.colorPaletteMood||'',energy=arrS(sc.animEnergy),lit2=arrS(sc.lighting);
+    var parts=[];
+    if(charDesc&&!sc.brollOnly)parts.push('[CHARACTER] '+charDesc+' — maintain exact design throughout');
+    if(sc.script)parts.push('[ACTION] '+sc.script);
+    if(hasDlg)parts.push('[DIALOG] "'+sc.dialog.trim()+'" — lip sync, natural delivery');
+    if(sc.shotType)parts.push('[SHOT] '+sc.shotType+(shotToComposition(sc.shotType)?' — '+shotToComposition(sc.shotType):''));
+    if(mov)parts.push('[CAMERA] '+mov);
+    if(art)parts.push('[STYLE] '+art);
+    if(col)parts.push('[COLOR] '+col);
+    if(energy)parts.push('[ENERGY] '+energy);
+    if(lit2)parts.push('[LIGHT] '+lit2);
+    parts.push('[QUALITY] Smooth animation, fluid motion, no artifacts');
+    var fmt2=p.platform&&p.platform.indexOf('9:16')>-1?'9:16':'16:9';
+    parts.push('[OUTPUT] '+fmt2+', 4-6s');
+    return parts.join('\n');
+  }
+
+  // Realistic — shot type as SHORT label, movement as separate field
+  // SUBJECT: character anchor if txt2vid, or brief scene identifier (not full script)
+  var subject=charDesc?'SUBJECT: '+charDesc:(sc.script?'SUBJECT: '+sc.script.split('.')[0]:'');
+  var action=sc.script?'ACTION: '+sc.script:'';
+  var cameraLine='CAMERA: '+(shotToLabel(sc.shotType)||'')+(mov?' — '+mov:'');
+  var technical='';
+  if(sc.lensType||sc.focalLength)technical='LENS: '+(cV(sc.lensType)||'')+(sc.focalLength?' '+cV(sc.focalLength):'');
+  if(sc.lighting&&sc.lighting.length)technical+=(technical?'\n':'')+'LIGHTING: '+arrS(sc.lighting);
+  if(sc.visualLook)technical+=(technical?'\n':'')+'LOOK: '+sc.visualLook;
+  var dlg=hasDlg?'DIALOG: "'+sc.dialog.trim()+'" — natural lip sync':'';
+  var env='LOCATION: '+(sc.location||'')+(sc.time?' at '+sc.time:'');
+  var fmt=p.platform&&p.platform.indexOf('9:16')>-1?'9:16':p.platform&&p.platform.indexOf('16:9')>-1?'16:9':'4:5';
+  // STYLE: only for txt2vid (img2vid style is locked in the image), and shortened to key tags only
+  var styleShort=S.videoMode==='txt2vid'&&sa?'STYLE: '+sa.split('.')[0]:'';
+  var parts=[subject,action,env,cameraLine];
+  if(styleShort)parts.push(styleShort);
+  if(technical)parts.push(technical);
+  if(dlg)parts.push(dlg);
+  if(S.dna.instructions)parts.push('NOTE: '+S.dna.instructions.split('.')[0]);
+  parts.push('OUTPUT: '+fmt+', 4-6s, photorealistic, no anatomy distortion');
+  return parts.filter(Boolean).join('\n');
+}
+
+// SEEDANCE — timeline format, shot type as label, movement explicit
+function bldSeed(sc){
+  var p=S.proj,sa=styleAnch();
+  var isAnim=p.mode==='animated';
+  var hasDlg=sc.showDialog&&sc.dialog&&sc.dialog.trim()&&sc.dialog.trim().toUpperCase()!=='NONE';
+  var charDesc=charAnchor(sc.brollOnly,true);
+  var lit=arrS(sc.lighting),lq=arrS(sc.lightQuality);
+  var lens=cV(sc.lensType),fl=cV(sc.focalLength),ap=cV(sc.aperture),cb=cV(sc.cameraBody);
+  var mov=buildMovement(sc);
+
+  var parts=[];
+  if(sa)parts.push('VISUAL STYLE: '+sa);
+  if(charDesc)parts.push('CHARACTER CONSISTENCY: '+charDesc+' — maintain exact appearance in every frame');
+  if(isAnim){
+    if(sc.artStyle)parts.push('ART STYLE: '+sc.artStyle);
+    if(sc.colorPaletteMood)parts.push('COLOR: '+sc.colorPaletteMood);
+    if(sc.shotType)parts.push('SHOT: '+sc.shotType+(shotToComposition(sc.shotType)?' — '+shotToComposition(sc.shotType):''));
+    if(sc.animEnergy&&sc.animEnergy.length)parts.push('ENERGY: '+arrS(sc.animEnergy));
+    if(sc.lighting&&sc.lighting.length)parts.push('LIGHTING: '+arrS(sc.lighting));
+  } else {
+    if(sc.shotType)parts.push('SHOT TYPE: '+shotToLabel(sc.shotType));
+    if(mov)parts.push('CAMERA MOVEMENT: '+mov+' — smooth and intentional');
+    if(cb||(lens&&fl))parts.push('CAMERA: '+(cb||'')+(lens?' '+lens:'')+(fl?' at '+fl:'')+(ap?', '+ap:''));
+    if(lit)parts.push('LIGHTING: '+lit+(lq?' — '+lq:''));
+    if(sc.visualLook)parts.push('VISUAL LOOK: '+sc.visualLook);
+  }
+  if(sc.location||(sc.time))parts.push('LOCATION: '+(sc.location||'')+(sc.time?' at '+sc.time:''));
+  if(sc.script)parts.push('ACTION: '+sc.script);
+  if(hasDlg)parts.push('DIALOGUE: "'+sc.dialog.trim()+'" — precise lip sync, natural mouth movement');
+  if(sc.mood)parts.push('MOOD: '+sc.mood);
+  if(S.dna.instructions)parts.push('CUSTOM: '+S.dna.instructions);
+  parts.push('QUALITY: Fluid motion, photorealistic, no glitch, no anatomy distortion');
+  var ar=p.platform&&p.platform.indexOf('9:16')>-1?'9:16':p.platform&&p.platform.indexOf('2.39')>-1?'2.39:1':'16:9';
+  parts.push('OUTPUT: '+ar+', 4-6 seconds');
+  return parts.join('\n');
+}
+
+// ANIMATED IMAGE PROMPT
+function bldAnimImg(sc){
+  var p=S.proj,sa=styleAnch();
+  var charDesc=charAnchor(sc.brollOnly,false);
+  var pts=[];
+  if(sa)pts.push('VISUAL STYLE: '+sa);
+  if(sc.artStyle)pts.push(sc.artStyle);
+  if(sc.colorPaletteMood)pts.push(sc.colorPaletteMood+' color palette');
+  // Shot type → inject label + full composition description + shot notes
+  var compDesc=shotToComposition(sc.shotType);
+  if(sc.shotType)pts.push('SHOT: '+sc.shotType+(compDesc?' — '+compDesc:'')+(sc.shotNotes&&sc.shotNotes.trim()?'. '+sc.shotNotes.trim():''));
+  if(charDesc)pts.push('CHARACTER (maintain design exactly): '+charDesc);
+  if(sc.script)pts.push(sc.script);
+  if(sc.location)pts.push('Setting: '+sc.location);
+  if(sc.time)pts.push(sc.time);
+  if(sc.mood)pts.push(sc.mood+' atmosphere');
+  if(sc.lighting&&sc.lighting.length)pts.push('Lighting: '+arrS(sc.lighting));
+  if(sc.animEnergy&&sc.animEnergy.length)pts.push(arrS(sc.animEnergy)+' energy');
+  if(S.dna.instructions)pts.push(S.dna.instructions);
+  pts.push('High quality illustration, sharp clean artwork, professional animation production quality');
+  var ar=p.platform&&p.platform.indexOf('9:16')>-1?'9:16':p.platform&&p.platform.indexOf('4:5')>-1?'4:5':'16:9';
+  return pts.join('. ')+'\nAspect ratio: '+ar+'.';
+}
+
+// MULTI-SHOT
+function bldKlingMulti(){
+  var p=S.proj,sa=styleAnch();
+  var isAnim=p.mode==='animated';
+  var charDesc=(S.videoMode==='txt2vid'&&S.chars.length)?S.chars.map(function(ch){return(ch.name||'char')+': '+ch.description;}).join(' | '):'';
+  var h='';
+  if(charDesc)h+='CHARACTER LOCK: '+charDesc+' — maintain identical appearance across all shots. Zero drift.\n\n';
+  h+='STYLE: '+sa+'\n\n';
+  if(S.dna.instructions)h+='PRODUCTION NOTE: '+S.dna.instructions+'\n\n';
+  S.scenes.forEach(function(sc,i){
+    var hasDlg=sc.dialog&&sc.dialog.trim()&&sc.dialog.trim().toUpperCase()!=='NONE';
+    var mov=buildMovement(sc);
+    h+='[SHOT '+(i+1)+(sc.title?' — '+sc.title:'')+']';
+    if(sc.shotType)h+=' '+sc.shotType;
+    h+='\n';
+    if(sc.script)h+='Action: '+sc.script+'\n';
+    if(mov)h+='Camera: '+mov+'\n';
+    if(hasDlg)h+='Dialog: "'+sc.dialog.trim()+'"\n';
+    if(!isAnim&&sc.visualLook)h+='Look: '+sc.visualLook+'\n';
+    if(isAnim&&sc.artStyle)h+='Style: '+sc.artStyle+'\n';
+    h+='\n';
+  });
+  var fmt=p.platform&&p.platform.indexOf('9:16')>-1?'9:16':'16:9';
+  h+='OUTPUT: '+fmt+', smooth transitions, cinematic continuity, no anatomy distortion across cuts.';
+  return h;
+}
+
+function bldSeedMulti(){
+  var p=S.proj,sa=styleAnch();
+  var charDesc=(S.videoMode==='txt2vid'&&S.chars.length)?S.chars.map(function(ch){return(ch.name||'char')+': '+ch.description;}).join(' | '):'';
+  var h='VISUAL STYLE: '+sa+'\n';
+  if(charDesc)h+='CHARACTER CONSISTENCY: '+charDesc+' — exact same appearance in every shot.\n';
+  if(S.dna.instructions)h+='CUSTOM: '+S.dna.instructions+'\n';
+  h+='\n';
+  S.scenes.forEach(function(sc,i){
+    var hasDlg=sc.dialog&&sc.dialog.trim()&&sc.dialog.trim().toUpperCase()!=='NONE';
+    var dur=sc.duration||(4+i%3);
+    var mov=buildMovement(sc);
+    h+='['+dur+'s] ';
+    if(sc.shotType)h+=sc.shotType+'. ';
+    if(sc.script)h+=sc.script+' ';
+    if(mov)h+=mov+'. ';
+    if(hasDlg)h+='Dialog: "'+sc.dialog.trim()+'". ';
+    if(sc.mood)h+=sc.mood+' mood. ';
+    h+='\n';
+  });
+  var ar=p.platform&&p.platform.indexOf('9:16')>-1?'9:16':'16:9';
+  h+='\nOUTPUT: '+ar+', fluid motion, consistent visual style throughout, no subject drift between cuts.';
+  return h;
+}
+
+// ═══ GENERATE ALL ═══
+function genAll(){
+  var c=document.getElementById('outBox');
+  if(!S.scenes.length){
+    c.innerHTML='<div class="card" style="text-align:center;padding:46px 20px;"><div style="color:#a1a1aa;margin-bottom:10px;">No scenes yet.</div><button class="btnP" id="goScBtn">Go to Scene Editor</button></div>';
+    document.getElementById('goScBtn').addEventListener('click',function(){goTo('scenes');});
+    return;
+  }
+  var sa=styleAnch();
+  var isAnim=S.proj.mode==='animated';
+  var isMulti=S.outMode==='multi';
+  var h='';
+
+  // Header
+  h+='<div class="card" style="border-color:#F59E0B33;margin-bottom:14px;">';
+  h+='<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px;">';
+  h+=(S.proj.type?'<span class="bA">'+S.proj.type+'</span>':'');
+  h+=(S.proj.genre?'<span class="bB">'+S.proj.genre+'</span>':'');
+  h+=(isAnim?'<span class="bP">Animated</span>':'<span class="bG">Realistic</span>');
+  h+=(isMulti?'<span class="bP">Multi-Shot</span>':'');
+  h+='<span style="font-size:10px;color:#52525b;margin-left:auto;">'+S.scenes.length+' scenes</span></div>';
+  if(sa)h+='<div style="font-size:10px;color:#52525b;font-family:JetBrains Mono;line-height:1.5;border-top:1px solid #27272a;margin-top:6px;padding-top:6px;">'+sa+'</div>';
+  h+='</div>';
+
+  if(isMulti){
+    h+='<div class="card" style="margin-bottom:12px;">';
+    h+='<div style="margin-bottom:10px;display:flex;align-items:center;gap:8px;"><span class="bP">&#127916; Kling — Multi-Shot Sequence ('+S.scenes.length+' shots)</span></div>';
+    h+='<div class="pbox" id="klingMulti">'+bldKlingMulti()+'<button class="cpBtn" data-cpel="klingMulti">Copy</button></div></div>';
+    h+='<div class="card">';
+    h+='<div style="margin-bottom:10px;display:flex;align-items:center;gap:8px;"><span class="bdg" style="background:#0ea5e922;color:#38bdf8;border:1px solid #0ea5e933;display:inline-flex;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:500;">&#127919; Seedance — Timeline Sequence ('+S.scenes.length+' shots)</span></div>';
+    h+='<div class="pbox" id="seedMulti">'+bldSeedMulti()+'<button class="cpBtn" data-cpel="seedMulti">Copy</button></div></div>';
+  } else {
+    S.scenes.forEach(function(sc,idx){
+      var imgP=isAnim?bldAnimImg(sc):bldImg(sc);
+      var negP=isAnim?'':bldNeg(sc);
+      var kP=bldKling(sc),sP=bldSeed(sc);
+      var hasDlg=sc.dialog&&sc.dialog.trim()&&sc.dialog.trim().toUpperCase()!=='NONE';
+
+      h+='<div style="margin-bottom:20px;">';
+      h+='<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px;">';
+      h+='<div style="width:26px;height:26px;background:linear-gradient(135deg,#F59E0B,#D97706);border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:Bebas Neue;font-size:14px;color:#09090b;">S'+(idx+1)+'</div>';
+      h+='<span style="font-family:Bebas Neue;font-size:17px;color:#FBBF24;letter-spacing:.04em;">'+(sc.title||'SCENE '+(idx+1))+'</span>';
+      if(sc.beat)h+='<span class="bB" style="font-size:9px;">'+sc.beat+'</span>';
+      if(sc.shotType)h+='<span class="bA" style="font-size:9px;">'+sc.shotType+'</span>';
+      if(sc.brollOnly)h+='<span style="background:#27272a;color:#71717a;border-radius:20px;padding:2px 8px;font-size:9px;">B-roll</span>';
+      if(hasDlg)h+='<span class="bA" style="font-size:9px;">&#128172; DIALOG</span>';
+      h+='</div>';
+      if(sc.script)h+='<div style="padding:7px 10px;background:#0f0f11;border-radius:5px;border-left:3px solid #F59E0B44;font-size:11px;color:#71717a;font-style:italic;margin-bottom:6px;">'+sc.script+'</div>';
+
+      h+='<div style="background:#0f0f11;border:1px solid #27272a;border-radius:9px;overflow:hidden;">';
+      h+='<div style="display:flex;gap:2px;padding:6px 10px;border-bottom:1px solid #27272a;overflow-x:auto;">';
+      h+='<button class="tbtn on" data-tidx="'+idx+'" data-ttab="img">&#128444; Image'+(isAnim?'':' + Neg')+'</button>';
+      h+='<button class="tbtn" data-tidx="'+idx+'" data-ttab="kl">&#127916; Kling</button>';
+      h+='<button class="tbtn" data-tidx="'+idx+'" data-ttab="sd">&#127919; Seedance</button>';
+      h+='</div>';
+
+      h+='<div id="t'+idx+'_img" class="tcnt on" style="padding:10px;">';
+      h+='<div style="margin-bottom:6px;display:flex;gap:5px;align-items:center;"><span class="bA">Image Prompt</span><span style="font-size:10px;color:#52525b;">DALL-E / Nano Banana Pro / Midjourney</span></div>';
+      h+='<div class="pbox" id="pi'+idx+'">'+imgP+'<button class="cpBtn" data-cpel="pi'+idx+'">Copy</button></div>';
+      if(!isAnim){
+        h+='<div style="margin-top:8px;background:#0f0f11;border:1px solid #dc262633;border-radius:6px;padding:8px;">';
+        h+='<div style="font-size:10px;color:#f87171;margin-bottom:4px;">Negative Prompt:</div>';
+        h+='<div class="pbox" style="background:transparent;border:none;padding:0;padding-right:60px;" id="ng'+idx+'">'+negP+'<button class="cpBtn" style="top:0;" data-cpel="ng'+idx+'">Copy</button></div></div>';
+      }
+      h+='</div>';
+
+      h+='<div id="t'+idx+'_kl" class="tcnt" style="padding:10px;">';
+      h+='<div style="margin-bottom:6px;display:flex;gap:5px;"><span class="bP">Kling AI</span>'+(hasDlg?'<span class="bA" style="font-size:9px;">&#128172; Dialog</span>':'')+'</div>';
+      h+='<div class="pbox" id="pk'+idx+'">'+kP+'<button class="cpBtn" data-cpel="pk'+idx+'">Copy</button></div></div>';
+
+      h+='<div id="t'+idx+'_sd" class="tcnt" style="padding:10px;">';
+      h+='<div style="margin-bottom:6px;display:flex;gap:5px;"><span style="background:#0ea5e922;color:#38bdf8;border:1px solid #0ea5e933;display:inline-flex;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:500;">Seedance</span>'+(hasDlg?'<span class="bA" style="font-size:9px;">&#128172; Dialog</span>':'')+'</div>';
+      h+='<div class="pbox" id="ps'+idx+'">'+sP+'<button class="cpBtn" data-cpel="ps'+idx+'">Copy</button></div></div>';
+
+      h+='</div></div>';
+    });
+  }
+
+  c.innerHTML=h;
+  c.querySelectorAll('.tbtn[data-tidx]').forEach(function(el){
+    el.addEventListener('click',function(){
+      var idx=this.getAttribute('data-tidx');
+      ['img','kl','sd'].forEach(function(t){var e=document.getElementById('t'+idx+'_'+t);if(e)e.classList.remove('on');});
+      var tgt=document.getElementById('t'+idx+'_'+this.getAttribute('data-ttab'));if(tgt)tgt.classList.add('on');
+      this.closest('[style]').querySelectorAll('.tbtn').forEach(function(b){b.classList.remove('on');});
+      this.classList.add('on');
+    });
+  });
+  c.querySelectorAll('.cpBtn[data-cpel]').forEach(function(el){
+    el.addEventListener('click',function(){cpEl(this.getAttribute('data-cpel'),this);});
+  });
+}
+
+// ═══ COPY ALL ═══
+function copyAll(){
+  var all='CINEAI HUB v7 — EXPORT\n'+'='.repeat(60)+'\nSTYLE: '+styleAnch()+'\n\n';
+  if(S.outMode==='multi'){
+    all+='KLING MULTI-SHOT:\n'+bldKlingMulti()+'\n\n'+'='.repeat(60)+'\n\nSEEDANCE TIMELINE:\n'+bldSeedMulti();
+  } else {
+    var isAnim=S.proj.mode==='animated';
+    S.scenes.forEach(function(sc,i){
+      all+='SCENE '+(i+1)+': '+(sc.title||'Untitled')+'\n'+'-'.repeat(40)+'\n';
+      if(sc.script)all+='ACTION: '+sc.script+'\n';
+      if(sc.dialog&&sc.dialog.trim()!=='NONE')all+='DIALOG: '+sc.dialog+'\n';
+      all+='\nIMAGE:\n'+(isAnim?bldAnimImg(sc):bldImg(sc))+'\n';
+      if(!isAnim)all+='\nNEGATIVE: '+bldNeg(sc)+'\n';
+      all+='\nKLING:\n'+bldKling(sc)+'\n\nSEEDANCE:\n'+bldSeed(sc)+'\n\n'+'='.repeat(60)+'\n\n';
+    });
+  }
+  doCopy(all,null);alert('All prompts copied!');
+}
+
+// ═══ EXPORT / RESET ═══
+function doExport(){
+  collectForm();
+  var blob=new Blob([JSON.stringify(S,null,2)],{type:'application/json'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='cineaihub_v7_'+Date.now()+'.json';a.click();
+}
+function doReset(){
+  if(!confirm('Reset all data?'))return;
+  S={proj:{type:'',platform:'',genre:'',mood:'',visualStyle:'',emotionalCore:'',mode:'realistic'},videoMode:'img2vid',dna:{name:'',audience:'',tone:'',title:'',coreMessage:'',painPoint:'',instructions:''},viralNotes:'',chars:[],scenes:[],aiTool:'chatgpt',outMode:'single'};
+  ['cah7','cah6'].forEach(function(k){localStorage.removeItem(k);});
+  ['platform','genre','mood','visualStyle','emotionalCore','dnaName','dnaAudience','dnaTone','dnaInstructions','dnaTitle','dnaCoreMessage','dnaPainPoint'].forEach(function(f){var el=document.getElementById(f);if(el)el.value='';});
+  renderPT();renderChars();renderScenes();populateStyleDropdown();
+  document.getElementById('storyBox').textContent='Click "Generate" to build your story prompt...';
+  document.getElementById('storyCpBtn').style.display='none';
+  document.getElementById('viralPromptWrap').style.display='none';
+  document.getElementById('outBox').innerHTML='<div class="card" style="text-align:center;padding:46px 20px;"><div style="color:#a1a1aa;">Ready.</div></div>';
+  goTo('story');
+}
+
+// ═══ STYLE + BRAND EXTRACTION PROMPTS ═══
+function genStylePrompt(){
+  var mode=S.proj.mode==='animated'?'animated/illustrated':'cinematic live-action';
+  var prompt='Please analyze this reference image and describe its visual style in detail for use as an AI image and video generation style anchor.\n\nDescribe:\n1. Color palette (specific colors, temperature, saturation level)\n2. Lighting quality (hard/soft, direction, sources, mood)\n3. Texture and grain (film grain, digital clean, painterly, etc)\n4. Overall aesthetic mood and atmosphere\n5. Composition tendencies (tight/wide, symmetrical/organic)\n6. Any distinctive visual signatures\n'+(mode==='animated/illustrated'?'7. Art style, line weight, rendering approach, animation energy\n':'')+'\nIMPORTANT: Describe ONLY color, texture, lighting, atmosphere, and mood. Do NOT describe composition or framing — those will be set per-scene. Format as a single detailed paragraph.';
+  var box=document.getElementById('styleExtPrompt');
+  if(box){box.value=prompt;box.style.display='block';}
+  var btn=document.getElementById('styleExtCpBtn');
+  if(btn){btn.style.display='inline-flex';doCopy(prompt,btn);}
+}
+
+function genBrandPrompt(){
+  var prompt='Please analyze this brand document/guideline and extract the following information in this exact format:\n\nTITLE: [campaign or project title if mentioned]\nBRAND_NAME: [brand name]\nCORE_MESSAGE: [what the brand wants audience to feel/think/do — one sentence]\nPAIN_POINT: [specific problem this brand solves for its audience]\nTARGET_AUDIENCE: [specific audience description]\nTONE: [tone of voice]\nVISUAL_STYLE: [describe the visual language, color palette, atmospheric direction — NOT framing or composition, those are set per scene]\nCUSTOM_INSTRUCTIONS: [any specific rules, must-haves, or must-avoids for content creation]\n\nBe specific and concise. Extract directly from the document — do not invent information.';
+  var box=document.getElementById('brandExtPrompt');
+  if(box){box.value=prompt;box.style.display='block';}
+  var btn=document.getElementById('brandExtCpBtn');
+  if(btn){btn.style.display='inline-flex';doCopy(prompt,btn);}
+}
+
+function parseBrandResponse(){
+  var raw=document.getElementById('brandPasteField').value.trim();
+  if(!raw){alert('Paste AI response first');return;}
+  function gf(k){var rx=new RegExp('^'+k+':\\s*(.+)','im');var m=raw.match(rx);return m?m[1].trim():'';}
+  var map={dnaTitle:'TITLE',dnaName:'BRAND_NAME',dnaCoreMessage:'CORE_MESSAGE',dnaPainPoint:'PAIN_POINT',dnaAudience:'TARGET_AUDIENCE',dnaTone:'TONE',dnaInstructions:'CUSTOM_INSTRUCTIONS'};
+  var filled=0;
+  Object.keys(map).forEach(function(fieldId){
+    var val=gf(map[fieldId]);
+    if(val){var el=document.getElementById(fieldId);if(el){el.value=val;filled++;}}
+  });
+  var vsVal=gf('VISUAL_STYLE');
+  if(vsVal){var cvs=document.getElementById('customVisualStyle');if(cvs){cvs.value=vsVal;filled++;}}
+  save();
+  alert('Auto-filled '+filled+' fields from AI response.');
+}
+
+// ═══ COPY HELPERS ═══
+function doCopy(text,btn){
+  function done(){if(btn){btn.textContent='Copied!';btn.classList.add('ok');setTimeout(function(){btn.textContent=btn.getAttribute('data-cpel')?'Copy':'Copy';btn.classList.remove('ok');},2000);}}
+  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(text).then(done).catch(function(){fbCopy(text);done();});}
+  else{fbCopy(text);done();}
+}
+function fbCopy(t){var el=document.createElement('textarea');el.value=t;el.style.cssText='position:fixed;top:-999px;opacity:0;';document.body.appendChild(el);el.focus();el.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(el);}
+function cpEl(id,btn){
+  var el=document.getElementById(id);
+  var text=el?(el.tagName==='TEXTAREA'||el.tagName==='INPUT'?el.value:el.innerText.replace(/\nCopy$|\nCopied!$/g,'').trim()):'';
+  doCopy(text,btn);
+}
+
+init();
+</script>
+</body>
+</html>
