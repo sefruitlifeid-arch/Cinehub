@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -65,6 +66,86 @@ textarea.inp{resize:vertical;min-height:70px;}
 .navBtn[data-nav="output"].on{background:#2DD4BF;color:#0a0f0a;border-color:#2DD4BF;}
 .navBtn[data-nav="storyboard"].on{background:#8B5CF6;color:#fff;border-color:#8B5CF6;}
 .navBtn[data-nav="aidirector"].on{background:#F97316;color:#fff;border-color:#F97316;}
+.navBtn[data-nav="flowcanvas"].on{background:#06B6D4;color:#0a0f0a;border-color:#06B6D4;}
+#flowCanvasArea{position:relative;width:100%;height:600px;overflow:hidden;background:#0d0f0d;border:1px solid #2a2e2a;border-radius:10px;background-image:radial-gradient(circle,#22251f 1px,transparent 1px);background-size:22px 22px;cursor:grab;}
+#flowCanvasArea.panning{cursor:grabbing;}
+#flowCanvasViewport{position:absolute;top:0;left:0;transform-origin:0 0;}
+#flowCanvasInner{position:relative;width:2400px;height:1800px;}
+.fcNode{position:absolute;width:220px;background:#1a1d1a;border:1px solid #2a2e2a;border-radius:9px;padding:10px 12px;cursor:grab;user-select:none;box-shadow:0 2px 10px #00000040;transition:border-color .15s;}
+.fcNode:hover{border-color:#06B6D455;}
+.fcNode.dragging{cursor:grabbing;z-index:20;border-color:#06B6D4;box-shadow:0 4px 18px #06B6D440;}
+.fcNodeHdr{display:flex;align-items:center;gap:6px;margin-bottom:6px;}
+.fcBadge{font-family:"JetBrains Mono",monospace;font-size:10px;color:#0a0f0a;background:#06B6D4;border-radius:4px;padding:1px 6px;font-weight:600;flex-shrink:0;}
+.fcTitle{font-size:12px;font-weight:500;color:#e4e4e7;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;}
+.fcEmpty{font-size:11px;color:#52525b;font-style:italic;}
+.fcChips{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:7px;}
+.fcChip{font-size:9px;padding:2px 7px;border-radius:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:95px;}
+.fcChipLoc{color:#60a5fa;background:#3b82f611;border:1px solid #3b82f622;}
+.fcChipBeat{color:#a3e635;background:#84CC1611;border:1px solid #84CC1622;}
+.fcPreviewRow{display:flex;align-items:flex-start;gap:5px;font-size:10px;color:#a1a1aa;margin-bottom:3px;line-height:1.4;}
+.fcDot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:4px;}
+.fcDot.filled{background:#4ade80;}
+.fcDot.empty{background:#3f3f46;}
+.fcPreviewLabel{color:#52525b;flex-shrink:0;width:38px;}
+.fcPreviewText{overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;}
+.fcFooter{display:flex;align-items:center;gap:6px;margin-top:8px;padding-top:7px;border-top:1px solid #2a2e2a;}
+.fcFooter label{display:flex;align-items:center;gap:5px;font-size:10px;color:#71717a;cursor:pointer;user-select:none;}
+.fcFooter input[type=checkbox]{accent-color:#06B6D4;cursor:pointer;width:12px;height:12px;}
+.fcHandle{position:absolute;right:-7px;top:50%;transform:translateY(-50%);width:14px;height:14px;border-radius:50%;background:#06B6D4;border:2px solid #0d0f0d;cursor:crosshair;z-index:5;opacity:0;transition:opacity .15s,transform .15s;}
+.fcNode:hover .fcHandle{opacity:1;}
+.fcHandle:hover{transform:translateY(-50%) scale(1.3);}
+.fcEdgeBranch{stroke:#8B5CF6;stroke-width:2;stroke-dasharray:5,4;cursor:pointer;pointer-events:stroke;}
+.fcEdgeBranch:hover{stroke:#a78bfa;stroke-width:3;}
+.fcNode.selected{border-color:#06B6D4;box-shadow:0 0 0 2px #06B6D440;}
+.fcSelCheck{position:absolute;left:-7px;top:-7px;width:16px;height:16px;border-radius:50%;background:#06B6D4;color:#0a0f0a;font-size:10px;font-weight:700;display:none;align-items:center;justify-content:center;}
+.fcNode.selected .fcSelCheck{display:flex;}
+.qCard{background:#141714;border:1px solid #2a2e2a;border-radius:8px;padding:10px 12px;margin-bottom:8px;}
+.qCardHdr{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.qPill{font-size:9px;font-weight:600;padding:2px 8px;border-radius:10px;text-transform:uppercase;letter-spacing:.03em;}
+.qPill.pending{background:#3f3f4633;color:#a1a1aa;}
+.qPill.copied{background:#3b82f622;color:#60a5fa;}
+.qPill.generated{background:#16a34a22;color:#4ade80;}
+.qField{display:flex;align-items:flex-start;gap:8px;margin-bottom:6px;}
+.qFieldLabel{font-size:9px;color:#52525b;text-transform:uppercase;letter-spacing:.04em;width:48px;flex-shrink:0;padding-top:4px;}
+.qFieldText{flex:1;font-size:11px;color:#a1a1aa;background:#0d0f0d;border:1px solid #2a2e2a;border-radius:5px;padding:5px 8px;font-family:"JetBrains Mono",monospace;line-height:1.5;word-break:break-word;}
+.qCopyBtn{font-size:10px;background:#2a2e2a;color:#71717a;border:none;border-radius:4px;padding:4px 9px;cursor:pointer;flex-shrink:0;transition:all .15s;}
+.qCopyBtn:hover{background:#06B6D4;color:#0a0f0a;}
+.qCopyBtn.copied{background:#16a34a;color:#fff;}
+.qCopyBtn:disabled{opacity:.35;cursor:not-allowed;}
+/* Mobile (≤700px): vertical stacked list, no free positioning, no pan/zoom, branches as indent */
+.fcMobileList{display:none;}
+.fcMobileNode{background:#1a1d1a;border:1px solid #2a2e2a;border-radius:9px;padding:10px 12px;margin-bottom:10px;position:relative;}
+.fcMobileNode.selected{border-color:#06B6D4;box-shadow:0 0 0 2px #06B6D440;}
+.fcMobileNode.branchOf{margin-left:26px;border-left:2px solid #8B5CF6;}
+.fcMobileBranchLabel{font-size:9px;color:#a78bfa;display:flex;align-items:center;gap:4px;margin-bottom:5px;}
+.fcMobileHandle{font-size:14px;color:#52525b;padding:2px 6px;cursor:grab;touch-action:none;}
+.fcMobileReorderRow{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.fcMobileBtnRow{display:flex;gap:6px;margin-top:8px;}
+.fcMobileSmallBtn{font-size:10px;background:#2a2e2a;color:#71717a;border:none;border-radius:5px;padding:5px 9px;cursor:pointer;flex:1;text-align:center;}
+.fcMobileSmallBtn:active{background:#06B6D4;color:#0a0f0a;}
+.assetTypeBtn{flex:1;padding:7px 10px;border-radius:6px;font-size:11px;font-weight:500;cursor:pointer;border:1px solid #3f3f46;background:transparent;color:#71717a;transition:all .15s;text-align:center;}
+.assetTypeBtn.on{border-color:#EC4899;background:#EC489922;color:#f472b6;}
+.assetCard{background:#141714;border:1px solid #2a2e2a;border-radius:8px;padding:10px 12px;margin-bottom:8px;}
+.assetTypeBadge{font-size:9px;font-weight:600;padding:2px 8px;border-radius:10px;text-transform:uppercase;letter-spacing:.03em;flex-shrink:0;}
+.assetTypeBadge.character{background:#EC489922;color:#f472b6;}
+.assetTypeBadge.product{background:#F59E0B22;color:#fbbf24;}
+.assetTypeBadge.location{background:#14B8A622;color:#2dd4bf;}
+.fcAssetNode{position:absolute;width:170px;background:#1a1d1a;border:1px solid #EC489955;border-radius:8px;padding:8px 10px;cursor:grab;user-select:none;box-shadow:0 2px 8px #00000040;z-index:3;}
+.fcAssetNode:hover{border-color:#EC4899;}
+.fcAssetNode.dragging{cursor:grabbing;z-index:21;box-shadow:0 4px 16px #EC489940;}
+.fcAssetNodeHdr{display:flex;align-items:center;gap:6px;margin-bottom:4px;}
+.fcAssetIcon{font-size:11px;flex-shrink:0;}
+.fcAssetTitle{font-size:11px;font-weight:500;color:#e4e4e7;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;}
+.fcAssetDesc{font-size:9px;color:#71717a;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.fcAssetHandle{position:absolute;right:-6px;top:50%;transform:translateY(-50%);width:12px;height:12px;border-radius:50%;background:#EC4899;border:2px solid #0d0f0d;cursor:crosshair;z-index:5;opacity:0;transition:opacity .15s;}
+.fcAssetNode:hover .fcAssetHandle{opacity:1;}
+.fcEdgeAsset{stroke:#EC4899;stroke-width:1.5;stroke-opacity:.7;cursor:pointer;pointer-events:stroke;}
+.fcEdgeAsset:hover{stroke-opacity:1;stroke-width:2.5;}
+@media(max-width:700px){
+  #flowCanvasArea,#flowCanvasToolbar{display:none;}
+  .fcMobileList{display:block;}
+}
+#flowCanvasSvg{position:absolute;top:0;left:0;pointer-events:none;}
 .modeToggle{display:flex;background:#1a1d1a;border:1px solid #3f3f46;border-radius:8px;padding:3px;gap:3px;}
 .modeBtn{padding:5px 14px;border-radius:5px;font-size:11px;font-weight:500;cursor:pointer;border:none;background:transparent;color:#71717a;font-family:"DM Sans",sans-serif;transition:all .2s;white-space:nowrap;}
 .modeBtn.on{background:#84CC16;color:#0a0f0a;}
@@ -115,6 +196,7 @@ textarea.inp{resize:vertical;min-height:70px;}
     <div style="width:2px;background:#52525b;height:24px;flex-shrink:0;align-self:center;border-radius:2px;"></div>
     <button class="navBtn" data-nav="storyboard">📋 Storyboard</button>
     <button class="navBtn" data-nav="aidirector">🎙️ AI Director Pro</button>
+    <button class="navBtn" data-nav="flowcanvas">🧭 Flow Canvas</button>
   </div>
 
   <!-- ══ STORY BUILDER ══ -->
@@ -818,6 +900,95 @@ textarea.inp{resize:vertical;min-height:70px;}
     <div style="margin-top:14px;"><button class="btnG" onclick="goTo('output')">&#8592; Back</button></div>
   </div>
 
+  <!-- ══ FLOW CANVAS ══ -->
+  <div id="sec-flowcanvas" class="panel">
+    <div style="margin-bottom:16px;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.06em;color:#06B6D4;">FLOW CANVAS</div>
+      <div style="font-size:12px;color:#52525b;">Visual map of your scene order · drag nodes to reposition · Scene Editor remains the source of truth for content</div>
+    </div>
+    <div class="card" style="margin-bottom:12px;" id="flowCanvasEmptyNotice" style="display:none;">
+      <div style="text-align:center;padding:30px 12px;color:#52525b;font-size:12px;">No scenes yet. Add scenes in Scene Editor first.</div>
+    </div>
+    <div class="card" style="margin-bottom:14px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.05em;color:#EC4899;">ASSET LIBRARY</div>
+        <button class="btnG" style="font-size:11px;" onclick="toggleAssetForm()" id="assetFormToggleBtn">+ Add Asset</button>
+      </div>
+      <div style="font-size:11px;color:#52525b;margin-bottom:10px;">Reusable character/product/location descriptions — link them to scenes on the canvas below to append visual context to that scene's prompt.</div>
+
+      <div id="assetForm" style="display:none;border-top:1px solid #2a2e2a;padding-top:12px;margin-top:4px;">
+        <div style="display:flex;gap:6px;margin-bottom:10px;">
+          <button class="assetTypeBtn on" data-assettype="character">Character</button>
+          <button class="assetTypeBtn" data-assettype="product">Product</button>
+          <button class="assetTypeBtn" data-assettype="location">Location</button>
+        </div>
+        <div style="display:flex;gap:8px;margin-bottom:10px;align-items:flex-end;">
+          <div style="flex:1;">
+            <label class="lbl">Name</label>
+            <input class="inp" id="assetNameInput" placeholder="e.g. Jane, Coffee Cup, Rooftop Bar...">
+          </div>
+          <select class="inp" id="assetImportCharSelect" style="width:160px;" title="Import name from an existing character">
+            <option value="">Import from Character...</option>
+          </select>
+        </div>
+        <button class="btnG" style="font-size:11px;margin-bottom:8px;" onclick="genAssetAnalyzeInstruction()">Generate Analyze Instruction</button>
+        <textarea id="assetInstructionBox" class="inp" rows="3" style="display:none;font-family:JetBrains Mono;font-size:10px;margin-bottom:8px;" readonly></textarea>
+        <button class="cpBtn" id="assetInstructionCpBtn" style="position:static;display:none;margin-bottom:8px;" data-cpbox="assetInstructionBox">Copy Instruction</button>
+        <label class="lbl">Paste AI Result (visual description)</label>
+        <textarea class="inp" id="assetDescInput" rows="2" placeholder="Paste the visual description the AI generated..." style="margin-bottom:8px;"></textarea>
+        <div style="display:flex;gap:8px;">
+          <button class="btnP" style="font-size:12px;" onclick="saveNewAsset()">Save Asset</button>
+          <button class="btnG" style="font-size:12px;" onclick="toggleAssetForm()">Cancel</button>
+        </div>
+      </div>
+
+      <div id="assetList" style="margin-top:10px;"></div>
+      <div id="assetEmpty" style="text-align:center;padding:14px 12px;color:#52525b;font-size:12px;">No assets yet. Click "+ Add Asset" to create one.</div>
+    </div>
+
+    <div id="flowCanvasToolbar" style="display:flex;align-items:center;gap:6px;margin-bottom:8px;">
+      <button class="btnG" style="font-size:13px;padding:6px 10px;" onclick="fcZoom(-0.1)" title="Zoom out">&#8722;</button>
+      <span id="fcZoomLabel" style="font-size:11px;color:#71717a;min-width:42px;text-align:center;">100%</span>
+      <button class="btnG" style="font-size:13px;padding:6px 10px;" onclick="fcZoom(0.1)" title="Zoom in">&#43;</button>
+      <button class="btnG" style="font-size:11px;" onclick="fcResetView()" title="Reset pan & zoom">Reset View</button>
+      <div style="flex:1;"></div>
+      <span id="fcSelCount" style="font-size:10px;color:#71717a;display:none;"></span>
+      <button class="btnP" id="fcAddToQueueBtn" style="font-size:11px;padding:6px 12px;display:none;" onclick="fcAddSelectedToQueue()">&#8594; Add to Queue</button>
+      <span style="font-size:10px;color:#52525b;">Scroll/drag empty to pan · click node to select · drag node body to move</span>
+    </div>
+    <div id="flowCanvasArea">
+      <div id="flowCanvasViewport">
+        <svg id="flowCanvasSvg"></svg>
+        <div id="flowCanvasInner"></div>
+      </div>
+    </div>
+    <!-- Mobile: vertical order-following list. Drag = reorder only. Branches shown as indented sub-cards. -->
+    <div id="flowCanvasMobileList" class="fcMobileList"></div>
+    <div id="fcMobileSelBar" style="display:none;align-items:center;gap:8px;margin-top:10px;">
+      <span id="fcMobileSelCount" style="font-size:11px;color:#71717a;flex:1;"></span>
+      <button class="btnP" style="font-size:11px;padding:6px 12px;" onclick="fcAddSelectedToQueue()">&#8594; Add to Queue</button>
+    </div>
+    <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+      <button class="btnG" onclick="goTo('scenes')">&#8592; Back to Scene Editor</button>
+      <div style="flex:1;"></div>
+      <button class="btnG" style="font-size:11px;" onclick="fcExportCanvas()" title="Export node positions, branches, and progress as JSON">&#8595; Export Canvas</button>
+      <label class="btnG" style="font-size:11px;cursor:pointer;" title="Load a previously exported canvas structure">&#8593; Load Canvas<input type="file" accept=".json" style="display:none;" onchange="fcImportCanvas(this)"></label>
+    </div>
+    <div id="fcImportSuccessBar" style="display:none;background:#16a34a22;border:1px solid #16a34a44;border-radius:8px;padding:10px 14px;margin-top:10px;align-items:center;gap:8px;">
+      <span style="font-size:12px;color:#4ade80;">&#10003; Canvas structure loaded — positions, branches, and progress applied to matching scenes.</span>
+    </div>
+
+    <!-- ── Execution Queue ── -->
+    <div class="card" style="margin-top:20px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.05em;color:#06B6D4;">EXECUTION QUEUE</div>
+        <button class="btnD" id="fcClearQueueBtn" style="font-size:10px;display:none;" onclick="fcClearQueue()">Clear Queue</button>
+      </div>
+      <div style="font-size:11px;color:#52525b;margin-bottom:12px;">Linear copy-paste mode for sending shots to Higgsfield · select nodes on canvas above, then Add to Queue</div>
+      <div id="fcQueueList"><div style="text-align:center;padding:18px 12px;color:#52525b;font-size:12px;">Queue is empty. Select nodes on the canvas above and click "Add to Queue".</div></div>
+    </div>
+  </div>
+
 </div>
 
 <div style="max-width:860px;margin:0 auto;padding:20px 16px 32px;border-top:1px solid #1a1d1a;margin-top:8px;">
@@ -837,6 +1008,7 @@ var S = {
   dna:{name:'',audience:'',tone:'',instructions:'',title:'',coreMessage:'',painPoint:''},
   viralNotes:'',
   chars:[],scenes:[],
+  flowEdges:[],flowQueue:[],assets:[],assetLinks:[],
   aiTool:'chatgpt',
   outMode:'single',
   videoMode:'img2vid',
@@ -1094,11 +1266,35 @@ var DD_ANIM = {
 function init(){
   loadData(); renderPT(); populateStyleDropdown();
   renderChars(); renderScenes(); renderPanels(); applyForm(); applyStoryboardForm(); aidApplyForm();
+  renderAssetLibrary();
   initCoreSettingDescs();
   // event delegation for virality copy button
   document.addEventListener('click',function(e){
     var cpel=e.target.closest('[data-cpel]');
     if(cpel){cpEl(cpel.getAttribute('data-cpel'),cpel);}
+    var typeBtn=e.target.closest('.assetTypeBtn');
+    if(typeBtn){
+      ASSET_FORM_TYPE=typeBtn.getAttribute('data-assettype');
+      document.querySelectorAll('.assetTypeBtn').forEach(function(b){b.classList.remove('on');});
+      typeBtn.classList.add('on');
+      var ib=document.getElementById('assetInstructionBox');if(ib){ib.value='';ib.style.display='none';}
+      var icb=document.getElementById('assetInstructionCpBtn');if(icb)icb.style.display='none';
+    }
+  });
+  var importSel=document.getElementById('assetImportCharSelect');
+  if(importSel){
+    importSel.addEventListener('change',function(){
+      if(importSel.value)document.getElementById('assetNameInput').value=importSel.value;
+    });
+  }
+  // re-render Flow Canvas if viewport crosses the mobile breakpoint while the tab is open
+  var fcResizeTimer;
+  window.addEventListener('resize',function(){
+    clearTimeout(fcResizeTimer);
+    fcResizeTimer=setTimeout(function(){
+      var sec=document.getElementById('sec-flowcanvas');
+      if(sec&&sec.classList.contains('on'))renderFlowCanvas();
+    },150);
   });
 }
 
@@ -1110,6 +1306,7 @@ function goTo(id){
   var nb=document.querySelector('.navBtn[data-nav="'+id+'"]');if(nb)nb.classList.add('on');
   if(id==='output')genAll();
   if(id==='aidirector'){populateCinemaSceneDropdown();populateBananaCharDropdown();renderCinemaAssetWarning();}
+  if(id==='flowcanvas'){renderAssetLibrary();renderFlowCanvas();}
   window.scrollTo(0,0);
 }
 document.getElementById('nav').addEventListener('click',function(e){
@@ -1192,10 +1389,14 @@ function loadData(){
       if(d.scenes){
         // migrate old scenes: add new fields if missing
         S.scenes=d.scenes.map(function(sc){
-          return Object.assign({shotType:'',movement:'',movementNotes:'',angle:[],shotSize:[]},sc);
+          return Object.assign({shotType:'',movement:'',movementNotes:'',angle:[],shotSize:[],position:null,progress:{generated:false}},sc);
         });
       }
       if(d.aiTool)S.aiTool=d.aiTool;
+      S.flowEdges=Array.isArray(d.flowEdges)?d.flowEdges:[];
+      S.flowQueue=Array.isArray(d.flowQueue)?d.flowQueue:[];
+      S.assets=Array.isArray(d.assets)?d.assets:[];
+      S.assetLinks=Array.isArray(d.assetLinks)?d.assetLinks:[];
       if(d.outMode)S.outMode=d.outMode;
       if(d.videoMode)S.videoMode=d.videoMode;
       if(d.viralNotes)S.viralNotes=d.viralNotes;
@@ -2499,10 +2700,11 @@ function addScene(){
     location:'',time:'',beat:'',mood:'',
     brollOnly:false,collapsed:false,
     shotType:'',shotNotes:'',movement:'',movementNotes:'',
+    position:null,progress:{generated:false},
   });
   save();renderScenes();
 }
-function removeScene(id){S.scenes=S.scenes.filter(function(s){return s.id!==id;});save();renderScenes();}
+function removeScene(id){S.scenes=S.scenes.filter(function(s){return s.id!==id;});S.flowEdges=(S.flowEdges||[]).filter(function(e){return e.from!==id&&e.to!==id;});S.flowQueue=(S.flowQueue||[]).filter(function(qid){return qid!==id;});S.assetLinks=(S.assetLinks||[]).filter(function(l){return l.sceneId!==id;});save();renderScenes();}
 function togSc(id){var sc=S.scenes.find(function(s){return s.id===id;});if(sc){sc.collapsed=!sc.collapsed;save();renderScenes();}}
 function updSc(id,field,val){var sc=S.scenes.find(function(s){return s.id===id;});if(sc){sc[field]=val;save();}}
 
@@ -2522,6 +2724,931 @@ function rChips(scId,field){
     h+='<div class="chip'+(on?' on':'')+'" data-scid="'+scId+'" data-scf="'+field+'" data-val="'+opt.replace(/"/g,'&quot;')+'">'+opt+'</div>';
   });
   return h+'</div>';
+}
+
+// ═══ FLOW CANVAS (step 2: + pan & zoom via CSS transform on container) ═══
+var FC_NODE_W=220,FC_NODE_GAP_Y=150,FC_COL_X=60,FC_START_Y=40;
+var FCV={x:0,y:0,zoom:1}; // viewport pan/zoom state, not persisted (per-session view only)
+var FC_SELECTED=[]; // scene ids currently selected for batch Add to Queue, not persisted
+
+// ═══ ASSET LIBRARY ═══ (separate from S.chars — covers Character/Product/Location, stores only
+// a text description, never an image. "Import from Character" is a one-way name copy from S.chars,
+// it does not keep the two in sync afterward.)
+var ASSET_FORM_TYPE='character';
+
+var ASSET_ANALYZE_INSTRUCTIONS={
+  character:'Describe this character\'s visual appearance in 1-2 lean sentences, prompt-ready language. Cover: physical traits, hair, outfit, distinguishing features. Do not include actions, poses, or scene context — only visual identity that stays consistent across different scenes.',
+  product:'Describe this product\'s visual appearance in 1-2 lean sentences, prompt-ready language. Cover: shape, material, color, key design details, branding/logo if visible. Do not include placement or context — only visual identity that stays consistent across different scenes.',
+  location:'Describe this location\'s visual appearance in 1-2 lean sentences, prompt-ready language. Cover: architecture/setting type, color palette, lighting mood, distinguishing visual elements. Do not include characters or actions — only visual identity that stays consistent across different scenes.'
+};
+
+function toggleAssetForm(){
+  var form=document.getElementById('assetForm');
+  if(!form)return;
+  var opening=form.style.display==='none'||!form.style.display;
+  form.style.display=opening?'block':'none';
+  if(opening){
+    ASSET_FORM_TYPE='character';
+    document.querySelectorAll('.assetTypeBtn').forEach(function(b){b.classList.remove('on');});
+    var firstBtn=document.querySelector('.assetTypeBtn[data-assettype="character"]');
+    if(firstBtn)firstBtn.classList.add('on');
+    document.getElementById('assetNameInput').value='';
+    document.getElementById('assetDescInput').value='';
+    var ib=document.getElementById('assetInstructionBox');if(ib){ib.value='';ib.style.display='none';}
+    var icb=document.getElementById('assetInstructionCpBtn');if(icb)icb.style.display='none';
+    populateAssetImportCharSelect();
+  }
+}
+
+function populateAssetImportCharSelect(){
+  var sel=document.getElementById('assetImportCharSelect');
+  if(!sel)return;
+  sel.innerHTML='<option value="">Import from Character...</option>';
+  (S.chars||[]).forEach(function(ch){
+    if(!ch.name)return;
+    var o=document.createElement('option');o.value=ch.name;o.textContent=ch.name;sel.appendChild(o);
+  });
+}
+
+function genAssetAnalyzeInstruction(){
+  var instruction=ASSET_ANALYZE_INSTRUCTIONS[ASSET_FORM_TYPE]||ASSET_ANALYZE_INSTRUCTIONS.character;
+  var box=document.getElementById('assetInstructionBox');
+  if(box){box.value=instruction;box.style.display='block';}
+  var btn=document.getElementById('assetInstructionCpBtn');
+  if(btn){btn.style.display='inline-flex';doCopy(instruction,btn);}
+}
+
+function saveNewAsset(){
+  var name=(document.getElementById('assetNameInput').value||'').trim();
+  var desc=(document.getElementById('assetDescInput').value||'').trim();
+  if(!name){alert('Please enter a name for this asset.');return;}
+  S.assets=S.assets||[];
+  S.assets.push({id:Date.now()+Math.random(),name:name,type:ASSET_FORM_TYPE,description:desc,position:null});
+  save();
+  toggleAssetForm();
+  renderAssetLibrary();
+  if(document.getElementById('sec-flowcanvas').classList.contains('on'))renderFlowCanvas();
+}
+
+function removeAsset(assetId){
+  if(!confirm('Delete this asset? Any links to scenes will also be removed.'))return;
+  S.assets=(S.assets||[]).filter(function(a){return a.id!==assetId;});
+  S.assetLinks=(S.assetLinks||[]).filter(function(l){return l.assetId!==assetId;});
+  save();
+  renderAssetLibrary();
+  if(document.getElementById('sec-flowcanvas').classList.contains('on'))renderFlowCanvas();
+}
+
+function updAssetField(assetId,field,val){
+  var a=(S.assets||[]).find(function(x){return x.id===assetId;});
+  if(a){a[field]=val;save();}
+}
+
+function renderAssetLibrary(){
+  var list=document.getElementById('assetList');
+  var empty=document.getElementById('assetEmpty');
+  if(!list)return;
+  var assets=S.assets||[];
+  if(!assets.length){
+    list.innerHTML='';
+    if(empty)empty.style.display='block';
+    return;
+  }
+  if(empty)empty.style.display='none';
+  var h='';
+  assets.forEach(function(a){
+    var linkCount=(S.assetLinks||[]).filter(function(l){return l.assetId===a.id;}).length;
+    h+='<div class="assetCard">'+
+      '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">'+
+        '<span class="assetTypeBadge '+a.type+'">'+a.type+'</span>'+
+        '<span style="font-size:12px;color:#e4e4e7;flex:1;font-weight:500;">'+escapeHtml(a.name||'Untitled')+'</span>'+
+        (linkCount?'<span style="font-size:9px;color:#52525b;">&#128279; '+linkCount+' scene'+(linkCount>1?'s':'')+'</span>':'')+
+        '<button class="btnD" style="font-size:10px;padding:3px 8px;" data-rmasset="'+a.id+'">&times;</button>'+
+      '</div>'+
+      '<div style="font-size:11px;color:#a1a1aa;line-height:1.5;">'+(a.description?escapeHtml(a.description):'<span style="color:#52525b;font-style:italic;">No description yet.</span>')+'</div>'+
+    '</div>';
+  });
+  list.innerHTML=h;
+  list.querySelectorAll('[data-rmasset]').forEach(function(btn){
+    btn.addEventListener('click',function(){removeAsset(Number(btn.getAttribute('data-rmasset'))||btn.getAttribute('data-rmasset'));});
+  });
+}
+
+function fcAutoLayout(){
+  // default vertical layout for scenes missing a saved position
+  S.scenes.forEach(function(sc,idx){
+    if(!sc.position){sc.position={x:FC_COL_X,y:FC_START_Y+idx*FC_NODE_GAP_Y};}
+  });
+}
+
+function fcAssetAutoLayout(){
+  // default placement for assets that don't yet have a saved position — offset to the right
+  // of the scene column so they don't initially overlap, user can drag freely afterward.
+  var i=0;
+  (S.assets||[]).forEach(function(a){
+    if(!a.position){a.position={x:FC_COL_X+FC_NODE_W+260,y:FC_START_Y+i*130};i++;}
+  });
+}
+
+function fcApplyViewportTransform(){
+  var vp=document.getElementById('flowCanvasViewport');
+  if(!vp)return;
+  vp.style.transform='translate('+FCV.x+'px,'+FCV.y+'px) scale('+FCV.zoom+')';
+  var lbl=document.getElementById('fcZoomLabel');
+  if(lbl)lbl.textContent=Math.round(FCV.zoom*100)+'%';
+}
+
+function fcZoom(delta){
+  var newZoom=Math.min(2,Math.max(0.4,FCV.zoom+delta));
+  FCV.zoom=Math.round(newZoom*100)/100;
+  fcApplyViewportTransform();
+}
+
+function fcResetView(){
+  FCV.x=0;FCV.y=0;FCV.zoom=1;
+  fcApplyViewportTransform();
+}
+
+function fcIsMobile(){return window.innerWidth<=700;}
+
+function renderFlowCanvas(){
+  var emptyNotice=document.getElementById('flowCanvasEmptyNotice');
+  if(!S.scenes.length){
+    var inner0=document.getElementById('flowCanvasInner'),svg0=document.getElementById('flowCanvasSvg');
+    if(inner0)inner0.innerHTML='';
+    if(svg0)svg0.innerHTML='';
+    var mlist0=document.getElementById('flowCanvasMobileList');
+    if(mlist0)mlist0.innerHTML='';
+    if(emptyNotice)emptyNotice.style.display='block';
+    return;
+  }
+  if(emptyNotice)emptyNotice.style.display='none';
+  fcAutoLayout();
+  if(fcIsMobile()){
+    renderFlowCanvasMobile();
+    fcUpdateSelToolbar();
+    renderQueue();
+    return;
+  }
+  var inner=document.getElementById('flowCanvasInner');
+  var svg=document.getElementById('flowCanvasSvg');
+  if(!inner||!svg)return;
+  inner.innerHTML='';
+  var maxX=800,maxY=400;
+  S.scenes.forEach(function(sc,idx){
+    var node=document.createElement('div');
+    node.className='fcNode';
+    node.setAttribute('data-scid',sc.id);
+    node.style.left=sc.position.x+'px';
+    node.style.top=sc.position.y+'px';
+    var title=sc.title||'Untitled scene';
+    var chips='';
+    if(sc.beat)chips+='<span class="fcChip fcChipBeat">'+escapeHtml(sc.beat)+'</span>';
+    if(sc.location)chips+='<span class="fcChip fcChipLoc">&#128205; '+escapeHtml(sc.location)+'</span>';
+    var actionFilled=!!(sc.script&&sc.script.trim());
+    var motionFilled=!!(sc.movement&&sc.movement.trim());
+    node.innerHTML='<div class="fcNodeHdr"><span class="fcBadge">S'+(idx+1)+'</span><span class="fcTitle">'+escapeHtml(title)+'</span></div>'+
+      (chips?'<div class="fcChips">'+chips+'</div>':'')+
+      '<div class="fcPreviewRow"><span class="fcDot '+(actionFilled?'filled':'empty')+'"></span><span class="fcPreviewLabel">Action</span><span class="fcPreviewText">'+(actionFilled?escapeHtml(sc.script):'—')+'</span></div>'+
+      '<div class="fcPreviewRow"><span class="fcDot '+(motionFilled?'filled':'empty')+'"></span><span class="fcPreviewLabel">Motion</span><span class="fcPreviewText">'+(motionFilled?escapeHtml(sc.movement):'—')+'</span></div>'+
+      '<div class="fcFooter"><label><input type="checkbox" data-fcprogress="'+sc.id+'" '+(sc.progress&&sc.progress.generated?'checked':'')+'> Generated in Higgsfield</label></div>'+
+      '<div class="fcHandle" data-fchandle="'+sc.id+'" title="Drag to another node to create a branch"></div>'+
+      '<div class="fcSelCheck">&#10003;</div>';
+    if(FC_SELECTED.indexOf(sc.id)>-1)node.classList.add('selected');
+    inner.appendChild(node);
+    maxX=Math.max(maxX,sc.position.x+FC_NODE_W+200);
+    maxY=Math.max(maxY,sc.position.y+300);
+  });
+  fcAssetAutoLayout();
+  var linkedAssetIds={};
+  (S.assetLinks||[]).forEach(function(l){linkedAssetIds[l.assetId]=true;});
+  (S.assets||[]).forEach(function(a){
+    if(!linkedAssetIds[a.id])return; // only render asset nodes that have at least one link
+    var anode=document.createElement('div');
+    anode.className='fcAssetNode';
+    anode.setAttribute('data-assetid',a.id);
+    anode.style.left=a.position.x+'px';
+    anode.style.top=a.position.y+'px';
+    var icon=a.type==='character'?'&#128100;':a.type==='product'?'&#128230;':'&#128205;';
+    anode.innerHTML='<div class="fcAssetNodeHdr"><span class="fcAssetIcon">'+icon+'</span><span class="fcAssetTitle">'+escapeHtml(a.name||'Untitled')+'</span></div>'+
+      '<div class="fcAssetDesc">'+(a.description?escapeHtml(a.description):'No description yet.')+'</div>'+
+      '<div class="fcAssetHandle" data-fcassethandle="'+a.id+'" title="Drag to a scene to link this asset"></div>';
+    inner.appendChild(anode);
+    maxX=Math.max(maxX,a.position.x+220);
+    maxY=Math.max(maxY,a.position.y+150);
+  });
+  inner.style.width=maxX+'px';
+  inner.style.height=maxY+'px';
+  svg.setAttribute('width',maxX);
+  svg.setAttribute('height',maxY);
+  fcDrawEdges();
+  fcBindNodeDrag();
+  fcBindAssetNodeDrag();
+  fcBindPan();
+  fcApplyViewportTransform();
+  fcUpdateSelToolbar();
+  renderQueue();
+}
+
+// Drag-to-connect: from a node's handle, drag onto another node to create a branch edge.
+// Mouse coords are in screen px; converted into un-scaled canvas coords via area offset + FCV pan/zoom.
+function fcScreenToCanvas(clientX,clientY){
+  var area=document.getElementById('flowCanvasArea');
+  var rect=area.getBoundingClientRect();
+  var x=(clientX-rect.left-FCV.x)/FCV.zoom;
+  var y=(clientY-rect.top-FCV.y)/FCV.zoom;
+  return {x:x,y:y};
+}
+
+// Asset node drag: simple free reposition (no select/branch logic here — that's handled by the
+// separate fcAssetHandle in Sub-step C). Position persists per-asset, same pattern as scene nodes.
+function fcBindAssetNodeDrag(){
+  document.querySelectorAll('.fcAssetNode').forEach(function(anode){
+    var handle=anode.querySelector('[data-fcassethandle]');
+    if(handle){
+      handle.addEventListener('mousedown',function(e){
+        e.preventDefault();e.stopPropagation();
+        var assetId=handle.getAttribute('data-fcassethandle');
+        var realId=isNaN(Number(assetId))?assetId:Number(assetId);
+        fcStartAssetConnect(realId,e.clientX,e.clientY);
+      });
+      handle.addEventListener('touchstart',function(e){
+        e.stopPropagation();
+        var assetId=handle.getAttribute('data-fcassethandle');
+        var realId=isNaN(Number(assetId))?assetId:Number(assetId);
+        var t=e.touches[0];
+        fcStartAssetConnect(realId,t.clientX,t.clientY);
+      },{passive:true});
+    }
+    anode.addEventListener('mousedown',function(e){
+      if(e.target.closest('.fcAssetHandle'))return;
+      e.preventDefault();e.stopPropagation();
+      var assetId=Number(anode.getAttribute('data-assetid'))||anode.getAttribute('data-assetid');
+      var a=(S.assets||[]).find(function(x){return x.id===assetId;});
+      if(!a)return;
+      anode.classList.add('dragging');
+      var startX=e.clientX,startY=e.clientY;
+      var origX=a.position.x,origY=a.position.y;
+      function onMove(ev){
+        var dx=(ev.clientX-startX)/FCV.zoom,dy=(ev.clientY-startY)/FCV.zoom;
+        a.position.x=Math.max(0,origX+dx);
+        a.position.y=Math.max(0,origY+dy);
+        anode.style.left=a.position.x+'px';
+        anode.style.top=a.position.y+'px';
+        fcDrawEdges();
+      }
+      function onUp(){
+        document.removeEventListener('mousemove',onMove);
+        document.removeEventListener('mouseup',onUp);
+        anode.classList.remove('dragging');
+        save();
+      }
+      document.addEventListener('mousemove',onMove);
+      document.addEventListener('mouseup',onUp);
+    });
+    anode.addEventListener('touchstart',function(e){
+      if(e.target.closest('.fcAssetHandle'))return;
+      e.stopPropagation();
+      var assetId=Number(anode.getAttribute('data-assetid'))||anode.getAttribute('data-assetid');
+      var a=(S.assets||[]).find(function(x){return x.id===assetId;});
+      if(!a)return;
+      anode.classList.add('dragging');
+      var t=e.touches[0];
+      var startX=t.clientX,startY=t.clientY;
+      var origX=a.position.x,origY=a.position.y;
+      function onMove(ev){
+        var tt=ev.touches[0];
+        var dx=(tt.clientX-startX)/FCV.zoom,dy=(tt.clientY-startY)/FCV.zoom;
+        a.position.x=Math.max(0,origX+dx);
+        a.position.y=Math.max(0,origY+dy);
+        anode.style.left=a.position.x+'px';
+        anode.style.top=a.position.y+'px';
+        fcDrawEdges();
+        ev.preventDefault();
+      }
+      function onEnd(){
+        document.removeEventListener('touchmove',onMove);
+        document.removeEventListener('touchend',onEnd);
+        anode.classList.remove('dragging');
+        save();
+      }
+      document.addEventListener('touchmove',onMove,{passive:false});
+      document.addEventListener('touchend',onEnd);
+    },{passive:true});
+  });
+}
+
+function fcStartConnect(fromId,startClientX,startClientY){
+  var svg=document.getElementById('flowCanvasSvg');
+  if(!svg)return;
+  var fromSc=S.scenes.find(function(s){return s.id===fromId;});
+  if(!fromSc||!fromSc.position)return;
+  var tempLine=document.createElementNS('http://www.w3.org/2000/svg','line');
+  tempLine.setAttribute('stroke','#06B6D4');
+  tempLine.setAttribute('stroke-width','2');
+  tempLine.setAttribute('stroke-dasharray','4,3');
+  var x1=fromSc.position.x+FC_NODE_W,y1=fromSc.position.y+30;
+  tempLine.setAttribute('x1',x1);tempLine.setAttribute('y1',y1);
+  tempLine.setAttribute('x2',x1);tempLine.setAttribute('y2',y1);
+  svg.appendChild(tempLine);
+
+  function onMove(ev){
+    var clientX=ev.touches?ev.touches[0].clientX:ev.clientX;
+    var clientY=ev.touches?ev.touches[0].clientY:ev.clientY;
+    var pt=fcScreenToCanvas(clientX,clientY);
+    tempLine.setAttribute('x2',pt.x);tempLine.setAttribute('y2',pt.y);
+  }
+  function onEnd(ev){
+    document.removeEventListener('mousemove',onMove);
+    document.removeEventListener('mouseup',onEnd);
+    document.removeEventListener('touchmove',onMove);
+    document.removeEventListener('touchend',onEnd);
+    tempLine.remove();
+    var clientX=ev.changedTouches?ev.changedTouches[0].clientX:ev.clientX;
+    var clientY=ev.changedTouches?ev.changedTouches[0].clientY:ev.clientY;
+    var targetNode=document.elementFromPoint(clientX,clientY);
+    var targetEl=targetNode?targetNode.closest('.fcNode'):null;
+    if(!targetEl)return;
+    var toId=Number(targetEl.getAttribute('data-scid'));
+    if(toId===fromId)return;
+    var exists=(S.flowEdges||[]).some(function(e){return e.from===fromId&&e.to===toId;});
+    if(exists)return;
+    S.flowEdges=S.flowEdges||[];
+    S.flowEdges.push({id:'edge-'+Date.now()+'-'+Math.round(Math.random()*9999),from:fromId,to:toId,type:'branch'});
+    save();fcDrawEdges();
+  }
+  document.addEventListener('mousemove',onMove);
+  document.addEventListener('mouseup',onEnd);
+  document.addEventListener('touchmove',onMove,{passive:true});
+  document.addEventListener('touchend',onEnd);
+}
+
+// Asset → Scene link: drag from an asset's handle onto a scene node. On drop, prompts for a
+// short custom instruction (how this asset appears/interacts in that specific scene). The asset's
+// own `description` field stays generic/reusable; this instruction is scene-specific and lives
+// only in the link itself, never written back onto the asset.
+function fcStartAssetConnect(assetId,startClientX,startClientY){
+  var svg=document.getElementById('flowCanvasSvg');
+  if(!svg)return;
+  var asset=(S.assets||[]).find(function(a){return a.id===assetId;});
+  if(!asset||!asset.position)return;
+  var tempLine=document.createElementNS('http://www.w3.org/2000/svg','line');
+  tempLine.setAttribute('stroke','#EC4899');
+  tempLine.setAttribute('stroke-width','2');
+  tempLine.setAttribute('stroke-dasharray','3,3');
+  var x1=asset.position.x+170,y1=asset.position.y+25;
+  tempLine.setAttribute('x1',x1);tempLine.setAttribute('y1',y1);
+  tempLine.setAttribute('x2',x1);tempLine.setAttribute('y2',y1);
+  svg.appendChild(tempLine);
+
+  function onMove(ev){
+    var clientX=ev.touches?ev.touches[0].clientX:ev.clientX;
+    var clientY=ev.touches?ev.touches[0].clientY:ev.clientY;
+    var pt=fcScreenToCanvas(clientX,clientY);
+    tempLine.setAttribute('x2',pt.x);tempLine.setAttribute('y2',pt.y);
+  }
+  function onEnd(ev){
+    document.removeEventListener('mousemove',onMove);
+    document.removeEventListener('mouseup',onEnd);
+    document.removeEventListener('touchmove',onMove);
+    document.removeEventListener('touchend',onEnd);
+    tempLine.remove();
+    var clientX=ev.changedTouches?ev.changedTouches[0].clientX:ev.clientX;
+    var clientY=ev.changedTouches?ev.changedTouches[0].clientY:ev.clientY;
+    var targetNode=document.elementFromPoint(clientX,clientY);
+    var targetEl=targetNode?targetNode.closest('.fcNode'):null;
+    if(!targetEl)return; // dropped somewhere that isn't a scene node — no-op
+    var sceneId=Number(targetEl.getAttribute('data-scid'));
+    var exists=(S.assetLinks||[]).some(function(l){return l.assetId===assetId&&l.sceneId===sceneId;});
+    if(exists){alert('This asset is already linked to that scene.');return;}
+    var instruction=prompt('How does "'+(asset.name||'this asset')+'" appear or interact in this scene? (optional)')||'';
+    S.assetLinks=S.assetLinks||[];
+    S.assetLinks.push({id:'alink-'+Date.now()+'-'+Math.round(Math.random()*9999),assetId:assetId,sceneId:sceneId,instruction:instruction});
+    save();
+    renderFlowCanvas();
+  }
+  document.addEventListener('mousemove',onMove);
+  document.addEventListener('mouseup',onEnd);
+  document.addEventListener('touchmove',onMove,{passive:true});
+  document.addEventListener('touchend',onEnd);
+}
+
+
+// ═══ MOBILE LAYOUT (≤700px): vertical order-following list. Reads same S.scenes/S.flowEdges —
+// no separate data. "Reorder" mutates S.scenes array order directly (mobile has no x/y position
+// concept). Branches are shown as an indented sub-card directly under their "from" scene, instead
+// of crossing lines (which don't work well on narrow screens).
+function renderFlowCanvasMobile(){
+  var list=document.getElementById('flowCanvasMobileList');
+  if(!list)return;
+  var edges=S.flowEdges||[];
+  // group branch targets by their "from" scene id, in edge-creation order
+  var branchChildren={}; // fromId -> [toId,...]
+  edges.forEach(function(e){
+    if(!branchChildren[e.from])branchChildren[e.from]=[];
+    branchChildren[e.from].push(e.to);
+  });
+  var branchedIds={}; // scene ids that appear as a branch target — rendered inline under parent, skipped in main loop
+  edges.forEach(function(e){branchedIds[e.to]=true;});
+
+  function nodeHtml(sc,isBranch){
+    var idx=S.scenes.indexOf(sc);
+    var title=sc.title||'Untitled scene';
+    var chips='';
+    if(sc.beat)chips+='<span class="fcChip fcChipBeat">'+escapeHtml(sc.beat)+'</span>';
+    if(sc.location)chips+='<span class="fcChip fcChipLoc">&#128205; '+escapeHtml(sc.location)+'</span>';
+    var actionFilled=!!(sc.script&&sc.script.trim());
+    var motionFilled=!!(sc.movement&&sc.movement.trim());
+    var sel=FC_SELECTED.indexOf(sc.id)>-1;
+    var h='<div class="fcMobileNode'+(isBranch?' branchOf':'')+(sel?' selected':'')+'" data-mscid="'+sc.id+'">';
+    if(isBranch)h+='<div class="fcMobileBranchLabel">&#8618; branch</div>';
+    h+='<div class="fcMobileReorderRow">'+
+      (isBranch?'':'<span class="fcMobileHandle" data-mreorder-handle="'+sc.id+'">&#9776;</span>')+
+      '<span class="fcBadge">S'+(idx+1)+'</span>'+
+      '<span class="fcTitle" style="flex:1;">'+escapeHtml(title)+'</span>'+
+      '</div>'+
+      (chips?'<div class="fcChips">'+chips+'</div>':'')+
+      '<div class="fcPreviewRow"><span class="fcDot '+(actionFilled?'filled':'empty')+'"></span><span class="fcPreviewLabel">Action</span><span class="fcPreviewText">'+(actionFilled?escapeHtml(sc.script):'—')+'</span></div>'+
+      '<div class="fcPreviewRow"><span class="fcDot '+(motionFilled?'filled':'empty')+'"></span><span class="fcPreviewLabel">Motion</span><span class="fcPreviewText">'+(motionFilled?escapeHtml(sc.movement):'—')+'</span></div>'+
+      '<div class="fcFooter"><label><input type="checkbox" data-fcprogress="'+sc.id+'" '+(sc.progress&&sc.progress.generated?'checked':'')+'> Generated in Higgsfield</label></div>'+
+      '<div class="fcMobileBtnRow">'+
+        '<button class="fcMobileSmallBtn" data-mselect="'+sc.id+'">'+(sel?'&#10003; Selected':'Select')+'</button>'+
+        (isBranch?'':'<button class="fcMobileSmallBtn" data-mbranch="'+sc.id+'">+ Branch</button>')+
+      '</div>'+
+    '</div>';
+    return h;
+  }
+
+  var h='';
+  S.scenes.forEach(function(sc){
+    if(branchedIds[sc.id])return; // rendered inline under its parent below, not at top level
+    h+=nodeHtml(sc,false);
+    (branchChildren[sc.id]||[]).forEach(function(childId){
+      var childSc=S.scenes.find(function(s){return s.id===childId;});
+      if(childSc)h+=nodeHtml(childSc,true);
+    });
+  });
+  list.innerHTML=h;
+
+  list.querySelectorAll('[data-fcprogress]').forEach(function(cb){
+    cb.addEventListener('change',function(){
+      var scId=Number(cb.getAttribute('data-fcprogress'));
+      var sc=S.scenes.find(function(s){return s.id===scId;});
+      if(!sc)return;
+      if(!sc.progress)sc.progress={generated:false};
+      sc.progress.generated=cb.checked;
+      save();renderQueue();
+    });
+  });
+  list.querySelectorAll('[data-mselect]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var scId=Number(btn.getAttribute('data-mselect'));
+      var idx=FC_SELECTED.indexOf(scId);
+      if(idx>-1)FC_SELECTED.splice(idx,1);else FC_SELECTED.push(scId);
+      renderFlowCanvasMobile();
+      fcUpdateMobileSelBar();
+    });
+  });
+  list.querySelectorAll('[data-mbranch]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      fcMobileBranchPicker(Number(btn.getAttribute('data-mbranch')));
+    });
+  });
+  fcBindMobileReorder(list);
+  fcUpdateMobileSelBar();
+}
+
+function fcUpdateMobileSelBar(){
+  var bar=document.getElementById('fcMobileSelBar');
+  var lbl=document.getElementById('fcMobileSelCount');
+  if(!bar||!lbl)return;
+  if(FC_SELECTED.length){
+    bar.style.display='flex';
+    lbl.textContent=FC_SELECTED.length+' selected';
+  }else{
+    bar.style.display='none';
+  }
+}
+
+// Simple picker: prompt-based selection of an existing scene to branch to. Kept intentionally
+// minimal for mobile — a fancier modal can replace this later without touching the data model.
+function fcMobileBranchPicker(fromId){
+  var options=S.scenes.filter(function(s){return s.id!==fromId;});
+  if(!options.length){alert('Add another scene first to create a branch.');return;}
+  var listText=options.map(function(s,i){return (i+1)+'. '+(s.title||'Untitled scene');}).join('\n');
+  var choice=prompt('Branch "'+ (S.scenes.find(function(s){return s.id===fromId;})||{}).title +'" to which scene? Enter number:\n'+listText);
+  if(!choice)return;
+  var n=parseInt(choice,10);
+  if(!n||n<1||n>options.length)return;
+  var toId=options[n-1].id;
+  var exists=(S.flowEdges||[]).some(function(e){return e.from===fromId&&e.to===toId;});
+  if(exists){alert('That branch already exists.');return;}
+  S.flowEdges=S.flowEdges||[];
+  S.flowEdges.push({id:'edge-'+Date.now()+'-'+Math.round(Math.random()*9999),from:fromId,to:toId,type:'branch'});
+  save();renderFlowCanvasMobile();
+}
+
+// Reorder via drag handle: touch-drag the handle up/down swaps scene array position.
+// This only changes S.scenes order (mobile's "position" concept) — does not touch desktop x/y.
+function fcBindMobileReorder(list){
+  list.querySelectorAll('[data-mreorder-handle]').forEach(function(handle){
+    var scId=Number(handle.getAttribute('data-mreorder-handle'));
+    var nodeEl=handle.closest('.fcMobileNode');
+    handle.addEventListener('touchstart',function(e){
+      e.stopPropagation();
+      var startY=e.touches[0].clientY;
+      var moved=false;
+      function onMove(ev){
+        var dy=ev.touches[0].clientY-startY;
+        if(Math.abs(dy)<24)return;
+        moved=true;
+        var siblings=Array.from(list.querySelectorAll('.fcMobileNode:not(.branchOf)'));
+        var curIdx=siblings.indexOf(nodeEl);
+        var targetIdx=dy>0?curIdx+1:curIdx-1;
+        if(targetIdx<0||targetIdx>=siblings.length)return;
+        var fromSceneIdx=S.scenes.findIndex(function(s){return s.id===scId;});
+        var targetScId=Number(siblings[targetIdx].getAttribute('data-mscid'));
+        var toSceneIdx=S.scenes.findIndex(function(s){return s.id===targetScId;});
+        if(fromSceneIdx<0||toSceneIdx<0)return;
+        var moved_=S.scenes.splice(fromSceneIdx,1)[0];
+        S.scenes.splice(toSceneIdx,0,moved_);
+        startY=ev.touches[0].clientY;
+        save();renderFlowCanvasMobile();
+      }
+      function onEnd(){
+        document.removeEventListener('touchmove',onMove);
+        document.removeEventListener('touchend',onEnd);
+      }
+      document.addEventListener('touchmove',onMove,{passive:true});
+      document.addEventListener('touchend',onEnd);
+    },{passive:true});
+    // mouse fallback for desktop-width testing of the mobile view
+    handle.addEventListener('mousedown',function(e){
+      e.stopPropagation();e.preventDefault();
+      var startY=e.clientY;
+      function onMove(ev){
+        var dy=ev.clientY-startY;
+        if(Math.abs(dy)<24)return;
+        var siblings=Array.from(list.querySelectorAll('.fcMobileNode:not(.branchOf)'));
+        var curIdx=siblings.indexOf(nodeEl);
+        var targetIdx=dy>0?curIdx+1:curIdx-1;
+        if(targetIdx<0||targetIdx>=siblings.length)return;
+        var fromSceneIdx=S.scenes.findIndex(function(s){return s.id===scId;});
+        var targetScId=Number(siblings[targetIdx].getAttribute('data-mscid'));
+        var toSceneIdx=S.scenes.findIndex(function(s){return s.id===targetScId;});
+        if(fromSceneIdx<0||toSceneIdx<0)return;
+        var moved_=S.scenes.splice(fromSceneIdx,1)[0];
+        S.scenes.splice(toSceneIdx,0,moved_);
+        startY=ev.clientY;
+        save();renderFlowCanvasMobile();
+      }
+      function onUp(){
+        document.removeEventListener('mousemove',onMove);
+        document.removeEventListener('mouseup',onUp);
+      }
+      document.addEventListener('mousemove',onMove);
+      document.addEventListener('mouseup',onUp);
+    });
+  });
+}
+
+function fcDrawEdges(){
+  var svg=document.getElementById('flowCanvasSvg');
+  if(!svg)return;
+  var lines='';
+  for(var i=0;i<S.scenes.length-1;i++){
+    var a=S.scenes[i].position,b=S.scenes[i+1].position;
+    if(!a||!b)continue;
+    var x1=a.x+FC_NODE_W/2,y1=a.y+50,x2=b.x+FC_NODE_W/2,y2=b.y+10;
+    lines+='<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="#3f3f46" stroke-width="2" />';
+  }
+  (S.flowEdges||[]).forEach(function(e){
+    var from=S.scenes.find(function(s){return s.id===e.from;});
+    var to=S.scenes.find(function(s){return s.id===e.to;});
+    if(!from||!to||!from.position||!to.position)return;
+    var x1=from.position.x+FC_NODE_W,y1=from.position.y+30;
+    var x2=to.position.x,y2=to.position.y+30;
+    lines+='<line class="fcEdgeBranch" data-edgeid="'+e.id+'" x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" />';
+  });
+  (S.assetLinks||[]).forEach(function(l){
+    var asset=(S.assets||[]).find(function(a){return a.id===l.assetId;});
+    var sc=S.scenes.find(function(s){return s.id===l.sceneId;});
+    if(!asset||!sc||!asset.position||!sc.position)return;
+    var x1=asset.position.x+170,y1=asset.position.y+25;
+    var x2=sc.position.x+FC_NODE_W/2,y2=sc.position.y;
+    lines+='<line class="fcEdgeAsset" data-alinkid="'+l.id+'" x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" />';
+  });
+  svg.innerHTML=lines;
+  svg.querySelectorAll('.fcEdgeBranch').forEach(function(line){
+    line.addEventListener('click',function(ev){
+      ev.stopPropagation();
+      var edgeId=line.getAttribute('data-edgeid');
+      if(confirm('Remove this branch connection?')){
+        S.flowEdges=(S.flowEdges||[]).filter(function(e){return e.id!==edgeId;});
+        save();fcDrawEdges();
+      }
+    });
+  });
+  svg.querySelectorAll('.fcEdgeAsset').forEach(function(line){
+    line.addEventListener('click',function(ev){
+      ev.stopPropagation();
+      var linkId=line.getAttribute('data-alinkid');
+      var link=(S.assetLinks||[]).find(function(l){return l.id===linkId;});
+      var label=link?'Remove this asset link?'+(link.instruction?' ("'+link.instruction+'")':''):'Remove this asset link?';
+      if(confirm(label)){
+        S.assetLinks=(S.assetLinks||[]).filter(function(l){return l.id!==linkId;});
+        save();
+        renderFlowCanvas(); // re-render (not just redraw edges) since the asset node itself may need to disappear
+      }
+    });
+  });
+}
+
+// Node drag: deltas must be divided by current zoom, since the viewport (and nodes inside it)
+// are visually scaled by CSS transform but node.style.left/top are still set in un-scaled px.
+function fcBindNodeDrag(){
+  document.querySelectorAll('.fcNode').forEach(function(node){
+    var checkbox=node.querySelector('[data-fcprogress]');
+    if(checkbox){
+      checkbox.addEventListener('change',function(e){
+        e.stopPropagation();
+        var scId=Number(checkbox.getAttribute('data-fcprogress'));
+        var sc=S.scenes.find(function(s){return s.id===scId;});
+        if(!sc)return;
+        if(!sc.progress)sc.progress={generated:false};
+        sc.progress.generated=checkbox.checked;
+        save();
+        renderQueue();
+      });
+    }
+    var handle=node.querySelector('[data-fchandle]');
+    if(handle){
+      handle.addEventListener('mousedown',function(e){
+        e.preventDefault();e.stopPropagation();
+        fcStartConnect(Number(handle.getAttribute('data-fchandle')),e.clientX,e.clientY);
+      });
+      handle.addEventListener('touchstart',function(e){
+        e.stopPropagation();
+        var t=e.touches[0];
+        fcStartConnect(Number(handle.getAttribute('data-fchandle')),t.clientX,t.clientY);
+      },{passive:true});
+    }
+    node.addEventListener('mousedown',function(e){
+      if(e.target.closest('.fcFooter')||e.target.closest('.fcHandle'))return;
+      e.preventDefault();e.stopPropagation();
+      var scId=Number(node.getAttribute('data-scid'));
+      var sc=S.scenes.find(function(s){return s.id===scId;});
+      if(!sc)return;
+      var startX=e.clientX,startY=e.clientY;
+      var origX=sc.position.x,origY=sc.position.y;
+      var moved=false;
+      function onMove(ev){
+        var dx=(ev.clientX-startX)/FCV.zoom,dy=(ev.clientY-startY)/FCV.zoom;
+        if(!moved&&(Math.abs(ev.clientX-startX)>4||Math.abs(ev.clientY-startY)>4)){
+          moved=true;node.classList.add('dragging');
+        }
+        if(!moved)return;
+        sc.position.x=Math.max(0,origX+dx);
+        sc.position.y=Math.max(0,origY+dy);
+        node.style.left=sc.position.x+'px';
+        node.style.top=sc.position.y+'px';
+        fcDrawEdges();
+      }
+      function onUp(){
+        document.removeEventListener('mousemove',onMove);
+        document.removeEventListener('mouseup',onUp);
+        node.classList.remove('dragging');
+        if(moved){save();}else{fcToggleSelect(scId,node);}
+      }
+      document.addEventListener('mousemove',onMove);
+      document.addEventListener('mouseup',onUp);
+    });
+    // touch support
+    node.addEventListener('touchstart',function(e){
+      if(e.target.closest('.fcFooter')||e.target.closest('.fcHandle'))return;
+      e.stopPropagation();
+      var scId=Number(node.getAttribute('data-scid'));
+      var sc=S.scenes.find(function(s){return s.id===scId;});
+      if(!sc)return;
+      var t=e.touches[0];
+      var startX=t.clientX,startY=t.clientY;
+      var origX=sc.position.x,origY=sc.position.y;
+      var moved=false;
+      function onMove(ev){
+        var tt=ev.touches[0];
+        var dx=(tt.clientX-startX)/FCV.zoom,dy=(tt.clientY-startY)/FCV.zoom;
+        if(!moved&&(Math.abs(tt.clientX-startX)>4||Math.abs(tt.clientY-startY)>4)){
+          moved=true;node.classList.add('dragging');
+        }
+        if(!moved)return;
+        sc.position.x=Math.max(0,origX+dx);
+        sc.position.y=Math.max(0,origY+dy);
+        node.style.left=sc.position.x+'px';
+        node.style.top=sc.position.y+'px';
+        fcDrawEdges();
+        ev.preventDefault();
+      }
+      function onEnd(){
+        document.removeEventListener('touchmove',onMove);
+        document.removeEventListener('touchend',onEnd);
+        node.classList.remove('dragging');
+        if(moved){save();}else{fcToggleSelect(scId,node);}
+      }
+      document.addEventListener('touchmove',onMove,{passive:false});
+      document.addEventListener('touchend',onEnd);
+    },{passive:true});
+  });
+}
+
+// Pan: dragging empty canvas space (not a node) moves the viewport via translate.
+function fcBindPan(){
+  var area=document.getElementById('flowCanvasArea');
+  if(!area||area.getAttribute('data-panbound'))return;
+  area.setAttribute('data-panbound','1');
+  area.addEventListener('mousedown',function(e){
+    if(e.target.closest('.fcNode'))return;
+    area.classList.add('panning');
+    var startX=e.clientX,startY=e.clientY;
+    var origX=FCV.x,origY=FCV.y;
+    function onMove(ev){
+      FCV.x=origX+(ev.clientX-startX);
+      FCV.y=origY+(ev.clientY-startY);
+      fcApplyViewportTransform();
+    }
+    function onUp(){
+      document.removeEventListener('mousemove',onMove);
+      document.removeEventListener('mouseup',onUp);
+      area.classList.remove('panning');
+    }
+    document.addEventListener('mousemove',onMove);
+    document.addEventListener('mouseup',onUp);
+  });
+  area.addEventListener('touchstart',function(e){
+    if(e.target.closest('.fcNode'))return;
+    var t=e.touches[0];
+    var startX=t.clientX,startY=t.clientY;
+    var origX=FCV.x,origY=FCV.y;
+    function onMove(ev){
+      var tt=ev.touches[0];
+      FCV.x=origX+(tt.clientX-startX);
+      FCV.y=origY+(tt.clientY-startY);
+      fcApplyViewportTransform();
+    }
+    function onEnd(){
+      document.removeEventListener('touchmove',onMove);
+      document.removeEventListener('touchend',onEnd);
+    }
+    document.addEventListener('touchmove',onMove,{passive:true});
+    document.addEventListener('touchend',onEnd);
+  },{passive:true});
+  // wheel = zoom (ctrl/cmd+wheel or plain wheel, centered roughly on cursor)
+  area.addEventListener('wheel',function(e){
+    e.preventDefault();
+    var delta=e.deltaY<0?0.08:-0.08;
+    FCV.zoom=Math.min(2,Math.max(0.4,Math.round((FCV.zoom+delta)*100)/100));
+    fcApplyViewportTransform();
+  },{passive:false});
+}
+
+function fcToggleSelect(scId,node){
+  var idx=FC_SELECTED.indexOf(scId);
+  if(idx>-1){FC_SELECTED.splice(idx,1);node.classList.remove('selected');}
+  else{FC_SELECTED.push(scId);node.classList.add('selected');}
+  fcUpdateSelToolbar();
+}
+
+function fcUpdateSelToolbar(){
+  var countEl=document.getElementById('fcSelCount');
+  var btnEl=document.getElementById('fcAddToQueueBtn');
+  if(!countEl||!btnEl)return;
+  if(FC_SELECTED.length){
+    countEl.style.display='inline';
+    countEl.textContent=FC_SELECTED.length+' selected';
+    btnEl.style.display='inline-flex';
+  }else{
+    countEl.style.display='none';
+    btnEl.style.display='none';
+  }
+}
+
+// ═══ EXECUTION QUEUE ═══
+// Queue items reference scene ids directly — no content duplication. "queued" status lives in
+// S.flowQueue (array of scene ids currently in queue, order = display order). Per-field "Copied"
+// state is UI-only (not persisted) since it just tracks this session's copy actions, not real data.
+var FC_COPIED={}; // sceneId -> {script:bool, movement:bool} — session-only "Copied" visual state
+
+function fcAddSelectedToQueue(){
+  if(!FC_SELECTED.length)return;
+  S.flowQueue=S.flowQueue||[];
+  FC_SELECTED.forEach(function(scId){
+    if(S.flowQueue.indexOf(scId)===-1)S.flowQueue.push(scId);
+  });
+  FC_SELECTED=[];
+  document.querySelectorAll('.fcNode.selected').forEach(function(n){n.classList.remove('selected');});
+  fcUpdateSelToolbar();
+  fcUpdateMobileSelBar();
+  save();
+  renderQueue();
+  if(fcIsMobile())renderFlowCanvasMobile();
+}
+
+function fcClearQueue(){
+  if(!confirm('Clear the entire queue? Scene data is untouched — this only clears the queue list.'))return;
+  S.flowQueue=[];
+  save();
+  renderQueue();
+}
+
+function fcRemoveFromQueue(scId){
+  S.flowQueue=(S.flowQueue||[]).filter(function(id){return id!==scId;});
+  save();
+  renderQueue();
+}
+
+function fcQueueStatus(sc){
+  if(sc.progress&&sc.progress.generated)return'generated';
+  var copied=FC_COPIED[sc.id];
+  if(copied&&(copied.script||copied.movement))return'copied';
+  return'pending';
+}
+
+function renderQueue(){
+  var list=document.getElementById('fcQueueList');
+  var clearBtn=document.getElementById('fcClearQueueBtn');
+  if(!list)return;
+  var queue=S.flowQueue||[];
+  if(!queue.length){
+    list.innerHTML='<div style="text-align:center;padding:18px 12px;color:#52525b;font-size:12px;">Queue is empty. Select nodes on the canvas above and click "Add to Queue".</div>';
+    if(clearBtn)clearBtn.style.display='none';
+    return;
+  }
+  if(clearBtn)clearBtn.style.display='inline-block';
+  var h='';
+  queue.forEach(function(scId){
+    var sc=S.scenes.find(function(s){return s.id===scId;});
+    if(!sc)return; // scene was deleted — silently skip, queue is just a reference list
+    var idx=S.scenes.indexOf(sc);
+    var status=fcQueueStatus(sc);
+    var title=sc.title||'Untitled scene';
+    var actionVal=(sc.script||'').trim();
+    var motionVal=(sc.movement||'').trim();
+    h+='<div class="qCard">'+
+      '<div class="qCardHdr">'+
+        '<span class="fcBadge">S'+(idx+1)+'</span>'+
+        '<span style="font-size:12px;color:#e4e4e7;flex:1;">'+escapeHtml(title)+'</span>'+
+        '<span class="qPill '+status+'">'+(status==='generated'?'Generated':status==='copied'?'Copied':'Pending')+'</span>'+
+        '<label style="display:flex;align-items:center;gap:4px;font-size:9px;color:#71717a;cursor:pointer;"><input type="checkbox" data-qgenerated="'+sc.id+'" '+(sc.progress&&sc.progress.generated?'checked':'')+' style="accent-color:#06B6D4;cursor:pointer;width:11px;height:11px;">Done</label>'+
+        '<button class="btnD" style="font-size:10px;padding:3px 8px;" data-qremove="'+sc.id+'">&times;</button>'+
+      '</div>'+
+      '<div class="qField"><span class="qFieldLabel">Action</span><span class="qFieldText">'+(actionVal?escapeHtml(actionVal):'(empty — fill in node first)')+'</span>'+
+        '<button class="qCopyBtn'+(FC_COPIED[sc.id]&&FC_COPIED[sc.id].script?' copied':'')+'" data-qcopy="'+sc.id+'" data-qfield="script" '+(actionVal?'':'disabled')+'>'+(FC_COPIED[sc.id]&&FC_COPIED[sc.id].script?'&#10003; Copied':'Copy')+'</button></div>'+
+      '<div class="qField"><span class="qFieldLabel">Motion</span><span class="qFieldText">'+(motionVal?escapeHtml(motionVal):'(empty — fill in node first)')+'</span>'+
+        '<button class="qCopyBtn'+(FC_COPIED[sc.id]&&FC_COPIED[sc.id].movement?' copied':'')+'" data-qcopy="'+sc.id+'" data-qfield="movement" '+(motionVal?'':'disabled')+'>'+(FC_COPIED[sc.id]&&FC_COPIED[sc.id].movement?'&#10003; Copied':'Copy')+'</button></div>'+
+    '</div>';
+  });
+  list.innerHTML=h;
+  list.querySelectorAll('[data-qcopy]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var scId=Number(btn.getAttribute('data-qcopy'));
+      var field=btn.getAttribute('data-qfield');
+      var sc=S.scenes.find(function(s){return s.id===scId;});
+      if(!sc)return;
+      var val=field==='script'?sc.script:sc.movement;
+      if(!val)return;
+      navigator.clipboard.writeText(val).then(function(){
+        if(!FC_COPIED[scId])FC_COPIED[scId]={};
+        FC_COPIED[scId][field]=true;
+        renderQueue();
+      }).catch(function(){
+        // clipboard API may be unavailable (e.g. insecure context) — fall back silently, no crash
+      });
+    });
+  });
+  list.querySelectorAll('[data-qremove]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      fcRemoveFromQueue(Number(btn.getAttribute('data-qremove')));
+    });
+  });
+  list.querySelectorAll('[data-qgenerated]').forEach(function(cb){
+    cb.addEventListener('change',function(){
+      var scId=Number(cb.getAttribute('data-qgenerated'));
+      var sc=S.scenes.find(function(s){return s.id===scId;});
+      if(!sc)return;
+      if(!sc.progress)sc.progress={generated:false};
+      sc.progress.generated=cb.checked;
+      save();
+      renderQueue();
+      // also reflect on the canvas node's checkbox if currently rendered
+      var nodeCb=document.querySelector('.fcNode [data-fcprogress="'+scId+'"]');
+      if(nodeCb)nodeCb.checked=cb.checked;
+    });
+  });
+}
+
+function escapeHtml(s){
+  return String(s||'').replace(/[&<>"']/g,function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
 }
 
 function renderScenes(){
@@ -3174,6 +4301,27 @@ function buildAnchor(sc){
   return '[ANCHOR] Maintain throughout: '+parts.join(' — ');
 }
 
+// Build the "ASSETS IN SCENE:" block for a scene, from S.assetLinks. Always appended at the very
+// END of a generated prompt (never merged into Action/Movement/other fields) so it can never
+// corrupt the prompt's existing structure — purely additive. Returns '' if the scene has no links.
+function assetSectionFor(sc){
+  var links=(S.assetLinks||[]).filter(function(l){return l.sceneId===sc.id;});
+  if(!links.length)return'';
+  var lines=links.map(function(l){
+    var asset=(S.assets||[]).find(function(a){return a.id===l.assetId;});
+    if(!asset)return null; // link survived but asset was deleted somehow — skip defensively
+    var typeLabel=asset.type?'['+asset.type.charAt(0).toUpperCase()+asset.type.slice(1)+'] ':'';
+    var desc=asset.description?asset.description.trim():'';
+    var instr=l.instruction?l.instruction.trim():'';
+    var bits=[];
+    if(desc)bits.push(desc);
+    if(instr)bits.push(instr);
+    return '- '+typeLabel+(asset.name||'Untitled')+(bits.length?': '+bits.join(' — '):'');
+  }).filter(Boolean);
+  if(!lines.length)return'';
+  return 'ASSETS IN SCENE:\n'+lines.join('\n');
+}
+
 // REALISTIC IMAGE PROMPT — shot type translated to composition, injected FIRST, brand DNA cannot override
 function bldImg(sc){
   var p=S.proj;
@@ -3222,7 +4370,9 @@ function bldImg(sc){
   var hasCustomStyle=cvsEl&&cvsEl.value.trim();
   pts.push(hasCustomStyle?PHOTOREALISM_TECHNICAL:(PHOTOREALISM_TECHNICAL+PHOTOREALISM_AESTHETIC));
   var ar=p.platform&&p.platform.indexOf('9:16')>-1?'9:16':p.platform&&p.platform.indexOf('4:5')>-1?'4:5':p.platform&&p.platform.indexOf('2.39')>-1?'2.39:1':'16:9';
-  return pts.join('. ')+'\nAspect ratio: '+ar+'.';
+  var out=pts.join('. ')+'\nAspect ratio: '+ar+'.';
+  var assetBlock=assetSectionFor(sc);
+  return assetBlock?out+'\n\n'+assetBlock:out;
 }
 
 function bldNeg(sc){
@@ -3263,7 +4413,9 @@ function bldKling(sc){
     if(anchor)parts.push(anchor);
     var fmt2=p.platform&&p.platform.indexOf('9:16')>-1?'9:16':'16:9';
     parts.push('[OUTPUT] '+fmt2+', 4-6s');
-    return parts.join('\n');
+    var klingAnimOut=parts.join('\n');
+    var klingAnimAssetBlock=assetSectionFor(sc);
+    return klingAnimAssetBlock?klingAnimOut+'\n\n'+klingAnimAssetBlock:klingAnimOut;
   }
 
   // Realistic — shot type as SHORT label, movement as separate field
@@ -3286,7 +4438,9 @@ function bldKling(sc){
   if(dlg)parts.push(dlg);
   if(S.dna.instructions)parts.push('NOTE: '+S.dna.instructions.split('.')[0]);
   parts.push('OUTPUT: '+fmt+', 4-6s, photorealistic, no anatomy distortion');
-  return parts.filter(Boolean).join('\n');
+  var klingOut=parts.filter(Boolean).join('\n');
+  var klingAssetBlock=assetSectionFor(sc);
+  return klingAssetBlock?klingOut+'\n\n'+klingAssetBlock:klingOut;
 }
 
 // SEEDANCE — timeline format, shot type as label, movement explicit
@@ -3324,7 +4478,9 @@ function bldSeed(sc){
   if(isAnim){var anchor=buildAnchor(sc);if(anchor)parts.push(anchor);}
   var ar=p.platform&&p.platform.indexOf('9:16')>-1?'9:16':p.platform&&p.platform.indexOf('2.39')>-1?'2.39:1':'16:9';
   parts.push('OUTPUT: '+ar+', 4-6 seconds');
-  return parts.join('\n');
+  var seedOut=parts.join('\n');
+  var seedAssetBlock=assetSectionFor(sc);
+  return seedAssetBlock?seedOut+'\n\n'+seedAssetBlock:seedOut;
 }
 
 // ANIMATED IMAGE PROMPT
@@ -3348,7 +4504,9 @@ function bldAnimImg(sc){
   if(S.dna.instructions)pts.push(S.dna.instructions);
   pts.push('High quality illustration, sharp clean artwork, professional animation production quality');
   var ar=p.platform&&p.platform.indexOf('9:16')>-1?'9:16':p.platform&&p.platform.indexOf('4:5')>-1?'4:5':'16:9';
-  return pts.join('. ')+'\nAspect ratio: '+ar+'.';
+  var animOut=pts.join('. ')+'\nAspect ratio: '+ar+'.';
+  var animAssetBlock=assetSectionFor(sc);
+  return animAssetBlock?animOut+'\n\n'+animAssetBlock:animOut;
 }
 
 // MULTI-SHOT
@@ -3562,13 +4720,97 @@ function doImport(input){
   };
   reader.readAsText(file);
 }
+// ═══ FLOW CANVAS EXPORT/IMPORT ═══ (separate from Export Brand above — this covers only
+// canvas structure: node position, edges/branches, progress, and viewport. Never scene content.
+// On import, nodes are matched onto existing S.scenes by id — scenes whose id no longer exists
+// are skipped (their canvas data is silently dropped, scene content itself is never touched).
+function fcExportCanvas(){
+  var payload={
+    _type:'cineaihub_flowcanvas',
+    _version:'v11',
+    meta:{
+      projectName:S.dna.title||S.dna.name||'Untitled Project',
+      createdAt:new Date().toISOString()
+    },
+    viewport:{x:FCV.x,y:FCV.y,zoom:FCV.zoom},
+    nodes:S.scenes.map(function(sc,idx){
+      return {
+        id:sc.id,
+        order:idx,
+        position:sc.position||null,
+        progress:sc.progress||{generated:false}
+      };
+    }),
+    edges:S.flowEdges||[]
+  };
+  var blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  var name=(S.dna.title||S.dna.name||'canvas').replace(/[^a-z0-9]/gi,'_').toLowerCase();
+  a.download='cineaihub_flowcanvas_'+name+'_'+Date.now()+'.json';
+  a.click();
+}
+
+function fcImportCanvas(input){
+  var file=input.files[0];if(!file)return;
+  var reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      var d=JSON.parse(e.target.result);
+      if(d._type&&d._type!=='cineaihub_flowcanvas'){
+        alert('That file doesn\'t look like a Flow Canvas export — try Export Canvas to generate one.');
+        input.value='';return;
+      }
+      var applied=0,skipped=0;
+      (d.nodes||[]).forEach(function(n){
+        var sc=S.scenes.find(function(s){return s.id===n.id;});
+        if(!sc){skipped++;return;}
+        if(n.position)sc.position=n.position;
+        if(n.progress)sc.progress=n.progress;
+        applied++;
+      });
+      // Reorder S.scenes to match the imported "order" field where possible, for nodes that matched
+      if(d.nodes&&d.nodes.length){
+        var orderMap={};
+        d.nodes.forEach(function(n){orderMap[n.id]=n.order;});
+        S.scenes.sort(function(a,b){
+          var oa=orderMap[a.id],ob=orderMap[b.id];
+          if(oa===undefined&&ob===undefined)return 0;
+          if(oa===undefined)return 1;
+          if(ob===undefined)return -1;
+          return oa-ob;
+        });
+      }
+      if(Array.isArray(d.edges)){
+        // drop edges referencing scenes that no longer exist
+        S.flowEdges=d.edges.filter(function(ed){
+          return S.scenes.some(function(s){return s.id===ed.from;})&&S.scenes.some(function(s){return s.id===ed.to;});
+        });
+      }
+      if(d.viewport){
+        FCV.x=d.viewport.x||0;FCV.y=d.viewport.y||0;FCV.zoom=d.viewport.zoom||1;
+      }
+      save();
+      renderFlowCanvas();
+      var bar=document.getElementById('fcImportSuccessBar');
+      if(bar){
+        bar.querySelector('span').textContent='\u2713 Canvas loaded — '+applied+' scene(s) matched'+(skipped?', '+skipped+' skipped (no matching scene)':'')+'.';
+        bar.style.display='flex';
+        setTimeout(function(){bar.style.display='none';},4000);
+      }
+    }catch(err){alert('Could not load file — make sure it\'s a CineAI Hub Flow Canvas export.');}
+    input.value='';
+  };
+  reader.readAsText(file);
+}
+
 function doReset(){
   var bar=document.getElementById('resetBar');
   if(bar)bar.style.display='flex';
 }
 function doResetConfirm(){
   var bar=document.getElementById('resetBar');if(bar)bar.style.display='none';
-  S={proj:{type:'',platform:'',genre:'',mood:'',visualStyle:'',emotionalCore:'',mode:'realistic'},videoMode:'img2vid',dna:{name:'',audience:'',tone:'',title:'',coreMessage:'',painPoint:'',instructions:''},viralNotes:'',chars:[],scenes:[],aiTool:'chatgpt',outMode:'single',storyboard:Object.assign({},SB_DEFAULT,{panels:[]}),aiDirector:Object.assign({},AID_DEFAULT,{cinema:Object.assign({},AID_DEFAULT.cinema,{savedPrompts:[]}),banana:Object.assign({},AID_DEFAULT.banana,{savedPrompts:[]})})};
+  S={proj:{type:'',platform:'',genre:'',mood:'',visualStyle:'',emotionalCore:'',mode:'realistic'},videoMode:'img2vid',dna:{name:'',audience:'',tone:'',title:'',coreMessage:'',painPoint:'',instructions:''},viralNotes:'',chars:[],scenes:[],flowEdges:[],flowQueue:[],assets:[],assetLinks:[],aiTool:'chatgpt',outMode:'single',storyboard:Object.assign({},SB_DEFAULT,{panels:[]}),aiDirector:Object.assign({},AID_DEFAULT,{cinema:Object.assign({},AID_DEFAULT.cinema,{savedPrompts:[]}),banana:Object.assign({},AID_DEFAULT.banana,{savedPrompts:[]})})};
   ['cah8','cah7','cah6'].forEach(function(k){localStorage.removeItem(k);});
   ['platform','genre','mood','visualStyle','emotionalCore','dnaName','dnaAudience','dnaTone','dnaInstructions','dnaTitle','dnaCoreMessage','dnaPainPoint'].forEach(function(f){var el=document.getElementById(f);if(el)el.value='';});
   renderPT();renderChars();renderScenes();renderPanels();populateStyleDropdown();applyStoryboardForm();aidApplyForm();
