@@ -65,63 +65,7 @@ textarea.inp{resize:vertical;min-height:70px;}
 .navBtn[data-nav="output"].on{background:#2DD4BF;color:#0a0f0a;border-color:#2DD4BF;}
 .navBtn[data-nav="storyboard"].on{background:#8B5CF6;color:#fff;border-color:#8B5CF6;}
 .navBtn[data-nav="aidirector"].on{background:#F97316;color:#fff;border-color:#F97316;}
-.navBtn[data-nav="flowcanvas"].on{background:#06B6D4;color:#0a0f0a;border-color:#06B6D4;}
-#flowCanvasArea{position:relative;width:100%;height:600px;overflow:hidden;background:#0d0f0d;border:1px solid #2a2e2a;border-radius:10px;background-image:radial-gradient(circle,#22251f 1px,transparent 1px);background-size:22px 22px;cursor:grab;}
-#flowCanvasArea.panning{cursor:grabbing;}
-#flowCanvasViewport{position:absolute;top:0;left:0;transform-origin:0 0;}
-#flowCanvasInner{position:relative;width:2400px;height:1800px;}
-.fcNode{position:absolute;width:220px;background:#1a1d1a;border:1px solid #2a2e2a;border-radius:9px;padding:10px 12px;cursor:grab;user-select:none;box-shadow:0 2px 10px #00000040;transition:border-color .15s;}
-.fcNode:hover{border-color:#06B6D455;}
-.fcNode.dragging{cursor:grabbing;z-index:20;border-color:#06B6D4;box-shadow:0 4px 18px #06B6D440;}
-.fcNodeHdr{display:flex;align-items:center;gap:6px;margin-bottom:6px;}
-.fcBadge{font-family:"JetBrains Mono",monospace;font-size:10px;color:#0a0f0a;background:#06B6D4;border-radius:4px;padding:1px 6px;font-weight:600;flex-shrink:0;}
-.fcTitle{font-size:12px;font-weight:500;color:#e4e4e7;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;}
-.fcEmpty{font-size:11px;color:#52525b;font-style:italic;}
-.fcChips{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:7px;}
-.fcChip{font-size:9px;padding:2px 7px;border-radius:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:95px;}
-.fcChipLoc{color:#60a5fa;background:#3b82f611;border:1px solid #3b82f622;}
-.fcChipBeat{color:#a3e635;background:#84CC1611;border:1px solid #84CC1622;}
-.fcPreviewRow{display:flex;align-items:flex-start;gap:5px;font-size:10px;color:#a1a1aa;margin-bottom:3px;line-height:1.4;}
-.fcDot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:4px;}
-.fcDot.filled{background:#4ade80;}
-.fcDot.empty{background:#3f3f46;}
-.fcPreviewLabel{color:#52525b;flex-shrink:0;width:38px;}
-.fcPreviewText{overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;}
-.fcFooter{display:flex;align-items:center;gap:6px;margin-top:8px;padding-top:7px;border-top:1px solid #2a2e2a;}
-.fcFooter label{display:flex;align-items:center;gap:5px;font-size:10px;color:#71717a;cursor:pointer;user-select:none;}
-.fcFooter input[type=checkbox]{accent-color:#06B6D4;cursor:pointer;width:12px;height:12px;}
-.fcHandle{position:absolute;right:-7px;top:50%;transform:translateY(-50%);width:14px;height:14px;border-radius:50%;background:#06B6D4;border:2px solid #0d0f0d;cursor:crosshair;z-index:5;opacity:0;transition:opacity .15s,transform .15s;}
-.fcNode:hover .fcHandle{opacity:1;}
-.fcHandle:hover{transform:translateY(-50%) scale(1.3);}
-.fcEdgeBranch{stroke:#8B5CF6;stroke-width:2;stroke-dasharray:5,4;cursor:pointer;pointer-events:stroke;}
-.fcEdgeBranch:hover{stroke:#a78bfa;stroke-width:3;}
-.fcNode.selected{border-color:#06B6D4;box-shadow:0 0 0 2px #06B6D440;}
-.fcSelCheck{position:absolute;left:-7px;top:-7px;width:16px;height:16px;border-radius:50%;background:#06B6D4;color:#0a0f0a;font-size:10px;font-weight:700;display:none;align-items:center;justify-content:center;}
-.fcNode.selected .fcSelCheck{display:flex;}
-.qCard{background:#141714;border:1px solid #2a2e2a;border-radius:8px;padding:10px 12px;margin-bottom:8px;}
-.qCardHdr{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
-.qPill{font-size:9px;font-weight:600;padding:2px 8px;border-radius:10px;text-transform:uppercase;letter-spacing:.03em;}
-.qPill.pending{background:#3f3f4633;color:#a1a1aa;}
-.qPill.copied{background:#3b82f622;color:#60a5fa;}
-.qPill.generated{background:#16a34a22;color:#4ade80;}
-.qField{display:flex;align-items:flex-start;gap:8px;margin-bottom:6px;}
-.qFieldLabel{font-size:9px;color:#52525b;text-transform:uppercase;letter-spacing:.04em;width:48px;flex-shrink:0;padding-top:4px;}
-.qFieldText{flex:1;font-size:11px;color:#a1a1aa;background:#0d0f0d;border:1px solid #2a2e2a;border-radius:5px;padding:5px 8px;font-family:"JetBrains Mono",monospace;line-height:1.5;word-break:break-word;}
-.qCopyBtn{font-size:10px;background:#2a2e2a;color:#71717a;border:none;border-radius:4px;padding:4px 9px;cursor:pointer;flex-shrink:0;transition:all .15s;}
-.qCopyBtn:hover{background:#06B6D4;color:#0a0f0a;}
-.qCopyBtn.copied{background:#16a34a;color:#fff;}
-.qCopyBtn:disabled{opacity:.35;cursor:not-allowed;}
-/* Mobile (≤700px): vertical stacked list, no free positioning, no pan/zoom, branches as indent */
-.fcMobileList{display:none;}
-.fcMobileNode{background:#1a1d1a;border:1px solid #2a2e2a;border-radius:9px;padding:10px 12px;margin-bottom:10px;position:relative;}
-.fcMobileNode.selected{border-color:#06B6D4;box-shadow:0 0 0 2px #06B6D440;}
-.fcMobileNode.branchOf{margin-left:26px;border-left:2px solid #8B5CF6;}
-.fcMobileBranchLabel{font-size:9px;color:#a78bfa;display:flex;align-items:center;gap:4px;margin-bottom:5px;}
-.fcMobileHandle{font-size:14px;color:#52525b;padding:2px 6px;cursor:grab;touch-action:none;}
-.fcMobileReorderRow{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
-.fcMobileBtnRow{display:flex;gap:6px;margin-top:8px;}
-.fcMobileSmallBtn{font-size:10px;background:#2a2e2a;color:#71717a;border:none;border-radius:5px;padding:5px 9px;cursor:pointer;flex:1;text-align:center;}
-.fcMobileSmallBtn:active{background:#06B6D4;color:#0a0f0a;}
+.navBtn[data-nav="assets"].on{background:#EC4899;color:#fff;border-color:#EC4899;}
 .assetTypeBtn{flex:1;padding:7px 10px;border-radius:6px;font-size:11px;font-weight:500;cursor:pointer;border:1px solid #3f3f46;background:transparent;color:#71717a;transition:all .15s;text-align:center;}
 .assetTypeBtn.on{border-color:#EC4899;background:#EC489922;color:#f472b6;}
 .assetCard{background:#141714;border:1px solid #2a2e2a;border-radius:8px;padding:10px 12px;margin-bottom:8px;}
@@ -129,22 +73,6 @@ textarea.inp{resize:vertical;min-height:70px;}
 .assetTypeBadge.character{background:#EC489922;color:#f472b6;}
 .assetTypeBadge.product{background:#F59E0B22;color:#fbbf24;}
 .assetTypeBadge.location{background:#14B8A622;color:#2dd4bf;}
-.fcAssetNode{position:absolute;width:170px;background:#1a1d1a;border:1px solid #EC489955;border-radius:8px;padding:8px 10px;cursor:grab;user-select:none;box-shadow:0 2px 8px #00000040;z-index:3;}
-.fcAssetNode:hover{border-color:#EC4899;}
-.fcAssetNode.dragging{cursor:grabbing;z-index:21;box-shadow:0 4px 16px #EC489940;}
-.fcAssetNodeHdr{display:flex;align-items:center;gap:6px;margin-bottom:4px;}
-.fcAssetIcon{font-size:11px;flex-shrink:0;}
-.fcAssetTitle{font-size:11px;font-weight:500;color:#e4e4e7;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;}
-.fcAssetDesc{font-size:9px;color:#71717a;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-.fcAssetHandle{position:absolute;right:-6px;top:50%;transform:translateY(-50%);width:12px;height:12px;border-radius:50%;background:#EC4899;border:2px solid #0d0f0d;cursor:crosshair;z-index:5;opacity:0;transition:opacity .15s;}
-.fcAssetNode:hover .fcAssetHandle{opacity:1;}
-.fcEdgeAsset{stroke:#EC4899;stroke-width:1.5;stroke-opacity:.7;cursor:pointer;pointer-events:stroke;}
-.fcEdgeAsset:hover{stroke-opacity:1;stroke-width:2.5;}
-@media(max-width:700px){
-  #flowCanvasArea,#flowCanvasToolbar{display:none;}
-  .fcMobileList{display:block;}
-}
-#flowCanvasSvg{position:absolute;top:0;left:0;pointer-events:none;}
 .modeToggle{display:flex;background:#1a1d1a;border:1px solid #3f3f46;border-radius:8px;padding:3px;gap:3px;}
 .modeBtn{padding:5px 14px;border-radius:5px;font-size:11px;font-weight:500;cursor:pointer;border:none;background:transparent;color:#71717a;font-family:"DM Sans",sans-serif;transition:all .2s;white-space:nowrap;}
 .modeBtn.on{background:#84CC16;color:#0a0f0a;}
@@ -195,7 +123,7 @@ textarea.inp{resize:vertical;min-height:70px;}
     <div style="width:2px;background:#52525b;height:24px;flex-shrink:0;align-self:center;border-radius:2px;"></div>
     <button class="navBtn" data-nav="storyboard">📋 Storyboard</button>
     <button class="navBtn" data-nav="aidirector">🎙️ AI Director Pro</button>
-    <button class="navBtn" data-nav="flowcanvas">🧭 Flow Canvas</button>
+    <button class="navBtn" data-nav="assets">🎭 Assets</button>
   </div>
 
   <!-- ══ STORY BUILDER ══ -->
@@ -284,6 +212,31 @@ textarea.inp{resize:vertical;min-height:70px;}
             <option>Identity Crisis</option><option>Bittersweet</option>
           </select>
           <div id="emotionalCoreDesc" style="font-size:10px;color:#52525b;margin-top:4px;min-height:14px;"></div>
+        </div>
+      </div>
+      <div class="g2" style="margin-top:10px;">
+        <div>
+          <label class="lbl">Content Intent <span style="color:#f472b6;font-size:9px;">shapes visual grammar for your goal</span></label>
+          <select class="inp" id="intent" onchange="updateIntentDesc();save()">
+            <option value="">Select intent...</option>
+            <option value="branding">Branding / Brand Film</option>
+            <option value="ugc_review">Review / UGC</option>
+            <option value="education">Education / Explainer</option>
+            <option value="storytelling">Storytelling / Narrative</option>
+            <option value="promo">Hype / Promo</option>
+            <option value="testimonial">Testimonial / Talking Head</option>
+          </select>
+          <div id="intentDesc" style="font-size:10px;color:#52525b;margin-top:4px;min-height:14px;"></div>
+        </div>
+        <div>
+          <label class="lbl">Texture Finish <span style="color:#f472b6;font-size:9px;">how raw or polished the capture feels</span></label>
+          <select class="inp" id="texFinish" onchange="save()">
+            <option value="">Auto — follows Content Intent</option>
+            <option value="raw">Raw — celluloid imperfection, exposure sacrifice, optical defects</option>
+            <option value="balanced">Balanced — restrained texture, subtle artifacts</option>
+            <option value="clean">Clean — commercial polish, zero artifacts</option>
+          </select>
+          <div style="font-size:10px;color:#52525b;margin-top:4px;min-height:14px;">Drives EXPOSURE and OPTICS layers in every prompt</div>
         </div>
       </div>
     </div>
@@ -474,6 +427,8 @@ textarea.inp{resize:vertical;min-height:70px;}
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;">
         <button class="btnP" onclick="genSceneTechPrompt()">&#9889; Generate Technical Suggestions</button>
         <button class="btnG" id="techPromptCpBtn" onclick="cpEl('techPromptBox',this)" style="display:none;">&#128203; Copy</button>
+        <button class="btnG" id="techExpandBtn" onclick="togTechBox()" style="display:none;font-size:11px;">Expand &#9662;</button>
+        <button class="btnG" onclick="clearTechSuggestions()" style="font-size:11px;">&#10005; Clear</button>
       </div>
       <div class="sBox" id="techPromptBox" style="display:none;"></div>
       <div id="techPasteWrap" style="margin-top:10px;display:none;">
@@ -506,10 +461,6 @@ textarea.inp{resize:vertical;min-height:70px;}
         <div style="font-size:12px;color:#52525b;">Final prompts ready to copy → paste into Kling, Seedance, or GPT Image 2</div>
       </div>
       <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-        <div class="outToggle">
-          <button class="outBtn on" id="outSingle" onclick="setOutMode('single',this)">Single Shot</button>
-          <button class="outBtn" id="outMulti" onclick="setOutMode('multi',this)">Multi-Shot</button>
-        </div>
         <div class="outToggle" style="border-color:#3b82f633;">
           <button class="outBtn on" id="vidImg2" onclick="setVidMode('img2vid',this)" title="Image already generated — only animate, skip character description in video prompt">Img&#8594;Vid</button>
           <button class="outBtn" id="vidTxt2" onclick="setVidMode('txt2vid',this)" title="Generate video from text — include character description">Txt&#8594;Vid</button>
@@ -900,20 +851,17 @@ textarea.inp{resize:vertical;min-height:70px;}
   </div>
 
   <!-- ══ FLOW CANVAS ══ -->
-  <div id="sec-flowcanvas" class="panel">
+  <div id="sec-assets" class="panel">
     <div style="margin-bottom:16px;">
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.06em;color:#06B6D4;">FLOW CANVAS</div>
-      <div style="font-size:12px;color:#52525b;">Visual map of your scene order · drag nodes to reposition · Scene Editor remains the source of truth for content</div>
-    </div>
-    <div class="card" style="margin-bottom:12px;" id="flowCanvasEmptyNotice" style="display:none;">
-      <div style="text-align:center;padding:30px 12px;color:#52525b;font-size:12px;">No scenes yet. Add scenes in Scene Editor first.</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.06em;color:#EC4899;">ASSETS</div>
+      <div style="font-size:12px;color:#52525b;">Reusable character / product / location descriptions with identity tokens &middot; link them to scenes in the Scene Editor</div>
     </div>
     <div class="card" style="margin-bottom:14px;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
         <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.05em;color:#EC4899;">ASSET LIBRARY</div>
         <button class="btnG" style="font-size:11px;" onclick="toggleAssetForm()" id="assetFormToggleBtn">+ Add Asset</button>
       </div>
-      <div style="font-size:11px;color:#52525b;margin-bottom:10px;">Reusable character/product/location descriptions — link them to scenes on the canvas below to append visual context to that scene's prompt.</div>
+      <div style="font-size:11px;color:#52525b;margin-bottom:10px;">Reusable character/product/location descriptions — link them to scenes in the Scene Editor to append visual context to that scene's prompt.</div>
 
       <div id="assetForm" style="display:none;border-top:1px solid #2a2e2a;padding-top:12px;margin-top:4px;">
         <div style="display:flex;gap:6px;margin-bottom:10px;">
@@ -935,6 +883,8 @@ textarea.inp{resize:vertical;min-height:70px;}
         <button class="cpBtn" id="assetInstructionCpBtn" style="position:static;display:none;margin-bottom:8px;" data-cpbox="assetInstructionBox">Copy Instruction</button>
         <label class="lbl">Paste AI Result (visual description)</label>
         <textarea class="inp" id="assetDescInput" rows="2" placeholder="Paste the visual description the AI generated..." style="margin-bottom:8px;"></textarea>
+        <label class="lbl">Identity Token <span style="color:#52525b;font-weight:400;">(short lock line, max ~25 words — auto-filled if the pasted result has an IDENTITY TOKEN line)</span></label>
+        <textarea class="inp" id="assetTokenInput" rows="1" placeholder="e.g. 28yo Indonesian woman, shoulder-length black hair, silver hoops, cream linen blazer" style="margin-bottom:8px;"></textarea>
         <div style="display:flex;gap:8px;">
           <button class="btnP" style="font-size:12px;" onclick="saveNewAsset()">Save Asset</button>
           <button class="btnG" style="font-size:12px;" onclick="toggleAssetForm()">Cancel</button>
@@ -945,46 +895,8 @@ textarea.inp{resize:vertical;min-height:70px;}
       <div id="assetEmpty" style="text-align:center;padding:14px 12px;color:#52525b;font-size:12px;">No assets yet. Click "+ Add Asset" to create one.</div>
     </div>
 
-    <div id="flowCanvasToolbar" style="display:flex;align-items:center;gap:6px;margin-bottom:8px;">
-      <button class="btnG" style="font-size:13px;padding:6px 10px;" onclick="fcZoom(-0.1)" title="Zoom out">&#8722;</button>
-      <span id="fcZoomLabel" style="font-size:11px;color:#71717a;min-width:42px;text-align:center;">100%</span>
-      <button class="btnG" style="font-size:13px;padding:6px 10px;" onclick="fcZoom(0.1)" title="Zoom in">&#43;</button>
-      <button class="btnG" style="font-size:11px;" onclick="fcResetView()" title="Reset pan & zoom">Reset View</button>
-      <div style="flex:1;"></div>
-      <span id="fcSelCount" style="font-size:10px;color:#71717a;display:none;"></span>
-      <button class="btnP" id="fcAddToQueueBtn" style="font-size:11px;padding:6px 12px;display:none;" onclick="fcAddSelectedToQueue()">&#8594; Add to Queue</button>
-      <span style="font-size:10px;color:#52525b;">Scroll/drag empty to pan · click node to select · drag node body to move</span>
-    </div>
-    <div id="flowCanvasArea">
-      <div id="flowCanvasViewport">
-        <svg id="flowCanvasSvg"></svg>
-        <div id="flowCanvasInner"></div>
-      </div>
-    </div>
-    <!-- Mobile: vertical order-following list. Drag = reorder only. Branches shown as indented sub-cards. -->
-    <div id="flowCanvasMobileList" class="fcMobileList"></div>
-    <div id="fcMobileSelBar" style="display:none;align-items:center;gap:8px;margin-top:10px;">
-      <span id="fcMobileSelCount" style="font-size:11px;color:#71717a;flex:1;"></span>
-      <button class="btnP" style="font-size:11px;padding:6px 12px;" onclick="fcAddSelectedToQueue()">&#8594; Add to Queue</button>
-    </div>
-    <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+    <div style="margin-top:14px;">
       <button class="btnG" onclick="goTo('scenes')">&#8592; Back to Scene Editor</button>
-      <div style="flex:1;"></div>
-      <button class="btnG" style="font-size:11px;" onclick="fcExportCanvas()" title="Export node positions, branches, and progress as JSON">&#8595; Export Canvas</button>
-      <label class="btnG" style="font-size:11px;cursor:pointer;" title="Load a previously exported canvas structure">&#8593; Load Canvas<input type="file" accept=".json" style="display:none;" onchange="fcImportCanvas(this)"></label>
-    </div>
-    <div id="fcImportSuccessBar" style="display:none;background:#16a34a22;border:1px solid #16a34a44;border-radius:8px;padding:10px 14px;margin-top:10px;align-items:center;gap:8px;">
-      <span style="font-size:12px;color:#4ade80;">&#10003; Canvas structure loaded — positions, branches, and progress applied to matching scenes.</span>
-    </div>
-
-    <!-- ── Execution Queue ── -->
-    <div class="card" style="margin-top:20px;">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.05em;color:#06B6D4;">EXECUTION QUEUE</div>
-        <button class="btnD" id="fcClearQueueBtn" style="font-size:10px;display:none;" onclick="fcClearQueue()">Clear Queue</button>
-      </div>
-      <div style="font-size:11px;color:#52525b;margin-bottom:12px;">Linear copy-paste mode for sending shots to Higgsfield · select nodes on canvas above, then Add to Queue</div>
-      <div id="fcQueueList"><div style="text-align:center;padding:18px 12px;color:#52525b;font-size:12px;">Queue is empty. Select nodes on the canvas above and click "Add to Queue".</div></div>
     </div>
   </div>
 
@@ -993,7 +905,7 @@ textarea.inp{resize:vertical;min-height:70px;}
 <div style="max-width:860px;margin:0 auto;padding:20px 16px 32px;border-top:1px solid #1a1d1a;margin-top:8px;">
   <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
     <div style="font-size:10px;color:#3f3f46;font-family:'JetBrains Mono',monospace;">
-      CineAI Hub v11 &nbsp;·&nbsp; Prompt format: Kling 3.0 / Seedance 2.0 / GPT Image 2 &nbsp;·&nbsp; Last updated: Jun 2026
+      CineAI Hub v12 &nbsp;·&nbsp; Prompt format: Kling 3.0 / Seedance 2.0 / GPT Image 2 &nbsp;·&nbsp; Last updated: Jul 2026
     </div>
     <div style="font-size:10px;color:#3f3f46;">
       Open source · <a href="https://github.com" style="color:#52525b;text-decoration:none;">GitHub</a> · Zero API keys required
@@ -1003,13 +915,12 @@ textarea.inp{resize:vertical;min-height:70px;}
 
 <script>
 var S = {
-  proj:{type:'',platform:'',genre:'',mood:'',visualStyle:'',emotionalCore:'',mode:'realistic'},
+  proj:{type:'',platform:'',genre:'',mood:'',visualStyle:'',emotionalCore:'',intent:'',texFinish:'',mode:'realistic'},
   dna:{name:'',audience:'',tone:'',instructions:'',title:'',coreMessage:'',painPoint:''},
   viralNotes:'',
   chars:[],scenes:[],
-  flowEdges:[],flowQueue:[],assets:[],assetLinks:[],
+  assets:[],assetLinks:[],
   aiTool:'chatgpt',
-  outMode:'single',
   videoMode:'img2vid',
   storyboard:{duration:'15',vibe:'calm and aspirational',cutStyle:'slow deliberate',colorGrade:'warm golden hour',captureStyle:'',outputAspectRatio:'16:9',scriptRef:'',narrativeArc:'',narrativeTemplate:'',captionMode:'none',panelCount:9,wholeMovementPrompt:'',panels:[]},
   aiDirector:{cinema:{linkedSceneId:'',cinemaMode:'',runtime:'',aspectRatio:'',matchMode:'',subjectType:'',lockedElements:'',wantPreview:false,savedPrompts:[]},banana:{mode:'',characterStatus:'',linkedCharId:'',notes:'',savedPrompts:[]}}
@@ -1195,22 +1106,9 @@ var SHOT_COMPOSITION = {
 // Used by both Scene Editor (bldImg) and Storyboard Workflow (bldStoryboardGridPrompt). Scene Editor skips AESTHETIC when the
 // user has written a custom Visual Style (their explicit aesthetic intent takes precedence); Storyboard Workflow always
 // includes both, since it's consistently meant to look like real production reference photography.
-var PHOTOREALISM_TECHNICAL = ''
-  +'PHOTOREALISM (technical) — avoid anything that reads as AI-generated:\n'
-  +'- Skin: avoid plastic/CGI/waxy skin rendering, avoid AI smoothing artifacts. Natural tonal variation in skin rather than flat/uniform color.\n'
-  +'- Eyes: a small catchlight so they read as alive, not dead/flat.\n'
-  +'- Expression: should feel naturally motivated by the scene rather than a deliberate camera-facing pose — this applies in any visual style, not just documentary realism.\n'
-  +'- Composition: natural asymmetry, not perfectly centered or mirror-balanced. Real photographs have imperfect framing — allow a subject to be slightly off-center, partially cropped, or framed with uneven negative space where it suits the beat.\n'
-  +'- Lighting and exposure: believable, natural light behavior with realistic falloff — not uniformly balanced HDR. A touch of underexposed shadow or a slightly hot highlight is normal in real photography.\n'
-  +'- Camera language: real photographic grounding — natural or practical light sources, a believable lens choice, shallow or deep depth of field as appropriate. Avoid an artificially clean, evenly-lit, volumetric-light "rendered" look in the environment.\n';
+var PHOTOREALISM_TECHNICAL = 'RENDERING REALISM: visible skin pores, subsurface skin scattering, individual hair strands, fabric micro-weave and material texture, natural light falloff with true shadow depth, atmospheric depth layering between foreground and background, fine photographic grain, subtle halation on bright highlights, small living catchlights in the eyes, expression naturally motivated by the scene.';
 
-var PHOTOREALISM_AESTHETIC = ''
-  +'PHOTOREALISM (documentary aesthetic) — contemporary candid-documentary assumptions, apply unless the visual style says otherwise:\n'
-  +'- Skin: visible pores, faint blemishes, subtle oiliness/sheen variation. Never airbrushed, never plastic-smooth, never "flawless."\n'
-  +'- Avoid beauty/perfection language entirely — no "flawless," "perfect," "beautiful," "stunning," "ethereal," "magical." These push the image toward an illustrated or over-retouched look. Stick to photographic vocabulary only: captured, shot on, natural light, candid moment.\n'
-  +'- Expression: genuine, caught-in-the-moment, candid documentary quality — subjects caught mid-action or mid-thought, occasionally not looking at camera.\n'
-  +'- Background: let backgrounds carry natural imperfection — uneven lighting, minor clutter, people or objects partially out of focus — rather than a suspiciously clean, evenly art-directed set.\n'
-  +'- Color: restrained, natural color saturation rather than vivid/oversaturated tones.\n';
+var PHOTOREALISM_AESTHETIC = ' CANDID DOCUMENTARY: caught-mid-moment unposed quality, natural framing asymmetry with uneven negative space, background carrying real-world imperfection and life, restrained natural color saturation.';
 
 // Back-compat: combined block (technical + aesthetic), used wherever both should always apply (e.g. Storyboard Workflow)
 var PHOTOREALISM_BLOCK = PHOTOREALISM_TECHNICAL+PHOTOREALISM_AESTHETIC;
@@ -1233,7 +1131,13 @@ var MOVEMENT_OPTS = [
   'Whip Pan',
   'Rack Focus',
   'Drone (aerial)',
-  'Zoom In','Zoom Out'
+  'Zoom In','Zoom Out',
+  'Dolly Zoom (Vertigo)',
+  '360 Orbit (kinetic)',
+  'Crash Zoom',
+  'Snorricam (body-mounted)',
+  'Rise + Tilt Reveal',
+  'Push-in + Dutch Roll'
 ];
 
 // Shot size options (separate dropdown)
@@ -1286,15 +1190,6 @@ function init(){
       if(importSel.value)document.getElementById('assetNameInput').value=importSel.value;
     });
   }
-  // re-render Flow Canvas if viewport crosses the mobile breakpoint while the tab is open
-  var fcResizeTimer;
-  window.addEventListener('resize',function(){
-    clearTimeout(fcResizeTimer);
-    fcResizeTimer=setTimeout(function(){
-      var sec=document.getElementById('sec-flowcanvas');
-      if(sec&&sec.classList.contains('on'))renderFlowCanvas();
-    },150);
-  });
 }
 
 // ═══ NAV ═══
@@ -1305,7 +1200,7 @@ function goTo(id){
   var nb=document.querySelector('.navBtn[data-nav="'+id+'"]');if(nb)nb.classList.add('on');
   if(id==='output')genAll();
   if(id==='aidirector'){populateCinemaSceneDropdown();populateBananaCharDropdown();renderCinemaAssetWarning();}
-  if(id==='flowcanvas'){renderAssetLibrary();renderFlowCanvas();}
+  if(id==='assets')renderAssetLibrary();
   window.scrollTo(0,0);
 }
 document.getElementById('nav').addEventListener('click',function(e){
@@ -1351,12 +1246,6 @@ function updateCharHint(){
 }
 
 // ═══ OUTPUT MODE ═══
-function setOutMode(mode,btn){
-  S.outMode=mode;
-  document.querySelectorAll('#outSingle,#outMulti').forEach(function(b){b.classList.remove('on');});
-  btn.classList.add('on');
-  save();genAll();
-}
 function setVidMode(mode,btn){
   S.videoMode=mode;
   document.querySelectorAll('#vidImg2,#vidTxt2').forEach(function(b){b.classList.remove('on');});
@@ -1392,11 +1281,8 @@ function loadData(){
         });
       }
       if(d.aiTool)S.aiTool=d.aiTool;
-      S.flowEdges=Array.isArray(d.flowEdges)?d.flowEdges:[];
-      S.flowQueue=Array.isArray(d.flowQueue)?d.flowQueue:[];
       S.assets=Array.isArray(d.assets)?d.assets:[];
       S.assetLinks=Array.isArray(d.assetLinks)?d.assetLinks:[];
-      if(d.outMode)S.outMode=d.outMode;
       if(d.videoMode)S.videoMode=d.videoMode;
       if(d.viralNotes)S.viralNotes=d.viralNotes;
       if(d.storyboard){
@@ -1432,7 +1318,7 @@ function migratePanelSchema(p){
 }
 function collectForm(){
   collectStoryboardForm();
-  ['platform','genre','mood','visualStyle','emotionalCore'].forEach(function(f){var el=document.getElementById(f);if(el)S.proj[f]=el.value;});
+  ['platform','genre','mood','visualStyle','emotionalCore','intent','texFinish'].forEach(function(f){var el=document.getElementById(f);if(el)S.proj[f]=el.value;});
   var cvsEl=document.getElementById('customVisualStyle');if(cvsEl)S.proj.customVisualStyle=cvsEl.value;
   ['name','audience','tone','instructions','title','coreMessage','painPoint'].forEach(function(f){
     var el=document.getElementById('dna'+f.charAt(0).toUpperCase()+f.slice(1));
@@ -1441,7 +1327,7 @@ function collectForm(){
   var vn=document.getElementById('viralNotes');if(vn)S.viralNotes=vn.value;
 }
 function applyForm(){
-  ['platform','genre','mood','emotionalCore'].forEach(function(f){var el=document.getElementById(f);if(el&&S.proj[f])el.value=S.proj[f];});
+  ['platform','genre','mood','emotionalCore','intent','texFinish'].forEach(function(f){var el=document.getElementById(f);if(el&&S.proj[f])el.value=S.proj[f];});
   var cvsEl2=document.getElementById('customVisualStyle');if(cvsEl2&&S.proj.customVisualStyle)cvsEl2.value=S.proj.customVisualStyle;
   ['name','audience','tone','instructions','title','coreMessage','painPoint'].forEach(function(f){
     var el=document.getElementById('dna'+f.charAt(0).toUpperCase()+f.slice(1));
@@ -1458,10 +1344,6 @@ function applyForm(){
   var tabs={chatgpt:'aiC',claude:'aiCl',gemini:'aiG'};
   document.querySelectorAll('.aiTab').forEach(function(b){b.classList.remove('on');});
   var tb=document.getElementById(tabs[S.aiTool]||'aiC');if(tb)tb.classList.add('on');
-  if(S.outMode==='multi'){
-    document.querySelectorAll('#outSingle,#outMulti').forEach(function(b){b.classList.remove('on');});
-    var ob=document.getElementById('outMulti');if(ob)ob.classList.add('on');
-  }
   if(S.videoMode==='txt2vid'){
     document.querySelectorAll('#vidImg2,#vidTxt2').forEach(function(b){b.classList.remove('on');});
     var vb=document.getElementById('vidTxt2');if(vb)vb.classList.add('on');
@@ -2388,10 +2270,26 @@ function renderChars(){
 // ═══ STORY PROMPT ═══
 function styleAnch(){
   var p=S.proj,pts=[];
+  var rs=resolveStyle();
   var cvs=document.getElementById('customVisualStyle');
   var customStyle=cvs?cvs.value.trim():'';
-  if(customStyle)pts.push(customStyle);
-  else if(p.visualStyle)pts.push(p.visualStyle);
+  if(customStyle){
+    // Short custom text that merely NAMES a known style ("wes anderson vibe") still needs the
+    // dictionary translation — a director's name is a weak token. But LONG descriptive text
+    // (typically a style-reference extraction) is the HIGHEST AUTHORITY: its grade is never
+    // replaced, even when it contains dictionary trigger words like "analog" or "35mm".
+    // STYLE_DICT still contributes comp (slot 1.5), formal flag, rig and medium either way.
+    if(rs&&customStyle.length<60)pts.push(rs.grade);
+    else pts.push(customStyle);
+  } else if(rs){
+    // Dropdown-recognized style — replace the weak raw token with physical grammar (grade only;
+    // comp lives exclusively at bldImg slot 1.5).
+    pts.push(rs.grade);
+  } else if(p.visualStyle){
+    pts.push(p.visualStyle);
+  }
+  var ie=intentEntry();
+  if(ie)pts.push(ie.img);
   if(p.mood)pts.push(p.mood+' mood and atmosphere');
   if(p.emotionalCore)pts.push('emotional undercurrent of '+p.emotionalCore);
   return pts.join('. ');
@@ -2422,11 +2320,15 @@ function genStory(){
   var vnEl=document.getElementById('viralNotes');
   if(vnEl&&vnEl.value.trim())viralCtx='\n\nVIRALITY INSIGHTS (apply to make this script trend-worthy):\n'+vnEl.value.trim();
   var fmtLine='SCENE_[nn] | TITLE: [title] | BEAT: [Opening/Build-up/Tension/Climax/Resolution/Quiet/Transition] | LOCATION: [specific location or setting] | TIME: [time of day and light quality] | CHARACTER: [character name or NONE] | ACTION: [detailed visual action and movement] | DIALOG: [exact dialogue or NONE] | MOOD: [emotional tone] | DURATION: [estimated seconds]';
-  var fmt='\n\nOUTPUT FORMAT — exactly this, one line per scene:\n'+fmtLine+'\n\nGenerate exactly '+n+' scenes. No markdown. No preamble. Only SCENE_ lines.';
+  var cineRules='\n\nSCENE WRITING RULES — CRITICAL:\n'
+   +'1. ONE LOCATION PER SCENE: each scene happens in EXACTLY ONE physical place at ONE moment in time. NEVER write montage scenes ("everywhere he goes", multiple locations in one scene). If the story moves through several places, write each place as its OWN scene. The LOCATION field must name ONE specific place — never a list.\n'
+   +'2. VISUAL ACTION LANGUAGE: describe what the CAMERA SEES — concrete, filmable physical action, never inner feelings or abstract meaning. Weak: "he feels watched by the world". Strong: "he stops mid-step; every screen on the street flickers to the same face; he turns slowly, shoulders tight".\n'
+   +'3. ONE ACTION BEAT: ACTION must be a single continuous physical beat that can play out in 4-8 seconds while one camera move happens — never a sequence of cuts or jumps in time.';
+  var fmt=cineRules+'\n\nOUTPUT FORMAT — exactly this, one line per scene:\n'+fmtLine+'\n\nGenerate exactly '+n+' scenes. No markdown. No preamble. Only SCENE_ lines.';
   var modeNote=isAnim?'\n\nIMPORTANT: This is an animated/illustrated production. All scene descriptions should be written for animation.':'';
   var talkingHeadNote=p.genre==='Talking Head / Interview'?'\n\nFORMAT CONSTRAINT — TALKING HEAD / INTERVIEW:\nThis is a static single-location talking head format. Strict rules:\n- Every scene takes place in the SAME location — no location changes, no exterior shots, no B-roll scenes.\n- No camera movement, no establishing shots, no cutaways to other environments.\n- Scenes are direct-to-camera address or conversation between hosts/guests.\n- ACTION descriptions should describe what the speaker is doing/saying, not visual cutaways.\n- If 2 characters: scenes alternate between two-shot (both visible) and singles (one speaker focused).\n- LOCATION field must be the same room/setup across all scenes.':'';
   var intros={chatgpt:'You are a professional film director and screenwriter.\n\n',claude:'<context>\nYou are a professional film director and screenwriter.\n</context>\n\n',gemini:'Act as a professional film director and screenwriter.\n\n'};
-  var prompt=(intros[S.aiTool]||intros.chatgpt)+'Create a detailed visual script breakdown.\n\nPROJECT TYPE: '+(p.type||'Short Film')+'\n'+(p.genre?'GENRE: '+p.genre+'\n':'')+(p.platform?'PLATFORM: '+p.platform+'\n':'')+'\nVISUAL STYLE (apply consistently):\n'+sa+'\n'+(p.emotionalCore?'\nEMOTIONAL CORE: '+p.emotionalCore+'\n':'')+modeNote+talkingHeadNote+charCtx+dnaCtx+viralCtx+fmt;
+  var prompt=(intros[S.aiTool]||intros.chatgpt)+'Create a detailed visual script breakdown.\n\nPROJECT TYPE: '+(p.type||'Short Film')+'\n'+(p.genre?'GENRE: '+p.genre+'\n':'')+(p.platform?'PLATFORM: '+p.platform+'\n':'')+'\nVISUAL STYLE (apply consistently):\n'+sa+'\n'+(p.emotionalCore?'\nEMOTIONAL CORE: '+p.emotionalCore+'\n':'')+(intentEntry()?'\nCONTENT INTENT: '+intentEntry().label+' — '+intentEntry().director+'\n':'')+modeNote+talkingHeadNote+charCtx+dnaCtx+viralCtx+fmt;
   document.getElementById('storyBox').textContent=prompt;
   document.getElementById('storyCpBtn').style.display='inline-flex';
 }
@@ -2520,7 +2422,7 @@ function updateEmotionalCoreDesc(){
   if(d)d.textContent=EMOTIONAL_CORE_DESC[v]||'';
 }
 function initCoreSettingDescs(){
-  updateGenreDesc();updateMoodDesc();updateEmotionalCoreDesc();
+  updateGenreDesc();updateMoodDesc();updateEmotionalCoreDesc();updateIntentDesc();
 }
 function genSceneTechPrompt(){
   collectForm();
@@ -2569,7 +2471,7 @@ function genSceneTechPrompt(){
     var fmtAnim='OUTPUT FORMAT — CRITICAL:\nFirst line:\nPROJECT_ART_STYLE: [choice] | PROJECT_VISUAL_LOOK: [choice]\n\n'
       +'Then one line per scene:\nSCENE_[nn] | SHOT_TYPE: [value] | MOVEMENT: [value] | ART_STYLE: [value] | COLOR_PALETTE_MOOD: [value] | COMPOSITION: [value] | ANIMATION_ENERGY: [value] | LIGHTING: [1-2 values comma-separated]\n\n'
       +'STRICT: NEVER use | inside field values. No markdown, no preamble. Generate exactly '+emptyScenes.length+' scene lines, SCENE_01 through SCENE_'+String(emptyScenes.length).padStart(2,'0')+'.';
-    prompt=(intros[S.aiTool]||intros.chatgpt)+'MODE: ANIMATED\nPROJECT TYPE: '+(p.type||'')+(p.genre?'\nGENRE: '+p.genre:'')+(p.platform?'\nPLATFORM: '+p.platform:'')+(sa?'\nVISUAL STYLE: '+sa:'')+(p.emotionalCore?'\nEMOTIONAL CORE: '+p.emotionalCore:'')+charCtx+sceneCtx+task+rules+projectRulesAnim+fmtAnim;
+    prompt=(intros[S.aiTool]||intros.chatgpt)+'MODE: ANIMATED\nPROJECT TYPE: '+(p.type||'')+(p.genre?'\nGENRE: '+p.genre:'')+(p.platform?'\nPLATFORM: '+p.platform:'')+(sa?'\nVISUAL STYLE: '+sa:'')+(p.emotionalCore?'\nEMOTIONAL CORE: '+p.emotionalCore:'')+(intentEntry()?'\nCONTENT INTENT: '+intentEntry().label+' — '+intentEntry().director:'')+charCtx+sceneCtx+task+rules+projectRulesAnim+fmtAnim;
   } else {
     var talkingHead=isTalkingHead
       ? '\n\nFORMAT CONSTRAINT — TALKING HEAD / INTERVIEW:\nStatic single-location format. Apply to every scene:\n- MOVEMENT: must be "Static / Locked-off" for ALL scenes, no exceptions.\n- SHOT_TYPE: Medium Shot, Medium Close-Up, or Close-Up only. If 2 characters: two-shot to establish, then alternate singles/over-shoulders.\n- No establishing shots, no wide environmental shots, no B-roll.\n- Camera body and lens: suit a clean controlled studio or room setup.\n'
@@ -2585,16 +2487,64 @@ function genSceneTechPrompt(){
     var projectRules2='PROJECT-LEVEL DECISIONS (choose ONCE for the whole project):\n'
       +'- Camera body: ONE choice. Options: '+DD_REAL.cameraBody.join(', ')+'.\n'
       +'- Visual look: ONE choice. Options: '+DD_REAL.visualLook.map(function(l){return l.split('—')[0].trim();}).join(', ')+'.\n\n';
+    // Movement language must match the content intent — commercials live on kinetic energy,
+    // testimonials on stillness. Without this note the AI DP defaults to safe static picks.
+    var energyMap={
+      promo:'BOLD AND KINETIC — favor Crash Zoom, 360 Orbit (kinetic), Dolly Zoom (Vertigo), Whip Pan and Tracking Shot on hook and climax scenes. Write speed-ramp pacing into MOVEMENT_NOTES (e.g. "slow build, then rapid accelerating push"). Use Static only as deliberate contrast.',
+      branding:'CONFIDENT AND POLISHED — smooth Dolly In, Arc and Crane moves with deliberate tempo; give the hero scene ONE signature bold move (360 Orbit or Rise + Tilt Reveal).',
+      ugc_review:'NATURAL AND HANDHELD — organic imperfect energy, simple slow pushes; no showy rig moves.',
+      education:'STABLE AND CLEAR — Static or slow Dolly In; movement must never compete with the information.',
+      storytelling:'MOTIVATED AND EMOTIONAL — slow push-ins for intimacy, reveals (Dolly Out, Rise + Tilt) for discovery; movement follows feeling, never spectacle.',
+      testimonial:'STILL AND PRESENT — Static / Locked-off or breathing Handheld only.'
+    };
+    var energyNote=S.proj.intent&&energyMap[S.proj.intent]?'MOVEMENT ENERGY — the movement language of this project:\n'+energyMap[S.proj.intent]+'\nVary the rhythm across the sequence: the boldest moves belong to the hook and the climax.\n\n':'';
+    // Recognized style carries a canonical camera package — the AI DP should treat it as
+    // the default rig; the user can still override any dropdown manually after Apply.
+    var rsRig=resolveStyle();
+    var rigNote=rsRig&&rsRig.rig?('STYLE RIG — canonical equipment for the recognized visual style. Use these as your DEFAULT choices unless a specific scene strongly demands otherwise:\n'
+      +'- PROJECT_CAMERA_BODY: '+rsRig.rig.cam+'\n'
+      +'- PROJECT_VISUAL_LOOK: '+rsRig.rig.look.split('—')[0].trim()+'\n'
+      +'- Scene baseline: LENS_TYPE '+rsRig.rig.lens.split('—')[0].trim()+', FOCAL_LENGTH '+rsRig.rig.focal.split('—')[0].trim()+', APERTURE '+rsRig.rig.aperture.split('—')[0].trim()+'\n\n'):'';
     var fmt2='OUTPUT FORMAT — CRITICAL:\nFirst line:\nPROJECT_CAMERA_BODY: [choice] | PROJECT_VISUAL_LOOK: [choice]\n\n'
       +'Then one line per scene:\nSCENE_[nn] | SHOT_TYPE: [value] | MOVEMENT: [value] | MOVEMENT_NOTES: [short value or NONE] | LENS_TYPE: [value] | FOCAL_LENGTH: [value] | APERTURE: [value] | LIGHTING: [1-2 values comma-separated] | LIGHT_QUALITY: [1-2 values comma-separated]\n\n'
       +'STRICT: NEVER use | inside field values. No markdown, no preamble. Generate exactly '+emptyScenes.length+' scene lines, SCENE_01 through SCENE_'+String(emptyScenes.length).padStart(2,'0')+'.';
-    prompt=(intros[S.aiTool]||intros.chatgpt)+'MODE: REALISTIC\nPROJECT TYPE: '+(p.type||'')+(p.genre?'\nGENRE: '+p.genre:'')+(p.platform?'\nPLATFORM: '+p.platform:'')+(sa?'\nVISUAL STYLE: '+sa:'')+(p.emotionalCore?'\nEMOTIONAL CORE: '+p.emotionalCore:'')+talkingHead+charCtx+sceneCtx+task2+rules2+projectRules2+fmt2;
+    prompt=(intros[S.aiTool]||intros.chatgpt)+'MODE: REALISTIC\nPROJECT TYPE: '+(p.type||'')+(p.genre?'\nGENRE: '+p.genre:'')+(p.platform?'\nPLATFORM: '+p.platform:'')+(sa?'\nVISUAL STYLE: '+sa:'')+(p.emotionalCore?'\nEMOTIONAL CORE: '+p.emotionalCore:'')+(intentEntry()?'\nCONTENT INTENT: '+intentEntry().label+' — '+intentEntry().director:'')+talkingHead+charCtx+sceneCtx+task2+rules2+projectRules2+energyNote+rigNote+fmt2;
   }
 
   var box=document.getElementById('techPromptBox');
   box.textContent=prompt;box.style.display='block';
+  // Collapsed by default — the prompt is long; Copy works without expanding (cpEl reads content)
+  box.style.maxHeight='140px';box.style.overflow='hidden';
+  var xb=document.getElementById('techExpandBtn');
+  xb.style.display='inline-flex';xb.innerHTML='Expand &#9662;';
   document.getElementById('techPromptCpBtn').style.display='inline-flex';
   document.getElementById('techPasteWrap').style.display='block';
+}
+
+function togTechBox(){
+  var box=document.getElementById('techPromptBox'),btn=document.getElementById('techExpandBtn');
+  var collapsed=box.style.maxHeight&&box.style.maxHeight!=='none';
+  if(collapsed){box.style.maxHeight='none';box.style.overflow='visible';btn.innerHTML='Collapse &#9652;';}
+  else{box.style.maxHeight='140px';box.style.overflow='hidden';btn.innerHTML='Expand &#9662;';}
+}
+
+// Clear the technical-suggestion panel; optionally also reset the applied tech fields on all
+// scenes — required to regenerate, since the generator only targets scenes with EMPTY fields.
+function clearTechSuggestions(){
+  var box=document.getElementById('techPromptBox');box.textContent='';box.style.display='none';
+  document.getElementById('techPromptCpBtn').style.display='none';
+  document.getElementById('techExpandBtn').style.display='none';
+  document.getElementById('techPasteWrap').style.display='none';
+  document.getElementById('techPasteField').value='';
+  var res=document.getElementById('techApplyRes');res.style.display='none';
+  var hasApplied=S.scenes.some(function(sc){return sc.shotType||sc.movement||sc.cameraBody||sc.lensType||sc.visualLook||sc.artStyle;});
+  if(hasApplied&&confirm('Also clear the applied technical fields on ALL scenes (shot, movement, camera, lens, lighting, look)? This lets you regenerate suggestions from scratch.')){
+    S.scenes.forEach(function(sc){
+      sc.shotType='';sc.movement='';sc.movementNotes='';sc.cameraBody='';sc.lensType='';sc.focalLength='';sc.aperture='';sc.visualLook='';sc.lighting=[];sc.lightQuality=[];
+      if(S.proj.mode==='animated'){sc.artStyle='';sc.colorPaletteMood='';sc.composition='';sc.animEnergy=[];}
+    });
+    save();renderScenes();
+  }
 }
 
 function parseSceneTechSuggestions(){
@@ -2703,7 +2653,7 @@ function addScene(){
   });
   save();renderScenes();
 }
-function removeScene(id){S.scenes=S.scenes.filter(function(s){return s.id!==id;});S.flowEdges=(S.flowEdges||[]).filter(function(e){return e.from!==id&&e.to!==id;});S.flowQueue=(S.flowQueue||[]).filter(function(qid){return qid!==id;});S.assetLinks=(S.assetLinks||[]).filter(function(l){return l.sceneId!==id;});save();renderScenes();}
+function removeScene(id){S.scenes=S.scenes.filter(function(s){return s.id!==id;});S.assetLinks=(S.assetLinks||[]).filter(function(l){return l.sceneId!==id;});save();renderScenes();}
 function togSc(id){var sc=S.scenes.find(function(s){return s.id===id;});if(sc){sc.collapsed=!sc.collapsed;save();renderScenes();}}
 function updSc(id,field,val){var sc=S.scenes.find(function(s){return s.id===id;});if(sc){sc[field]=val;save();}}
 
@@ -2725,18 +2675,13 @@ function rChips(scId,field){
   return h+'</div>';
 }
 
-// ═══ FLOW CANVAS (step 2: + pan & zoom via CSS transform on container) ═══
-var FC_NODE_W=220,FC_NODE_GAP_Y=150,FC_COL_X=60,FC_START_Y=40;
-var FCV={x:0,y:0,zoom:1}; // viewport pan/zoom state, not persisted (per-session view only)
-var FC_SELECTED=[]; // scene ids currently selected for batch Add to Queue, not persisted
-
 // ═══ ASSET LIBRARY ═══ (separate from S.chars — covers Character/Product/Location, stores only
 // a text description, never an image. "Import from Character" is a one-way name copy from S.chars,
 // it does not keep the two in sync afterward.)
 var ASSET_FORM_TYPE='character';
 
 var ASSET_ANALYZE_INSTRUCTIONS={
-  character:'Describe this character\'s visual appearance in 1-2 lean sentences, prompt-ready language. Cover: physical traits, hair, outfit, distinguishing features. Do not include actions, poses, or scene context — only visual identity that stays consistent across different scenes.',
+  character:'Analyze this character\'s visual appearance and reply in EXACTLY this two-line labeled format:\nDESCRIPTION: [1-2 lean sentences, prompt-ready language — physical traits, hair, outfit, distinguishing features. No actions, poses, or scene context.]\nIDENTITY TOKEN: [max 25 words — the compressed visual essence: age/ethnicity if visible, hair, skin, 2-3 most distinctive features, core wardrobe. This locks identity across video frames, so choose only what makes this person instantly recognizable.]',
   product:'Describe this product\'s visual appearance in 1-2 lean sentences, prompt-ready language. Cover: shape, material, color, key design details, branding/logo if visible. Do not include placement or context — only visual identity that stays consistent across different scenes.',
   location:'Describe this location\'s visual appearance in 1-2 lean sentences, prompt-ready language. Cover: architecture/setting type, color palette, lighting mood, distinguishing visual elements. Do not include characters or actions — only visual identity that stays consistent across different scenes.'
 };
@@ -2753,6 +2698,7 @@ function toggleAssetForm(){
     if(firstBtn)firstBtn.classList.add('on');
     document.getElementById('assetNameInput').value='';
     document.getElementById('assetDescInput').value='';
+    var ti=document.getElementById('assetTokenInput');if(ti)ti.value='';
     var ib=document.getElementById('assetInstructionBox');if(ib){ib.value='';ib.style.display='none';}
     var icb=document.getElementById('assetInstructionCpBtn');if(icb)icb.style.display='none';
     populateAssetImportCharSelect();
@@ -2780,13 +2726,23 @@ function genAssetAnalyzeInstruction(){
 function saveNewAsset(){
   var name=(document.getElementById('assetNameInput').value||'').trim();
   var desc=(document.getElementById('assetDescInput').value||'').trim();
+  var tokEl=document.getElementById('assetTokenInput');
+  var token=(tokEl&&tokEl.value||'').trim();
+  // Auto-parse labeled AI output: "DESCRIPTION: ..." / "IDENTITY TOKEN: ..."
+  var m=desc.match(/IDENTITY\s*TOKEN\s*:\s*([\s\S]+)$/i);
+  if(m){
+    if(!token)token=m[1].trim().split('\n')[0].trim();
+    desc=desc.replace(/IDENTITY\s*TOKEN\s*:[\s\S]+$/i,'').replace(/^DESCRIPTION\s*:\s*/i,'').trim();
+  } else {
+    desc=desc.replace(/^DESCRIPTION\s*:\s*/i,'').trim();
+  }
   if(!name){alert('Please enter a name for this asset.');return;}
   S.assets=S.assets||[];
-  S.assets.push({id:Date.now()+Math.random(),name:name,type:ASSET_FORM_TYPE,description:desc,position:null});
+  S.assets.push({id:Date.now()+Math.random(),name:name,type:ASSET_FORM_TYPE,description:desc,identityToken:token,position:null});
   save();
   toggleAssetForm();
   renderAssetLibrary();
-  if(document.getElementById('sec-flowcanvas').classList.contains('on'))renderFlowCanvas();
+  renderScenes();
 }
 
 function removeAsset(assetId){
@@ -2795,7 +2751,7 @@ function removeAsset(assetId){
   S.assetLinks=(S.assetLinks||[]).filter(function(l){return l.assetId!==assetId;});
   save();
   renderAssetLibrary();
-  if(document.getElementById('sec-flowcanvas').classList.contains('on'))renderFlowCanvas();
+  renderScenes();
 }
 
 function updAssetField(assetId,field,val){
@@ -2825,822 +2781,12 @@ function renderAssetLibrary(){
         '<button class="btnD" style="font-size:10px;padding:3px 8px;" data-rmasset="'+a.id+'">&times;</button>'+
       '</div>'+
       '<div style="font-size:11px;color:#a1a1aa;line-height:1.5;">'+(a.description?escapeHtml(a.description):'<span style="color:#52525b;font-style:italic;">No description yet.</span>')+'</div>'+
+      (a.identityToken?'<div style="font-size:10px;color:#84cc16;line-height:1.4;margin-top:4px;font-family:JetBrains Mono;">&#128274; '+escapeHtml(a.identityToken)+'</div>':'')+
     '</div>';
   });
   list.innerHTML=h;
   list.querySelectorAll('[data-rmasset]').forEach(function(btn){
     btn.addEventListener('click',function(){removeAsset(Number(btn.getAttribute('data-rmasset'))||btn.getAttribute('data-rmasset'));});
-  });
-}
-
-function fcAutoLayout(){
-  // default vertical layout for scenes missing a saved position
-  S.scenes.forEach(function(sc,idx){
-    if(!sc.position){sc.position={x:FC_COL_X,y:FC_START_Y+idx*FC_NODE_GAP_Y};}
-  });
-}
-
-function fcAssetAutoLayout(){
-  // default placement for assets that don't yet have a saved position — offset to the right
-  // of the scene column so they don't initially overlap, user can drag freely afterward.
-  var i=0;
-  (S.assets||[]).forEach(function(a){
-    if(!a.position){a.position={x:FC_COL_X+FC_NODE_W+260,y:FC_START_Y+i*130};i++;}
-  });
-}
-
-function fcApplyViewportTransform(){
-  var vp=document.getElementById('flowCanvasViewport');
-  if(!vp)return;
-  vp.style.transform='translate('+FCV.x+'px,'+FCV.y+'px) scale('+FCV.zoom+')';
-  var lbl=document.getElementById('fcZoomLabel');
-  if(lbl)lbl.textContent=Math.round(FCV.zoom*100)+'%';
-}
-
-function fcZoom(delta){
-  var newZoom=Math.min(2,Math.max(0.4,FCV.zoom+delta));
-  FCV.zoom=Math.round(newZoom*100)/100;
-  fcApplyViewportTransform();
-}
-
-function fcResetView(){
-  FCV.x=0;FCV.y=0;FCV.zoom=1;
-  fcApplyViewportTransform();
-}
-
-function fcIsMobile(){return window.innerWidth<=700;}
-
-function renderFlowCanvas(){
-  var emptyNotice=document.getElementById('flowCanvasEmptyNotice');
-  if(!S.scenes.length){
-    var inner0=document.getElementById('flowCanvasInner'),svg0=document.getElementById('flowCanvasSvg');
-    if(inner0)inner0.innerHTML='';
-    if(svg0)svg0.innerHTML='';
-    var mlist0=document.getElementById('flowCanvasMobileList');
-    if(mlist0)mlist0.innerHTML='';
-    if(emptyNotice)emptyNotice.style.display='block';
-    return;
-  }
-  if(emptyNotice)emptyNotice.style.display='none';
-  fcAutoLayout();
-  if(fcIsMobile()){
-    renderFlowCanvasMobile();
-    fcUpdateSelToolbar();
-    renderQueue();
-    return;
-  }
-  var inner=document.getElementById('flowCanvasInner');
-  var svg=document.getElementById('flowCanvasSvg');
-  if(!inner||!svg)return;
-  inner.innerHTML='';
-  var maxX=800,maxY=400;
-  S.scenes.forEach(function(sc,idx){
-    var node=document.createElement('div');
-    node.className='fcNode';
-    node.setAttribute('data-scid',sc.id);
-    node.style.left=sc.position.x+'px';
-    node.style.top=sc.position.y+'px';
-    var title=sc.title||'Untitled scene';
-    var chips='';
-    if(sc.beat)chips+='<span class="fcChip fcChipBeat">'+escapeHtml(sc.beat)+'</span>';
-    if(sc.location)chips+='<span class="fcChip fcChipLoc">&#128205; '+escapeHtml(sc.location)+'</span>';
-    var actionFilled=!!(sc.script&&sc.script.trim());
-    var motionFilled=!!(sc.movement&&sc.movement.trim());
-    node.innerHTML='<div class="fcNodeHdr"><span class="fcBadge">S'+(idx+1)+'</span><span class="fcTitle">'+escapeHtml(title)+'</span></div>'+
-      (chips?'<div class="fcChips">'+chips+'</div>':'')+
-      '<div class="fcPreviewRow"><span class="fcDot '+(actionFilled?'filled':'empty')+'"></span><span class="fcPreviewLabel">Action</span><span class="fcPreviewText">'+(actionFilled?escapeHtml(sc.script):'—')+'</span></div>'+
-      '<div class="fcPreviewRow"><span class="fcDot '+(motionFilled?'filled':'empty')+'"></span><span class="fcPreviewLabel">Motion</span><span class="fcPreviewText">'+(motionFilled?escapeHtml(sc.movement):'—')+'</span></div>'+
-      '<div class="fcFooter"><label><input type="checkbox" data-fcprogress="'+sc.id+'" '+(sc.progress&&sc.progress.generated?'checked':'')+'> Generated in Higgsfield</label></div>'+
-      '<div class="fcHandle" data-fchandle="'+sc.id+'" title="Drag to another node to create a branch"></div>'+
-      '<div class="fcSelCheck">&#10003;</div>';
-    if(FC_SELECTED.indexOf(sc.id)>-1)node.classList.add('selected');
-    inner.appendChild(node);
-    maxX=Math.max(maxX,sc.position.x+FC_NODE_W+200);
-    maxY=Math.max(maxY,sc.position.y+300);
-  });
-  fcAssetAutoLayout();
-  var linkedAssetIds={};
-  (S.assetLinks||[]).forEach(function(l){linkedAssetIds[l.assetId]=true;});
-  (S.assets||[]).forEach(function(a){
-    if(!linkedAssetIds[a.id])return; // only render asset nodes that have at least one link
-    var anode=document.createElement('div');
-    anode.className='fcAssetNode';
-    anode.setAttribute('data-assetid',a.id);
-    anode.style.left=a.position.x+'px';
-    anode.style.top=a.position.y+'px';
-    var icon=a.type==='character'?'&#128100;':a.type==='product'?'&#128230;':'&#128205;';
-    anode.innerHTML='<div class="fcAssetNodeHdr"><span class="fcAssetIcon">'+icon+'</span><span class="fcAssetTitle">'+escapeHtml(a.name||'Untitled')+'</span></div>'+
-      '<div class="fcAssetDesc">'+(a.description?escapeHtml(a.description):'No description yet.')+'</div>'+
-      '<div class="fcAssetHandle" data-fcassethandle="'+a.id+'" title="Drag to a scene to link this asset"></div>';
-    inner.appendChild(anode);
-    maxX=Math.max(maxX,a.position.x+220);
-    maxY=Math.max(maxY,a.position.y+150);
-  });
-  inner.style.width=maxX+'px';
-  inner.style.height=maxY+'px';
-  svg.setAttribute('width',maxX);
-  svg.setAttribute('height',maxY);
-  fcDrawEdges();
-  fcBindNodeDrag();
-  fcBindAssetNodeDrag();
-  fcBindPan();
-  fcApplyViewportTransform();
-  fcUpdateSelToolbar();
-  renderQueue();
-}
-
-// Drag-to-connect: from a node's handle, drag onto another node to create a branch edge.
-// Mouse coords are in screen px; converted into un-scaled canvas coords via area offset + FCV pan/zoom.
-function fcScreenToCanvas(clientX,clientY){
-  var area=document.getElementById('flowCanvasArea');
-  var rect=area.getBoundingClientRect();
-  var x=(clientX-rect.left-FCV.x)/FCV.zoom;
-  var y=(clientY-rect.top-FCV.y)/FCV.zoom;
-  return {x:x,y:y};
-}
-
-// Asset node drag: simple free reposition (no select/branch logic here — that's handled by the
-// separate fcAssetHandle in Sub-step C). Position persists per-asset, same pattern as scene nodes.
-function fcBindAssetNodeDrag(){
-  document.querySelectorAll('.fcAssetNode').forEach(function(anode){
-    var handle=anode.querySelector('[data-fcassethandle]');
-    if(handle){
-      handle.addEventListener('mousedown',function(e){
-        e.preventDefault();e.stopPropagation();
-        var assetId=handle.getAttribute('data-fcassethandle');
-        var realId=isNaN(Number(assetId))?assetId:Number(assetId);
-        fcStartAssetConnect(realId,e.clientX,e.clientY);
-      });
-      handle.addEventListener('touchstart',function(e){
-        e.stopPropagation();
-        var assetId=handle.getAttribute('data-fcassethandle');
-        var realId=isNaN(Number(assetId))?assetId:Number(assetId);
-        var t=e.touches[0];
-        fcStartAssetConnect(realId,t.clientX,t.clientY);
-      },{passive:true});
-    }
-    anode.addEventListener('mousedown',function(e){
-      if(e.target.closest('.fcAssetHandle'))return;
-      e.preventDefault();e.stopPropagation();
-      var assetId=Number(anode.getAttribute('data-assetid'))||anode.getAttribute('data-assetid');
-      var a=(S.assets||[]).find(function(x){return x.id===assetId;});
-      if(!a)return;
-      anode.classList.add('dragging');
-      var startX=e.clientX,startY=e.clientY;
-      var origX=a.position.x,origY=a.position.y;
-      function onMove(ev){
-        var dx=(ev.clientX-startX)/FCV.zoom,dy=(ev.clientY-startY)/FCV.zoom;
-        a.position.x=Math.max(0,origX+dx);
-        a.position.y=Math.max(0,origY+dy);
-        anode.style.left=a.position.x+'px';
-        anode.style.top=a.position.y+'px';
-        fcDrawEdges();
-      }
-      function onUp(){
-        document.removeEventListener('mousemove',onMove);
-        document.removeEventListener('mouseup',onUp);
-        anode.classList.remove('dragging');
-        save();
-      }
-      document.addEventListener('mousemove',onMove);
-      document.addEventListener('mouseup',onUp);
-    });
-    anode.addEventListener('touchstart',function(e){
-      if(e.target.closest('.fcAssetHandle'))return;
-      e.stopPropagation();
-      var assetId=Number(anode.getAttribute('data-assetid'))||anode.getAttribute('data-assetid');
-      var a=(S.assets||[]).find(function(x){return x.id===assetId;});
-      if(!a)return;
-      anode.classList.add('dragging');
-      var t=e.touches[0];
-      var startX=t.clientX,startY=t.clientY;
-      var origX=a.position.x,origY=a.position.y;
-      function onMove(ev){
-        var tt=ev.touches[0];
-        var dx=(tt.clientX-startX)/FCV.zoom,dy=(tt.clientY-startY)/FCV.zoom;
-        a.position.x=Math.max(0,origX+dx);
-        a.position.y=Math.max(0,origY+dy);
-        anode.style.left=a.position.x+'px';
-        anode.style.top=a.position.y+'px';
-        fcDrawEdges();
-        ev.preventDefault();
-      }
-      function onEnd(){
-        document.removeEventListener('touchmove',onMove);
-        document.removeEventListener('touchend',onEnd);
-        anode.classList.remove('dragging');
-        save();
-      }
-      document.addEventListener('touchmove',onMove,{passive:false});
-      document.addEventListener('touchend',onEnd);
-    },{passive:true});
-  });
-}
-
-function fcStartConnect(fromId,startClientX,startClientY){
-  var svg=document.getElementById('flowCanvasSvg');
-  if(!svg)return;
-  var fromSc=S.scenes.find(function(s){return s.id===fromId;});
-  if(!fromSc||!fromSc.position)return;
-  var tempLine=document.createElementNS('http://www.w3.org/2000/svg','line');
-  tempLine.setAttribute('stroke','#06B6D4');
-  tempLine.setAttribute('stroke-width','2');
-  tempLine.setAttribute('stroke-dasharray','4,3');
-  var x1=fromSc.position.x+FC_NODE_W,y1=fromSc.position.y+30;
-  tempLine.setAttribute('x1',x1);tempLine.setAttribute('y1',y1);
-  tempLine.setAttribute('x2',x1);tempLine.setAttribute('y2',y1);
-  svg.appendChild(tempLine);
-
-  function onMove(ev){
-    var clientX=ev.touches?ev.touches[0].clientX:ev.clientX;
-    var clientY=ev.touches?ev.touches[0].clientY:ev.clientY;
-    var pt=fcScreenToCanvas(clientX,clientY);
-    tempLine.setAttribute('x2',pt.x);tempLine.setAttribute('y2',pt.y);
-  }
-  function onEnd(ev){
-    document.removeEventListener('mousemove',onMove);
-    document.removeEventListener('mouseup',onEnd);
-    document.removeEventListener('touchmove',onMove);
-    document.removeEventListener('touchend',onEnd);
-    tempLine.remove();
-    var clientX=ev.changedTouches?ev.changedTouches[0].clientX:ev.clientX;
-    var clientY=ev.changedTouches?ev.changedTouches[0].clientY:ev.clientY;
-    var targetNode=document.elementFromPoint(clientX,clientY);
-    var targetEl=targetNode?targetNode.closest('.fcNode'):null;
-    if(!targetEl)return;
-    var toId=Number(targetEl.getAttribute('data-scid'));
-    if(toId===fromId)return;
-    var exists=(S.flowEdges||[]).some(function(e){return e.from===fromId&&e.to===toId;});
-    if(exists)return;
-    S.flowEdges=S.flowEdges||[];
-    S.flowEdges.push({id:'edge-'+Date.now()+'-'+Math.round(Math.random()*9999),from:fromId,to:toId,type:'branch'});
-    save();fcDrawEdges();
-  }
-  document.addEventListener('mousemove',onMove);
-  document.addEventListener('mouseup',onEnd);
-  document.addEventListener('touchmove',onMove,{passive:true});
-  document.addEventListener('touchend',onEnd);
-}
-
-// Asset → Scene link: drag from an asset's handle onto a scene node. On drop, prompts for a
-// short custom instruction (how this asset appears/interacts in that specific scene). The asset's
-// own `description` field stays generic/reusable; this instruction is scene-specific and lives
-// only in the link itself, never written back onto the asset.
-function fcStartAssetConnect(assetId,startClientX,startClientY){
-  var svg=document.getElementById('flowCanvasSvg');
-  if(!svg)return;
-  var asset=(S.assets||[]).find(function(a){return a.id===assetId;});
-  if(!asset||!asset.position)return;
-  var tempLine=document.createElementNS('http://www.w3.org/2000/svg','line');
-  tempLine.setAttribute('stroke','#EC4899');
-  tempLine.setAttribute('stroke-width','2');
-  tempLine.setAttribute('stroke-dasharray','3,3');
-  var x1=asset.position.x+170,y1=asset.position.y+25;
-  tempLine.setAttribute('x1',x1);tempLine.setAttribute('y1',y1);
-  tempLine.setAttribute('x2',x1);tempLine.setAttribute('y2',y1);
-  svg.appendChild(tempLine);
-
-  function onMove(ev){
-    var clientX=ev.touches?ev.touches[0].clientX:ev.clientX;
-    var clientY=ev.touches?ev.touches[0].clientY:ev.clientY;
-    var pt=fcScreenToCanvas(clientX,clientY);
-    tempLine.setAttribute('x2',pt.x);tempLine.setAttribute('y2',pt.y);
-  }
-  function onEnd(ev){
-    document.removeEventListener('mousemove',onMove);
-    document.removeEventListener('mouseup',onEnd);
-    document.removeEventListener('touchmove',onMove);
-    document.removeEventListener('touchend',onEnd);
-    tempLine.remove();
-    var clientX=ev.changedTouches?ev.changedTouches[0].clientX:ev.clientX;
-    var clientY=ev.changedTouches?ev.changedTouches[0].clientY:ev.clientY;
-    var targetNode=document.elementFromPoint(clientX,clientY);
-    var targetEl=targetNode?targetNode.closest('.fcNode'):null;
-    if(!targetEl)return; // dropped somewhere that isn't a scene node — no-op
-    var sceneId=Number(targetEl.getAttribute('data-scid'));
-    var exists=(S.assetLinks||[]).some(function(l){return l.assetId===assetId&&l.sceneId===sceneId;});
-    if(exists){alert('This asset is already linked to that scene.');return;}
-    var instruction=prompt('How does "'+(asset.name||'this asset')+'" appear or interact in this scene? (optional)')||'';
-    S.assetLinks=S.assetLinks||[];
-    S.assetLinks.push({id:'alink-'+Date.now()+'-'+Math.round(Math.random()*9999),assetId:assetId,sceneId:sceneId,instruction:instruction});
-    save();
-    renderFlowCanvas();
-  }
-  document.addEventListener('mousemove',onMove);
-  document.addEventListener('mouseup',onEnd);
-  document.addEventListener('touchmove',onMove,{passive:true});
-  document.addEventListener('touchend',onEnd);
-}
-
-
-// ═══ MOBILE LAYOUT (≤700px): vertical order-following list. Reads same S.scenes/S.flowEdges —
-// no separate data. "Reorder" mutates S.scenes array order directly (mobile has no x/y position
-// concept). Branches are shown as an indented sub-card directly under their "from" scene, instead
-// of crossing lines (which don't work well on narrow screens).
-function renderFlowCanvasMobile(){
-  var list=document.getElementById('flowCanvasMobileList');
-  if(!list)return;
-  var edges=S.flowEdges||[];
-  // group branch targets by their "from" scene id, in edge-creation order
-  var branchChildren={}; // fromId -> [toId,...]
-  edges.forEach(function(e){
-    if(!branchChildren[e.from])branchChildren[e.from]=[];
-    branchChildren[e.from].push(e.to);
-  });
-  var branchedIds={}; // scene ids that appear as a branch target — rendered inline under parent, skipped in main loop
-  edges.forEach(function(e){branchedIds[e.to]=true;});
-
-  function nodeHtml(sc,isBranch){
-    var idx=S.scenes.indexOf(sc);
-    var title=sc.title||'Untitled scene';
-    var chips='';
-    if(sc.beat)chips+='<span class="fcChip fcChipBeat">'+escapeHtml(sc.beat)+'</span>';
-    if(sc.location)chips+='<span class="fcChip fcChipLoc">&#128205; '+escapeHtml(sc.location)+'</span>';
-    var actionFilled=!!(sc.script&&sc.script.trim());
-    var motionFilled=!!(sc.movement&&sc.movement.trim());
-    var sel=FC_SELECTED.indexOf(sc.id)>-1;
-    var h='<div class="fcMobileNode'+(isBranch?' branchOf':'')+(sel?' selected':'')+'" data-mscid="'+sc.id+'">';
-    if(isBranch)h+='<div class="fcMobileBranchLabel">&#8618; branch</div>';
-    h+='<div class="fcMobileReorderRow">'+
-      (isBranch?'':'<span class="fcMobileHandle" data-mreorder-handle="'+sc.id+'">&#9776;</span>')+
-      '<span class="fcBadge">S'+(idx+1)+'</span>'+
-      '<span class="fcTitle" style="flex:1;">'+escapeHtml(title)+'</span>'+
-      '</div>'+
-      (chips?'<div class="fcChips">'+chips+'</div>':'')+
-      '<div class="fcPreviewRow"><span class="fcDot '+(actionFilled?'filled':'empty')+'"></span><span class="fcPreviewLabel">Action</span><span class="fcPreviewText">'+(actionFilled?escapeHtml(sc.script):'—')+'</span></div>'+
-      '<div class="fcPreviewRow"><span class="fcDot '+(motionFilled?'filled':'empty')+'"></span><span class="fcPreviewLabel">Motion</span><span class="fcPreviewText">'+(motionFilled?escapeHtml(sc.movement):'—')+'</span></div>'+
-      '<div class="fcFooter"><label><input type="checkbox" data-fcprogress="'+sc.id+'" '+(sc.progress&&sc.progress.generated?'checked':'')+'> Generated in Higgsfield</label></div>'+
-      '<div class="fcMobileBtnRow">'+
-        '<button class="fcMobileSmallBtn" data-mselect="'+sc.id+'">'+(sel?'&#10003; Selected':'Select')+'</button>'+
-        (isBranch?'':'<button class="fcMobileSmallBtn" data-mbranch="'+sc.id+'">+ Branch</button>')+
-      '</div>'+
-    '</div>';
-    return h;
-  }
-
-  var h='';
-  S.scenes.forEach(function(sc){
-    if(branchedIds[sc.id])return; // rendered inline under its parent below, not at top level
-    h+=nodeHtml(sc,false);
-    (branchChildren[sc.id]||[]).forEach(function(childId){
-      var childSc=S.scenes.find(function(s){return s.id===childId;});
-      if(childSc)h+=nodeHtml(childSc,true);
-    });
-  });
-  list.innerHTML=h;
-
-  list.querySelectorAll('[data-fcprogress]').forEach(function(cb){
-    cb.addEventListener('change',function(){
-      var scId=Number(cb.getAttribute('data-fcprogress'));
-      var sc=S.scenes.find(function(s){return s.id===scId;});
-      if(!sc)return;
-      if(!sc.progress)sc.progress={generated:false};
-      sc.progress.generated=cb.checked;
-      save();renderQueue();
-    });
-  });
-  list.querySelectorAll('[data-mselect]').forEach(function(btn){
-    btn.addEventListener('click',function(){
-      var scId=Number(btn.getAttribute('data-mselect'));
-      var idx=FC_SELECTED.indexOf(scId);
-      if(idx>-1)FC_SELECTED.splice(idx,1);else FC_SELECTED.push(scId);
-      renderFlowCanvasMobile();
-      fcUpdateMobileSelBar();
-    });
-  });
-  list.querySelectorAll('[data-mbranch]').forEach(function(btn){
-    btn.addEventListener('click',function(){
-      fcMobileBranchPicker(Number(btn.getAttribute('data-mbranch')));
-    });
-  });
-  fcBindMobileReorder(list);
-  fcUpdateMobileSelBar();
-}
-
-function fcUpdateMobileSelBar(){
-  var bar=document.getElementById('fcMobileSelBar');
-  var lbl=document.getElementById('fcMobileSelCount');
-  if(!bar||!lbl)return;
-  if(FC_SELECTED.length){
-    bar.style.display='flex';
-    lbl.textContent=FC_SELECTED.length+' selected';
-  }else{
-    bar.style.display='none';
-  }
-}
-
-// Simple picker: prompt-based selection of an existing scene to branch to. Kept intentionally
-// minimal for mobile — a fancier modal can replace this later without touching the data model.
-function fcMobileBranchPicker(fromId){
-  var options=S.scenes.filter(function(s){return s.id!==fromId;});
-  if(!options.length){alert('Add another scene first to create a branch.');return;}
-  var listText=options.map(function(s,i){return (i+1)+'. '+(s.title||'Untitled scene');}).join('\n');
-  var choice=prompt('Branch "'+ (S.scenes.find(function(s){return s.id===fromId;})||{}).title +'" to which scene? Enter number:\n'+listText);
-  if(!choice)return;
-  var n=parseInt(choice,10);
-  if(!n||n<1||n>options.length)return;
-  var toId=options[n-1].id;
-  var exists=(S.flowEdges||[]).some(function(e){return e.from===fromId&&e.to===toId;});
-  if(exists){alert('That branch already exists.');return;}
-  S.flowEdges=S.flowEdges||[];
-  S.flowEdges.push({id:'edge-'+Date.now()+'-'+Math.round(Math.random()*9999),from:fromId,to:toId,type:'branch'});
-  save();renderFlowCanvasMobile();
-}
-
-// Reorder via drag handle: touch-drag the handle up/down swaps scene array position.
-// This only changes S.scenes order (mobile's "position" concept) — does not touch desktop x/y.
-function fcBindMobileReorder(list){
-  list.querySelectorAll('[data-mreorder-handle]').forEach(function(handle){
-    var scId=Number(handle.getAttribute('data-mreorder-handle'));
-    var nodeEl=handle.closest('.fcMobileNode');
-    handle.addEventListener('touchstart',function(e){
-      e.stopPropagation();
-      var startY=e.touches[0].clientY;
-      var moved=false;
-      function onMove(ev){
-        var dy=ev.touches[0].clientY-startY;
-        if(Math.abs(dy)<24)return;
-        moved=true;
-        var siblings=Array.from(list.querySelectorAll('.fcMobileNode:not(.branchOf)'));
-        var curIdx=siblings.indexOf(nodeEl);
-        var targetIdx=dy>0?curIdx+1:curIdx-1;
-        if(targetIdx<0||targetIdx>=siblings.length)return;
-        var fromSceneIdx=S.scenes.findIndex(function(s){return s.id===scId;});
-        var targetScId=Number(siblings[targetIdx].getAttribute('data-mscid'));
-        var toSceneIdx=S.scenes.findIndex(function(s){return s.id===targetScId;});
-        if(fromSceneIdx<0||toSceneIdx<0)return;
-        var moved_=S.scenes.splice(fromSceneIdx,1)[0];
-        S.scenes.splice(toSceneIdx,0,moved_);
-        startY=ev.touches[0].clientY;
-        save();renderFlowCanvasMobile();
-      }
-      function onEnd(){
-        document.removeEventListener('touchmove',onMove);
-        document.removeEventListener('touchend',onEnd);
-      }
-      document.addEventListener('touchmove',onMove,{passive:true});
-      document.addEventListener('touchend',onEnd);
-    },{passive:true});
-    // mouse fallback for desktop-width testing of the mobile view
-    handle.addEventListener('mousedown',function(e){
-      e.stopPropagation();e.preventDefault();
-      var startY=e.clientY;
-      function onMove(ev){
-        var dy=ev.clientY-startY;
-        if(Math.abs(dy)<24)return;
-        var siblings=Array.from(list.querySelectorAll('.fcMobileNode:not(.branchOf)'));
-        var curIdx=siblings.indexOf(nodeEl);
-        var targetIdx=dy>0?curIdx+1:curIdx-1;
-        if(targetIdx<0||targetIdx>=siblings.length)return;
-        var fromSceneIdx=S.scenes.findIndex(function(s){return s.id===scId;});
-        var targetScId=Number(siblings[targetIdx].getAttribute('data-mscid'));
-        var toSceneIdx=S.scenes.findIndex(function(s){return s.id===targetScId;});
-        if(fromSceneIdx<0||toSceneIdx<0)return;
-        var moved_=S.scenes.splice(fromSceneIdx,1)[0];
-        S.scenes.splice(toSceneIdx,0,moved_);
-        startY=ev.clientY;
-        save();renderFlowCanvasMobile();
-      }
-      function onUp(){
-        document.removeEventListener('mousemove',onMove);
-        document.removeEventListener('mouseup',onUp);
-      }
-      document.addEventListener('mousemove',onMove);
-      document.addEventListener('mouseup',onUp);
-    });
-  });
-}
-
-function fcDrawEdges(){
-  var svg=document.getElementById('flowCanvasSvg');
-  if(!svg)return;
-  var lines='';
-  for(var i=0;i<S.scenes.length-1;i++){
-    var a=S.scenes[i].position,b=S.scenes[i+1].position;
-    if(!a||!b)continue;
-    var x1=a.x+FC_NODE_W/2,y1=a.y+50,x2=b.x+FC_NODE_W/2,y2=b.y+10;
-    lines+='<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="#3f3f46" stroke-width="2" />';
-  }
-  (S.flowEdges||[]).forEach(function(e){
-    var from=S.scenes.find(function(s){return s.id===e.from;});
-    var to=S.scenes.find(function(s){return s.id===e.to;});
-    if(!from||!to||!from.position||!to.position)return;
-    var x1=from.position.x+FC_NODE_W,y1=from.position.y+30;
-    var x2=to.position.x,y2=to.position.y+30;
-    lines+='<line class="fcEdgeBranch" data-edgeid="'+e.id+'" x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" />';
-  });
-  (S.assetLinks||[]).forEach(function(l){
-    var asset=(S.assets||[]).find(function(a){return a.id===l.assetId;});
-    var sc=S.scenes.find(function(s){return s.id===l.sceneId;});
-    if(!asset||!sc||!asset.position||!sc.position)return;
-    var x1=asset.position.x+170,y1=asset.position.y+25;
-    var x2=sc.position.x+FC_NODE_W/2,y2=sc.position.y;
-    lines+='<line class="fcEdgeAsset" data-alinkid="'+l.id+'" x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" />';
-  });
-  svg.innerHTML=lines;
-  svg.querySelectorAll('.fcEdgeBranch').forEach(function(line){
-    line.addEventListener('click',function(ev){
-      ev.stopPropagation();
-      var edgeId=line.getAttribute('data-edgeid');
-      if(confirm('Remove this branch connection?')){
-        S.flowEdges=(S.flowEdges||[]).filter(function(e){return e.id!==edgeId;});
-        save();fcDrawEdges();
-      }
-    });
-  });
-  svg.querySelectorAll('.fcEdgeAsset').forEach(function(line){
-    line.addEventListener('click',function(ev){
-      ev.stopPropagation();
-      var linkId=line.getAttribute('data-alinkid');
-      var link=(S.assetLinks||[]).find(function(l){return l.id===linkId;});
-      var label=link?'Remove this asset link?'+(link.instruction?' ("'+link.instruction+'")':''):'Remove this asset link?';
-      if(confirm(label)){
-        S.assetLinks=(S.assetLinks||[]).filter(function(l){return l.id!==linkId;});
-        save();
-        renderFlowCanvas(); // re-render (not just redraw edges) since the asset node itself may need to disappear
-      }
-    });
-  });
-}
-
-// Node drag: deltas must be divided by current zoom, since the viewport (and nodes inside it)
-// are visually scaled by CSS transform but node.style.left/top are still set in un-scaled px.
-function fcBindNodeDrag(){
-  document.querySelectorAll('.fcNode').forEach(function(node){
-    var checkbox=node.querySelector('[data-fcprogress]');
-    if(checkbox){
-      checkbox.addEventListener('change',function(e){
-        e.stopPropagation();
-        var scId=Number(checkbox.getAttribute('data-fcprogress'));
-        var sc=S.scenes.find(function(s){return s.id===scId;});
-        if(!sc)return;
-        if(!sc.progress)sc.progress={generated:false};
-        sc.progress.generated=checkbox.checked;
-        save();
-        renderQueue();
-      });
-    }
-    var handle=node.querySelector('[data-fchandle]');
-    if(handle){
-      handle.addEventListener('mousedown',function(e){
-        e.preventDefault();e.stopPropagation();
-        fcStartConnect(Number(handle.getAttribute('data-fchandle')),e.clientX,e.clientY);
-      });
-      handle.addEventListener('touchstart',function(e){
-        e.stopPropagation();
-        var t=e.touches[0];
-        fcStartConnect(Number(handle.getAttribute('data-fchandle')),t.clientX,t.clientY);
-      },{passive:true});
-    }
-    node.addEventListener('mousedown',function(e){
-      if(e.target.closest('.fcFooter')||e.target.closest('.fcHandle'))return;
-      e.preventDefault();e.stopPropagation();
-      var scId=Number(node.getAttribute('data-scid'));
-      var sc=S.scenes.find(function(s){return s.id===scId;});
-      if(!sc)return;
-      var startX=e.clientX,startY=e.clientY;
-      var origX=sc.position.x,origY=sc.position.y;
-      var moved=false;
-      function onMove(ev){
-        var dx=(ev.clientX-startX)/FCV.zoom,dy=(ev.clientY-startY)/FCV.zoom;
-        if(!moved&&(Math.abs(ev.clientX-startX)>4||Math.abs(ev.clientY-startY)>4)){
-          moved=true;node.classList.add('dragging');
-        }
-        if(!moved)return;
-        sc.position.x=Math.max(0,origX+dx);
-        sc.position.y=Math.max(0,origY+dy);
-        node.style.left=sc.position.x+'px';
-        node.style.top=sc.position.y+'px';
-        fcDrawEdges();
-      }
-      function onUp(){
-        document.removeEventListener('mousemove',onMove);
-        document.removeEventListener('mouseup',onUp);
-        node.classList.remove('dragging');
-        if(moved){save();}else{fcToggleSelect(scId,node);}
-      }
-      document.addEventListener('mousemove',onMove);
-      document.addEventListener('mouseup',onUp);
-    });
-    // touch support
-    node.addEventListener('touchstart',function(e){
-      if(e.target.closest('.fcFooter')||e.target.closest('.fcHandle'))return;
-      e.stopPropagation();
-      var scId=Number(node.getAttribute('data-scid'));
-      var sc=S.scenes.find(function(s){return s.id===scId;});
-      if(!sc)return;
-      var t=e.touches[0];
-      var startX=t.clientX,startY=t.clientY;
-      var origX=sc.position.x,origY=sc.position.y;
-      var moved=false;
-      function onMove(ev){
-        var tt=ev.touches[0];
-        var dx=(tt.clientX-startX)/FCV.zoom,dy=(tt.clientY-startY)/FCV.zoom;
-        if(!moved&&(Math.abs(tt.clientX-startX)>4||Math.abs(tt.clientY-startY)>4)){
-          moved=true;node.classList.add('dragging');
-        }
-        if(!moved)return;
-        sc.position.x=Math.max(0,origX+dx);
-        sc.position.y=Math.max(0,origY+dy);
-        node.style.left=sc.position.x+'px';
-        node.style.top=sc.position.y+'px';
-        fcDrawEdges();
-        ev.preventDefault();
-      }
-      function onEnd(){
-        document.removeEventListener('touchmove',onMove);
-        document.removeEventListener('touchend',onEnd);
-        node.classList.remove('dragging');
-        if(moved){save();}else{fcToggleSelect(scId,node);}
-      }
-      document.addEventListener('touchmove',onMove,{passive:false});
-      document.addEventListener('touchend',onEnd);
-    },{passive:true});
-  });
-}
-
-// Pan: dragging empty canvas space (not a node) moves the viewport via translate.
-function fcBindPan(){
-  var area=document.getElementById('flowCanvasArea');
-  if(!area||area.getAttribute('data-panbound'))return;
-  area.setAttribute('data-panbound','1');
-  area.addEventListener('mousedown',function(e){
-    if(e.target.closest('.fcNode'))return;
-    area.classList.add('panning');
-    var startX=e.clientX,startY=e.clientY;
-    var origX=FCV.x,origY=FCV.y;
-    function onMove(ev){
-      FCV.x=origX+(ev.clientX-startX);
-      FCV.y=origY+(ev.clientY-startY);
-      fcApplyViewportTransform();
-    }
-    function onUp(){
-      document.removeEventListener('mousemove',onMove);
-      document.removeEventListener('mouseup',onUp);
-      area.classList.remove('panning');
-    }
-    document.addEventListener('mousemove',onMove);
-    document.addEventListener('mouseup',onUp);
-  });
-  area.addEventListener('touchstart',function(e){
-    if(e.target.closest('.fcNode'))return;
-    var t=e.touches[0];
-    var startX=t.clientX,startY=t.clientY;
-    var origX=FCV.x,origY=FCV.y;
-    function onMove(ev){
-      var tt=ev.touches[0];
-      FCV.x=origX+(tt.clientX-startX);
-      FCV.y=origY+(tt.clientY-startY);
-      fcApplyViewportTransform();
-    }
-    function onEnd(){
-      document.removeEventListener('touchmove',onMove);
-      document.removeEventListener('touchend',onEnd);
-    }
-    document.addEventListener('touchmove',onMove,{passive:true});
-    document.addEventListener('touchend',onEnd);
-  },{passive:true});
-  // wheel = zoom (ctrl/cmd+wheel or plain wheel, centered roughly on cursor)
-  area.addEventListener('wheel',function(e){
-    e.preventDefault();
-    var delta=e.deltaY<0?0.08:-0.08;
-    FCV.zoom=Math.min(2,Math.max(0.4,Math.round((FCV.zoom+delta)*100)/100));
-    fcApplyViewportTransform();
-  },{passive:false});
-}
-
-function fcToggleSelect(scId,node){
-  var idx=FC_SELECTED.indexOf(scId);
-  if(idx>-1){FC_SELECTED.splice(idx,1);node.classList.remove('selected');}
-  else{FC_SELECTED.push(scId);node.classList.add('selected');}
-  fcUpdateSelToolbar();
-}
-
-function fcUpdateSelToolbar(){
-  var countEl=document.getElementById('fcSelCount');
-  var btnEl=document.getElementById('fcAddToQueueBtn');
-  if(!countEl||!btnEl)return;
-  if(FC_SELECTED.length){
-    countEl.style.display='inline';
-    countEl.textContent=FC_SELECTED.length+' selected';
-    btnEl.style.display='inline-flex';
-  }else{
-    countEl.style.display='none';
-    btnEl.style.display='none';
-  }
-}
-
-// ═══ EXECUTION QUEUE ═══
-// Queue items reference scene ids directly — no content duplication. "queued" status lives in
-// S.flowQueue (array of scene ids currently in queue, order = display order). Per-field "Copied"
-// state is UI-only (not persisted) since it just tracks this session's copy actions, not real data.
-var FC_COPIED={}; // sceneId -> {script:bool, movement:bool} — session-only "Copied" visual state
-
-function fcAddSelectedToQueue(){
-  if(!FC_SELECTED.length)return;
-  S.flowQueue=S.flowQueue||[];
-  FC_SELECTED.forEach(function(scId){
-    if(S.flowQueue.indexOf(scId)===-1)S.flowQueue.push(scId);
-  });
-  FC_SELECTED=[];
-  document.querySelectorAll('.fcNode.selected').forEach(function(n){n.classList.remove('selected');});
-  fcUpdateSelToolbar();
-  fcUpdateMobileSelBar();
-  save();
-  renderQueue();
-  if(fcIsMobile())renderFlowCanvasMobile();
-}
-
-function fcClearQueue(){
-  if(!confirm('Clear the entire queue? Scene data is untouched — this only clears the queue list.'))return;
-  S.flowQueue=[];
-  save();
-  renderQueue();
-}
-
-function fcRemoveFromQueue(scId){
-  S.flowQueue=(S.flowQueue||[]).filter(function(id){return id!==scId;});
-  save();
-  renderQueue();
-}
-
-function fcQueueStatus(sc){
-  if(sc.progress&&sc.progress.generated)return'generated';
-  var copied=FC_COPIED[sc.id];
-  if(copied&&(copied.script||copied.movement))return'copied';
-  return'pending';
-}
-
-function renderQueue(){
-  var list=document.getElementById('fcQueueList');
-  var clearBtn=document.getElementById('fcClearQueueBtn');
-  if(!list)return;
-  var queue=S.flowQueue||[];
-  if(!queue.length){
-    list.innerHTML='<div style="text-align:center;padding:18px 12px;color:#52525b;font-size:12px;">Queue is empty. Select nodes on the canvas above and click "Add to Queue".</div>';
-    if(clearBtn)clearBtn.style.display='none';
-    return;
-  }
-  if(clearBtn)clearBtn.style.display='inline-block';
-  var h='';
-  queue.forEach(function(scId){
-    var sc=S.scenes.find(function(s){return s.id===scId;});
-    if(!sc)return; // scene was deleted — silently skip, queue is just a reference list
-    var idx=S.scenes.indexOf(sc);
-    var status=fcQueueStatus(sc);
-    var title=sc.title||'Untitled scene';
-    var actionVal=(sc.script||'').trim();
-    var motionVal=(sc.movement||'').trim();
-    h+='<div class="qCard">'+
-      '<div class="qCardHdr">'+
-        '<span class="fcBadge">S'+(idx+1)+'</span>'+
-        '<span style="font-size:12px;color:#e4e4e7;flex:1;">'+escapeHtml(title)+'</span>'+
-        '<span class="qPill '+status+'">'+(status==='generated'?'Generated':status==='copied'?'Copied':'Pending')+'</span>'+
-        '<label style="display:flex;align-items:center;gap:4px;font-size:9px;color:#71717a;cursor:pointer;"><input type="checkbox" data-qgenerated="'+sc.id+'" '+(sc.progress&&sc.progress.generated?'checked':'')+' style="accent-color:#06B6D4;cursor:pointer;width:11px;height:11px;">Done</label>'+
-        '<button class="btnD" style="font-size:10px;padding:3px 8px;" data-qremove="'+sc.id+'">&times;</button>'+
-      '</div>'+
-      '<div class="qField"><span class="qFieldLabel">Action</span><span class="qFieldText">'+(actionVal?escapeHtml(actionVal):'(empty — fill in node first)')+'</span>'+
-        '<button class="qCopyBtn'+(FC_COPIED[sc.id]&&FC_COPIED[sc.id].script?' copied':'')+'" data-qcopy="'+sc.id+'" data-qfield="script" '+(actionVal?'':'disabled')+'>'+(FC_COPIED[sc.id]&&FC_COPIED[sc.id].script?'&#10003; Copied':'Copy')+'</button></div>'+
-      '<div class="qField"><span class="qFieldLabel">Motion</span><span class="qFieldText">'+(motionVal?escapeHtml(motionVal):'(empty — fill in node first)')+'</span>'+
-        '<button class="qCopyBtn'+(FC_COPIED[sc.id]&&FC_COPIED[sc.id].movement?' copied':'')+'" data-qcopy="'+sc.id+'" data-qfield="movement" '+(motionVal?'':'disabled')+'>'+(FC_COPIED[sc.id]&&FC_COPIED[sc.id].movement?'&#10003; Copied':'Copy')+'</button></div>'+
-    '</div>';
-  });
-  list.innerHTML=h;
-  list.querySelectorAll('[data-qcopy]').forEach(function(btn){
-    btn.addEventListener('click',function(){
-      var scId=Number(btn.getAttribute('data-qcopy'));
-      var field=btn.getAttribute('data-qfield');
-      var sc=S.scenes.find(function(s){return s.id===scId;});
-      if(!sc)return;
-      var val=field==='script'?sc.script:sc.movement;
-      if(!val)return;
-      navigator.clipboard.writeText(val).then(function(){
-        if(!FC_COPIED[scId])FC_COPIED[scId]={};
-        FC_COPIED[scId][field]=true;
-        renderQueue();
-      }).catch(function(){
-        // clipboard API may be unavailable (e.g. insecure context) — fall back silently, no crash
-      });
-    });
-  });
-  list.querySelectorAll('[data-qremove]').forEach(function(btn){
-    btn.addEventListener('click',function(){
-      fcRemoveFromQueue(Number(btn.getAttribute('data-qremove')));
-    });
-  });
-  list.querySelectorAll('[data-qgenerated]').forEach(function(cb){
-    cb.addEventListener('change',function(){
-      var scId=Number(cb.getAttribute('data-qgenerated'));
-      var sc=S.scenes.find(function(s){return s.id===scId;});
-      if(!sc)return;
-      if(!sc.progress)sc.progress={generated:false};
-      sc.progress.generated=cb.checked;
-      save();
-      renderQueue();
-      // also reflect on the canvas node's checkbox if currently rendered
-      var nodeCb=document.querySelector('.fcNode [data-fcprogress="'+scId+'"]');
-      if(nodeCb)nodeCb.checked=cb.checked;
-    });
   });
 }
 
@@ -3684,6 +2830,28 @@ function renderScenes(){
         if(sc.location)h+='<span style="font-size:10px;color:#60a5fa;background:#3b82f611;border:1px solid #3b82f622;border-radius:4px;padding:2px 8px;">&#128205; '+sc.location+'</span>';
         if(sc.time)h+='<span style="font-size:10px;color:#60a5fa;background:#3b82f611;border:1px solid #3b82f622;border-radius:4px;padding:2px 8px;">&#9716; '+sc.time+'</span>';
         if(sc.mood)h+='<span style="font-size:10px;color:#a78bfa;background:#7c3aed11;border:1px solid #7c3aed22;border-radius:4px;padding:2px 8px;">'+sc.mood+'</span>';
+        h+='</div>';
+      }
+
+      // Asset links — compact chips row, shown only when assets exist (unobtrusive)
+      if((S.assets||[]).length){
+        var scLinks=(S.assetLinks||[]).filter(function(l){return l.sceneId===sc.id;});
+        h+='<div style="display:flex;gap:5px;flex-wrap:wrap;align-items:center;margin-bottom:10px;">';
+        h+='<span style="font-size:10px;color:#f472b6;flex-shrink:0;">&#127917; Assets:</span>';
+        scLinks.forEach(function(l){
+          var a=(S.assets||[]).find(function(x){return x.id===l.assetId;});
+          if(!a)return;
+          h+='<span style="display:inline-flex;align-items:center;gap:4px;font-size:10px;color:#f472b6;background:#EC489911;border:1px solid #EC489933;border-radius:12px;padding:2px 4px 2px 8px;">'+escapeHtml(a.name||'Untitled');
+          h+='<button data-editlink="'+l.id+'" title="'+(l.instruction?'Edit note: '+escapeHtml(l.instruction).replace(/"/g,'&quot;'):'Add a note about how this asset appears in this scene')+'" style="background:none;border:none;color:'+(l.instruction?'#f472b6':'#71717a')+';cursor:pointer;font-size:10px;padding:0 2px;">&#9998;</button>';
+          h+='<button data-unlink="'+l.id+'" title="Unlink from this scene" style="background:none;border:none;color:#71717a;cursor:pointer;font-size:11px;padding:0 2px;">&times;</button></span>';
+        });
+        var unlinked=(S.assets||[]).filter(function(a){return !scLinks.some(function(l){return l.assetId===a.id;});});
+        if(unlinked.length){
+          h+='<select data-linkasset="'+sc.id+'" class="inp" style="width:auto;font-size:10px;padding:2px 6px;background:transparent;border-style:dashed;color:#71717a;">';
+          h+='<option value="">+ Link asset&hellip;</option>';
+          unlinked.forEach(function(a){h+='<option value="'+a.id+'">'+escapeHtml(a.name||'Untitled')+' ('+a.type+')</option>';});
+          h+='</select>';
+        }
         h+='</div>';
       }
 
@@ -3807,6 +2975,36 @@ function renderScenes(){
       var sid=parseInt(this.getAttribute('data-scid'));
       var sc=S.scenes.find(function(s){return s.id===sid;});
       if(sc){sc.showDialog=!sc.showDialog;save();renderScenes();}
+    });
+  });
+  // Asset linking (Scene Editor) — replaces the old Flow Canvas drag-to-connect
+  c.querySelectorAll('[data-linkasset]').forEach(function(el){
+    el.addEventListener('change',function(){
+      var sid=parseInt(this.getAttribute('data-linkasset'));
+      var aid=Number(this.value)||this.value;
+      if(!this.value)return;
+      S.assetLinks=S.assetLinks||[];
+      S.assetLinks.push({id:'alink-'+Date.now()+'-'+Math.round(Math.random()*9999),assetId:aid,sceneId:sid,instruction:''});
+      save();renderScenes();renderAssetLibrary();
+    });
+  });
+  c.querySelectorAll('[data-unlink]').forEach(function(el){
+    el.addEventListener('click',function(){
+      var lid=this.getAttribute('data-unlink');
+      S.assetLinks=(S.assetLinks||[]).filter(function(l){return l.id!==lid;});
+      save();renderScenes();renderAssetLibrary();
+    });
+  });
+  c.querySelectorAll('[data-editlink]').forEach(function(el){
+    el.addEventListener('click',function(){
+      var lid=this.getAttribute('data-editlink');
+      var link=(S.assetLinks||[]).find(function(l){return l.id===lid;});
+      if(!link)return;
+      var asset=(S.assets||[]).find(function(a){return a.id===link.assetId;});
+      var note=prompt('How does "'+((asset&&asset.name)||'this asset')+'" appear or interact in this scene? (optional — appended to the prompt)',link.instruction||'');
+      if(note===null)return;
+      link.instruction=note;
+      save();renderScenes();
     });
   });
 }
@@ -4257,13 +3455,6 @@ function genStoryboard(){
 function cV(v){return v?v.split('—')[0].split('-')[0].trim():'';}
 function arrS(arr){return(arr||[]).join(', ');}
 
-function charAnchor(brollOnly,forVideo){
-  if(brollOnly||!S.chars.length)return'';
-  if(forVideo&&S.videoMode==='img2vid')return'';
-  return S.chars.map(function(ch){return(ch.name||'Character')+': '+ch.description;}).filter(function(x){return x.length>10;}).join(' | ');
-}
-
-// Shot type → composition description for image prompts
 function shotToComposition(shotType){
   return SHOT_COMPOSITION[shotType]||'';
 }
@@ -4274,37 +3465,12 @@ function shotToLabel(shotType){
 }
 
 // Build movement string for video prompts
-function buildMovement(sc){
-  var parts=[];
-  if(sc.movement)parts.push(sc.movement);
-  if(sc.movementNotes&&sc.movementNotes.trim())parts.push(sc.movementNotes.trim());
-  return parts.join(', ');
-}
-
-// Build anchor line for animated video prompts — bookend to prevent mid-video drift
-function buildAnchor(sc){
-  var parts=[];
-  // Style anchor: artStyle (per-scene) + first 3 words of styleAnch
-  var sa=styleAnch();
-  if(sc.artStyle)parts.push(sc.artStyle);
-  else if(sa){var saWords=sa.split(/\s+/).slice(0,3).join(' ');if(saWords)parts.push(saWords);}
-  // Character anchor: first char name + first 10 words of description
-  if(S.chars&&S.chars.length){
-    var ch=S.chars[0];
-    var name=ch.name?ch.name.trim():'';
-    var desc=ch.description?ch.description.trim():'';
-    var shortDesc=desc.split(/\s+/).slice(0,10).join(' ');
-    if(name||shortDesc)parts.push((name?name+': ':'')+shortDesc);
-  }
-  if(!parts.length)return '';
-  return '[ANCHOR] Maintain throughout: '+parts.join(' — ');
-}
-
-// Build the "ASSETS IN SCENE:" block for a scene, from S.assetLinks. Always appended at the very
-// END of a generated prompt (never merged into Action/Movement/other fields) so it can never
-// corrupt the prompt's existing structure — purely additive. Returns '' if the scene has no links.
-function assetSectionFor(sc){
+function assetSectionFor(sc,skipChars){
   var links=(S.assetLinks||[]).filter(function(l){return l.sceneId===sc.id;});
+  if(skipChars){links=links.filter(function(l){
+    var a=(S.assets||[]).find(function(x){return x.id===l.assetId;});
+    return !(a&&a.type==='character');
+  });}
   if(!links.length)return'';
   var lines=links.map(function(l){
     var asset=(S.assets||[]).find(function(a){return a.id===l.assetId;});
@@ -4321,7 +3487,554 @@ function assetSectionFor(sc){
   return 'ASSETS IN SCENE:\n'+lines.join('\n');
 }
 
-// REALISTIC IMAGE PROMPT — shot type translated to composition, injected FIRST, brand DNA cannot override
+// ═══════════════════════════════════════════════════════════════════════════
+// STAGE 1 CORE ENGINE — Look-Token Dictionary, Kinematics Compiler,
+// Identity Resolver, Sanitization Layer. (Refactor 2026-07)
+// ═══════════════════════════════════════════════════════════════════════════
+
+// ─── STYLE-GRAMMAR TRANSLATION DICTIONARY ───
+// Director/aesthetic names are weak tokens for image models — they must be expanded into
+// physical composition + grade descriptors. Matched by lowercase alias against BOTH the
+// custom Visual Style free-text and the dropdown value, so "wes anderson" typed casually
+// resolves to the full grammar. comp = composition/framing (elevated next to the SHOT slot,
+// primacy position), grade = palette/light/texture (replaces raw style text in the style anchor).
+var STYLE_DICT=[
+  {aliases:['wes anderson','dollhouse framing'],formal:true,medium:'film',rig:{cam:'ARRI Alexa Mini LF',lens:'Anamorphic — Oval bokeh, lens flares',focal:'35mm — Human-eye perspective',aperture:'f/5.6 — Balanced sharpness',look:'Pastel — Soft whimsical'},
+   comp:'perfectly symmetrical composition, subject dead-center on the vertical axis, flat frontal planimetric camera at 90 degrees to the background, one-point perspective, meticulous tableau staging',
+   grade:'pastel palette of powder pink, mint green, mustard yellow and cream, flat even lighting with minimal shadows, storybook production design, hyper-tidy set dressing, whimsical deadpan tone'},
+  {aliases:['wong kar-wai','wong kar wai','temporal disorientation'],medium:'film',rig:{cam:'ARRI Alexa Mini LF',lens:'Vintage Spherical — Soft classic',focal:'28mm — Street natural',aperture:'f/1.4 — Creamy separation',look:'Warm Kodak — Nostalgic film warmth'},
+   comp:'close cropped intimate framing, subjects glimpsed through doorways and reflections, foreground obstruction layering',
+   grade:'saturated warm amber and deep teal, smeared neon reflections, nostalgic urban haze, slow-shutter motion echo'},
+  {aliases:['a24','arthouse','unglamorous truth'],medium:'film',rig:{cam:'ARRI Alexa Mini LF',lens:'Vintage Spherical — Soft classic',focal:'35mm — Human-eye perspective',aperture:'f/1.8 — Sharp subject soft BG',look:'Desaturated Matte — Indie gritty'},
+   comp:'off-center naturalistic framing with negative space, patient static wides mixed with intimate handheld closeness',
+   grade:'desaturated muted palette, available-light realism, soft window light, visible grain, unpolished honest texture'},
+  {aliases:['fincher'],formal:true,medium:'digital',rig:{cam:'RED Dragon 6K',lens:'Prime — Fixed focal, sharp',focal:'50mm — True-to-life standard',aperture:'f/2.8 — Commercial standard',look:'Moody Low-key — Deep shadows'},
+   comp:'locked-down precise framing, centered symmetry with clinical detachment, camera slightly below eye level',
+   grade:'cold green-yellow tungsten bias, crushed shadows that retain detail, controlled low contrast, sodium-vapor night tones'},
+  {aliases:['villeneuve','blade runner 2049','dune style'],medium:'digital',rig:{cam:'ARRI Alexa Mini LF',lens:'Prime — Fixed focal, sharp',focal:'24mm — Wide cinematic',aperture:'f/4.0 — Moderate depth',look:'Desaturated Matte — Indie gritty'},
+   comp:'monumental scale, small figures against vast geometric architecture, slow deliberate framing, extreme wide establishing perspective',
+   grade:'restrained monochromatic palette, dust and haze diffusion, silhouettes against a glowing horizon, brutalist minimalism'},
+  {aliases:['nolan','time-bending tension'],medium:'film',rig:{cam:'ARRI Alexa Mini LF',lens:'Prime — Fixed focal, sharp',focal:'24mm — Wide cinematic',aperture:'f/5.6 — Balanced sharpness',look:'Cool Bleach Bypass — Harsh desaturated'},
+   comp:'IMAX-scale framing, low wide angles, subtle Dutch tilt tension, real-location grandeur',
+   grade:'cool desaturated steel blue and slate grey, crisp deep-focus clarity, natural filmic contrast, practical-effects realism'},
+  {aliases:['malick','lyrical visual poetry'],medium:'film',rig:{cam:'ARRI Alexa Mini LF',lens:'Prime — Fixed focal, sharp',focal:'24mm — Wide cinematic',aperture:'f/2.8 — Commercial standard',look:'Warm Kodak — Nostalgic film warmth'},
+   comp:'flowing drifting handheld framing, low backlit sun positioning, figures brushed by nature in the foreground',
+   grade:'golden magic-hour glow, gentle lens flare, soft organic warmth, impressionistic natural light'},
+  {aliases:['michael mann','cold city poetry'],medium:'digital',rig:{cam:'Sony Venice 2',lens:'Zoom — Variable, versatile',focal:'135mm — Telephoto isolation',aperture:'f/2.8 — Commercial standard',look:'Moody Low-key — Deep shadows'},
+   comp:'long-lens compression of urban space, isolated figures held in wide negative space',
+   grade:'neon-lit night exteriors, digital grain texture, high-contrast cyan and magenta city glow, rain-slicked reflections'},
+  {aliases:['deakins','masterful light'],medium:'digital',rig:{cam:'ARRI Alexa Mini LF',lens:'Prime — Fixed focal, sharp',focal:'35mm — Human-eye perspective',aperture:'f/2.8 — Commercial standard',look:'Kodak Vision3 — Warm shadows fine grain'},
+   comp:'motivated single-source light framing, silhouettes in doorways, clean uncluttered composition',
+   grade:'perfect naturalistic exposure, exceptional shadow and highlight rolloff, slightly elevated reality, grounded true color'},
+  {aliases:['cyberpunk','neo-noir','neo noir','alienated future'],medium:'digital',rig:{cam:'Sony Venice 2',lens:'Anamorphic — Oval bokeh, lens flares',focal:'35mm — Human-eye perspective',aperture:'f/1.8 — Sharp subject soft BG',look:'Moody Low-key — Deep shadows'},
+   comp:'layered depth with foreground neon signage, silhouettes against glowing storefronts, elevated cityscape vantage angles',
+   grade:'saturated neon magenta, cyan and acid green, rain puddle reflections, hard dramatic shadows, LED rim accents, dystopian haze'},
+  {aliases:['commercial','aspirational','color-accurate commercial grade'],formal:true,medium:'digital',rig:{cam:'RED Dragon 6K',lens:'Prime — Fixed focal, sharp',focal:'50mm — True-to-life standard',aperture:'f/2.8 — Commercial standard',look:'High-end Commercial — Clean crisp'},
+   comp:'product-flattering hero angles, clean generous negative space, precise rule-of-thirds placement',
+   grade:'polished high-key lighting, crisp specular highlights, color-accurate skin tones, upscale lifestyle sheen'},
+  {aliases:['lo-fi','lofi','ugc','authentic slice of life'],medium:'phone',rig:{cam:'iPhone 15 Pro Cinematic',lens:'Prime — Fixed focal, sharp',focal:'28mm — Street natural',aperture:'f/1.8 — Sharp subject soft BG',look:'Digital Clean — No grain clinical'},
+   comp:'eye-level candid framing, slight handheld sway, spontaneous imperfect crops',
+   grade:'natural available light, mild grain, true-to-life color, unretouched skin texture, genuine unperformed feel'},
+  {aliases:['retro film','35mm','analog','imperfect analog beauty'],medium:'film',rig:{cam:'ARRI Alexa Mini LF',lens:'Vintage Spherical — Soft classic',focal:'50mm — True-to-life standard',aperture:'f/2.8 — Commercial standard',look:'Retro Super 8 — Heavy grain warm vintage'},
+   comp:'classic tripod framing at modest focal lengths, unhurried composition',
+   grade:'visible film grain, halation around highlights, warm faded analog palette, slightly soft vintage edges'},
+  {aliases:['ghibli'],
+   comp:'gentle wide establishing shots, characters small within lush living environments',
+   grade:'warm watercolor washes, soft rounded forms, painterly cloud-filled skies, nostalgic pastoral glow'}
+];
+
+function resolveStyle(){
+  var cvs=document.getElementById('customVisualStyle');
+  var custom=cvs?cvs.value.trim():'';
+  var raw=(custom||S.proj.visualStyle||'').toLowerCase();
+  if(!raw)return null;
+  for(var i=0;i<STYLE_DICT.length;i++){
+    var e=STYLE_DICT[i];
+    for(var j=0;j<e.aliases.length;j++){
+      if(raw.indexOf(e.aliases[j])>-1)return e;
+    }
+  }
+  return null;
+}
+
+// ─── CONTENT INTENT DICTIONARY ───
+// Project-level vibe (branding vs review vs education is a different visual grammar, not just
+// a mood). img = rendering tokens appended to the style anchor region; director = guidance
+// injected into AI story/scene generation instructions.
+var INTENT_DICT={
+  branding:{label:'Branding / Brand Film',
+    img:'aspirational hero-shot energy, polished premium finish, brand-flattering staging, confident deliberate visual pacing',
+    director:'Every scene should elevate the brand: hero framing for products and subjects, aspirational settings, slow confident pacing, premium polish. Avoid clutter and candid messiness.'},
+  ugc_review:{label:'Review / UGC',
+    img:'authentic first-person credibility, eye-level relatable framing, natural unstaged feel, honest real-world context',
+    director:'Write scenes that feel like genuine user-generated content: eye-level talking-to-camera moments, real lived-in environments, natural light, honest product interaction. Avoid corporate polish.'},
+  education:{label:'Education / Explainer',
+    img:'clean readable staging, uncluttered neutral background, clear subject separation, calm even illumination',
+    director:'Prioritize clarity: one idea per scene, clean uncluttered environments, readable medium framing, calm pacing, visual demonstration over decoration.'},
+  storytelling:{label:'Storytelling / Narrative',
+    img:'cinematic emotional depth, evocative atmosphere, layered visual subtext',
+    director:'Build an emotional arc across scenes: vary shot sizes for rhythm, use environment and light as emotional subtext, show rather than tell.'},
+  promo:{label:'Hype / Promo',
+    img:'high-impact dynamic energy, bold graphic contrast, kinetic momentum, attention-grabbing punch',
+    director:'Maximize energy and momentum: bold compositions, fast implied pacing, dramatic light, a strong hook in the first scene. Every scene should punch.'},
+  testimonial:{label:'Testimonial / Talking Head',
+    img:'trustworthy intimate framing, warm approachable light, stable grounded composition',
+    director:'Center the speaker: stable medium close-ups, warm soft key light, quiet credible backgrounds, minimal camera movement.'}
+};
+
+function intentEntry(){return S.proj.intent&&INTENT_DICT[S.proj.intent]?INTENT_DICT[S.proj.intent]:null;}
+function updateIntentDesc(){
+  var el=document.getElementById('intent');
+  var d=document.getElementById('intentDesc');
+  if(!el||!d)return;
+  var e=el.value&&INTENT_DICT[el.value]?INTENT_DICT[el.value]:null;
+  d.textContent=e?e.img:'';
+}
+
+// ─── LOOK-TOKEN TRANSLATION DICTIONARY ───
+// Keys = EXACT raw dropdown strings (DD_REAL / CHIP). Two tiers per entry:
+//   img — full emulsion/optical physics for image generation (upstream foundation)
+//   vid — motion-persistence subset only (img2vid inherits the look from the image;
+//         video prompt must not re-grade, only hold the look across frames)
+var LOOK_DICT = {
+  // Camera bodies
+  'ARRI Alexa Mini LF':{img:'large-format digital cinema rendering, gentle filmic highlight roll-off, natural skin tone response, true cinematic depth',vid:'cinema-grade highlight roll-off, natural skin tones held under motion'},
+  'RED Dragon 6K':{img:'razor-sharp 6K detail, controlled contrast curve, deep color depth, crisp micro-texture',vid:'crisp detail retained during movement, controlled contrast'},
+  'Sony FX3':{img:'clean full-frame digital look, low-light clarity, mild highlight bloom, neutral color science',vid:'clean low-light image, stable neutral color'},
+  'Sony Venice 2':{img:'premium full-frame cinema rendering, smooth tonal gradation, rich shadow detail, film-like color response',vid:'smooth tonal gradation, rich shadow detail preserved in motion'},
+  'Blackmagic URSA Mini Pro':{img:'filmic gamma curve, soft contrast, slightly organic sensor texture',vid:'soft filmic contrast maintained'},
+  'Canon EOS C70':{img:'warm Canon color science, pleasing skin tones, gentle contrast',vid:'warm consistent skin tones'},
+  'iPhone 15 Pro Cinematic':{img:'computational smartphone look, deep-fusion sharpening, slight HDR flatness, everyday realism',vid:'handheld smartphone realism, mild HDR flatness'},
+  'GoPro Hero (POV)':{img:'ultra-wide action-cam perspective, high sharpening, punchy saturated contrast, slight edge distortion',vid:'wide POV action-cam look, punchy contrast'},
+  'Fujifilm X-T5':{img:'Fuji color science, film-simulation tonality, crisp APS-C detail',vid:'film-simulation color held steady'},
+  'DJI Mavic 4 Pro (aerial)':{img:'aerial drone perspective, deep depth of field, clean stabilized image, expansive sense of scale',vid:'stabilized aerial glide, deep-focus landscape'},
+  // Lens types
+  'Prime — Fixed focal, sharp':{img:'prime lens rendering, biting center sharpness, smooth focus falloff, minimal distortion',vid:'sharp prime rendering, stable geometry'},
+  'Anamorphic — Oval bokeh, lens flares':{img:'anamorphic character — oval bokeh, horizontal blue flare streaks, gentle edge falloff, subtle squeeze breathing',vid:'oval bokeh and horizontal flares persist, anamorphic breathing on focus shifts'},
+  'Zoom — Variable, versatile':{img:'modern zoom rendering, even edge-to-edge sharpness, neutral optical character',vid:'neutral zoom rendering'},
+  'Macro — Extreme detail':{img:'macro magnification, razor-thin focus plane, extreme micro-texture, background dissolved into color fields',vid:'razor-thin macro focus plane held on subject'},
+  'Fisheye — Ultra-wide distortion':{img:'fisheye barrel distortion, curved horizon, exaggerated near-far scale',vid:'fisheye curvature constant, no geometry correction'},
+  'Tilt-Shift — Selective focus':{img:'tilt-shift plane of focus, miniature-world selective sharpness, blur gradients above and below the focus band',vid:'tilt-shift focus band stays locked'},
+  'Vintage Spherical — Soft classic':{img:'vintage spherical glass, low-contrast glow, soft halation on highlights, warm optical imperfections',vid:'vintage glow and highlight halation persist across frames'},
+  // Visual looks / film stocks
+  'Teal and Orange — Hollywood blockbuster':{img:'teal-orange complementary grade, warm skin against cool shadows, blockbuster contrast, controlled saturation',vid:'teal-orange grade constant, no color drift'},
+  'Desaturated Matte — Indie gritty':{img:'lifted matte blacks, desaturated palette, muted highlights, gritty indie texture',vid:'matte desaturated grade held'},
+  'Warm Kodak — Nostalgic film warmth':{img:'warm Kodak emulsion bias, golden midtones, soft highlight roll-off, fine nostalgic grain',vid:'warm film grain persists, soft highlight roll-off'},
+  'Cool Bleach Bypass — Harsh desaturated':{img:'bleach-bypass silver retention, crushed desaturation, harsh metallic contrast, retained silver highlights',vid:'bleach-bypass contrast constant'},
+  'Vibrant Pop — Anime-inspired saturated':{img:'high-chroma pop palette, clean saturated primaries, bright airy exposure',vid:'saturated palette stable'},
+  'High-end Commercial — Clean crisp':{img:'polished commercial grade, clean neutral whites, crisp micro-contrast, flattering skin rendering',vid:'clean commercial polish maintained'},
+  'Pastel — Soft whimsical':{img:'pastel palette, lifted shadows, low-contrast airy softness, creamy highlights',vid:'soft pastel exposure constant'},
+  'Moody Low-key — Deep shadows':{img:'low-key exposure, deep rich shadows with retained detail, single-source falloff, dark negative space',vid:'deep shadow exposure held, no auto-brightening'},
+  'Retro Super 8 — Heavy grain warm vintage':{img:'Super 8 heavy grain, gate weave, warm faded color, soft resolution, vintage projection texture',vid:'heavy grain and gate weave persist in every frame'},
+  'B&W High Contrast — Timeless editorial':{img:'high-contrast black and white, deep blacks, luminous whites, silver-gelatin tonality',vid:'monochrome contrast locked, no color bleed-in'},
+  'Fuji Velvia — Ultra-saturated rich':{img:'Velvia slide-film saturation, dense rich color, deep contrast, punchy greens and reds',vid:'dense slide-film saturation held'},
+  'Kodak Vision3 — Warm shadows fine grain':{img:'Vision3 stock response, warm shadow bias, fine tight grain, gentle highlight shoulder, natural skin subsurface warmth',vid:'fine film grain and warm shadow bias persist'},
+  'Fuji Pro 400H — Pastel soft fashion':{img:'Pro 400H pastel negative palette, minty shadows, soft skin rendering, airy overexposure latitude',vid:'pastel negative-film palette constant'},
+  'Digital Clean — No grain clinical':{img:'clinically clean digital image, zero grain, precise edges, neutral color',vid:'grain-free clean image maintained'},
+  // Lighting setups → physical light behavior
+  'Three-Point':{img:'classic three-point setup — defined key, soft fill, rim separation from background',vid:'key, fill and rim balance constant'},
+  'Rembrandt':{img:'Rembrandt lighting — 45-degree key, triangle of light on the shadow-side cheek, sculpted specular contrast, deep tonal modeling',vid:'Rembrandt key direction constant'},
+  'Butterfly':{img:'butterfly lighting — high frontal key, symmetric under-nose shadow, glamour specular highlights',vid:'frontal glamour key constant'},
+  'Split':{img:'split lighting — half the face lit, half in shadow, hard vertical terminator line',vid:'split key direction held'},
+  'Rim / Hair Light':{img:'strong rim and hair light separation, glowing edge outline against a darker background',vid:'rim-light separation maintained'},
+  'High Key':{img:'high-key exposure, bright even wash, minimal shadows, white airy tonality',vid:'bright even exposure constant'},
+  'Low Key':{img:'low-key single-source lighting, dramatic falloff into darkness, controlled pools of light',vid:'low-key pools of light constant'},
+  'Ring Light':{img:'ring-light frontal glow, circular catchlights in the eyes, flat even beauty illumination',vid:'ring catchlights constant'},
+  'Backlit / Silhouette':{img:'strong backlight, silhouette edge glow, atmospheric halo around the subject',vid:'backlight halo constant'},
+  'Chiaroscuro':{img:'chiaroscuro painting light — extreme light-dark interplay, sculptural shadow shapes, Caravaggio contrast',vid:'chiaroscuro contrast held'},
+  'Practical Only':{img:'lit only by in-scene practical sources — lamps, screens, neon — motivated realistic falloff, mixed color temperatures',vid:'practical-source motivation constant'}
+};
+
+// ─── KINEMATICS DICTIONARY ───
+// Keys = EXACT MOVEMENT_OPTS values. Two tiers: kling (one compact clause),
+// seed (full 3D-axis translation cue). Modular: drop new bold presets in here
+// and into MOVEMENT_OPTS and the compiler picks them up automatically.
+var MOVE_DICT = {
+  'Static (locked off)':{kling:'static locked-off camera, tripod-stable frame, zero movement',seed:'camera locked off on a tripod — absolutely static frame, zero drift, zero handheld wobble'},
+  'Pan Left':{kling:'camera rotates left on its vertical axis from a fixed position',seed:'camera pans left — pure rotation on the vertical axis from a fixed position, steady even speed, no positional translation'},
+  'Pan Right':{kling:'camera rotates right on its vertical axis from a fixed position',seed:'camera pans right — pure rotation on the vertical axis from a fixed position, steady even speed, no positional translation'},
+  'Tilt Up':{kling:'camera tilts upward on its horizontal axis from a fixed position',seed:'camera tilts up — rotation on the horizontal axis from a fixed position, smooth even arc revealing upward'},
+  'Tilt Down':{kling:'camera tilts downward on its horizontal axis from a fixed position',seed:'camera tilts down — rotation on the horizontal axis from a fixed position, smooth even arc revealing downward'},
+  'Dolly In':{kling:'camera physically pushes forward toward the subject, background parallax compresses',seed:'camera dollies in — physical forward translation along the Z-axis toward the subject with natural parallax; background compresses; this is camera movement, not a zoom'},
+  'Dolly Out':{kling:'camera physically pulls back from the subject, space expands around them',seed:'camera dollies out — physical backward translation along the Z-axis away from the subject with natural parallax; the environment is progressively revealed'},
+  'Tracking Shot (follow)':{kling:'camera tracks with the subject, matching their speed and direction',seed:'tracking shot — camera translates alongside or behind the subject, locked to their speed, constant framing distance while the environment streams past'},
+  'Arc Left':{kling:'camera orbits counterclockwise around the subject, subject stays center-locked',seed:'camera arcs left — orbital counterclockwise movement around the subject on a fixed radius, subject center-locked while the background rotates behind them'},
+  'Arc Right':{kling:'camera orbits clockwise around the subject, subject stays center-locked',seed:'camera arcs right — orbital clockwise movement around the subject on a fixed radius, subject center-locked while the background rotates behind them'},
+  'Crane Up':{kling:'camera rises vertically while keeping the subject framed',seed:'crane up — vertical ascent on the Y-axis with a slight downward tilt to hold the subject, expanding into an elevated overview'},
+  'Crane Down':{kling:'camera descends vertically toward the subject',seed:'crane down — vertical descent on the Y-axis with a slight upward tilt to hold the subject, closing from overview into intimacy'},
+  'Handheld (organic)':{kling:'handheld with human operator inertia — subtle sway and micro-corrections',seed:'organic handheld — human operator inertia, breathing rhythm, micro-corrections and imperfect reframing, real weight and momentum in every adjustment'},
+  'Steadicam (smooth follow)':{kling:'steadicam glide following the subject, floating stabilized motion',seed:'steadicam follow — floating gimbal-smooth glide, gentle momentum curves on acceleration and deceleration, no footstep bounce'},
+  'Whip Pan':{kling:'violent whip pan with a motion-blur streak, snapping to a hard stop',seed:'whip pan — violent horizontal rotation with a full motion-blur streak mid-move, hard decisive stop on the new framing'},
+  'Rack Focus':{kling:'camera static, focus racks between depth planes',seed:'rack focus — camera position fixed, the focal plane travels between foreground and background subjects in one smooth breathing shift'},
+  'Drone (aerial)':{kling:'aerial drone movement, smooth gliding flight',seed:'aerial drone flight — stabilized glide with gradual altitude and heading changes, expansive parallax over the terrain below'},
+  'Zoom In':{kling:'optical zoom in — focal length tightens, camera position fixed',seed:'optical zoom in — focal length increases from a fixed camera position, perspective flattens; no camera translation'},
+  'Zoom Out':{kling:'optical zoom out — focal length widens, camera position fixed',seed:'optical zoom out — focal length decreases from a fixed camera position, framing widens; no camera translation'},
+  'Static / Locked-off':{kling:'static locked-off camera, tripod-stable frame, zero movement',seed:'camera locked off on a tripod — absolutely static frame, zero drift, zero handheld wobble'},
+  'Dolly Zoom (Vertigo)':{kling:'dolly zoom — camera pushes forward while lens zooms out, subject size constant, background stretches unnaturally',seed:'dolly zoom (Vertigo effect) — camera translates forward on the Z-axis while focal length simultaneously widens; subject stays the same size in frame while the background perspective stretches and warps behind them'},
+  '360 Orbit (kinetic)':{kling:'fast 360-degree orbit around the subject, subject center-locked, background streaking past',seed:'kinetic 360-degree orbit — camera circles the subject on a full fixed-radius revolution, subject center-locked and sharp while the environment streaks past with motion energy'},
+  'Crash Zoom':{kling:'aggressive crash zoom punching into the subject, abrupt hard stop',seed:'crash zoom — violently fast optical zoom punching from wide to tight on the subject, deliberate aggressive speed, abrupt hard stop on the final framing'},
+  'Snorricam (body-mounted)':{kling:'snorricam body-mounted rig — subject locked rigid in frame, world swaying around them',seed:'snorricam — camera rigged to the subject\'s body facing them; the subject stays perfectly rigid in frame while the entire environment sways and lurches with their movement'},
+  'Rise + Tilt Reveal':{kling:'camera rises vertically while tilting down to reveal the scene below',seed:'rise and tilt reveal — camera ascends on the Y-axis while progressively tilting downward, transforming an intimate framing into a revealing elevated overview in one continuous move'},
+  'Push-in + Dutch Roll':{kling:'slow push-in while the horizon rolls into a canted Dutch angle',seed:'push-in with Dutch roll — camera translates slowly forward on the Z-axis while the horizon progressively cants into a tilted Dutch angle, building unease as it closes in'}
+};
+
+// ─── SANITIZATION LAYER ───
+
+// Phrase-level dedup: split on commas, drop case-insensitive repeats, rejoin.
+function dedupPhrases(str){
+  if(!str)return'';
+  var seen={},out=[];
+  str.split(',').forEach(function(p){
+    var t=p.trim();if(!t)return;
+    var k=t.toLowerCase();
+    if(!seen[k]){seen[k]=1;out.push(t);}
+  });
+  return out.join(', ');
+}
+
+// First-N-words compression (identityToken fallback).
+function compressWords(str,n){
+  if(!str)return'';
+  var w=str.trim().split(/\s+/);
+  return w.slice(0,n).join(' ').replace(/[,.;:\s]+$/,'');
+}
+
+// Punctuation-safe prose join: strips trailing punctuation per fragment,
+// joins with '. ', collapses double dots / spaces / dash collisions.
+function joinProse(parts){
+  var frags=parts.filter(Boolean).map(function(p){return String(p).trim().replace(/[.,;\s]+$/,'');}).filter(Boolean);
+  return frags.join('. ')
+    .replace(/\.{2,}/g,'.')
+    .replace(/\s{2,}/g,' ')
+    .replace(/\s—\s\./g,'.')
+    .replace(/:\s*\./g,'.');
+}
+
+// Central brand-speak sanitizer for S.dna.instructions — one implementation
+// for ALL builders. Strips buzzwords, emoji, hashtags; caps at 2 sentences / 30 words.
+var SLOP_WORDS=/\b(viral|engaging|eye-?catching|stunning|high[- ]quality|masterpiece|trending|next[- ]level|scroll[- ]stopping|breathtaking|epic|amazing|awesome)\b/gi;
+function cleanInstr(){
+  var raw=(S.dna&&S.dna.instructions)?S.dna.instructions:'';
+  if(!raw.trim())return'';
+  var t=raw.replace(/#[\w]+/g,'')
+    .replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu,'')
+    .replace(/\s{2,}/g,' ').trim();
+  if(!t)return'';
+  // Drop WHOLE sentences containing brand-speak (word-level stripping leaves
+  // grammatical shrapnel like "Make it and !!"). Keep only clean sentences.
+  var kept=t.split(/(?<=[.!?])\s+/).filter(function(s){
+    SLOP_WORDS.lastIndex=0;
+    return s.trim()&&!SLOP_WORDS.test(s)&&/[a-zA-Z]/.test(s);
+  });
+  if(!kept.length)return'';
+  var sentences=kept.slice(0,2).join(' ');
+  var w=sentences.split(/\s+/);
+  if(w.length>30)sentences=w.slice(0,30).join(' ');
+  return sentences.replace(/^[,.;\s]+|[,;\s]+$/g,'');
+}
+
+// ─── LOOK-TOKEN RESOLVER ───
+// target: 'img' (full emulsion physics) | 'vid' (motion-persistence subset).
+// Looks up raw stored values (NOT cV-stripped). Unknown values pass through
+// unchanged — never silently dropped. Output is phrase-deduped.
+// ─── EFFECTIVE RIG (style default, user dropdown override) ───
+// A recognized style carries its canonical camera package (rig). Empty scene fields
+// fall back to the rig; anything the user picked manually always wins.
+function effRig(sc){
+  var rs=resolveStyle();
+  var rig=(rs&&rs.rig)||{};
+  return{
+    cameraBody:sc.cameraBody||rig.cam||'',
+    lensType:sc.lensType||rig.lens||'',
+    focalLength:sc.focalLength||rig.focal||'',
+    aperture:sc.aperture||rig.aperture||'',
+    visualLook:sc.visualLook||rig.look||''
+  };
+}
+
+// ─── CAPTURE MEDIUM RESOLVER ───
+// film / digital / phone — each medium fails differently, so its imperfections must be
+// the correct species (film: halation+crush; digital: rolloff; phone: HDR+clipping+noise).
+function mediumFor(sc){
+  var r=effRig(sc);
+  if(/iphone|gopro|phone/i.test(r.cameraBody))return'phone';
+  var rs=resolveStyle();
+  if(rs&&rs.medium)return rs.medium;
+  if(/kodak|fuji|super 8|vision3|velvia|400h|b&w/i.test(r.visualLook))return'film';
+  return'digital';
+}
+
+// ─── TEXTURE FINISH LEVEL ───
+// raw / balanced / clean. Auto follows Content Intent (story decides how imperfect the
+// capture should feel); manual dropdown overrides.
+function finishLevel(){
+  var t=S.proj.texFinish;
+  if(t)return t;
+  var map={ugc_review:'raw',storytelling:'raw',promo:'balanced',education:'balanced',testimonial:'balanced',branding:'clean'};
+  return map[S.proj.intent]||'balanced';
+}
+
+// ─── EXPOSURE DECISION ───
+// Real cinematography chooses what to sacrifice; AI training bias balances everything.
+// Causal language forces the model to simulate the consequence of a single exposure choice.
+function exposureDecision(sc){
+  if(finishLevel()==='clean')return'';
+  var med=mediumFor(sc);
+  var env=((sc.time||'')+' '+(sc.location||'')+' '+arrS(sc.lighting)).toLowerCase();
+  var night=/night|neon|low key|moody|dark|chiaroscuro/.test(env);
+  if(med==='phone')return'computational Smart HDR exposure — lifted shadows, balanced tones, slightly flat but punchy, the honest phone-camera look';
+  if(med==='film'){
+    return night
+      ?'exposed for the highlights — neon and practicals hold their color while shadows crush to true black with no lifted detail'
+      :'exposed for the subject\'s skin — bright windows and sky allowed to blow out to clean white, shadows fall toward true black, one decisive exposure choice, never evenly balanced';
+  }
+  return night
+    ?'exposed to protect the highlights, shadows crushed while retaining a hint of detail, deliberate contrast'
+    :'exposed for skin tones with gentle digital highlight rolloff, deliberate unbalanced contrast';
+}
+
+// ─── SCENE-MOTIVATED OPTICAL ARTIFACTS ───
+// Real defects need physical causes present in the scene (bright source → halation;
+// haze → beams). Budget-capped: stacking every defect reads as a fake filter.
+function opticArtifacts(sc,tier){
+  var fin=finishLevel();
+  if(fin==='clean')return'';
+  var med=mediumFor(sc),r=effRig(sc);
+  var lit=arrS(sc.lighting).toLowerCase()+' '+arrS(sc.lightQuality).toLowerCase();
+  var env=((sc.location||'')+' '+(sc.time||'')).toLowerCase();
+  var bright=/window|sun|golden|backlit|practical|neon|lamp|noon|day|sky|morning|afternoon/.test(lit+' '+env);
+  var hardSide=/golden|backlit|window|sun|hard|chiaroscuro|low key|split|rim|dappled/.test(lit+' '+env);
+  var lens=(r.lensType||'').toLowerCase();
+  var a=[];
+  if(med==='phone'){
+    a.push('slight over-sharpening with high micro-contrast');
+    a.push('fine digital chroma noise in the shadow areas');
+    if(bright)a.push('abrupt highlight clipping where the sensor runs out');
+    if(/neon|night/.test(env+' '+lit))a.push('small green dot lens flare from the strong lights');
+  } else if(med==='film'){
+    if(bright)a.push('warm orange-red halation bleeding around the bright light sources');
+    if(hardSide)a.push('thin atmospheric haze rendering the hard light as visible shafts, dust caught in the beam');
+    if(fin==='raw')a.push('1/48 shutter feel — hands and hair in micro-motion softly blurred');
+    if(lens.indexOf('anamorphic')>-1)a.push('horizontal anamorphic flare streak, oval bokeh falloff');
+    else if(lens.indexOf('vintage')>-1)a.push('gentle chromatic fringing on high-contrast edges, soft veiling glare lifting the blacks near the light source');
+  } else {
+    if(bright)a.push('controlled specular bloom with gentle highlight rolloff');
+    if(lens.indexOf('anamorphic')>-1)a.push('restrained horizontal anamorphic flare, oval bokeh');
+    else if(lens.indexOf('vintage')>-1)a.push('subtle chromatic fringing on contrast edges');
+    if(hardSide)a.push('light atmospheric haze giving natural depth separation');
+    if(fin==='raw')a.push('180-degree shutter motion feel on any movement');
+  }
+  var budget=tier==='kling'?2:(fin==='raw'?3:2);
+  return a.slice(0,budget).join('; ');
+}
+
+function lookTokens(sc,target){
+  var toks=[];
+  function add(key){
+    if(!key)return;
+    var e=LOOK_DICT[key];
+    toks.push(e?e[target]:key);
+  }
+  var er=effRig(sc);
+  add(er.cameraBody);
+  add(er.lensType);
+  (sc.lighting||[]).forEach(add);
+  add(er.visualLook);
+  return dedupPhrases(toks.join(', '));
+}
+
+// ─── SINGLE CHARACTER RESOLVER ───
+// Priority: Flow Canvas character assets linked to this scene COMPLETELY
+// suppress global S.chars (never merged — dual descriptions cause morphing).
+// Fallback: global S.chars unless brollOnly. An explicitly linked character
+// asset overrides brollOnly (explicit user intent wins).
+// Returns {source:'asset'|'global'|'none', entries:[{name,token}]}.
+function resolveIdentity(sc){
+  var links=(S.assetLinks||[]).filter(function(l){return l.sceneId===sc.id;});
+  var charAssets=links.map(function(l){
+    return(S.assets||[]).find(function(a){return a.id===l.assetId&&a.type==='character';});
+  }).filter(Boolean);
+  if(charAssets.length){
+    return{source:'asset',entries:charAssets.map(function(a){
+      return{name:a.name||'Character',token:(a.identityToken&&a.identityToken.trim())||compressWords(a.description,25)};
+    })};
+  }
+  if(sc.brollOnly||!S.chars||!S.chars.length)return{source:'none',entries:[]};
+  return{source:'global',entries:S.chars.map(function(ch){
+    return{name:ch.name||'Character',token:compressWords(ch.description,25)};
+  }).filter(function(e){return e.token.length>3;})};
+}
+
+// ─── IDENTITY LOCK (Slot 1) + BOOKEND (final slot) ───
+// mode: 'img'    — image prompt lock (full token, design language)
+//       'txt2vid'— imperative text lock (full token)
+//       'img2vid'— reference-based Temporal Hold: the source image is the
+//                  identity authority; NEVER re-describe appearance in text
+//                  (conflicting descriptions cause melting). Names only.
+function identityLockLines(sc,mode){
+  var r=resolveIdentity(sc);
+  if(mode==='img2vid'){
+    var who=r.entries.length?r.entries.map(function(e){return e.name;}).join(' and ')+', the subject in the source image':'The subject in the source image';
+    return'SUBJECT LOCK: '+who+' — preserve exact facial identity, hairstyle, and wardrobe from first frame to final frame, including during motion, turns, and lighting shifts. No morphing, no feature drift.';
+  }
+  if(!r.entries.length)return'';
+  var lines=r.entries.slice(0,3).map(function(e){return'IDENTITY LOCK — '+e.name+': '+e.token+'.';});
+  var suffix=mode==='img'
+    ?'Render this exact appearance precisely as described.'
+    :'This exact face, hair, and wardrobe in every frame, frame one through final frame. Zero morphing, zero feature drift, zero wardrobe change.';
+  return lines.join('\n')+' '+suffix;
+}
+
+function bookendAnchor(sc,mode){
+  if(mode==='img2vid')return'HOLD: identical face and wardrobe as frame one.';
+  var r=resolveIdentity(sc);
+  if(!r.entries.length)return'';
+  var e=r.entries[0];
+  return'HOLD: '+e.name+' — '+compressWords(e.token,8)+' — unchanged in every frame.';
+}
+
+// ─── KINEMATICS COMPILER ───
+// engine: 'kling' (one compact clause) | 'seed' (full axis cue).
+// Composes: base move (MOVE_DICT) + Dutch-angle modifier (from shotType)
+// + user movementNotes (manual override, appended last).
+// Guard: exactly ONE base move per shot — compound motion soup confuses models.
+// ─── MOVEMENT DYNAMICS (velocity + parallax vocabulary) ───
+// Higgsfield-grade motion reads through TEMPO and PARALLAX, not direction alone:
+// "constant radius", "background streaking", "banking velocity". Keys match MOVE_DICT.
+var MOVE_DYNAMICS={
+  'Pan Left':'deliberate even sweep, new space flowing into frame',
+  'Pan Right':'deliberate even sweep, new space flowing into frame',
+  'Tilt Up':'measured upward sweep, the vertical reveal unfolding',
+  'Tilt Down':'measured downward sweep, the vertical reveal unfolding',
+  'Dolly In':'steady accelerating push, foreground elements sliding past the frame edges in parallax',
+  'Dolly Out':'smooth receding glide, new environment layers entering frame in parallax',
+  'Tracking Shot (follow)':'velocity locked to the subject, environment flowing past in layered foreground-background parallax',
+  'Arc Left':'curved glide at constant radius, background rotating behind the subject in parallax',
+  'Arc Right':'curved glide at constant radius, background rotating behind the subject in parallax',
+  'Crane Up':'smooth rising velocity, ground plane receding below, scene scale expanding',
+  'Crane Down':'controlled descending glide, intimacy building as the frame lowers',
+  'Handheld (organic)':'organic breathing sway, human micro-corrections, alive imperfect energy',
+  'Steadicam (smooth follow)':'floating gimbal glide, silky continuous flow through the space',
+  'Whip Pan':'violent pan velocity, full directional motion smear, hard stop on the new framing',
+  'Rack Focus':'focus plane traveling deliberately between depth layers, bokeh blooming and resolving',
+  'Drone (aerial)':'sweeping aerial velocity with a gentle banking curve, landscape parallax unfolding below',
+  'Zoom In':'controlled optical zoom tempo, compression building steadily on the subject',
+  'Zoom Out':'even optical zoom-out tempo, the scene context expanding',
+  'Dolly Zoom (Vertigo)':'opposing dolly and zoom velocities, background visibly stretching while the subject holds exact size',
+  '360 Orbit (kinetic)':'constant-radius kinetic orbit, background streaking in motion-blurred parallax while the subject stays tack sharp',
+  'Crash Zoom':'explosive zoom velocity, hard background compression, motion blur at the frame edges',
+  'Snorricam (body-mounted)':'subject rigidly locked to frame while the world swims and lurches around them',
+  'Rise + Tilt Reveal':'accelerating vertical rise, the reveal unfolding in layered parallax',
+  'Push-in + Dutch Roll':'accelerating push combined with a slow continuous rotational roll'
+};
+
+function buildKinematics(sc,engine){
+  var parts=[];
+  if(sc.movement){
+    var m=MOVE_DICT[sc.movement];
+    parts.push(m?m[engine]:sc.movement);
+    var dyn=MOVE_DYNAMICS[sc.movement];
+    if(dyn)parts.push(dyn);
+    // Higgsfield choreography principle: the move frames the subject; the ACTION plays out
+    // DURING the move — camera and performance are one choreographed unit, never separate.
+    if(sc.script&&sc.movement.indexOf('Static')===-1&&sc.movement!=='Rack Focus')parts.push('the subject\'s action continues naturally throughout the entire move');
+  }
+  if(sc.shotType==='Dutch Angle')parts.push('canted Dutch angle — horizon deliberately tilted');
+  if(sc.movementNotes&&sc.movementNotes.trim())parts.push(sc.movementNotes.trim());
+  return parts.join('; ');
+}
+
+// ─── MOTION-TEXTURE DICTIONARY (video realism vocabulary) ───
+// Same lesson as the image chain: physical rendering language outperforms generic
+// "quality" strings ("fluid motion, no glitch" tells the model nothing). Two dialects.
+var MOTION_TEXTURE={
+  kling:'natural body micro-movement — breathing, blinking, subtle weight shifts; hair and fabric respond physically to every motion',
+  seed:'natural body micro-movement — breathing, blinking, subtle weight shifts and small head turns; individual hair strands and fabric respond physically to motion and air; realistic motion blur on fast movement; light interacts naturally with moving surfaces'
+};
+
+// ─── AMBIENT MOTION DERIVER ───
+// Secondary/environmental life auto-derived from existing scene fields (time, lighting,
+// location). This is what separates a living shot from a stiff one — never asks for new UI.
+function ambientMotion(sc){
+  var t=(sc.time||'').toLowerCase(),loc=(sc.location||'').toLowerCase(),lit=arrS(sc.lighting).toLowerCase();
+  var a=[];
+  if(/golden|sunset|sunrise|morning|dawn|dusk|sun/.test(t+' '+lit))a.push('dust motes drifting in the sunbeams, warm light shifting subtly across surfaces');
+  if(/neon|practical|lamp|candle|screen|tv|fire/.test(lit+' '+loc))a.push('practical light sources flicker gently, soft reflections shimmer');
+  if(/street|city|park|beach|market|outdoor|forest|garden|rooftop|road|terrace|plaza/.test(loc))a.push('background life in soft motion — foliage, passersby or distant movement');
+  if(/night/.test(t)&&!a.length)a.push('subtle atmospheric depth in the low light');
+  if(!a.length)a.push('subtle ambient environment motion — air presence, soft background life');
+  return a.slice(0,2).join('; ');
+}
+
+// ─── LAST-FRAME DERIVER ───
+// Video models drift without a defined end-state (Worldbuilder "Last Frame" principle,
+// generalized). Auto-derived: directional moves end on their spatial consequence;
+// static/organic moves end on an emotional resolution from mood.
+var MOVE_ENDSTATE={
+  'Dolly In':'ends framed tighter on the subject',
+  'Zoom In':'ends on a tighter framing of the subject',
+  'Crash Zoom':'ends hard on a tight framing of the subject',
+  'Dolly Out':'ends wider, subject smaller within the revealed environment',
+  'Zoom Out':'ends on a wider framing of the scene',
+  'Crane Up':'ends on an elevated overview of the scene',
+  'Rise + Tilt Reveal':'ends on a high revealing overview of the scene below',
+  'Crane Down':'ends close and intimate with the subject',
+  'Arc Left':'ends holding the subject from a new side angle',
+  'Arc Right':'ends holding the subject from a new side angle',
+  '360 Orbit (kinetic)':'ends near the starting angle, subject sharp and center-locked',
+  'Dolly Zoom (Vertigo)':'ends with the background visibly stretched behind an unchanged subject',
+  'Tracking Shot (follow)':'ends with the subject still perfectly framed mid-motion',
+  'Whip Pan':'ends locked hard on the new framing',
+  'Push-in + Dutch Roll':'ends close on the subject with a fully canted horizon',
+  'Tilt Up':'ends framed on the newly revealed upper view',
+  'Tilt Down':'ends framed on the newly revealed lower view',
+  'Pan Left':'ends on the newly revealed left side of the scene',
+  'Pan Right':'ends on the newly revealed right side of the scene'
+};
+function deriveLastFrame(sc){
+  var hasId=S.videoMode==='img2vid'||resolveIdentity(sc).entries.length>0;
+  var idBit=hasId?', subject identity and wardrobe unchanged':'';
+  var m=sc.movement&&MOVE_ENDSTATE[sc.movement];
+  if(m)return m+idBit;
+  var moodBit=sc.mood?', '+sc.mood+' expression held':'';
+  return 'settles with the composition at rest'+(hasId?', subject holding their gaze'+moodBit:'')+idBit;
+}
+
+// ─── FRAME MAP (Seedance only) ───
+// Light spatial anchoring: screen position + gaze. Kling deliberately excluded —
+// verbose spatial grammar degrades Kling; it wants short labeled lines.
+function frameMapLine(sc){
+  if(!sc.shotType)return'';
+  if(sc.shotType==='POV')return'FRAME MAP: first-person POV — no subject visible in frame, hands may enter naturally';
+  var r=resolveIdentity(sc);
+  var isI2VFM=S.videoMode==='img2vid';
+  if(!r.entries.length&&!isI2VFM)return'';
+  var who=r.entries.length?r.entries.map(function(e){return e.name;}).join(' and '):'the subject';
+  var hasDlgFM=sc.showDialog&&sc.dialog&&sc.dialog.trim()&&sc.dialog.trim().toUpperCase()!=='NONE';
+  var intentFM=S.proj.intent||'';
+  var gaze=(hasDlgFM||intentFM==='ugc_review'||intentFM==='testimonial')?'gaze toward camera, direct natural address':'gaze naturally motivated by the action, not camera-aware';
+  return'FRAME MAP: '+who+' anchored at a stable screen position per the '+sc.shotType+' framing, consistent depth layer, '+gaze;
+}
+
+// ─── DIEGETIC AUDIO DERIVER (Seedance only) ───
+// Rules-based, no API. Diegetic only — never music, score, or lyrics.
+function diegeticAudio(sc){
+  var loc=(sc.location||'').toLowerCase(),t=(sc.time||'').toLowerCase();
+  var hasDlgAu=sc.showDialog&&sc.dialog&&sc.dialog.trim()&&sc.dialog.trim().toUpperCase()!=='NONE';
+  var a=[];
+  if(hasDlgAu)a.push('natural voice presence in the space');
+  if(/street|city|traffic|market|plaza/.test(loc))a.push('distant city ambience');
+  else if(/beach|sea|ocean|coast/.test(loc))a.push('waves and coastal air');
+  else if(/forest|park|garden|mountain|field/.test(loc))a.push('soft wind through foliage, distant birds');
+  else if(/cafe|coffee|restaurant|bar/.test(loc))a.push('low murmur, cups and cutlery');
+  else if(/office|studio|room|apartment|home|loft|interior|kitchen|bedroom|house/.test(loc))a.push('quiet natural room tone');
+  if(/rain|storm/.test(loc+' '+t))a.push('rain patter');
+  if(!a.length)a.push('natural room tone and subtle environmental ambience');
+  return'AUDIO: diegetic only — '+a.slice(0,2).join(', ')+'. No music, no score, no lyrics.';
+}
+
+// REALISTIC IMAGE PROMPT — slot hierarchy; shot composition first, identity lock early,
+// look-tokens (img tier) replace flat camera labels; brand DNA sanitized and appended last.
 function bldImg(sc){
   var p=S.proj;
   var pts=[];
@@ -4331,54 +4044,81 @@ function bldImg(sc){
   if(sc.shotType){
     pts.push('SHOT: '+sc.shotType+(compDesc?' — '+compDesc:'')+(sc.shotNotes&&sc.shotNotes.trim()?'. '+sc.shotNotes.trim():''));
   }
+  // 1.5 STYLE COMPOSITION GRAMMAR — recognized aesthetic styles carry composition rules
+  // (e.g. Wes Anderson = symmetry + planimetric camera) that must sit at primacy position,
+  // or they lose to the shot chips and the style silently fails to land.
+  var rsImg=resolveStyle();
+  if(rsImg)pts.push('COMPOSITION GRAMMAR: '+rsImg.comp);
 
-  // 2. Visual style (color, texture, atmosphere — NOT composition)
+  // 2. IDENTITY LOCK (asset-aware resolver — suppresses global chars when assets linked)
+  var lock=identityLockLines(sc,'img');
+  if(lock)pts.push(lock);
+
+  // 3. Visual style (color, texture, atmosphere — NOT composition)
   var sa=styleAnch();
   if(sa)pts.push('VISUAL STYLE: '+sa);
 
-  // 3. Subject / action
+  // 4. Subject / action / environment
   if(sc.script)pts.push(sc.script);
   if(sc.location)pts.push('Location: '+sc.location);
+  // Anti-collage guard: a comma/and-listed location is the #1 cause of multi-panel output
+  if(sc.location&&/,| and /i.test(sc.location))pts.push('SINGLE CONTINUOUS SCENE: one moment in one location only — never a montage, collage, split screen, or multi-panel layout');
   if(sc.time)pts.push(sc.time);
   if(sc.mood)pts.push(sc.mood+' atmosphere');
 
-  // 4. Character (maintain anchor)
-  var charDesc=charAnchor(sc.brollOnly,false);
-  if(charDesc)pts.push('CHARACTER (maintain exactly): '+charDesc);
+  // 5. Optics + light as physical rendering consequences (Look-Token Dictionary, img tier).
+  // effRig: recognized style supplies its canonical camera package where the user left blanks.
+  var er=effRig(sc);
+  var fl=er.focalLength?er.focalLength.replace('—','–'):'';
+  var ap=er.aperture?er.aperture.replace('—','–'):'';
+  var optics=[fl,ap].filter(Boolean).join(', ');
+  var lookImg=lookTokens(sc,'img');
+  if(lookImg)pts.push('RENDERING: '+lookImg+(optics?', '+optics:''));
+  else if(optics)pts.push('RENDERING: '+optics);
+  var lq=arrS(sc.lightQuality);
+  if(lq)pts.push(lq+' light quality');
+  // 5.5 Exposure decision + scene-motivated optical artifacts (medium-aware, finish-gated).
+  // This is what breaks the AI's "perfectly balanced" calculation into a celluloid capture.
+  var exp=exposureDecision(sc);
+  if(exp)pts.push('EXPOSURE: '+exp);
+  var oa=opticArtifacts(sc,'img');
+  if(oa)pts.push('OPTICS: '+oa);
 
-  // 5. Camera / lens (contributes to image look, not composition override)
-  var lens=cV(sc.lensType),fl=cV(sc.focalLength),ap=cV(sc.aperture),cb=cV(sc.cameraBody);
-  var camParts=[];if(cb)camParts.push(cb);if(lens)camParts.push(lens);if(fl)camParts.push(fl);if(ap)camParts.push(ap);
-  if(camParts.length)pts.push(camParts.join(', '));
+  // 6. Brand DNA / custom instructions (sanitized, appended near-last — cannot override composition)
+  var instr=cleanInstr();
+  if(instr)pts.push('Note: '+instr);
 
-  // 6. Lighting
-  var lit=arrS(sc.lighting),lq=arrS(sc.lightQuality);
-  if(lit)pts.push(lit+(lq?' — '+lq:''));
-
-  // 7. Visual look / color grade
-  if(sc.visualLook)pts.push(sc.visualLook);
-
-  // 8. Brand DNA / custom instructions (appended LAST — cannot override composition set in step 1)
-  if(S.dna.instructions)pts.push('Note: '+S.dna.instructions);
-
-  // PHOTOREALISM: Technical guardrails (anti-AI-artifact) always apply. The Aesthetic block (documentary-realism
-  // assumptions like visible pores/anti-airbrush/candid framing) is skipped when the user has written a custom Visual
-  // Style — their explicit aesthetic intent (e.g. vintage print look, editorial glamour) takes precedence over our
-  // default assumption of contemporary documentary realism.
+  // PHOTOREALISM: positive rendering stack ALWAYS applies (texture/depth baseline — the
+  // "too clean" fix). CANDID documentary assumptions are skipped when the user wrote a custom
+  // Visual Style (their aesthetic intent wins) OR the resolved style is formalist (formal:true —
+  // e.g. Wes Anderson symmetry would be contradicted by "natural asymmetry").
   var cvsEl=document.getElementById('customVisualStyle');
   var hasCustomStyle=cvsEl&&cvsEl.value.trim();
-  pts.push(hasCustomStyle?PHOTOREALISM_TECHNICAL:(PHOTOREALISM_TECHNICAL+PHOTOREALISM_AESTHETIC));
+  var formalStyle=rsImg&&rsImg.formal;
+  var baseStack=PHOTOREALISM_TECHNICAL;
+  if(mediumFor(sc)==='phone')baseStack=baseStack.replace('fine photographic grain, subtle halation on bright highlights','fine digital noise texture, computational sharpness signature');
+  pts.push((hasCustomStyle||formalStyle)?baseStack:(baseStack+PHOTOREALISM_AESTHETIC));
   var ar=p.platform&&p.platform.indexOf('9:16')>-1?'9:16':p.platform&&p.platform.indexOf('4:5')>-1?'4:5':p.platform&&p.platform.indexOf('2.39')>-1?'2.39:1':'16:9';
-  var out=pts.join('. ')+'\nAspect ratio: '+ar+'.';
-  var assetBlock=assetSectionFor(sc);
-  return assetBlock?out+'\n\n'+assetBlock:out;
+  var out=joinProse(pts)+'.\nAspect ratio: '+ar+'.';
+  var assetBlock=assetSectionFor(sc,true);
+  if(assetBlock)out+='\n\n'+assetBlock;
+  // Embedded negative — GPT Image 2 / Nano Banana Pro have no separate negative field;
+  // a terminal AVOID block is the standard single-prompt pattern.
+  out+='\n\nAVOID: '+bldNeg(sc)+'.';
+  return out;
 }
 
 function bldNeg(sc){
-  var neg=['blurry','distorted anatomy','deformed hands','extra fingers','extra limbs','watermark','text overlay','low quality','pixelated','AI artifacts'];
+  var neg=['blurry','distorted anatomy','deformed hands','extra fingers','extra limbs','watermark','text overlay','low quality','pixelated','AI artifacts','photo collage','split screen','grid layout','multiple panels','storyboard sheet'];
   var cvsEl2=document.getElementById('customVisualStyle');
   var hasCustomStyle2=cvsEl2&&cvsEl2.value.trim();
-  neg=neg.concat((hasCustomStyle2?PHOTOREALISM_NEGATIVE_TECHNICAL:PHOTOREALISM_NEGATIVE).split(', '));
+  var negList=(hasCustomStyle2?PHOTOREALISM_NEGATIVE_TECHNICAL:PHOTOREALISM_NEGATIVE).split(', ');
+  // Formalist styles (Wes Anderson, Fincher, Commercial) REQUIRE symmetry / centered
+  // composition / controlled lighting — prohibiting them in AVOID (recency position) is
+  // exactly why the style never landed. Prune the contradicting tokens.
+  var rsNeg=resolveStyle();
+  if(rsNeg&&rsNeg.formal)negList=negList.filter(function(t){return !/symmetry|centered|studio-perfect/i.test(t);});
+  neg=neg.concat(negList);
   var ap=sc.aperture||'',ln=sc.lensType||'',pt=S.proj.type||'';
   if(ap.indexOf('f/1.2')>-1||ap.indexOf('f/1.4')>-1)neg.push('sharp background','deep focus background');
   if(ap.indexOf('f/11')>-1||ap.indexOf('f/16')>-1)neg.push('bokeh','background blur');
@@ -4387,179 +4127,166 @@ function bldNeg(sc){
   return neg.join(', ');
 }
 
-// KLING — short structured format, shot type as technical label, movement separate
+// KLING — slot hierarchy: [1] identity lock [2] action [3] environment [4] kinematics
+// [5] look persistence (vid tier) [6] dialog [7] note [8] output [9] bookend anchor.
 function bldKling(sc){
   var p=S.proj,sa=styleAnch();
   var isAnim=p.mode==='animated';
+  var isI2V=S.videoMode==='img2vid';
+  var vMode=isI2V?'img2vid':'txt2vid';
   var hasDlg=sc.showDialog&&sc.dialog&&sc.dialog.trim()&&sc.dialog.trim().toUpperCase()!=='NONE';
-  var charDesc=charAnchor(sc.brollOnly,true);
-  var mov=buildMovement(sc);
+  var kin=buildKinematics(sc,'kling');
+  var lock=identityLockLines(sc,vMode);
+  var bookend=bookendAnchor(sc,vMode);
+  var instr=cleanInstr();
 
   if(isAnim){
     var art=sc.artStyle||'',col=sc.colorPaletteMood||'',energy=arrS(sc.animEnergy),lit2=arrS(sc.lighting);
     var parts=[];
-    if(charDesc&&!sc.brollOnly)parts.push('[CHARACTER] '+charDesc+' — maintain exact design throughout');
+    if(lock&&!sc.brollOnly)parts.push('[LOCK] '+lock);
     if(sc.script)parts.push('[ACTION] '+sc.script);
     if(hasDlg)parts.push('[DIALOG] "'+sc.dialog.trim()+'" — lip sync, natural delivery');
     if(sc.shotType)parts.push('[SHOT] '+sc.shotType+(shotToComposition(sc.shotType)?' — '+shotToComposition(sc.shotType):''));
-    if(mov)parts.push('[CAMERA] '+mov);
+    if(kin)parts.push('[CAMERA] '+kin);
     if(art)parts.push('[STYLE] '+art);
     if(col)parts.push('[COLOR] '+col);
     if(energy)parts.push('[ENERGY] '+energy);
     if(lit2)parts.push('[LIGHT] '+lit2);
-    parts.push('[QUALITY] Smooth animation, fluid motion, no artifacts');
-    var anchor=buildAnchor(sc);
-    if(anchor)parts.push(anchor);
+    if(instr)parts.push('[NOTE] '+instr);
+    parts.push('[QUALITY] Smooth fluid animation, stable line work, no artifacts');
     var fmt2=p.platform&&p.platform.indexOf('9:16')>-1?'9:16':'16:9';
     parts.push('[OUTPUT] '+fmt2+', 4-6s');
+    if(bookend)parts.push('[ANCHOR] '+bookend);
     var klingAnimOut=parts.join('\n');
-    var klingAnimAssetBlock=assetSectionFor(sc);
+    var klingAnimAssetBlock=assetSectionFor(sc,true);
     return klingAnimAssetBlock?klingAnimOut+'\n\n'+klingAnimAssetBlock:klingAnimOut;
   }
 
-  // Realistic — shot type as SHORT label, movement as separate field
-  // SUBJECT: character anchor if txt2vid, or brief scene identifier (not full script)
-  var subject=charDesc?'SUBJECT: '+charDesc:(sc.script?'SUBJECT: '+sc.script.split('.')[0]:'');
-  var action=sc.script?'ACTION: '+sc.script:'';
-  var cameraLine='CAMERA: '+(shotToLabel(sc.shotType)||'')+(mov?' — '+mov:'');
-  var technical='';
-  if(sc.lensType||sc.focalLength)technical='LENS: '+(cV(sc.lensType)||'')+(sc.focalLength?' '+cV(sc.focalLength):'');
-  if(sc.lighting&&sc.lighting.length)technical+=(technical?'\n':'')+'LIGHTING: '+arrS(sc.lighting);
-  if(sc.visualLook)technical+=(technical?'\n':'')+'LOOK: '+sc.visualLook;
-  var dlg=hasDlg?'DIALOG: "'+sc.dialog.trim()+'" — natural lip sync':'';
-  var env='LOCATION: '+(sc.location||'')+(sc.time?' at '+sc.time:'');
-  var fmt=p.platform&&p.platform.indexOf('9:16')>-1?'9:16':p.platform&&p.platform.indexOf('16:9')>-1?'16:9':'4:5';
-  // STYLE: only for txt2vid (img2vid style is locked in the image), and shortened to key tags only
-  var styleShort=S.videoMode==='txt2vid'&&sa?'STYLE: '+sa.split('.')[0]:'';
-  var parts=[subject,action,env,cameraLine];
-  if(styleShort)parts.push(styleShort);
-  if(technical)parts.push(technical);
-  if(dlg)parts.push(dlg);
-  if(S.dna.instructions)parts.push('NOTE: '+S.dna.instructions.split('.')[0]);
-  parts.push('OUTPUT: '+fmt+', 4-6s, photorealistic, no anatomy distortion');
+  // Realistic
+  var parts=[];
+  if(lock)parts.push(lock);
+  if(sc.script)parts.push('ACTION: '+sc.script);
+  if(sc.location||sc.time)parts.push('LOCATION: '+(sc.location||'')+(sc.time?' at '+sc.time:''));
+  var camLine=(shotToLabel(sc.shotType)||'')+(kin?(sc.shotType?' — ':'')+kin:'');
+  if(camLine)parts.push('CAMERA: '+camLine);
+  // Style anchor only for txt2vid (img2vid style is locked in the source image)
+  if(!isI2V&&sa)parts.push('STYLE: '+sa.split('.')[0]);
+  // Mood drives motion energy & performance pacing even in img2vid (vibe is not in the pixels)
+  if(sc.mood)parts.push('MOOD: '+sc.mood+' energy in performance and pacing');
+  // Look persistence tokens (vid tier) — temporal rendering cues, never a re-grade
+  var lookVid=lookTokens(sc,'vid');
+  if(lookVid)parts.push('LOOK: '+lookVid);
+  // Motion realism: physical texture + ambient environment life (compact Kling dialect).
+  // Phone medium adds its authentic capture signature (micro-shake, exposure adaptation).
+  var medK=mediumFor(sc);
+  parts.push('MOTION: '+MOTION_TEXTURE.kling+'; '+ambientMotion(sc)+(medK==='phone'?'; authentic handheld micro-shake, brief exposure adaptation as framing changes':''));
+  var oaK=opticArtifacts(sc,'kling');
+  if(oaK)parts.push('OPTICS: '+oaK);
+  // Compact end-state — undirected clips drift
+  parts.push('END: '+deriveLastFrame(sc));
+  if(hasDlg)parts.push('DIALOG: "'+sc.dialog.trim()+'" — natural lip sync');
+  if(instr)parts.push('NOTE: '+instr);
+  var fmt=p.platform&&p.platform.indexOf('9:16')>-1?'9:16':p.platform&&p.platform.indexOf('16:9')>-1?'16:9':'9:16';
+  parts.push('OUTPUT: '+fmt+', 4-6s, no anatomy distortion');
+  if(bookend)parts.push(bookend);
   var klingOut=parts.filter(Boolean).join('\n');
-  var klingAssetBlock=assetSectionFor(sc);
+  var klingAssetBlock=assetSectionFor(sc,true);
   return klingAssetBlock?klingOut+'\n\n'+klingAssetBlock:klingOut;
 }
 
-// SEEDANCE — timeline format, shot type as label, movement explicit
+// SEEDANCE — slot hierarchy with full-axis kinematics and vid-tier look persistence.
 function bldSeed(sc){
   var p=S.proj,sa=styleAnch();
   var isAnim=p.mode==='animated';
+  var isI2V=S.videoMode==='img2vid';
+  var vMode=isI2V?'img2vid':'txt2vid';
   var hasDlg=sc.showDialog&&sc.dialog&&sc.dialog.trim()&&sc.dialog.trim().toUpperCase()!=='NONE';
-  var charDesc=charAnchor(sc.brollOnly,true);
-  var lit=arrS(sc.lighting),lq=arrS(sc.lightQuality);
-  var lens=cV(sc.lensType),fl=cV(sc.focalLength),ap=cV(sc.aperture),cb=cV(sc.cameraBody);
-  var mov=buildMovement(sc);
+  var kin=buildKinematics(sc,'seed');
+  var lock=identityLockLines(sc,vMode);
+  var bookend=bookendAnchor(sc,vMode);
+  var instr=cleanInstr();
 
   var parts=[];
-  if(sa)parts.push('VISUAL STYLE: '+sa);
-  if(charDesc)parts.push('CHARACTER CONSISTENCY: '+charDesc+' — maintain exact appearance in every frame');
+  // Slot 1: identity lock dominates the attention budget
+  if(lock)parts.push(lock);
+  // Slot 2: action
+  if(sc.script)parts.push('ACTION: '+sc.script);
+  if(hasDlg)parts.push('DIALOGUE: "'+sc.dialog.trim()+'" — precise lip sync, natural mouth movement');
+  // Slot 3: kinematics
+  if(sc.shotType)parts.push('SHOT TYPE: '+(isAnim?sc.shotType+(shotToComposition(sc.shotType)?' — '+shotToComposition(sc.shotType):''):shotToLabel(sc.shotType)));
+  if(kin)parts.push('CAMERA MOVEMENT: '+kin);
+  // Slot 4: environment
+  if(sc.location||sc.time)parts.push('LOCATION: '+(sc.location||'')+(sc.time?' at '+sc.time:''));
+  if(sc.mood)parts.push('MOOD: '+sc.mood);
+  // Slot 5: style/look
   if(isAnim){
     if(sc.artStyle)parts.push('ART STYLE: '+sc.artStyle);
     if(sc.colorPaletteMood)parts.push('COLOR: '+sc.colorPaletteMood);
-    if(sc.shotType)parts.push('SHOT: '+sc.shotType+(shotToComposition(sc.shotType)?' — '+shotToComposition(sc.shotType):''));
     if(sc.animEnergy&&sc.animEnergy.length)parts.push('ENERGY: '+arrS(sc.animEnergy));
     if(sc.lighting&&sc.lighting.length)parts.push('LIGHTING: '+arrS(sc.lighting));
+    if(!isI2V&&sa)parts.push('VISUAL STYLE: '+sa);
   } else {
-    if(sc.shotType)parts.push('SHOT TYPE: '+shotToLabel(sc.shotType));
-    if(mov)parts.push('CAMERA MOVEMENT: '+mov+' — smooth and intentional');
-    if(cb||(lens&&fl))parts.push('CAMERA: '+(cb||'')+(lens?' '+lens:'')+(fl?' at '+fl:'')+(ap?', '+ap:''));
-    if(lit)parts.push('LIGHTING: '+lit+(lq?' — '+lq:''));
-    if(sc.visualLook)parts.push('VISUAL LOOK: '+sc.visualLook);
+    if(!isI2V&&sa)parts.push('VISUAL STYLE: '+sa);
+    var lookVid=lookTokens(sc,'vid');
+    if(lookVid)parts.push('LOOK PERSISTENCE: '+lookVid);
   }
-  if(sc.location||(sc.time))parts.push('LOCATION: '+(sc.location||'')+(sc.time?' at '+sc.time:''));
-  if(sc.script)parts.push('ACTION: '+sc.script);
-  if(hasDlg)parts.push('DIALOGUE: "'+sc.dialog.trim()+'" — precise lip sync, natural mouth movement');
-  if(sc.mood)parts.push('MOOD: '+sc.mood);
-  if(S.dna.instructions)parts.push('CUSTOM: '+S.dna.instructions);
-  parts.push('QUALITY: Fluid motion, photorealistic, no glitch, no anatomy distortion');
-  if(isAnim){var anchor=buildAnchor(sc);if(anchor)parts.push(anchor);}
+  // Slot 5.5: spatial anchoring (Worldbuilder Frame Map principle, Seedance dialect)
+  var fm=frameMapLine(sc);
+  if(fm&&!isAnim)parts.push(fm);
+  // Slot 6: custom (sanitized)
+  if(instr)parts.push('CUSTOM: '+instr);
+  // Slot 7: motion realism replaces the generic quality string — physical texture,
+  // ambient environment life, defined end-state, diegetic audio (full Seedance dialect)
+  if(!isAnim){
+    var medS=mediumFor(sc);
+    parts.push('MOTION REALISM: '+MOTION_TEXTURE.seed+(medS==='phone'?'; authentic phone capture — handheld micro-jitter survives stabilization, momentary exposure adaptation and brief focus hunting as the camera moves':''));
+    parts.push('AMBIENT MOTION: '+ambientMotion(sc));
+    var expS=exposureDecision(sc);
+    if(expS)parts.push('EXPOSURE: '+expS);
+    var oaS=opticArtifacts(sc,'seed');
+    if(oaS)parts.push('OPTICS: '+oaS);
+    parts.push('LAST FRAME: '+deriveLastFrame(sc));
+    parts.push(diegeticAudio(sc));
+  } else {
+    parts.push('QUALITY: Fluid natural motion, no glitch, no anatomy distortion');
+  }
   var ar=p.platform&&p.platform.indexOf('9:16')>-1?'9:16':p.platform&&p.platform.indexOf('2.39')>-1?'2.39:1':'16:9';
   parts.push('OUTPUT: '+ar+', 4-6 seconds');
+  // Slot 8: bookend anchor (recency bias exploit)
+  if(bookend)parts.push(bookend);
   var seedOut=parts.join('\n');
-  var seedAssetBlock=assetSectionFor(sc);
+  var seedAssetBlock=assetSectionFor(sc,true);
   return seedAssetBlock?seedOut+'\n\n'+seedAssetBlock:seedOut;
 }
 
-// ANIMATED IMAGE PROMPT
+// ANIMATED IMAGE PROMPT — punctuation-safe prose join, asset-aware identity lock.
 function bldAnimImg(sc){
   var p=S.proj,sa=styleAnch();
-  var charDesc=charAnchor(sc.brollOnly,false);
+  var lock=identityLockLines(sc,'img');
   var pts=[];
   if(sa)pts.push('VISUAL STYLE: '+sa);
   if(sc.artStyle)pts.push(sc.artStyle);
   if(sc.colorPaletteMood)pts.push(sc.colorPaletteMood+' color palette');
-  // Shot type → inject label + full composition description + shot notes
   var compDesc=shotToComposition(sc.shotType);
   if(sc.shotType)pts.push('SHOT: '+sc.shotType+(compDesc?' — '+compDesc:'')+(sc.shotNotes&&sc.shotNotes.trim()?'. '+sc.shotNotes.trim():''));
-  if(charDesc)pts.push('CHARACTER (maintain design exactly): '+charDesc);
+  if(lock)pts.push(lock);
   if(sc.script)pts.push(sc.script);
   if(sc.location)pts.push('Setting: '+sc.location);
   if(sc.time)pts.push(sc.time);
   if(sc.mood)pts.push(sc.mood+' atmosphere');
   if(sc.lighting&&sc.lighting.length)pts.push('Lighting: '+arrS(sc.lighting));
   if(sc.animEnergy&&sc.animEnergy.length)pts.push(arrS(sc.animEnergy)+' energy');
-  if(S.dna.instructions)pts.push(S.dna.instructions);
+  var instr=cleanInstr();
+  if(instr)pts.push(instr);
   pts.push('High quality illustration, sharp clean artwork, professional animation production quality');
   var ar=p.platform&&p.platform.indexOf('9:16')>-1?'9:16':p.platform&&p.platform.indexOf('4:5')>-1?'4:5':'16:9';
-  var animOut=pts.join('. ')+'\nAspect ratio: '+ar+'.';
-  var animAssetBlock=assetSectionFor(sc);
+  var animOut=joinProse(pts)+'.\nAspect ratio: '+ar+'.';
+  var animAssetBlock=assetSectionFor(sc,true);
   return animAssetBlock?animOut+'\n\n'+animAssetBlock:animOut;
 }
 
-// MULTI-SHOT
-function bldKlingMulti(){
-  var p=S.proj,sa=styleAnch();
-  var isAnim=p.mode==='animated';
-  var charDesc=(S.videoMode==='txt2vid'&&S.chars.length)?S.chars.map(function(ch){return(ch.name||'char')+': '+ch.description;}).join(' | '):'';
-  var h='';
-  if(charDesc)h+='CHARACTER LOCK: '+charDesc+' — maintain identical appearance across all shots. Zero drift.\n\n';
-  h+='STYLE: '+sa+'\n\n';
-  if(S.dna.instructions)h+='PRODUCTION NOTE: '+S.dna.instructions+'\n\n';
-  S.scenes.forEach(function(sc,i){
-    var hasDlg=sc.dialog&&sc.dialog.trim()&&sc.dialog.trim().toUpperCase()!=='NONE';
-    var mov=buildMovement(sc);
-    h+='[SHOT '+(i+1)+(sc.title?' — '+sc.title:'')+']';
-    if(sc.shotType)h+=' '+sc.shotType;
-    h+='\n';
-    if(sc.script)h+='Action: '+sc.script+'\n';
-    if(mov)h+='Camera: '+mov+'\n';
-    if(hasDlg)h+='Dialog: "'+sc.dialog.trim()+'"\n';
-    if(!isAnim&&sc.visualLook)h+='Look: '+sc.visualLook+'\n';
-    if(isAnim&&sc.artStyle)h+='Style: '+sc.artStyle+'\n';
-    h+='\n';
-  });
-  var fmt=p.platform&&p.platform.indexOf('9:16')>-1?'9:16':'16:9';
-  h+='OUTPUT: '+fmt+', smooth transitions, cinematic continuity, no anatomy distortion across cuts.';
-  return h;
-}
-
-function bldSeedMulti(){
-  var p=S.proj,sa=styleAnch();
-  var charDesc=(S.videoMode==='txt2vid'&&S.chars.length)?S.chars.map(function(ch){return(ch.name||'char')+': '+ch.description;}).join(' | '):'';
-  var h='VISUAL STYLE: '+sa+'\n';
-  if(charDesc)h+='CHARACTER CONSISTENCY: '+charDesc+' — exact same appearance in every shot.\n';
-  if(S.dna.instructions)h+='CUSTOM: '+S.dna.instructions+'\n';
-  h+='\n';
-  S.scenes.forEach(function(sc,i){
-    var hasDlg=sc.dialog&&sc.dialog.trim()&&sc.dialog.trim().toUpperCase()!=='NONE';
-    var dur=sc.duration||(4+i%3);
-    var mov=buildMovement(sc);
-    h+='['+dur+'s] ';
-    if(sc.shotType)h+=sc.shotType+'. ';
-    if(sc.script)h+=sc.script+' ';
-    if(mov)h+=mov+'. ';
-    if(hasDlg)h+='Dialog: "'+sc.dialog.trim()+'". ';
-    if(sc.mood)h+=sc.mood+' mood. ';
-    h+='\n';
-  });
-  var ar=p.platform&&p.platform.indexOf('9:16')>-1?'9:16':'16:9';
-  h+='\nOUTPUT: '+ar+', fluid motion, consistent visual style throughout, no subject drift between cuts.';
-  return h;
-}
-
 // ═══ GENERATE ALL ═══
+var outExpanded={}; // transient expand state — survives re-render, not persisted
 function genAll(){
   var c=document.getElementById('outBox');
   if(!S.scenes.length){
@@ -4569,7 +4296,7 @@ function genAll(){
   }
   var sa=styleAnch();
   var isAnim=S.proj.mode==='animated';
-  var isMulti=S.outMode==='multi';
+  var doneCount=S.scenes.filter(function(s){return s.progress&&s.progress.generated;}).length;
   var h='';
 
   // Header
@@ -4578,93 +4305,91 @@ function genAll(){
   h+=(S.proj.type?'<span class="bA">'+S.proj.type+'</span>':'');
   h+=(S.proj.genre?'<span class="bB">'+S.proj.genre+'</span>':'');
   h+=(isAnim?'<span class="bP">Animated</span>':'<span class="bG">Realistic</span>');
-  h+=(isMulti?'<span class="bP">Multi-Shot</span>':'');
-  h+='<span style="font-size:10px;color:#52525b;margin-left:auto;">'+S.scenes.length+' scenes</span></div>';
+  h+='<span style="font-size:10px;color:'+(doneCount===S.scenes.length?'#4ade80':'#71717a')+';margin-left:auto;font-family:JetBrains Mono;">'+doneCount+'/'+S.scenes.length+' generated</span></div>';
   if(sa)h+='<div style="font-size:10px;color:#52525b;font-family:JetBrains Mono;line-height:1.5;border-top:1px solid #2a2e2a;margin-top:6px;padding-top:6px;">'+sa+'</div>';
   h+='</div>';
 
-  if(isMulti){
-    h+='<div class="card" style="margin-bottom:12px;">';
-    h+='<div style="margin-bottom:10px;display:flex;align-items:center;gap:8px;"><span class="bP">&#127916; Kling — Multi-Shot Sequence ('+S.scenes.length+' shots)</span></div>';
-    h+='<div class="pbox" id="klingMulti">'+bldKlingMulti()+'<button class="cpBtn" data-cpel="klingMulti">Copy</button></div></div>';
-    h+='<div class="card">';
-    h+='<div style="margin-bottom:10px;display:flex;align-items:center;gap:8px;"><span class="bdg" style="background:#0ea5e922;color:#38bdf8;border:1px solid #0ea5e933;display:inline-flex;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:500;">&#127919; Seedance — Timeline Sequence ('+S.scenes.length+' shots)</span></div>';
-    h+='<div class="pbox" id="seedMulti">'+bldSeedMulti()+'<button class="cpBtn" data-cpel="seedMulti">Copy</button></div></div>';
-  } else {
-    S.scenes.forEach(function(sc,idx){
-      var imgP=isAnim?bldAnimImg(sc):bldImg(sc);
-      var negP=isAnim?'':bldNeg(sc);
-      var kP=bldKling(sc),sP=bldSeed(sc);
-      var hasDlg=sc.dialog&&sc.dialog.trim()&&sc.dialog.trim().toUpperCase()!=='NONE';
+  S.scenes.forEach(function(sc,idx){
+    var imgP=isAnim?bldAnimImg(sc):bldImg(sc);
+    var kP=bldKling(sc),sP=bldSeed(sc);
+    var hasDlg=sc.dialog&&sc.dialog.trim()&&sc.dialog.trim().toUpperCase()!=='NONE';
+    var isDone=sc.progress&&sc.progress.generated;
+    var isExp=!!outExpanded[sc.id];
 
-      h+='<div style="margin-bottom:20px;">';
-      h+='<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px;">';
-      h+='<div style="width:26px;height:26px;background:linear-gradient(135deg,#84CC16,#65a30d);border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:Bebas Neue;font-size:14px;color:#0a0f0a;">S'+(idx+1)+'</div>';
-      h+='<span style="font-family:Bebas Neue;font-size:17px;color:#a3e635;letter-spacing:.04em;">'+(sc.title||'SCENE '+(idx+1))+'</span>';
-      if(sc.beat)h+='<span class="bB" style="font-size:9px;">'+sc.beat+'</span>';
-      if(sc.shotType)h+='<span class="bA" style="font-size:9px;">'+sc.shotType+'</span>';
-      if(sc.brollOnly)h+='<span style="background:#2a2e2a;color:#71717a;border-radius:20px;padding:2px 8px;font-size:9px;">B-roll</span>';
-      if(hasDlg)h+='<span class="bA" style="font-size:9px;">&#128172; DIALOG</span>';
-      h+='</div>';
-      if(sc.script)h+='<div style="padding:7px 10px;background:#141714;border-radius:5px;border-left:3px solid #84CC1644;font-size:11px;color:#71717a;font-style:italic;margin-bottom:6px;">'+sc.script+'</div>';
+    h+='<div style="margin-bottom:12px;background:#141714;border:1px solid '+(isDone?'#16a34a44':'#2a2e2a')+';border-radius:9px;overflow:hidden;">';
 
-      h+='<div style="background:#141714;border:1px solid #2a2e2a;border-radius:9px;overflow:hidden;">';
-      h+='<div style="display:flex;gap:2px;padding:6px 10px;border-bottom:1px solid #2a2e2a;overflow-x:auto;">';
-      h+='<button class="tbtn on" data-tidx="'+idx+'" data-ttab="img">&#128444; Image'+(isAnim?'':' + Neg')+'</button>';
-      h+='<button class="tbtn" data-tidx="'+idx+'" data-ttab="kl">&#127916; Kling</button>';
-      h+='<button class="tbtn" data-tidx="'+idx+'" data-ttab="sd">&#127919; Seedance</button>';
-      h+='</div>';
+    // Header row: number, title, badges, generated toggle, expand
+    h+='<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 12px;">';
+    h+='<div style="width:26px;height:26px;background:linear-gradient(135deg,#84CC16,#65a30d);border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:Bebas Neue;font-size:14px;color:#0a0f0a;flex-shrink:0;">S'+(idx+1)+'</div>';
+    h+='<span style="font-family:Bebas Neue;font-size:16px;color:#a3e635;letter-spacing:.04em;">'+(sc.title||'SCENE '+(idx+1))+'</span>';
+    if(sc.beat)h+='<span class="bB" style="font-size:9px;">'+sc.beat+'</span>';
+    if(sc.shotType)h+='<span class="bA" style="font-size:9px;">'+sc.shotType+'</span>';
+    if(sc.brollOnly)h+='<span style="background:#2a2e2a;color:#71717a;border-radius:20px;padding:2px 8px;font-size:9px;">B-roll</span>';
+    if(hasDlg)h+='<span class="bA" style="font-size:9px;">&#128172; DIALOG</span>';
+    h+='<div style="flex:1;"></div>';
+    h+='<button data-outprog="'+sc.id+'" title="Mark as generated in your AI video tool" style="background:'+(isDone?'#16a34a22':'transparent')+';border:1px solid '+(isDone?'#16a34a55':'#3f3f46')+';border-radius:20px;color:'+(isDone?'#4ade80':'#71717a')+';font-size:10px;padding:3px 10px;cursor:pointer;font-family:DM Sans,sans-serif;">'+(isDone?'&#10003; Generated':'Mark done')+'</button>';
+    h+='<button data-outexp="'+sc.id+'" style="background:transparent;border:1px solid #3f3f46;border-radius:6px;color:#a1a1aa;font-size:10px;padding:3px 10px;cursor:pointer;font-family:DM Sans,sans-serif;">'+(isExp?'Collapse &#9650;':'Expand &#9660;')+'</button>';
+    h+='</div>';
 
-      h+='<div id="t'+idx+'_img" class="tcnt on" style="padding:10px;">';
-      h+='<div style="margin-bottom:6px;display:flex;gap:5px;align-items:center;"><span class="bA">Image Prompt</span><span style="font-size:10px;color:#52525b;">GPT Image 2 / Nano Banana Pro / Higgsfield</span></div>';
-      h+='<div class="pbox" id="pi'+idx+'">'+imgP+'<button class="cpBtn" data-cpel="pi'+idx+'">Copy</button></div>';
-      if(!isAnim){
-        h+='<div style="margin-top:8px;background:#141714;border:1px solid #dc262633;border-radius:6px;padding:8px;">';
-        h+='<div style="font-size:10px;color:#f87171;margin-bottom:4px;">Negative Prompt:</div>';
-        h+='<div class="pbox" style="background:transparent;border:none;padding:0;padding-right:60px;" id="ng'+idx+'">'+negP+'<button class="cpBtn" style="top:0;" data-cpel="ng'+idx+'">Copy</button></div></div>';
-      }
-      h+='</div>';
+    // Copy row — direct copy without expanding (cpEl reads hidden textareas)
+    h+='<div style="display:flex;gap:6px;flex-wrap:wrap;padding:0 12px 10px;">';
+    h+='<button class="btnG" style="font-size:11px;padding:5px 12px;" data-cpel="oi'+sc.id+'">&#128444; Copy Image</button>';
+    h+='<button class="btnG" style="font-size:11px;padding:5px 12px;" data-cpel="ok'+sc.id+'">&#127916; Copy Kling</button>';
+    h+='<button class="btnG" style="font-size:11px;padding:5px 12px;" data-cpel="os'+sc.id+'">&#127919; Copy Seedance</button>';
+    h+='</div>';
 
-      h+='<div id="t'+idx+'_kl" class="tcnt" style="padding:10px;">';
-      h+='<div style="margin-bottom:6px;display:flex;gap:5px;"><span class="bP">Kling AI</span>'+(hasDlg?'<span class="bA" style="font-size:9px;">&#128172; Dialog</span>':'')+'</div>';
-      h+='<div class="pbox" id="pk'+idx+'">'+kP+'<button class="cpBtn" data-cpel="pk'+idx+'">Copy</button></div></div>';
+    // Hidden canonical prompt sources
+    h+='<textarea id="oi'+sc.id+'" style="display:none;" readonly>'+escapeHtml(imgP)+'</textarea>';
+    h+='<textarea id="ok'+sc.id+'" style="display:none;" readonly>'+escapeHtml(kP)+'</textarea>';
+    h+='<textarea id="os'+sc.id+'" style="display:none;" readonly>'+escapeHtml(sP)+'</textarea>';
 
-      h+='<div id="t'+idx+'_sd" class="tcnt" style="padding:10px;">';
-      h+='<div style="margin-bottom:6px;display:flex;gap:5px;"><span style="background:#0ea5e922;color:#38bdf8;border:1px solid #0ea5e933;display:inline-flex;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:500;">Seedance</span>'+(hasDlg?'<span class="bA" style="font-size:9px;">&#128172; Dialog</span>':'')+'</div>';
-      h+='<div class="pbox" id="ps'+idx+'">'+sP+'<button class="cpBtn" data-cpel="ps'+idx+'">Copy</button></div></div>';
+    // Expand panel — full prompt inspector
+    h+='<div id="oe'+sc.id+'" style="display:'+(isExp?'block':'none')+';border-top:1px solid #2a2e2a;padding:10px 12px;">';
+    if(sc.script)h+='<div style="padding:7px 10px;background:#0d0f0d;border-radius:5px;border-left:3px solid #84CC1644;font-size:11px;color:#71717a;font-style:italic;margin-bottom:10px;">'+sc.script+'</div>';
+    h+='<div style="margin-bottom:4px;display:flex;gap:5px;align-items:center;"><span class="bA">Image Prompt</span><span style="font-size:10px;color:#52525b;">GPT Image 2 / Nano Banana Pro / Higgsfield · negative embedded as AVOID block</span></div>';
+    h+='<div class="pbox" style="margin-bottom:10px;">'+escapeHtml(imgP)+'<button class="cpBtn" data-cpel="oi'+sc.id+'">Copy</button></div>';
+    h+='<div style="margin-bottom:4px;display:flex;gap:5px;"><span class="bP">Kling AI</span>'+(hasDlg?'<span class="bA" style="font-size:9px;">&#128172; Dialog</span>':'')+'</div>';
+    h+='<div class="pbox" style="margin-bottom:10px;">'+escapeHtml(kP)+'<button class="cpBtn" data-cpel="ok'+sc.id+'">Copy</button></div>';
+    h+='<div style="margin-bottom:4px;display:flex;gap:5px;"><span style="background:#0ea5e922;color:#38bdf8;border:1px solid #0ea5e933;display:inline-flex;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:500;">Seedance</span>'+(hasDlg?'<span class="bA" style="font-size:9px;">&#128172; Dialog</span>':'')+'</div>';
+    h+='<div class="pbox">'+escapeHtml(sP)+'<button class="cpBtn" data-cpel="os'+sc.id+'">Copy</button></div>';
+    h+='</div>';
 
-      h+='</div></div>';
-    });
-  }
+    h+='</div>';
+  });
 
   c.innerHTML=h;
-  c.querySelectorAll('.tbtn[data-tidx]').forEach(function(el){
+  c.querySelectorAll('[data-outexp]').forEach(function(el){
     el.addEventListener('click',function(){
-      var idx=this.getAttribute('data-tidx');
-      ['img','kl','sd'].forEach(function(t){var e=document.getElementById('t'+idx+'_'+t);if(e)e.classList.remove('on');});
-      var tgt=document.getElementById('t'+idx+'_'+this.getAttribute('data-ttab'));if(tgt)tgt.classList.add('on');
-      this.closest('[style]').querySelectorAll('.tbtn').forEach(function(b){b.classList.remove('on');});
-      this.classList.add('on');
+      var id=Number(this.getAttribute('data-outexp'));
+      outExpanded[id]=!outExpanded[id];
+      genAll();
     });
   });
-  c.querySelectorAll('.cpBtn[data-cpel]').forEach(function(el){
+  c.querySelectorAll('[data-outprog]').forEach(function(el){
+    el.addEventListener('click',function(){
+      var id=Number(this.getAttribute('data-outprog'));
+      var sc=S.scenes.find(function(s){return s.id===id;});
+      if(!sc)return;
+      if(!sc.progress)sc.progress={generated:false};
+      sc.progress.generated=!sc.progress.generated;
+      save();genAll();
+    });
+  });
+  c.querySelectorAll('.cpBtn[data-cpel],button[data-cpel]').forEach(function(el){
     el.addEventListener('click',function(){cpEl(this.getAttribute('data-cpel'),this);});
   });
 }
 
 // ═══ COPY ALL ═══
 function copyAll(){
-  var all='CINEAI HUB v9 — EXPORT\n'+'='.repeat(60)+'\nSTYLE: '+styleAnch()+'\n\n';
-  if(S.outMode==='multi'){
-    all+='KLING MULTI-SHOT:\n'+bldKlingMulti()+'\n\n'+'='.repeat(60)+'\n\nSEEDANCE TIMELINE:\n'+bldSeedMulti();
-  } else {
+  var all='CINEAI HUB v12 — EXPORT\n'+'='.repeat(60)+'\nSTYLE: '+styleAnch()+'\n\n';
+  {
     var isAnim=S.proj.mode==='animated';
     S.scenes.forEach(function(sc,i){
       all+='SCENE '+(i+1)+': '+(sc.title||'Untitled')+'\n'+'-'.repeat(40)+'\n';
       if(sc.script)all+='ACTION: '+sc.script+'\n';
       if(sc.dialog&&sc.dialog.trim()!=='NONE')all+='DIALOG: '+sc.dialog+'\n';
       all+='\nIMAGE:\n'+(isAnim?bldAnimImg(sc):bldImg(sc))+'\n';
-      if(!isAnim)all+='\nNEGATIVE: '+bldNeg(sc)+'\n';
       all+='\nKLING:\n'+bldKling(sc)+'\n\nSEEDANCE:\n'+bldSeed(sc)+'\n\n'+'='.repeat(60)+'\n\n';
     });
   }
@@ -4719,97 +4444,13 @@ function doImport(input){
   };
   reader.readAsText(file);
 }
-// ═══ FLOW CANVAS EXPORT/IMPORT ═══ (separate from Export Brand above — this covers only
-// canvas structure: node position, edges/branches, progress, and viewport. Never scene content.
-// On import, nodes are matched onto existing S.scenes by id — scenes whose id no longer exists
-// are skipped (their canvas data is silently dropped, scene content itself is never touched).
-function fcExportCanvas(){
-  var payload={
-    _type:'cineaihub_flowcanvas',
-    _version:'v11',
-    meta:{
-      projectName:S.dna.title||S.dna.name||'Untitled Project',
-      createdAt:new Date().toISOString()
-    },
-    viewport:{x:FCV.x,y:FCV.y,zoom:FCV.zoom},
-    nodes:S.scenes.map(function(sc,idx){
-      return {
-        id:sc.id,
-        order:idx,
-        position:sc.position||null,
-        progress:sc.progress||{generated:false}
-      };
-    }),
-    edges:S.flowEdges||[]
-  };
-  var blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
-  var a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);
-  var name=(S.dna.title||S.dna.name||'canvas').replace(/[^a-z0-9]/gi,'_').toLowerCase();
-  a.download='cineaihub_flowcanvas_'+name+'_'+Date.now()+'.json';
-  a.click();
-}
-
-function fcImportCanvas(input){
-  var file=input.files[0];if(!file)return;
-  var reader=new FileReader();
-  reader.onload=function(e){
-    try{
-      var d=JSON.parse(e.target.result);
-      if(d._type&&d._type!=='cineaihub_flowcanvas'){
-        alert('That file doesn\'t look like a Flow Canvas export — try Export Canvas to generate one.');
-        input.value='';return;
-      }
-      var applied=0,skipped=0;
-      (d.nodes||[]).forEach(function(n){
-        var sc=S.scenes.find(function(s){return s.id===n.id;});
-        if(!sc){skipped++;return;}
-        if(n.position)sc.position=n.position;
-        if(n.progress)sc.progress=n.progress;
-        applied++;
-      });
-      // Reorder S.scenes to match the imported "order" field where possible, for nodes that matched
-      if(d.nodes&&d.nodes.length){
-        var orderMap={};
-        d.nodes.forEach(function(n){orderMap[n.id]=n.order;});
-        S.scenes.sort(function(a,b){
-          var oa=orderMap[a.id],ob=orderMap[b.id];
-          if(oa===undefined&&ob===undefined)return 0;
-          if(oa===undefined)return 1;
-          if(ob===undefined)return -1;
-          return oa-ob;
-        });
-      }
-      if(Array.isArray(d.edges)){
-        // drop edges referencing scenes that no longer exist
-        S.flowEdges=d.edges.filter(function(ed){
-          return S.scenes.some(function(s){return s.id===ed.from;})&&S.scenes.some(function(s){return s.id===ed.to;});
-        });
-      }
-      if(d.viewport){
-        FCV.x=d.viewport.x||0;FCV.y=d.viewport.y||0;FCV.zoom=d.viewport.zoom||1;
-      }
-      save();
-      renderFlowCanvas();
-      var bar=document.getElementById('fcImportSuccessBar');
-      if(bar){
-        bar.querySelector('span').textContent='\u2713 Canvas loaded — '+applied+' scene(s) matched'+(skipped?', '+skipped+' skipped (no matching scene)':'')+'.';
-        bar.style.display='flex';
-        setTimeout(function(){bar.style.display='none';},4000);
-      }
-    }catch(err){alert('Could not load file — make sure it\'s a CineAI Hub Flow Canvas export.');}
-    input.value='';
-  };
-  reader.readAsText(file);
-}
-
 function doReset(){
   var bar=document.getElementById('resetBar');
   if(bar)bar.style.display='flex';
 }
 function doResetConfirm(){
   var bar=document.getElementById('resetBar');if(bar)bar.style.display='none';
-  S={proj:{type:'',platform:'',genre:'',mood:'',visualStyle:'',emotionalCore:'',mode:'realistic'},videoMode:'img2vid',dna:{name:'',audience:'',tone:'',title:'',coreMessage:'',painPoint:'',instructions:''},viralNotes:'',chars:[],scenes:[],flowEdges:[],flowQueue:[],assets:[],assetLinks:[],aiTool:'chatgpt',outMode:'single',storyboard:Object.assign({},SB_DEFAULT,{panels:[]}),aiDirector:Object.assign({},AID_DEFAULT,{cinema:Object.assign({},AID_DEFAULT.cinema,{savedPrompts:[]}),banana:Object.assign({},AID_DEFAULT.banana,{savedPrompts:[]})})};
+  S={proj:{type:'',platform:'',genre:'',mood:'',visualStyle:'',emotionalCore:'',intent:'',texFinish:'',mode:'realistic'},videoMode:'img2vid',dna:{name:'',audience:'',tone:'',title:'',coreMessage:'',painPoint:'',instructions:''},viralNotes:'',chars:[],scenes:[],assets:[],assetLinks:[],aiTool:'chatgpt',storyboard:Object.assign({},SB_DEFAULT,{panels:[]}),aiDirector:Object.assign({},AID_DEFAULT,{cinema:Object.assign({},AID_DEFAULT.cinema,{savedPrompts:[]}),banana:Object.assign({},AID_DEFAULT.banana,{savedPrompts:[]})})};
   ['cah8','cah7','cah6'].forEach(function(k){localStorage.removeItem(k);});
   ['platform','genre','mood','visualStyle','emotionalCore','dnaName','dnaAudience','dnaTone','dnaInstructions','dnaTitle','dnaCoreMessage','dnaPainPoint'].forEach(function(f){var el=document.getElementById(f);if(el)el.value='';});
   renderPT();renderChars();renderScenes();renderPanels();populateStyleDropdown();applyStoryboardForm();aidApplyForm();
