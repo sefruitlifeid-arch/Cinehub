@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -3954,6 +3955,37 @@ function opticArtifacts(sc,tier){
   return a.slice(0,budget).join('; ');
 }
 
+// ─── FILMIC OPTICS (depth + lens softness) ───
+// The real-camera tells the references share are OPTICAL, not skin-surface: shallow depth with
+// genuine focus falloff, layered depth planes, gentle lens softness (NOT clinical sharpness),
+// and natural motion blur. This operates at the FRAME level and never touches skin detail —
+// the "too sharp / too clear / too perfect" fix without over-texturing faces. Aperture- and
+// shot-aware so it never contradicts the deep-focus / bokeh negatives.
+function filmicOptics(sc){
+  var fin=finishLevel();
+  var er=effRig(sc);
+  var m=(er.aperture||'').match(/f\/(\d+(?:\.\d+)?)/i);
+  var fn=m?parseFloat(m[1]):0; // 0 = unset
+  var wideShot=/^(WS|Extreme Wide|FS)$/.test(sc.shotType||'');
+  var parts=[];
+  // Depth of field — shot-type first (a wide landscape must not get creamy bokeh), then aperture.
+  if(wideShot||fn>5.6){
+    parts.push('deep focus carried by real atmospheric perspective — haze and air density softening, desaturating and lowering the contrast of the distant planes, layered depth between foreground, subject and background');
+  } else if(fn===0||fn<=2.8){
+    parts.push('shallow depth of field, the subject in crisp focus while the background melts into soft creamy separation with natural focus falloff between clearly layered depth planes');
+  } else {
+    parts.push('moderate depth of field, the subject cleanly separated from a gently softened background across layered depth planes');
+  }
+  // Global lens softness — the direct antidote to clinical over-sharpness. Skipped only on a
+  // deliberate CLEAN finish (commercial polish intentionally wants crispness).
+  if(fin!=='clean')parts.push('organic optical rendering rather than clinical digital sharpness — a gentle lens softness and micro-contrast rolloff that reads as captured through real glass, edges easing off toward the frame corners');
+  // Motion blur — only where the shot actually moves, and only on the balanced finish (raw already
+  // gets shutter feel from opticArtifacts; clean stays crisp). Movement-gated so still shots stay still.
+  var moving=sc.movement&&sc.movement.toLowerCase().indexOf('static')<0;
+  if(moving&&fin==='balanced')parts.push('subtle natural motion blur on anything in motion, consistent with a 180-degree shutter, never frozen razor-sharp');
+  return parts.join('; ');
+}
+
 // ─── EYE DETAIL DERIVER ───
 // The #1 uncanny-valley tell is dead eyes. Causal tokens only (what the eyes SEE and
 // what LIGHT hits the cornea) — never adjective praise ("beautiful realistic eyes"
@@ -4247,6 +4279,9 @@ function bldImg(sc){
   if(exp)pts.push('EXPOSURE: '+exp);
   var oa=opticArtifacts(sc,'img');
   if(oa)pts.push('OPTICS: '+oa);
+  // 5.55 Filmic optics — depth, focus falloff, lens softness, motion blur (frame-level, not skin)
+  var fo=filmicOptics(sc);
+  if(fo)pts.push('DEPTH & LENS: '+fo);
   // 5.6 Eye life — gated to CU/MCU/ECU (eyeDetail handles the gate + formal skip)
   var eyeI=eyeDetail(sc,'img');
   if(eyeI)pts.push('EYES: '+eyeI);
@@ -4415,6 +4450,8 @@ function bldSeed(sc){
     parts.push('AMBIENT MOTION: '+ambientMotion(sc));
     var eyeS=eyeDetail(sc,'seed');
     if(eyeS)parts.push('EYE LIFE: '+eyeS);
+    var foS=filmicOptics(sc);
+    if(foS)parts.push('DEPTH & LENS: '+foS);
     var expS=exposureDecision(sc);
     if(expS)parts.push('EXPOSURE: '+expS);
     var oaS=opticArtifacts(sc,'seed');
