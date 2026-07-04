@@ -1145,7 +1145,7 @@ var SHOT_COMPOSITION = {
 // Used by both Scene Editor (bldImg) and Storyboard Workflow (bldStoryboardGridPrompt). Scene Editor skips AESTHETIC when the
 // user has written a custom Visual Style (their explicit aesthetic intent takes precedence); Storyboard Workflow always
 // includes both, since it's consistently meant to look like real production reference photography.
-var PHOTOREALISM_TECHNICAL = 'RENDERING REALISM: visible skin pores, subsurface skin scattering, individual hair strands, fabric micro-weave and material texture, natural light falloff with true shadow depth, atmospheric depth layering between foreground and background, fine photographic grain, subtle halation on bright highlights, small living catchlights in the eyes, expression naturally motivated by the scene.';
+var PHOTOREALISM_TECHNICAL = 'RENDERING REALISM: visible skin pores with soft specular sheen only across the oily T-zone of nose bridge and forehead while the cheeks stay matte and diffuse, warm reddish subsurface translucency where light passes through thin skin at ear edges, nostril rims and backlit fingers reading as living biology never opaque plastic, individual hair strands, fabric micro-weave and material texture, natural light falloff with true shadow depth, atmospheric depth layering between foreground and background, fine photographic grain that persists into the bright highlights, gentle optical softening of hard digital edges rather than clinical over-sharpness, small living catchlights in the eyes, expression naturally motivated by the scene.';
 
 var PHOTOREALISM_AESTHETIC = ' CANDID DOCUMENTARY: caught-mid-moment unposed quality, natural framing asymmetry with uneven negative space, background carrying real-world imperfection and life, restrained natural color saturation.';
 
@@ -1153,7 +1153,7 @@ var PHOTOREALISM_AESTHETIC = ' CANDID DOCUMENTARY: caught-mid-moment unposed qua
 var PHOTOREALISM_BLOCK = PHOTOREALISM_TECHNICAL+PHOTOREALISM_AESTHETIC;
 
 var PHOTOREALISM_NEGATIVE_TECHNICAL = 'plastic skin, waxy skin, perfect symmetry, centered/mirror-balanced composition, studio-perfect lighting, HDR glow, glossy CGI render, 3D render, posed/staged expression';
-var PHOTOREALISM_NEGATIVE_AESTHETIC = 'airbrushed skin, flawless skin, overly smooth skin, oversaturated colors, stock photo look, illustration, cartoon, plastic-looking product render';
+var PHOTOREALISM_NEGATIVE_AESTHETIC = 'airbrushed skin, flawless skin, overly smooth skin, uniform glossy skin coating, statistically average beautified symmetrical model face, clinically over-sharpened, oversaturated colors, stock photo look, illustration, cartoon, plastic-looking product render';
 var PHOTOREALISM_NEGATIVE = PHOTOREALISM_NEGATIVE_TECHNICAL+', '+PHOTOREALISM_NEGATIVE_AESTHETIC;
 
 // Camera movement options (separate from shot type)
@@ -3976,7 +3976,7 @@ function eyeDetail(sc,tier){
   else if(/neon/.test(lit+' '+env))src='the neon signs';
   else if(/practical|lamp|candle|screen|tv|fire/.test(lit+' '+env))src='the practical lights';
   else src='the soft key light';
-  var a=['a small catchlight from '+src+' reflected in the cornea, consistent with the scene lighting'];
+  var a=['a matching catchlight from '+src+' reflected in BOTH corneas from the same single light source, the two reflections the same shape and position, clean round pupil contour'];
   a.push('a thin natural moisture sheen on the eyes, subtle wet highlight along the lower waterline');
   // Micro-asymmetry fights robotic mirror-eyes — but contradicts formalist symmetry styles.
   var rsE=resolveStyle();
@@ -4263,7 +4263,7 @@ function bldImg(sc){
   var hasCustomStyle=cvsEl&&cvsEl.value.trim();
   var formalStyle=rsImg&&rsImg.formal;
   var baseStack=PHOTOREALISM_TECHNICAL;
-  if(mediumFor(sc)==='phone')baseStack=baseStack.replace('fine photographic grain, subtle halation on bright highlights','fine digital noise texture, computational sharpness signature');
+  if(mediumFor(sc)==='phone')baseStack=baseStack.replace('fine photographic grain that persists into the bright highlights, gentle optical softening of hard digital edges rather than clinical over-sharpness','fine digital noise texture with faint chroma splotches in shadow, computational sharpness signature');
   // CANDID gate now follows Texture Finish, NOT custom-style presence. Old logic dropped the
   // anti-gloss imperfection tokens the moment a style reference was pasted — exactly backwards
   // for faded/raw references (Super 8, documentary): those NEED the imperfection tokens to win
@@ -4271,6 +4271,10 @@ function bldImg(sc){
   pts.push((formalStyle||finishLevel()==='clean')?baseStack:(baseStack+PHOTOREALISM_AESTHETIC));
   var ar=p.platform&&p.platform.indexOf('9:16')>-1?'9:16':p.platform&&p.platform.indexOf('4:5')>-1?'4:5':p.platform&&p.platform.indexOf('2.39')>-1?'2.39:1':'16:9';
   var out=joinProse(pts)+'.\nAspect ratio: '+ar+'.';
+  // Reference-image lock: when the user pasted a DESCRIPTIVE style reference (extraction, not just
+  // a style name), a text grade always loses tonal fidelity vs the actual image. If they have the
+  // reference on hand, attaching it and matching it beats any prose. Higgsfield's MRI principle.
+  if(hasCustomStyle&&cvsEl.value.trim().length>=60)out+='\nIf you have the visual style reference image, attach it and match its exact color grade, contrast level, black-point lift, and grain character — the reference image governs the tone over any text description.';
   var assetBlock=assetSectionFor(sc,true);
   if(assetBlock)out+='\n\n'+assetBlock;
   // Embedded negative — GPT Image 2 / Nano Banana Pro have no separate negative field;
