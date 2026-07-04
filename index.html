@@ -2566,6 +2566,14 @@ function genSceneTechPrompt(){
     var energyNote=mvE2
       ?'MOVEMENT ENERGY — music video, movement synced to the song tempo:\n'+mvE2+'\nEnergy rises into every chorus; the boldest move belongs to the final chorus.\n\n'
       :(S.proj.intent&&energyMap[S.proj.intent]?'MOVEMENT ENERGY — the movement language of this project:\n'+energyMap[S.proj.intent]+'\nVary the rhythm across the sequence: the boldest moves belong to the hook and the climax.\n\n':'');
+    // STYLE AUTHORITY — the #1 cause of inconsistent output was the AI DP choosing dramatic
+    // high-contrast lighting (Chiaroscuro/Backlit/Hard) that fights a soft/faded governing grade.
+    // The style is the boss; lighting choices must produce its tonal character, not average against it.
+    var styleAuthNote=sa?'STYLE AUTHORITY — CRITICAL:\nThe VISUAL STYLE above is the governing color grade and tonal character of this entire project. Every LIGHTING and LIGHT_QUALITY choice MUST produce that character on screen:\n'
+      +'- Match its contrast level. If the style describes soft, faded, calm, low-contrast, desaturated, or gentle tones: DO NOT choose Chiaroscuro, Backlit / Silhouette, hard dramatic contrast, or heavy rim lighting. Choose lighting that renders soft and gentle.\n'
+      +'- If the style describes bold, dramatic, high-contrast, or moody tones: lean into hard directional setups.\n'
+      +'- When a scene feels dramatic but the style calls for restraint, THE STYLE WINS — express the drama through framing, movement, and staging instead of light contrast.\n'
+      +'- A coherent sequence renders every scene inside ONE tonal world. Never mix calm-faded scenes with punchy-dramatic scenes in the same project.\n\n':'';
     // Recognized style carries a canonical camera package — the AI DP should treat it as
     // the default rig; the user can still override any dropdown manually after Apply.
     var rsRig=resolveStyle();
@@ -2576,7 +2584,7 @@ function genSceneTechPrompt(){
     var fmt2='OUTPUT FORMAT — CRITICAL:\nFirst line:\nPROJECT_CAMERA_BODY: [choice] | PROJECT_VISUAL_LOOK: [choice]\n\n'
       +'Then one line per scene:\nSCENE_[nn] | SHOT_TYPE: [value] | MOVEMENT: [value] | MOVEMENT_NOTES: [short value or NONE] | LENS_TYPE: [value] | FOCAL_LENGTH: [value] | APERTURE: [value] | LIGHTING: [1-2 values comma-separated] | LIGHT_QUALITY: [1-2 values comma-separated]\n\n'
       +'STRICT: NEVER use | inside field values. No markdown, no preamble. Generate exactly '+emptyScenes.length+' scene lines, SCENE_01 through SCENE_'+String(emptyScenes.length).padStart(2,'0')+'.';
-    prompt=(intros[S.aiTool]||intros.chatgpt)+'MODE: REALISTIC\nPROJECT TYPE: '+(p.type||'')+(p.genre?'\nGENRE: '+p.genre:'')+(p.platform?'\nPLATFORM: '+p.platform:'')+(sa?'\nVISUAL STYLE: '+sa:'')+(p.emotionalCore?'\nEMOTIONAL CORE: '+p.emotionalCore:'')+(intentEntry()?'\nCONTENT INTENT: '+intentEntry().label+' — '+intentEntry().director:'')+talkingHead+charCtx+sceneCtx+task2+rules2+projectRules2+energyNote+rigNote+fmt2;
+    prompt=(intros[S.aiTool]||intros.chatgpt)+'MODE: REALISTIC\nPROJECT TYPE: '+(p.type||'')+(p.genre?'\nGENRE: '+p.genre:'')+(p.platform?'\nPLATFORM: '+p.platform:'')+(sa?'\nVISUAL STYLE: '+sa:'')+(p.emotionalCore?'\nEMOTIONAL CORE: '+p.emotionalCore:'')+(intentEntry()?'\nCONTENT INTENT: '+intentEntry().label+' — '+intentEntry().director:'')+talkingHead+charCtx+sceneCtx+task2+rules2+projectRules2+styleAuthNote+energyNote+rigNote+fmt2;
   }
 
   var box=document.getElementById('techPromptBox');
@@ -3346,9 +3354,8 @@ function bldStoryboardGridPromptRealistic(){
 
   var h='Style: shot on a real camera, photographic — not rendered, not illustrated, not CGI. '+(sb.colorGrade?sb.colorGrade+' grading. ':'')+(charDesc?'Protagonist: '+charDesc+'. ':'')+'Use @product as the exact reference for the product in every relevant frame — match label, color, and shape exactly.\n\n';
 
-  var cvsEl3=document.getElementById('customVisualStyle');
-  var hasCustomStyle3=cvsEl3&&cvsEl3.value.trim();
-  h+=(hasCustomStyle3?PHOTOREALISM_TECHNICAL:(PHOTOREALISM_TECHNICAL+PHOTOREALISM_AESTHETIC))+'\n';
+  var sbClean=finishLevel()==='clean';
+  h+=(sbClean?PHOTOREALISM_TECHNICAL:(PHOTOREALISM_TECHNICAL+PHOTOREALISM_AESTHETIC))+'\n';
 
   h+='Layout: '+layout.cols+'x'+layout.rows+' grid storyboard, '+n+' numbered panels (small number badge bottom-left of each panel), '+layout.sheetDesc+'.\n\n';
   h+=bldStoryboardPanelStructure(useCaption,n);
@@ -3356,7 +3363,7 @@ function bldStoryboardGridPromptRealistic(){
   h+=bldStoryboardPanelList(panels,useCaption);
   h+='\nOutput as a single '+sb.outputAspectRatio+' image, '+n+' panels, clean white gutters between panels, consistent lighting progression panel 1 to panel '+n+', consistent character identity and outfit across all panels.\n\n';
   h+='IMPORTANT: Avoid clip art, stock-photo cliches, generic AI-look gradients, or overdesigned decorative elements. This should look like a real production storyboard for a commercial shoot, not generic AI art. Be specific and concrete in every panel — no vague or filler description.\n\n';
-  h+='NEGATIVE PROMPT (avoid these): '+(hasCustomStyle3?PHOTOREALISM_NEGATIVE_TECHNICAL:PHOTOREALISM_NEGATIVE)+'.';
+  h+='NEGATIVE PROMPT (avoid these): '+(sbClean?PHOTOREALISM_NEGATIVE_TECHNICAL:PHOTOREALISM_NEGATIVE)+'.';
   return h;
 }
 
@@ -4257,7 +4264,11 @@ function bldImg(sc){
   var formalStyle=rsImg&&rsImg.formal;
   var baseStack=PHOTOREALISM_TECHNICAL;
   if(mediumFor(sc)==='phone')baseStack=baseStack.replace('fine photographic grain, subtle halation on bright highlights','fine digital noise texture, computational sharpness signature');
-  pts.push((hasCustomStyle||formalStyle)?baseStack:(baseStack+PHOTOREALISM_AESTHETIC));
+  // CANDID gate now follows Texture Finish, NOT custom-style presence. Old logic dropped the
+  // anti-gloss imperfection tokens the moment a style reference was pasted — exactly backwards
+  // for faded/raw references (Super 8, documentary): those NEED the imperfection tokens to win
+  // against the model's glossy bias. Only formal styles and an explicit CLEAN finish drop them.
+  pts.push((formalStyle||finishLevel()==='clean')?baseStack:(baseStack+PHOTOREALISM_AESTHETIC));
   var ar=p.platform&&p.platform.indexOf('9:16')>-1?'9:16':p.platform&&p.platform.indexOf('4:5')>-1?'4:5':p.platform&&p.platform.indexOf('2.39')>-1?'2.39:1':'16:9';
   var out=joinProse(pts)+'.\nAspect ratio: '+ar+'.';
   var assetBlock=assetSectionFor(sc,true);
@@ -4270,9 +4281,9 @@ function bldImg(sc){
 
 function bldNeg(sc){
   var neg=['blurry','distorted anatomy','deformed hands','extra fingers','extra limbs','watermark','text overlay','low quality','pixelated','AI artifacts','photo collage','split screen','grid layout','multiple panels','storyboard sheet'];
-  var cvsEl2=document.getElementById('customVisualStyle');
-  var hasCustomStyle2=cvsEl2&&cvsEl2.value.trim();
-  var negList=(hasCustomStyle2?PHOTOREALISM_NEGATIVE_TECHNICAL:PHOTOREALISM_NEGATIVE).split(', ');
+  // Anti-airbrush aesthetic negatives follow Texture Finish (clean finish = polished look is
+  // intentional, drop them); a pasted style reference no longer silently removes them.
+  var negList=(finishLevel()==='clean'?PHOTOREALISM_NEGATIVE_TECHNICAL:PHOTOREALISM_NEGATIVE).split(', ');
   // Formalist styles (Wes Anderson, Fincher, Commercial) REQUIRE symmetry / centered
   // composition / controlled lighting — prohibiting them in AVOID (recency position) is
   // exactly why the style never landed. Prune the contradicting tokens.
