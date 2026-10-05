@@ -172,7 +172,7 @@ textarea.inp{resize:vertical;min-height:70px;}
           <select class="inp" id="genre" onchange="updateGenreDesc();save()">
             <option value="">Select...</option>
             <option>Talking Head / Interview</option>
-            <option>Slice of Life</option><option>Drama</option><option>Romance</option>
+            <option>Slice of Life</option><option>Drama</option><option>Drama Reel (Vertical)</option><option>Romance</option>
             <option>Thriller / Suspense</option><option>Horror</option><option>Comedy</option>
             <option>Sci-Fi</option><option>Fantasy</option><option>Documentary</option>
             <option>Action</option><option>Music Video</option><option>Brand Commercial</option>
@@ -190,6 +190,8 @@ textarea.inp{resize:vertical;min-height:70px;}
             <option>Raw and Gritty</option><option>Dreamlike and Surreal</option>
             <option>Comedic and Playful</option><option>Epic and Grandiose</option>
             <option>Melancholic and Poetic</option><option>Bold and Confident</option>
+            <option>Festive and Celebratory</option><option>Sensual and Sultry</option>
+            <option>Rebellious and Defiant</option>
           </select>
           <div id="moodDesc" style="font-size:10px;color:#52525b;margin-top:4px;min-height:14px;"></div>
         </div>
@@ -211,6 +213,8 @@ textarea.inp{resize:vertical;min-height:70px;}
             <option>Isolation / Loneliness</option><option>Hope / Rebirth</option>
             <option>Anger / Frustration</option><option>Peace / Acceptance</option>
             <option>Identity Crisis</option><option>Bittersweet</option>
+            <option>Freedom / Escape</option><option>Triumph / Pride</option>
+            <option>Desire / Seduction</option>
           </select>
           <div id="emotionalCoreDesc" style="font-size:10px;color:#52525b;margin-top:4px;min-height:14px;"></div>
         </div>
@@ -239,44 +243,14 @@ textarea.inp{resize:vertical;min-height:70px;}
           </select>
           <div style="font-size:10px;color:#52525b;margin-top:4px;min-height:14px;">Drives EXPOSURE and OPTICS layers in every prompt</div>
         </div>
-      </div>
-      <!-- Music Video panel — visible only when project type = Music Video -->
-      <div id="mvPanel" style="display:none;margin-top:12px;padding:12px;background:#141714;border:1px solid #f472b633;border-radius:8px;">
-        <div style="font-size:12px;font-weight:600;color:#f472b6;margin-bottom:10px;">&#127925; Music Video Treatment</div>
-        <div class="g2">
-          <div>
-            <label class="lbl">MV Treatment <span style="color:#f472b6;font-size:9px;">replaces director styles for MV</span></label>
-            <select class="inp" id="mvStyle" onchange="save()">
-              <option value="">Select treatment...</option>
-              <option value="performance_raw">Performance Raw — intimate single-take energy</option>
-              <option value="choreo_cinematic">Choreography Cinematic — dance-first, precise blocking</option>
-              <option value="visual_concept">Visual Concept — surreal artistic imagery</option>
-              <option value="street_lifestyle">Street / Lifestyle — golden hour, fashion-forward</option>
-              <option value="hype_energy">Hype / Energy — bold, aggressive, rapid</option>
-            </select>
-          </div>
-          <div>
-            <label class="lbl">Song Tempo / Energy</label>
-            <select class="inp" id="mvTempo" onchange="save()">
-              <option value="">Select tempo...</option>
-              <option value="slow_ballad">Slow Ballad — long emotional takes</option>
-              <option value="mid_tempo">Mid-Tempo — grooving steady rhythm</option>
-              <option value="upbeat">Upbeat — energetic driving pace</option>
-              <option value="high_energy">High Energy — rapid aggressive cuts</option>
-            </select>
-          </div>
+        <div>
+          <label class="lbl">Prompt Format <span style="color:#f472b6;font-size:9px;">image prompt shape</span></label>
+          <select class="inp" id="promptFormat" onchange="save()">
+            <option value="">Detailed — labeled blocks (default)</option>
+            <option value="concise">Concise Cinematic — prose, ≤2500 chars (Higgsfield-ready)</option>
+          </select>
+          <div style="font-size:10px;color:#52525b;margin-top:4px;min-height:14px;">Concise = natural-language prose capped at 2500 chars for Cinema Studio. Camera + lens are chosen per-scene in the Scene Editor (Higgsfield gear).</div>
         </div>
-        <div class="g2" style="margin-top:10px;">
-          <div>
-            <label class="lbl">Genre Feel <span style="color:#52525b;font-size:9px;">shapes visual vocabulary</span></label>
-            <input class="inp" id="mvGenre" placeholder="e.g. R&B, pop, hip-hop, indie rock, EDM..." onchange="save()"/>
-          </div>
-          <div>
-            <label class="lbl">Song Mood Arc <span style="color:#52525b;font-size:9px;">section-by-section emotional shape</span></label>
-            <input class="inp" id="mvArc" placeholder="e.g. melancholic verses → explosive chorus → quiet bridge → euphoric finale" onchange="save()"/>
-          </div>
-        </div>
-        <div style="font-size:10px;color:#52525b;margin-top:8px;line-height:1.4;">Story Builder will structure scenes around song sections (verse/chorus/bridge) instead of plot beats. Lip-sync performance scenes are marked automatically — paste your own track in the AI platform; no lyrics are generated here.</div>
       </div>
     </div>
 
@@ -412,6 +386,57 @@ textarea.inp{resize:vertical;min-height:70px;}
         <button class="aiTab on" id="aiC" onclick="setAI('chatgpt',this)">ChatGPT</button>
         <button class="aiTab" id="aiCl" onclick="setAI('claude',this)">Claude</button>
         <button class="aiTab" id="aiG" onclick="setAI('gemini',this)">Gemini</button>
+      </div>
+      <div id="dramaPanel" style="display:none;border:1px solid #3f3f46;border-radius:8px;padding:10px;margin-bottom:10px;background:#141414;">
+        <div style="font-size:11px;font-weight:600;color:#f0abfc;margin-bottom:8px;">&#127916; DRAMA REEL &mdash; Brand Integration</div>
+        <select class="inp" id="dramaBrandMode" onchange="save()">
+          <option value="ambient">Ambient &mdash; brand lives in the world, never named, never the point (default)</option>
+          <option value="none">None &mdash; pure drama, no product or commercial message at all</option>
+          <option value="payoff">Late payoff &mdash; pure drama, brand lands only in the final beat</option>
+        </select>
+        <div style="font-size:10px;color:#52525b;margin-top:4px;">All three modes forbid pack-shots, logo framing and slogans in dialogue. On <b>None</b>, the brand name and core message are stripped from the script prompt entirely.</div>
+      </div>
+      <div id="mvPanel" style="display:none;border:1px solid #3f3f46;border-radius:8px;padding:10px;margin-bottom:10px;background:#141414;">
+        <div style="font-size:11px;font-weight:600;color:#a3e635;margin-bottom:8px;">&#127925; MUSIC VIDEO MODE &mdash; Song Structure &amp; Energy</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
+          <div>
+            <label class="lbl">MV Genre Treatment</label>
+            <select class="inp" id="mvGenre"></select>
+            <div id="mvGenreDesc" style="font-size:10px;color:#52525b;margin-top:4px;min-height:14px;"></div>
+          </div>
+          <div>
+            <label class="lbl">Structure Template</label>
+            <select class="inp" id="mvTemplate"></select>
+            <div style="font-size:10px;color:#52525b;margin-top:4px;">Template pre-fills the table below &mdash; edit freely for your own song.</div>
+          </div>
+        </div>
+        <div id="mvSections"></div>
+        <button class="btnG" id="mvAddSection" type="button" style="margin-top:6px;">+ Add Section</button>
+        <div style="font-size:10px;color:#52525b;margin-top:6px;">Energy 1 = still/ambient &middot; 5 = maximum/drop. One dominant camera motion per shot &mdash; dynamism comes from many short shots, not stacked moves.</div>
+        <div style="border-top:1px solid #2a2e2a;margin-top:10px;padding-top:10px;">
+          <label class="lbl">&#127911; Music Reference (optional &mdash; lagunya seperti lagu siapa, vibe-nya gimana, genre twist)</label>
+          <textarea class="inp" id="mvMusicNotes" rows="2" placeholder="e.g. vibe-nya kayak lagu X dari artis Y, slow romantic koplo, female vocal, nuansa 90an... (nama artis boleh — AI tool akan menerjemahkannya)"></textarea>
+          <div style="display:flex;gap:8px;margin-top:6px;align-items:center;">
+            <button class="btnG" id="mvSunoBtn" type="button">&#127925; Generate Suno Prompt</button>
+            <button class="btnG" id="mvSunoCp" type="button" style="display:none;" onclick="cpEl('mvSunoBox',this)">&#128203; Copy</button>
+          </div>
+          <div class="sBox" id="mvSunoBox" style="display:none;margin-top:8px;white-space:pre-wrap;"></div>
+          <div style="border-top:1px solid #2a2e2a;margin-top:10px;padding-top:10px;">
+            <div style="font-size:11px;font-weight:600;color:#a3e635;margin-bottom:6px;">&#9201; AUDIO SYNC &mdash; after the song is generated</div>
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+              <button class="btnG" id="mvAudioBtn" type="button">&#127911; Audio Analysis Prompt</button>
+              <button class="btnG" id="mvAudioCp" type="button" style="display:none;" onclick="cpEl('mvAudioBox',this)">&#128203; Copy</button>
+              <label class="lbl" style="margin:0;white-space:nowrap;">Song End</label>
+              <input class="inp" id="mvSongEnd" placeholder="3:42" style="width:70px;">
+            </div>
+            <div class="sBox" id="mvAudioBox" style="display:none;margin-top:8px;white-space:pre-wrap;"></div>
+            <textarea class="inp" id="mvTsPaste" rows="2" placeholder="Paste the AI tool's timestamp result here, then Import..." style="margin-top:8px;"></textarea>
+            <div style="display:flex;gap:8px;align-items:center;margin-top:6px;">
+              <button class="btnG" id="mvTsImport" type="button">&#8595; Import Timestamps</button>
+              <span id="mvTsMsg" style="font-size:10px;color:#71717a;"></span>
+            </div>
+          </div>
+        </div>
       </div>
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
         <label class="lbl" style="margin:0;white-space:nowrap;">Scenes:</label>
@@ -944,7 +969,7 @@ textarea.inp{resize:vertical;min-height:70px;}
 <div style="max-width:860px;margin:0 auto;padding:20px 16px 32px;border-top:1px solid #1a1d1a;margin-top:8px;">
   <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
     <div style="font-size:10px;color:#3f3f46;font-family:'JetBrains Mono',monospace;">
-      CineAI Hub v12 &nbsp;·&nbsp; Prompt format: Kling 3.0 / Seedance 2.0 / GPT Image 2 &nbsp;·&nbsp; Last updated: Jul 2026
+      CineAI Hub v13g &nbsp;·&nbsp; Prompt format: Kling 3.0 / Seedance 2.0 / GPT Image 2 &nbsp;·&nbsp; Last updated: Oct 2026
     </div>
     <div style="font-size:10px;color:#3f3f46;">
       Open source · <a href="https://github.com" style="color:#52525b;text-decoration:none;">GitHub</a> · Zero API keys required
@@ -954,20 +979,194 @@ textarea.inp{resize:vertical;min-height:70px;}
 
 <script>
 var S = {
-  proj:{type:'',platform:'',genre:'',mood:'',visualStyle:'',emotionalCore:'',intent:'',texFinish:'',mvStyle:'',mvTempo:'',mvGenre:'',mvArc:'',mode:'realistic'},
+  proj:{type:'',platform:'',genre:'',mood:'',visualStyle:'',customVisualStyle:'',emotionalCore:'',intent:'',texFinish:'',mode:'realistic',promptFormat:'',dramaBrandMode:'ambient'},
   dna:{name:'',audience:'',tone:'',instructions:'',title:'',coreMessage:'',painPoint:''},
   viralNotes:'',
   chars:[],scenes:[],
   assets:[],assetLinks:[],
   aiTool:'chatgpt',
   videoMode:'img2vid',
+  mv:{genre:'',template:'',sections:[],musicNotes:'',songEnd:''},
   storyboard:{duration:'15',vibe:'calm and aspirational',cutStyle:'slow deliberate',colorGrade:'warm golden hour',captureStyle:'',outputAspectRatio:'16:9',scriptRef:'',narrativeArc:'',narrativeTemplate:'',captionMode:'none',panelCount:9,wholeMovementPrompt:'',panels:[]},
   aiDirector:{cinema:{linkedSceneId:'',cinemaMode:'',runtime:'',aspectRatio:'',matchMode:'',subjectType:'',lockedElements:'',wantPreview:false,savedPrompts:[]},banana:{mode:'',characterStatus:'',linkedCharId:'',notes:'',savedPrompts:[]}}
 };
 
 var SB_DEFAULT = {duration:'15',vibe:'calm and aspirational',cutStyle:'slow deliberate',colorGrade:'warm golden hour',captureStyle:'',outputAspectRatio:'16:9',scriptRef:'',narrativeArc:'',narrativeTemplate:'',captionMode:'none',panelCount:9,wholeMovementPrompt:'',panels:[]};
 
+// ═══ MUSIC VIDEO MODE (v12o) ═══
+// Energy-driven camera grammar. Core rule (research-validated): ONE dominant camera motion per shot.
+// Dynamism comes from many short shots cut fast, never from stacking moves inside one shot.
+var MV_DEFAULT={genre:'',template:'',sections:[],musicNotes:'',songEnd:''};
+var MV_ENERGY_DICT={
+  1:{l:'E1 Still / Ambient',cam:'locked static frame, or a single very slow dolly-in / gentle floating drift',density:'1 long unbroken shot for this section'},
+  2:{l:'E2 Smooth Flow',cam:'one smooth lateral tracking glide or slow orbit — fluid gimbal motion, unhurried',density:'1-2 shots for this section'},
+  3:{l:'E3 Building',cam:'one accelerating push-in, rising crane move, or widening arc — motion that feels like it is heading somewhere',density:'2 shots for this section'},
+  4:{l:'E4 Peak',cam:'one strong dominant move per shot: whip pan, crash zoom, fast orbit, or speed-ramped push-in — short punchy shots',density:'2-3 short shots; adjacent shots may end and begin on whip pans for stitchable seamless transitions'},
+  5:{l:'E5 Maximum / Drop',cam:'one aggressive move per shot: handheld chaos with frame shake, snorricam body-lock, FPV-style dive, or crash zoom — shortest shots, hardest cuts',density:'3 very short shots MAX per 15s block (more than 3 shots per generation frays the subject anchor); end and begin adjacent shots on whip pans to stitch seamless high-energy transitions'}
+};
+var MV_GENRE_DICT={
+  kpop:{l:'K-Pop Performance',look:'stark theatrical spotlight cutting through haze on a minimalist dark stage, high-production polish, synchronized group choreography, bold styled wardrobe, crisp modern sheen'},
+  hiphop:{l:'Hip-Hop / Street',look:'night street with neon practicals, low-angle attitude framing, posse staging, saturated color pops against dark backgrounds, confident posing energy'},
+  indie:{l:'Indie / Alternative',look:'natural available light, candid off-guard framing, muted filmic palette, lived-in real locations, performer only half-aware of the camera'},
+  popglossy:{l:'Pop Glossy',look:'seamless colorama backdrops with controlled studio color washes, polished beauty lighting, wardrobe-driven color blocking, immaculate commercial finish'},
+  edm:{l:'EDM / Club',look:'strobing club light, laser beams and LED panels, silhouettes against blown highlights, haze-thick air, rave crowd energy'},
+  acoustic:{l:'Acoustic / Intimate',look:'warm practical lamps and window light, single performer in an intimate interior, shallow focus, quiet honest atmosphere'},
+  ballad:{l:'Ballad Cinematic',look:'moody cinematic negative space, slow atmospheric haze, restrained cool-warm contrast, emotional close-ups against vast empty environments'},
+  koplo:{l:'Dangdut Koplo Stage',look:'outdoor rakyat stage or hajatan tent with a large LED video wall backdrop, saturated multicolor stage wash, an interactive crowd visible and dancing in frame, bright glamorous stage wardrobe, festive communal energy'},
+  hipdut:{l:'Hipdut Urban',look:'kampung alleys and simple neighborhood backdrops, raw handheld retro VHS-tinged texture, streetwear (hoodie, sneakers, cap) against everyday Indonesian settings, playful lo-fi authenticity'},
+  jingle:{l:'Brand Jingle MV',look:'full music video language — rhythm-driven cuts, stylized color, performance energy; the product lives ORGANICALLY inside the world (held, used, worn, on the table) and is never the subject of the framing; NO product-showcase framing, NO rotating pack shots, NO catalog lighting; one clean product beauty moment is allowed ONLY in the final section'}
+};
+var MV_STRUCTURE_TEMPLATES=[
+  {id:'pop_standard',l:'Pop Standard',sections:[['Intro',1],['Verse 1',2],['Pre-Chorus',3],['Chorus',4],['Verse 2',2],['Chorus',4],['Bridge',2],['Final Chorus',5],['Outro',1]]},
+  {id:'hiphop',l:'Hip-Hop',sections:[['Intro',2],['Hook',4],['Verse 1',3],['Hook',4],['Verse 2',3],['Hook',4],['Outro',2]]},
+  {id:'edm',l:'EDM / Dance',sections:[['Intro',1],['Build',3],['Drop',5],['Break',2],['Build',3],['Drop',5],['Outro',1]]},
+  {id:'ballad',l:'Ballad / Acoustic',sections:[['Intro',1],['Verse 1',1],['Chorus',2],['Verse 2',2],['Chorus',3],['Bridge',2],['Final Chorus',3],['Outro',1]]},
+  {id:'koplo',l:'Dangdut Koplo',sections:[['Intro',2],['Verse',2],['Chorus',4],['Jem-jeman Break',5],['Verse 2',3],['Final Chorus',5]]},
+  {id:'jingle_short',l:'Jingle (short 45\u201375s)',sections:[['Intro',2],['Hook',4],['Verse',3],['Final Hook',5],['Outro',2]]}
+];
+// v12r — music-style baselines for the Suno prompt generator. Separate dict so MV_GENRE_DICT (visual) stays untouched.
+var MV_MUSIC_DICT={
+  kpop:'K-pop, polished modern production, punchy synth bass, layered group vocals, bright hooks, tight rhythmic chops',
+  hiphop:'hip-hop, hard 808 bass, boom-bap or trap drums, confident rap delivery, sparse dark texture',
+  indie:'indie pop rock, jangly guitars, warm analog texture, understated honest vocal, mid-tempo',
+  popglossy:'glossy mainstream pop, radio-ready production, catchy topline, layered backing vocals, bright and clean mix',
+  edm:'EDM, festival progressive house, big room synth leads, sidechained pads, euphoric builds and heavy drops',
+  acoustic:'acoustic singer-songwriter, fingerpicked guitar, intimate close-mic vocal, minimal arrangement, warm and quiet',
+  ballad:'cinematic pop ballad, emotional piano and strings, soaring dynamic vocal, slow build to a powerful climax',
+  koplo:'dangdut koplo, driving kendang percussion, tabla fills, energetic suling melody, festive uptempo groove, powerful female or male dangdut vocal with cengkok ornamentation',
+  hipdut:'hipdut, dangdut fused with hip-hop, kendang groove over trap-influenced beat, playful rap-sung verses, catchy dangdut chorus hook',
+  jingle:'catchy advertising jingle pop, bright uptempo hook-forward production, memorable singalong chorus built around the brand name, short and punchy, clean modern radio mix'
+};
+// Normalize an app section name to a Suno-recognized structure tag; unknown names become the closest tag + descriptive parenthetical.
+function sunoTag(name){
+  var n=String(name||'').trim(),lo=n.toLowerCase();
+  var known=['intro','verse 1','verse 2','verse 3','verse','pre-chorus','chorus','final chorus','hook','bridge','break','build-up','build','drop','breakdown','interlude','outro','instrumental break','instrumental'];
+  for(var i=0;i<known.length;i++){if(lo===known[i])return '['+n.replace(/\b\w/g,function(c){return c.toUpperCase();})+']';}
+  if(lo.indexOf('chorus')>-1)return '[Chorus] ('+n+')';
+  if(lo.indexOf('hook')>-1)return '[Hook] ('+n+')';
+  if(lo.indexOf('verse')>-1)return '[Verse] ('+n+')';
+  if(lo.indexOf('drop')>-1)return '[Drop] ('+n+')';
+  if(lo.indexOf('build')>-1)return '[Build-Up] ('+n+')';
+  if(lo.indexOf('bridge')>-1)return '[Bridge] ('+n+')';
+  if(lo.indexOf('break')>-1)return '[Instrumental Break] ('+n+')';
+  if(lo.indexOf('intro')>-1)return '[Intro] ('+n+')';
+  if(lo.indexOf('outro')>-1)return '[Outro] ('+n+')';
+  return '[Verse] ('+n+')';
+}
+function sunoEnergyHint(e){
+  return {1:'sparse, ambient, minimal instrumentation',2:'smooth, laid-back groove',3:'building energy, rising intensity',4:'high energy, full band, explosive',5:'maximum energy, hardest-hitting moment of the song'}[e]||'';
+}
+function sunoLineHint(name,e){
+  var lo=String(name||'').toLowerCase();
+  if(lo.indexOf('intro')>-1||lo.indexOf('outro')>-1||lo.indexOf('break')>-1||lo.indexOf('interlude')>-1||lo.indexOf('drop')>-1)
+    return '(instrumental — describe length, e.g. "8-bar instrumental")';
+  if(lo.indexOf('chorus')>-1||lo.indexOf('hook')>-1)return '(write 4\u20136 lyric lines here)';
+  if(lo.indexOf('bridge')>-1||lo.indexOf('build')>-1||lo.indexOf('pre-')>-1)return '(write 2\u20134 lyric lines here)';
+  return '(write 6\u20138 lyric lines here)';
+}
+function bldSuno(){
+  if(!S.mv)return 'MV mode not configured.';
+  var p=S.proj,g=MV_GENRE_DICT[S.mv.genre],m=MV_MUSIC_DICT[S.mv.genre]||'';
+  var intros={chatgpt:'You are a professional songwriter and Suno AI prompt engineer.\n\n',
+              claude:'You are a professional songwriter and Suno AI prompt engineer.\n\n',
+              gemini:'Act as a professional songwriter and Suno AI prompt engineer.\n\n'};
+  var out=(intros[S.aiTool]||intros.chatgpt);
+  out+='Write a complete, original song for a music video, then package it as two ready-to-paste Suno AI blocks.\n\n';
+  out+='SONG BRIEF (from my production app):\n';
+  if(g)out+='\u00b7 Genre treatment: '+g.l+'\n';
+  if(m)out+='\u00b7 Music baseline: '+m+'\n';
+  if(p.mood)out+='\u00b7 Overall mood: '+p.mood+'\n';
+  if(p.emotionalCore)out+='\u00b7 Emotional core (lyric theme direction): '+p.emotionalCore+'\n';
+  if(p.intent&&typeof intentEntry==='function'&&intentEntry())out+='\u00b7 Purpose: '+intentEntry().label+'\n';
+  var d=S.dna||{};
+  if(d.title||d.coreMessage||d.painPoint||d.audience){
+    out+='\nBRAND CONTEXT (this is a brand song \u2014 weave the message NATURALLY into the lyrics; it must feel like a real song, never a stiff jingle):\n';
+    if(d.title)out+='\u00b7 Brand/product: '+d.title+'\n';
+    if(d.coreMessage)out+='\u00b7 Core message: '+d.coreMessage+'\n';
+    if(d.painPoint)out+='\u00b7 Pain point it solves: '+d.painPoint+'\n';
+    if(d.audience)out+='\u00b7 Audience: '+d.audience+'\n';
+  }
+  var notes=String(S.mv.musicNotes||'').trim();
+  if(notes){
+    out+='\nUSER REFERENCE (highest priority \u2014 overrides the baseline where they conflict):\n'+notes+'\n';
+    out+='If I mention real artist or song names above, DO NOT put them in the output \u2014 Suno blocks artist names. Translate them into voice, production, and genre descriptions instead (e.g. "male vocal, husky, dangdut ornamentation, modern kendang production").\n';
+  }
+  out+='\nSONG STRUCTURE (fixed \u2014 follow this exact order, do not add or remove sections):\n';
+  if(!S.mv.sections.length)out+='(no sections defined in app \u2014 use a standard verse/chorus structure)\n';
+  S.mv.sections.forEach(function(sec,i){
+    var hint=sunoEnergyHint(sec.energy);
+    out+=(i+1)+'. '+sunoTag(sec.name)+(hint?' \u2014 '+hint:'')+'\n';
+  });
+  out+='\nLYRIC RULES (strict):\n';
+  out+='\u00b7 KEEP IT SHORT. Verse: max 4 lines. Chorus: max 4 lines, one repeatable hook. Pre-Chorus / Bridge: max 2 lines. Intro / Outro / instrumental breaks: NO lyrics \u2014 just a short instrumental description like "(8-bar kendang instrumental)".\n';
+  out+='\u00b7 Lines must be short and singable \u2014 no paragraphs, no run-on sentences.\n';
+  out+='\u00b7 ARRANGEMENT GUIDE: directly under EVERY section tag, before any lyrics, write one parenthetical line describing that section arrangement \u2014 instrumentation, dynamics, vocal treatment \u2014 matched to its energy level from SONG STRUCTURE. Example: [Chorus] then (full drums, bright synth leads, stacked vocals, explosive energy) then the lyric lines. Instrumental sections get ONLY this parenthetical line.\n';
+  out+='\u00b7 Lyrics in Bahasa Indonesia by default, unless the USER REFERENCE or BRAND CONTEXT clearly implies another language.\n';
+  if(S.mv.genre==='jingle'){
+    out+='\nJINGLE RULES:\n';
+    out+='\u00b7 TOTAL SONG LENGTH: 45\u201375 seconds \u2014 keep every section ultra short.\n';
+    out+='\u00b7 The hook must feature the brand name'+(d.title?' ("'+d.title+'")':'')+' naturally \u2014 singable and playful, never a slogan read or a spec list.\n';
+    out+='\u00b7 It must still feel like a REAL SONG someone would replay, not an advertisement.\n';
+  }
+  out+='\nOUTPUT FORMAT \u2014 respond with EXACTLY these two labeled blocks and NOTHING else (no explanation, no preamble). Put the CONTENT of each block inside a fenced code block (```) so it renders with a one-click copy button:\n\n';
+  out+='=== MUSIC STYLE ===\n```\n(for Suno "Style of Music" field: comma-separated descriptors, max ~200 characters, genre + instrumentation + vocal character + energy, NO artist names)\n```\n\n';
+  out+='=== LYRICS ===\n```\n(for Suno "Lyrics" field, Custom Mode: for EACH section in order \u2014 the Suno metatag on its own line (e.g. [Chorus]), then the ARRANGEMENT GUIDE parenthetical on the next line, then the lyric lines \u2014 matching the SONG STRUCTURE above)\n```';
+  return out;
+}
+function bldAudioPrompt(){
+  var out='I am uploading a song (audio file). Listen to it carefully and identify the exact START time of each section.\n\n';
+  out+='EXPECTED STRUCTURE (from my production plan \u2014 the actual song may differ; if it does, report what you ACTUALLY hear in the audio, do not force this list):\n';
+  if(S.mv&&S.mv.sections.length)S.mv.sections.forEach(function(sec,i){out+=(i+1)+'. '+(sec.name||'Section '+(i+1))+'\n';});
+  else out+='(no plan \u2014 detect the structure yourself)\n';
+  out+='\nRULES:\n';
+  out+='\u00b7 Timestamps in m:ss, measured from 0:00.\n';
+  out+='\u00b7 If a section type repeats (e.g. Chorus twice), list EACH occurrence separately, in order.\n';
+  out+='\u00b7 Also report the total song length.\n';
+  out+='\nOUTPUT FORMAT \u2014 respond with ONLY this fenced block, one line per section, nothing else:\n';
+  out+='```\nSECTION: <name> | START: m:ss\nSECTION: <name> | START: m:ss\nSONG END: m:ss\n```';
+  return out;
+}
+function importMVTimestamps(txt){
+  var lines=String(txt||'').split(/\r?\n/),ts=[],end=null;
+  lines.forEach(function(L){
+    var m=L.match(/SECTION\s*:\s*(.+?)\s*\|\s*START\s*:\s*(\d+:\d{1,2})/i);
+    if(m){ts.push({name:m[1].trim(),start:m[2]});return;}
+    var e=L.match(/SONG\s*END\s*:\s*(\d+:\d{1,2})/i);
+    if(e)end=e[1];
+  });
+  if(!ts.length)return 'No timestamp lines found \u2014 expected lines like "SECTION: Chorus | START: 0:42".';
+  var msg;
+  if(ts.length===S.mv.sections.length){
+    // counts match: positional mapping (robust against name spelling differences)
+    for(var i=0;i<ts.length;i++)S.mv.sections[i].start=ts[i].start;
+    msg='Imported '+ts.length+' timestamps';
+  }else{
+    // v12w: counts differ (Suno added/split sections) \u2014 align by NAME so mid-song extras cannot shift everything.
+    var norm=function(x){return String(x||'').toLowerCase().replace(/[^a-z0-9]+/g,'');};
+    var ai=0,matched=0,unmatched=[],usedIdx={};
+    S.mv.sections.forEach(function(sec){
+      var target=norm(sec.name),hit=-1;
+      for(var j=ai;j<ts.length;j++){
+        var cand=norm(ts[j].name);
+        if(target&&cand&&(cand===target||cand.indexOf(target)>-1||target.indexOf(cand)>-1)){hit=j;break;}
+      }
+      if(hit>-1){sec.start=ts[hit].start;usedIdx[hit]=1;ai=hit+1;matched++;}
+      else unmatched.push(sec.name||'(unnamed)');
+    });
+    var skipped=[];
+    ts.forEach(function(t,j){if(!usedIdx[j])skipped.push(t.name);});
+    msg='Aligned by name: matched '+matched+'/'+S.mv.sections.length+' sections (AI reported '+ts.length+').';
+    if(skipped.length)msg+=' Skipped AI extras: '+skipped.join(', ')+'.';
+    if(unmatched.length)msg+=' \u26a0 No timestamp found for: '+unmatched.join(', ')+' \u2014 fill those Start fields manually.';
+  }
+  if(end!==null)S.mv.songEnd=end;
+  save();renderMVPanel();
+  return msg+(end?' Song end '+end+'.':'');
+}
+
+
 // AI Director Pro — Cinema Worldbuilder (Seedance) sub-section defaults. Fully standalone, never touches S.scenes.
+var SAVED_PROMPT_CAP=50; // v13a B5: keep only the 50 newest saved prompts per director
 var AID_DEFAULT = {cinema:{linkedSceneId:'',cinemaMode:'',runtime:'',aspectRatio:'',matchMode:'',subjectType:'',lockedElements:'',wantPreview:false,savedPrompts:[]},banana:{mode:'',characterStatus:'',linkedCharId:'',notes:'',savedPrompts:[]}};
 
 var BANANA_MODES={
@@ -1082,9 +1281,9 @@ var PT=[
   {id:'brand',i:'🎯',n:'Brand',d:'Ads'},
   {id:'personalbrand',i:'👤',n:'Personal Brand',d:'Creator'},
   {id:'sliceoflife',i:'🌿',n:'Slice of Life',d:'Everyday'},
+  {id:'phoneshoot',i:'📱',n:'Shot on Phone',d:'UGC/Raw'},
   {id:'shortfilm',i:'🎬',n:'Short Film',d:'Narrative'},
   {id:'documentary',i:'📽',n:'Documentary',d:'Real'},
-  {id:'phoneshoot',i:'📱',n:'Shot on Phone',d:'UGC/Raw'},
   {id:'musicvideo',i:'🎵',n:'Music Video',d:'Audio/Visual'},
   {id:'fashion',i:'👑',n:'Fashion',d:'Lookbook'},
   {id:'travel',i:'✈',n:'Travel',d:'Places'},
@@ -1096,7 +1295,7 @@ var PT=[
 var STYLES = {
   realistic:[
     {v:'Symmetrical center-frame compositions, pastel color palette, flat graphic lighting, wide angle lens, whimsical deadpan tone, dollhouse framing',l:'Wes Anderson-inspired — Symmetrical, pastel'},
-    {v:'Moody saturated colors, slow motion intimacy, temporal disorientation, close cropped framing, nostalgic urban atmosphere, warm amber and teal tones',l:'Wong Kar-wai-inspired — Moody, saturated'},
+    {v:'Moody saturated colors, slow motion intimacy, temporal disorientation, close cropped framing, nostalgic urban atmosphere, warm amber, jade green and deep red tones',l:'Wong Kar-wai-inspired — Moody, saturated'},
     {v:'Raw naturalistic handheld camera, desaturated muted palette, gritty realism, minimal available lighting, documentary intimacy, unglamorous truth',l:'A24 Arthouse — Raw, naturalistic, gritty'},
     {v:'Perfectly lit, clean aspirational look, sharp polished imagery, product-flattering angles, upscale lifestyle feel, color-accurate commercial grade',l:'High-end Commercial — Clean, aspirational'},
     {v:'Handheld organic movement, natural available light, unpolished real moments, genuine unperformed emotions, grain texture, authentic slice of life',l:'Lo-fi Authentic — Handheld, organic, real'},
@@ -1146,9 +1345,19 @@ var SHOT_COMPOSITION = {
 // Used by both Scene Editor (bldImg) and Storyboard Workflow (bldStoryboardGridPrompt). Scene Editor skips AESTHETIC when the
 // user has written a custom Visual Style (their explicit aesthetic intent takes precedence); Storyboard Workflow always
 // includes both, since it's consistently meant to look like real production reference photography.
-var PHOTOREALISM_TECHNICAL = 'RENDERING REALISM: visible skin pores, subsurface skin scattering, individual hair strands, fabric micro-weave and material texture, natural light falloff with true shadow depth, atmospheric depth layering between foreground and background, fine photographic grain, subtle halation on bright highlights, small living catchlights in the eyes, expression naturally motivated by the scene.';
+var PHOTOREALISM_TECHNICAL = 'RENDERING REALISM: visible skin pores, subsurface skin scattering, individual hair strands, fabric micro-weave and material texture, natural light falloff with true shadow depth, atmospheric depth layering between foreground and background, one plane of focus placed on a specific named surface with everything outside it left unresolved, shadows left unfilled wherever no light reaches, small living catchlights in the eyes, expression naturally motivated by the scene.';
 
 var PHOTOREALISM_AESTHETIC = ' CANDID DOCUMENTARY: caught-mid-moment unposed quality, natural framing asymmetry with uneven negative space, background carrying real-world imperfection and life, restrained natural color saturation.';
+
+// v13c: what is allowed to look worn depends on the job. Drama and documentary can put wear
+// on the subject and the props; a commercial has to keep the product itself unmarked and move
+// the wear into the world around it. Verified on Banana Pro across drama, MV and commercial.
+function defectTokens(){
+  var g=String(S.proj.genre||''),t=String(S.proj.type||'');
+  if(/Brand Commercial|Product/i.test(g)||/brand|ads|commercial/i.test(t))
+    return 'WEAR (environment only): the product itself stays unmarked and unblemished. Put the age and use into the world around it instead \u2014 uneven light across the surface it rests on, crumbs, a worn table edge, a loose thread on clothing, dust hanging in the air.';
+  return 'WEAR: use and age on the things in frame \u2014 chipped glaze, stains, grease, scuffs, water marks \u2014 and on the people \u2014 sweat, loose hair escaping, uneven skin, clothing that has been worn all day.';
+}
 
 // Back-compat: combined block (technical + aesthetic), used wherever both should always apply (e.g. Storyboard Workflow)
 var PHOTOREALISM_BLOCK = PHOTOREALISM_TECHNICAL+PHOTOREALISM_AESTHETIC;
@@ -1186,14 +1395,14 @@ var SHOT_OPTS_TALKING_HEAD = ['MCU','MS','CU','Two-Shot','OTS'];
 var MOVEMENT_OPTS_STATIC = ['Static / Locked-off'];
 
 var CHIP = {
-  lighting:['Three-Point','Rembrandt','Butterfly','Split','Rim / Hair Light','High Key','Low Key','Ring Light','Backlit / Silhouette','Chiaroscuro','Practical Only'],
+  lighting:['Three-Point','Rembrandt','Butterfly','Split','Rim / Hair Light','High Key','Low Key','Ring Light','Backlit / Silhouette','Chiaroscuro','Practical Only','Direct Flash'],
   lightQuality:['Hard Light','Soft Diffused','Dappled / Organic','Mixed Sources','Backlit Glow'],
   animEnergy:['Slow and Contemplative','Natural Everyday Pace','Moderate Dynamic','High Energy','Hyper Kinetic','Dramatic Impact Freeze']
 };
 
 var DD_REAL = {
-  cameraBody:['ARRI Alexa Mini LF','RED Dragon 6K','Sony FX3','Sony Venice 2','Blackmagic URSA Mini Pro','Canon EOS C70','iPhone 15 Pro Cinematic','GoPro Hero (POV)','Fujifilm X-T5','DJI Mavic 4 Pro (aerial)'],
-  lensType:['Prime — Fixed focal, sharp','Anamorphic — Oval bokeh, lens flares','Zoom — Variable, versatile','Macro — Extreme detail','Fisheye — Ultra-wide distortion','Tilt-Shift — Selective focus','Vintage Spherical — Soft classic'],
+  cameraBody:['ARRI Alexa 35','Sony Venice','RED V-Raptor','Panavision DXL2','IMAX','Arriflex 16SR','iPhone 15 Pro Cinematic','GoPro Hero (POV)','DJI Mavic 4 Pro (aerial)'],
+  lensType:['Cooke S4','ARRI Signature Prime','Zeiss Ultra Prime','Canon K-35','Helios 44','Petzval','Hawk V-Lite','JDC Xtal Xpress','Panavision C-Series','Lensbaby','Laowa Macro'],
   focalLength:['14mm — Ultra-wide dramatic','24mm — Wide cinematic','28mm — Street natural','35mm — Human-eye perspective','50mm — True-to-life standard','85mm — Portrait compression','100mm — Medium tele','135mm — Telephoto isolation','200mm — Extreme compression'],
   aperture:['f/1.2 — Maximum bokeh','f/1.4 — Creamy separation','f/1.8 — Sharp subject soft BG','f/2.8 — Commercial standard','f/4.0 — Moderate depth','f/5.6 — Balanced sharpness','f/8.0 — Landscape depth','f/11 — Deep focus flat','f/16 — Maximum depth'],
   visualLook:['Teal and Orange — Hollywood blockbuster','Desaturated Matte — Indie gritty','Warm Kodak — Nostalgic film warmth','Cool Bleach Bypass — Harsh desaturated','Vibrant Pop — Anime-inspired saturated','High-end Commercial — Clean crisp','Pastel — Soft whimsical','Moody Low-key — Deep shadows','Retro Super 8 — Heavy grain warm vintage','B&W High Contrast — Timeless editorial','Fuji Velvia — Ultra-saturated rich','Kodak Vision3 — Warm shadows fine grain','Fuji Pro 400H — Pastel soft fashion','Digital Clean — No grain clinical']
@@ -1301,11 +1510,22 @@ function setAI(t,btn){
 }
 
 // ═══ STORAGE ═══
+// v13a B5: the old version swallowed the quota error and still turned the dot green,
+// so a full localStorage looked identical to a successful save. Fail loudly once.
+var saveFailWarned=false;
 function save(){
   collectForm();
-  try{localStorage.setItem('cah8',JSON.stringify(S));}catch(e){}
+  var ok=true;
+  try{localStorage.setItem('cah8',JSON.stringify(S));}catch(e){ok=false;}
   var d=document.getElementById('savedDot');
-  if(d){d.style.color='#4ade80';setTimeout(function(){d.style.color='#3a3e3a';},1500);}
+  if(d){
+    if(ok){d.style.color='#4ade80';d.title='';setTimeout(function(){d.style.color='#3a3e3a';},1500);}
+    else{d.style.color='#f87171';d.title='SAVE FAILED \u2014 browser storage is full or blocked.';}
+  }
+  if(!ok&&!saveFailWarned){
+    saveFailWarned=true;
+    alert('Save failed \u2014 browser storage is full or blocked.\n\nYour work is still on screen but is NOT being saved. Use \u201cExport Brand\u201d now, then delete some saved AI Director prompts to free space.');
+  }
 }
 function loadData(){
   try{
@@ -1317,13 +1537,14 @@ function loadData(){
       if(d.scenes){
         // migrate old scenes: add new fields if missing
         S.scenes=d.scenes.map(function(sc){
-          return Object.assign({shotType:'',movement:'',movementNotes:'',angle:[],shotSize:[],position:null,progress:{generated:false}},sc);
+          return Object.assign({shotType:'',movement:'',movementNotes:'',angle:[],shotSize:[],position:null,blockBreak:false,progress:{generated:false}},sc);
         });
       }
       if(d.aiTool)S.aiTool=d.aiTool;
       S.assets=Array.isArray(d.assets)?d.assets:[];
       S.assetLinks=Array.isArray(d.assetLinks)?d.assetLinks:[];
       if(d.videoMode)S.videoMode=d.videoMode;
+      S.mv=Object.assign({},MV_DEFAULT,d.mv||{});if(!Array.isArray(S.mv.sections))S.mv.sections=[];S.mv.sections.forEach(function(x){if(x.start===undefined)x.start='';});if(S.mv.songEnd===undefined)S.mv.songEnd='';
       if(d.viralNotes)S.viralNotes=d.viralNotes;
       if(d.storyboard){
         S.storyboard=Object.assign({},SB_DEFAULT,d.storyboard);
@@ -1339,7 +1560,11 @@ function loadData(){
         if(!S.aiDirector.banana.savedPrompts)S.aiDirector.banana.savedPrompts=[];
       }
     }
-  }catch(e){}
+  }catch(e){
+    // v13a C3: never discard unreadable data silently \u2014 stash the raw blob so it can be recovered by hand.
+    try{var raw0=localStorage.getItem('cah8');if(raw0)localStorage.setItem('cah8_corrupt_backup',raw0);}catch(e2){}
+    try{console.warn('CineAI Hub: saved data could not be read, starting from a blank project. A raw copy was kept in localStorage key "cah8_corrupt_backup".',e);}catch(e3){}
+  }
 }
 // Migrate old panel shape ({visual, function:string, caption:string}) to new schema
 // ({framing, movementGuide:{move,speed,subjectLock,stability,durationHint}, caption:{headline,subtext}, function:string freeform})
@@ -1358,7 +1583,7 @@ function migratePanelSchema(p){
 }
 function collectForm(){
   collectStoryboardForm();
-  ['platform','genre','mood','visualStyle','emotionalCore','intent','texFinish','mvStyle','mvTempo','mvGenre','mvArc'].forEach(function(f){var el=document.getElementById(f);if(el)S.proj[f]=el.value;});
+  ['platform','genre','mood','visualStyle','emotionalCore','intent','texFinish','promptFormat','dramaBrandMode'].forEach(function(f){var el=document.getElementById(f);if(el)S.proj[f]=el.value;});
   var cvsEl=document.getElementById('customVisualStyle');if(cvsEl)S.proj.customVisualStyle=cvsEl.value;
   ['name','audience','tone','instructions','title','coreMessage','painPoint'].forEach(function(f){
     var el=document.getElementById('dna'+f.charAt(0).toUpperCase()+f.slice(1));
@@ -1367,7 +1592,7 @@ function collectForm(){
   var vn=document.getElementById('viralNotes');if(vn)S.viralNotes=vn.value;
 }
 function applyForm(){
-  ['platform','genre','mood','emotionalCore','intent','texFinish','mvStyle','mvTempo','mvGenre','mvArc'].forEach(function(f){var el=document.getElementById(f);if(el&&S.proj[f])el.value=S.proj[f];});
+  ['platform','genre','mood','emotionalCore','intent','texFinish','promptFormat','dramaBrandMode'].forEach(function(f){var el=document.getElementById(f);if(el&&S.proj[f])el.value=S.proj[f];});
   var cvsEl2=document.getElementById('customVisualStyle');if(cvsEl2&&S.proj.customVisualStyle)cvsEl2.value=S.proj.customVisualStyle;
   ['name','audience','tone','instructions','title','coreMessage','painPoint'].forEach(function(f){
     var el=document.getElementById('dna'+f.charAt(0).toUpperCase()+f.slice(1));
@@ -1428,7 +1653,7 @@ function populateCinemaSceneDropdown(){
   var sel=document.getElementById('aidCinemaScene');if(!sel)return;
   var cur=S.aiDirector.cinema.linkedSceneId;
   sel.innerHTML='<option value="">— No scene, standalone shot —</option>'+
-    S.scenes.map(function(sc){return '<option value="'+sc.id+'">'+(sc.title||'Untitled scene')+'</option>';}).join('');
+    S.scenes.map(function(sc){return '<option value="'+sc.id+'">'+escapeHtml(sc.title||'Untitled scene')+'</option>';}).join('');
   sel.value=cur||'';
 }
 
@@ -1710,6 +1935,7 @@ function saveCinemaResult(){
     result:resultEl.value.trim(),
     createdAt:Date.now()
   });
+  if(c.savedPrompts.length>SAVED_PROMPT_CAP)c.savedPrompts=c.savedPrompts.slice(-SAVED_PROMPT_CAP);
   resultEl.value='';
   renderCinemaSavedPrompts();
   save();
@@ -2051,6 +2277,7 @@ function saveBananaResult(){
     result:resultEl.value.trim(),
     createdAt:Date.now()
   });
+  if(b.savedPrompts.length>SAVED_PROMPT_CAP)b.savedPrompts=b.savedPrompts.slice(-SAVED_PROMPT_CAP);
   resultEl.value='';
   renderBananaSavedPrompts();
   save();
@@ -2197,9 +2424,7 @@ function renderPT(){
 function selPT(id,silent){
   document.querySelectorAll('.ptCard').forEach(function(c){c.classList.remove('on');});
   var c=document.querySelector('[data-pid="'+id+'"]');if(c)c.classList.add('on');
-  S.proj.type=id;
-  var mvP=document.getElementById('mvPanel');if(mvP)mvP.style.display=id==='musicvideo'?'block':'none';
-  if(!silent)save();
+  S.proj.type=id;if(!silent)save();
 }
 
 // ═══ VIRALITY — 2-STEP STATIC FRAMEWORK ═══
@@ -2211,7 +2436,7 @@ function genViralPrompt(){
   var type=S.proj.type||'';
   var context=[type,genre,platform].filter(Boolean).join(', ');
 
-  var sceneFormat='SCENE_[nn] | TITLE: [title] | BEAT: [Opening/Build-up/Tension/Climax/Resolution] | LOCATION: [specific location] | TIME: [time of day and light quality] | CHARACTER: [character name or NONE] | ACTION: [detailed visual action] | DIALOG: [exact dialogue or NONE] | MOOD: [emotional tone] | DURATION: [estimated seconds]';
+  var sceneFormat='SCENE_[nn] | TITLE: [title] | BEAT: [Opening/Build-up/Tension/Climax/Resolution] | LOCATION: [specific location] | TIME: [time of day and light quality] | CHARACTER: [character name or NONE] | ACTION: [detailed visual action] | DIALOG: [exact dialogue or NONE] | MOOD: [emotional tone] | DURATION: [estimated seconds, minimum 4]';
 
   var dnaCtx='';
   if(d.title||d.name||d.coreMessage||d.painPoint){
@@ -2233,6 +2458,9 @@ function genViralPrompt(){
       if(ch.description)charCtx+=': '+ch.description;
       charCtx+='\n';
     });
+    charCtx+='NAMING RULE: use ONLY the character names listed above. NEVER invent new named characters.\n';
+  }else{
+    charCtx='\n\nNAMING RULE: no characters are registered \u2014 refer to people GENERICALLY (the lead performer, the dancers). NEVER invent proper names.\n';
   }
 
   var sceneN=document.getElementById('scN').value||5;
@@ -2345,48 +2573,98 @@ function genStory(){
   if(S.chars.length){
     charCtx='\n\nCHARACTERS:\n';
     S.chars.forEach(function(ch,i){charCtx+=(i+1)+'. '+(ch.name||'Character '+(i+1));if(ch.description)charCtx+='\nDescription: '+ch.description;charCtx+='\n';});
+    charCtx+='NAMING RULE: use ONLY the character names listed above in CHARACTER and ACTION fields. NEVER invent new named characters.\n';
+  }else{
+    charCtx='\n\nNAMING RULE: no characters are registered \u2014 refer to people GENERICALLY (the lead performer, the dancers, the woman in red). NEVER invent proper names; an invented name has no reference image and breaks identity lock downstream.\n';
   }
-  var dnaCtx='';
-  if(d.title||d.name||d.instructions||d.coreMessage||d.painPoint){
-    dnaCtx='\n\nPROJECT DNA:\n';
-    if(d.title)dnaCtx+='Title: '+d.title+'\n';
-    if(d.name)dnaCtx+='Project/Brand: '+d.name+'\n';
-    if(d.audience)dnaCtx+='Audience: '+d.audience+'\n';
-    if(d.tone)dnaCtx+='Tone: '+d.tone+'\n';
-    if(d.coreMessage)dnaCtx+='Core Message: '+d.coreMessage+'\n';
-    if(d.painPoint)dnaCtx+='Pain Point / Central Conflict: '+d.painPoint+'\n';
-    if(d.instructions)dnaCtx+='Custom Instructions: '+d.instructions+'\n';
-  }
+  var isDrama=p.genre==='Drama Reel (Vertical)';
+  var brandMode=isDrama?(p.dramaBrandMode||'ambient'):'';
+  // v13b: on a no-brand drama reel the commercial fields must never reach the model. A brand
+  // left over in DNA from an earlier project would otherwise steer the story without the user
+  // ever seeing why. Pain Point survives — for drama it IS the premise, so it gets relabelled.
+  var hideBrand=isDrama&&brandMode==='none';
+  var dnaLines='';
+  if(d.title)dnaLines+='Title: '+d.title+'\n';
+  if(d.name&&!hideBrand)dnaLines+='Project/Brand: '+d.name+'\n';
+  if(d.audience)dnaLines+='Audience: '+d.audience+'\n';
+  if(d.tone)dnaLines+='Tone: '+d.tone+'\n';
+  if(d.coreMessage&&!hideBrand)dnaLines+='Core Message: '+d.coreMessage+'\n';
+  if(d.painPoint)dnaLines+=(hideBrand?'Central Conflict: ':'Pain Point / Central Conflict: ')+d.painPoint+'\n';
+  if(d.instructions)dnaLines+='Custom Instructions: '+d.instructions+'\n';
+  var dnaCtx=dnaLines?('\n\nPROJECT DNA:\n'+dnaLines):'';
   var isAnim=p.mode==='animated';
+  var isMV=p.genre==='Music Video'&&S.mv&&S.mv.sections&&S.mv.sections.length>0;
   var viralCtx='';
   var vnEl=document.getElementById('viralNotes');
   if(vnEl&&vnEl.value.trim())viralCtx='\n\nVIRALITY INSIGHTS (apply to make this script trend-worthy):\n'+vnEl.value.trim();
-  var fmtLine='SCENE_[nn] | TITLE: [title] | BEAT: [Opening/Build-up/Tension/Climax/Resolution/Quiet/Transition] | LOCATION: [specific location or setting] | TIME: [time of day and light quality] | CHARACTER: [character name or NONE] | ACTION: [detailed visual action and movement] | DIALOG: [exact dialogue or NONE] | MOOD: [emotional tone] | DURATION: [estimated seconds]';
+  var fmtLine='SCENE_[nn] | TITLE: [title] | BEAT: [Opening/Build-up/Tension/Climax/Resolution/Quiet/Transition] | LOCATION: [specific location or setting] | TIME: [time of day and light quality] | CHARACTER: [character name or NONE] | ACTION: [detailed visual action and movement] | DIALOG: [exact dialogue or NONE] | MOOD: [emotional tone] | DURATION: [estimated seconds, minimum 4]';
+  if(isMV)fmtLine='SCENE_[nn] | SECTION: [song section name] | ENERGY: [1-5] | '+fmtLine.replace('SCENE_[nn] | ','');
+  if(isDrama)fmtLine=fmtLine.replace('[Opening/Build-up/Tension/Climax/Resolution/Quiet/Transition]','[Hook/Setup/Turn/Escalate/Twist/Landing/Reaction]');
   var cineRules='\n\nSCENE WRITING RULES — CRITICAL:\n'
    +'1. ONE LOCATION PER SCENE: each scene happens in EXACTLY ONE physical place at ONE moment in time. NEVER write montage scenes ("everywhere he goes", multiple locations in one scene). If the story moves through several places, write each place as its OWN scene. The LOCATION field must name ONE specific place — never a list.\n'
    +'2. VISUAL ACTION LANGUAGE: describe what the CAMERA SEES — concrete, filmable physical action, never inner feelings or abstract meaning. Weak: "he feels watched by the world". Strong: "he stops mid-step; every screen on the street flickers to the same face; he turns slowly, shoulders tight".\n'
    +'3. ONE ACTION BEAT: ACTION must be a single continuous physical beat that can play out in 4-8 seconds while one camera move happens — never a sequence of cuts or jumps in time.';
-  var fmt=cineRules+'\n\nOUTPUT FORMAT — exactly this, one line per scene:\n'+fmtLine+'\n\nGenerate exactly '+n+' scenes. No markdown. No preamble. Only SCENE_ lines.';
+  var fmt=cineRules+'\n\nOUTPUT FORMAT — exactly this, one line per scene:\n'+fmtLine+(isMV?'\n\nScene count follows the MV section shot counts above — do NOT use any other total.':'\n\nGenerate exactly '+n+' scenes.')+' No markdown. No preamble. Only SCENE_ lines.';
   var modeNote=isAnim?'\n\nIMPORTANT: This is an animated/illustrated production. All scene descriptions should be written for animation.':'';
+  var phoneNote=p.type==='phoneshoot'?'\n\nFORMAT CONSTRAINT \u2014 SHOT ON PHONE (UGC/RAW):\nEverything is captured on a smartphone by a real person, not a film crew. Apply to every scene:\n- Framing: arm\'s-length or selfie-distance for talking moments; casual handheld framing otherwise \u2014 never tripod-perfect composition.\n- Locations: real everyday places (bedroom, car, kitchen, street, store) with authentic imperfect backgrounds.\n- Action: natural creator behavior \u2014 talking to camera, showing things to the lens, walking while filming.\n- No cinematic setups: no dolly moves, no crane shots, no staged lighting. Movement is handheld or a simple phone pan or walk.\n- Energy: platform-native and conversational, the hook lands in scene 1.':'';
   var talkingHeadNote=p.genre==='Talking Head / Interview'?'\n\nFORMAT CONSTRAINT — TALKING HEAD / INTERVIEW:\nThis is a static single-location talking head format. Strict rules:\n- Every scene takes place in the SAME location — no location changes, no exterior shots, no B-roll scenes.\n- No camera movement, no establishing shots, no cutaways to other environments.\n- Scenes are direct-to-camera address or conversation between hosts/guests.\n- ACTION descriptions should describe what the speaker is doing/saying, not visual cutaways.\n- If 2 characters: scenes alternate between two-shot (both visible) and singles (one speaker focused).\n- LOCATION field must be the same room/setup across all scenes.':'';
-  var phoneNote=p.type==='phoneshoot'?'\n\nFORMAT CONSTRAINT — SHOT ON PHONE (UGC/RAW):\nEverything is captured on a smartphone by a real person, not a film crew. Apply to every scene:\n- Framing: arm\'s-length or selfie-distance for talking moments; casual handheld framing for everything else — never tripod-perfect composition.\n- Locations: real everyday places (bedroom, car, kitchen, street, store) with authentic imperfect backgrounds.\n- Action: natural creator behavior — talking to camera, showing things to the lens, walking while filming.\n- No cinematic setups: no dolly moves, no crane shots, no staged lighting. Movement is handheld or a simple phone pan or walk.\n- Energy: platform-native and conversational, the hook lands in scene 1.':'';
   var mvNote='';
-  if(p.type==='musicvideo'){
-    var mvE=mvEntry();
-    var tempoMap={slow_ballad:'slow ballad — long emotional takes, minimal cutting, scenes breathe (8-15s feel)',mid_tempo:'mid-tempo groove — steady rhythmic pacing, movement synced to the pocket',upbeat:'upbeat — energetic driving pace, quick scene turnover, constant motion',high_energy:'high energy — rapid aggressive cutting, explosive movement, maximum intensity'};
-    mvNote='\n\nFORMAT CONSTRAINT — MUSIC VIDEO:\nThis is a music video, NOT a narrative film. Structure the scenes around the SONG, not a plot. Rules:\n'
-     +'- SONG STRUCTURE: map scenes to song sections. Use the BEAT field for the section: Intro / Verse 1 / Pre-Chorus / Chorus / Verse 2 / Bridge / Final Chorus / Outro. Cover the full song shape across the scene count.\n'
-     +'- SCENE TYPES: interleave three types — PERFORMANCE (artist performing to camera, lip sync), CHOREOGRAPHY (dance/movement as the action), and B-ROLL (conceptual or lifestyle imagery). Choruses are usually performance or choreography at peak energy; verses can go conceptual.\n'
-     +'- LIP SYNC MARKING: for performance scenes set DIALOG to exactly: PERFORMANCE — lip sync to the track. For all other scenes set DIALOG to NONE. Never write song lyrics.\n'
-     +'- ENERGY ARC: energy must rise into every chorus and release after. The biggest visual moment belongs to the final chorus.\n'
-     +'- REPETITION IS A TOOL: choruses may return to the same location/setup with escalated energy — this is signature MV language, unlike narrative film.\n'
-     +(S.proj.mvTempo&&tempoMap[S.proj.mvTempo]?'- TEMPO: '+tempoMap[S.proj.mvTempo]+'.\n':'')
-     +(S.proj.mvGenre?'- GENRE FEEL: '+S.proj.mvGenre+' — use the visual vocabulary native to this genre.\n':'')
-     +(S.proj.mvArc?'- SONG MOOD ARC (follow section by section): '+S.proj.mvArc+'\n':'')
-     +(mvE?'- TREATMENT: '+mvE.label+'. '+mvE.comp+'.\n':'');
+  if(isMV){
+    var mvG=MV_GENRE_DICT[S.mv.genre];
+    mvNote='\n\nFORMAT — MUSIC VIDEO (song-structure driven):\n'
+     +(mvG?'MV TREATMENT (governs lighting, palette, environment, performance style in every scene): '+mvG.l+' — '+mvG.look+'\n':'')
+     +'SONG STRUCTURE (write scenes per section, in this exact order):\n'
+     +S.mv.sections.map(function(s,i){var e=MV_ENERGY_DICT[s.energy]||MV_ENERGY_DICT[3];return (i+1)+'. '+(s.name||'Section '+(i+1))+' — ENERGY '+(s.energy||3)+' ('+e.l+'): camera grammar = '+e.cam+'; '+e.density;}).join('\n')
+     +'\nMV RULES — CRITICAL:\n'
+     +'1. ONE DOMINANT CAMERA MOTION PER SCENE — never stack multiple moves in one scene. Dynamism comes from many short scenes cut fast, not from complex moves.\n'
+     +'2. Scene count per section follows the shot counts above.\n'
+     +'3. Repeated sections (e.g. a Chorus appearing twice) REUSE the same location and setup — vary only camera angle and framing, never the environment. This locks visual identity and saves generation cost.\n'
+     +'4. Higher energy = shorter DURATION, but NEVER below 4 seconds (platform minimum). E4-E5: exactly 4s per scene; E3: 4-5s; E1-E2: 6-8s.\n'
+     +'5. Performance IS the narrative — lip-sync moments, choreography, and instrument beats replace dialogue-driven plot. DIALOG is almost always NONE.';
+  }
+  var dramaNote='';
+  if(isDrama){
+    var brandRule=(brandMode==='none')?'\n\nBRAND INTEGRATION \u2014 NONE:\n'
+     +'This is pure narrative content. There is no product, no brand, no service and no commercial message anywhere in the script. Do not resolve the story in a way that reads as an endorsement of anything. The story owes the audience nothing but the story.'
+      :(brandMode==='payoff')?'\n\nBRAND INTEGRATION \u2014 LATE PAYOFF:\n'
+     +'Beats 1 to 5 are pure drama and carry no commercial signal at all. The brand appears ONLY in the LANDING beat.\n'
+     +'- The landing stays inside the story: one quiet visual link between what the character just went through and what the brand stands for.\n'
+     +'- Still no pack-shot, no logo framing, no slogan in dialogue, no announcer voice.\n'
+     +'- If the landing feels like an advert has started, it is wrong. Rewrite it as a human moment that happens to contain the brand.'
+      :'\n\nBRAND INTEGRATION \u2014 AMBIENT (invisible):\n'
+     +'The brand exists in this world but is never the point.\n'
+     +'- It may be present, used, or simply in frame, but it is NEVER named in dialogue, NEVER the subject of a shot, and NEVER the reason anything gets resolved.\n'
+     +'- No product close-ups, no pack-shot, no logo framing, no hero lighting on the object.\n'
+     +'- The Core Message is carried by what happens to the characters, never spoken by them.\n'
+     +'- A viewer should be able to watch the whole thing and never suspect it was commissioned.';
+    dramaNote='\n\nFORMAT \u2014 DRAMA REEL (vertical short drama):\n'
+     +'A 9:16 short drama made for a feed, not a screening room. The competing thumb is the antagonist.\n\n'
+     +'BEAT STRUCTURE \u2014 write the scenes to these beats, in order, and put the beat name in the BEAT field:\n'
+     +'1. HOOK \u2014 the conflict, threat or wrongness is ALREADY happening in the very first frame. No establishing shot, no arrival, no title card, no scene-setting. Enter on the sharpest moment.\n'
+     +'2. SETUP \u2014 reveal who these people are to each other and what is at stake WHILE the tension keeps running. Never pause the conflict to explain it.\n'
+     +'3. TURN \u2014 a new fact, a new person, or a decision changes the direction of the scene.\n'
+     +'4. ESCALATE \u2014 the cost rises. Someone commits to something they cannot take back.\n'
+     +'5. TWIST \u2014 the audience reading of an earlier beat is proven wrong. This is the beat people rewatch and quote.\n'
+     +'6. LANDING \u2014 the emotional consequence, one held moment. Do NOT explain the twist in dialogue.\n\n'
+     +'DIALOGUE \u2014 this format is dialogue-driven:\n'
+     +'- Nearly every scene carries a DIALOG line. Use DIALOG: NONE only for pure reaction beats.\n'
+     +'- HARD LIMIT: maximum 12 words per scene. Lip-sync degrades past roughly one short sentence per shot, so a long line will break the generation.\n'
+     +'- Write speech people actually use: interruptions, unfinished sentences, one-word answers. No monologues, no exposition speeches, and never a character narrating their own feelings.\n'
+     +'- Language: natural conversational Bahasa Indonesia, unless the Custom Instructions say otherwise.\n\n'
+     +'VERTICAL SHOT GRAMMAR \u2014 apply to every scene:\n'
+     +'- Framing runs tight: close-up and medium close-up dominate. A wide shot only when the space itself IS the information.\n'
+     +'- Eye-level, subject in the upper-middle third, headroom left clear for platform UI.\n'
+     +'- The camera is nearly still: slow push-in, slow drift, or locked off. No crane, no complex dolly, no whip pan.\n'
+     +'- After every dialogue beat that lands, write a REACTION scene: the listener face, no dialogue. Reaction shots are what make short drama readable at speed.\n'
+     +'- One continuous physical beat per scene, 4 to 6 seconds, never below 4.\n'
+     +'- If a visual style is specified for this project, THAT style owns the framing and overrides the three framing rules above. What holds regardless of style: headroom left clear for platform UI, 4 to 6 seconds per scene, and the dialogue word limit.\n\n'
+     +'PRODUCTION ECONOMY:\n'
+     +'- Reuse a small set of locations. Returning to the same room from a new angle reads as craft and keeps character identity locked across generations.\n'
+     +'- Keep the cast small: 2 to 3 speaking characters at most.'
+     +brandRule;
   }
   var intros={chatgpt:'You are a professional film director and screenwriter.\n\n',claude:'<context>\nYou are a professional film director and screenwriter.\n</context>\n\n',gemini:'Act as a professional film director and screenwriter.\n\n'};
-  var prompt=(intros[S.aiTool]||intros.chatgpt)+'Create a detailed visual script breakdown.\n\nPROJECT TYPE: '+(p.type||'Short Film')+'\n'+(p.genre?'GENRE: '+p.genre+'\n':'')+(p.platform?'PLATFORM: '+p.platform+'\n':'')+'\nVISUAL STYLE (apply consistently):\n'+sa+'\n'+(p.emotionalCore?'\nEMOTIONAL CORE: '+p.emotionalCore+'\n':'')+(intentEntry()?'\nCONTENT INTENT: '+intentEntry().label+' — '+intentEntry().director+'\n':'')+modeNote+talkingHeadNote+phoneNote+mvNote+charCtx+dnaCtx+viralCtx+fmt;
+  var prompt=(intros[S.aiTool]||intros.chatgpt)+'Create a detailed visual script breakdown.\n\nPROJECT TYPE: '+(p.type||'Short Film')+'\n'+(p.genre?'GENRE: '+p.genre+'\n':'')+(p.platform?'PLATFORM: '+p.platform+'\n':'')+'\nVISUAL STYLE (apply consistently):\n'+sa+'\n'+(p.emotionalCore?'\nEMOTIONAL CORE: '+p.emotionalCore+'\n':'')+(intentEntry()?'\nCONTENT INTENT: '+intentEntry().label+' — '+intentEntry().director+'\n':'')+modeNote+talkingHeadNote+phoneNote+mvNote+dramaNote+charCtx+dnaCtx+viralCtx+fmt;
   document.getElementById('storyBox').textContent=prompt;
   document.getElementById('storyCpBtn').style.display='inline-flex';
 }
@@ -2404,6 +2682,8 @@ function parseImport(){
       id:Date.now()+idx,title:gf(line,'TITLE'),script:gf(line,'ACTION'),
       dialog:dlgVal,showDialog:!!hasDlgVal,
       location:gf(line,'LOCATION'),time:gf(line,'TIME'),beat:gf(line,'BEAT'),mood:gf(line,'MOOD'),
+      section:gf(line,'SECTION'),mvEnergy:parseInt(gf(line,'ENERGY'),10)||0,
+      duration:gf(line,'DURATION'),blockBreak:false,
       brollOnly:false,collapsed:false,
       // NEW: separate shot type and movement fields
       shotType:'',shotNotes:'',movement:'',movementNotes:'',
@@ -2423,6 +2703,7 @@ var GENRE_DESC={
   'Talking Head / Interview':'Static single-location format — no B-roll, no cutaways. All scenes are direct-camera or two-person conversation. Technical suggestions will default to locked/static shots.',
   'Slice of Life':'Everyday moments, naturalistic pacing. Scenes feel observed rather than staged — loose framing, ambient light, minimal drama.',
   'Drama':'Character-driven narrative with emotional weight. Prompts will emphasize intimate framing, motivated lighting, and psychological subtext.',
+  'Drama Reel (Vertical)':'Feed-native 9:16 short drama. Enters on the conflict, dialogue-driven, tight close-ups and a near-still camera. Brand presence is controlled separately and stays invisible by default.',
   'Romance':'Soft, intimate, warm palette. Close framings, shallow depth of field, gentle movement. Chemistry between characters is the visual priority.',
   'Thriller / Suspense':'Tension through composition — tight framing, low angles, Dutch tilts, controlled shadow. Pacing is deliberate and claustrophobic.',
   'Horror':'Dread over shock. Dark environments, negative space, slow reveals, motivated practical light. AI will avoid bright open compositions.',
@@ -2447,7 +2728,10 @@ var MOOD_DESC={
   'Comedic and Playful':'Bright, readable, slightly exaggerated. Wide enough to see reactions, warm enough to feel safe and fun.',
   'Epic and Grandiose':'Scale is everything — wide angles, dramatic skies, heroic low angles. Light is big and motivated.',
   'Melancholic and Poetic':'Desaturated, slow, emotionally weighted. Negative space and silence carry as much as the subject does.',
-  'Bold and Confident':'Strong compositions, direct eye contact, saturated color, clean light. Subject owns the frame.'
+  'Bold and Confident':'Strong compositions, direct eye contact, saturated color, clean light. Subject owns the frame.',
+  'Festive and Celebratory':'Communal party energy — crowds, color, motion everywhere. Warm saturated light, wide shots that hold many people, everything feels alive and shared.',
+  'Sensual and Sultry':'Low warm light, skin and fabric texture emphasis, slow deliberate movement. Shallow focus, shadows that conceal as much as they reveal.',
+  'Rebellious and Defiant':'Hard light, raw locations, confrontational framing. Low angles, direct stares, kinetic handheld energy that refuses to sit still.'
 };
 var EMOTIONAL_CORE_DESC={
   'Longing / Nostalgia':'Scenes will carry ache for something past or unreachable. Visual grammar: soft, warm, slightly faded or hazy.',
@@ -2461,13 +2745,96 @@ var EMOTIONAL_CORE_DESC={
   'Anger / Frustration':'High contrast, hard shadows, tight framing, kinetic energy that feels barely contained.',
   'Peace / Acceptance':'Still, balanced, unhurried. Soft natural light, wide compositions, subjects at rest.',
   'Identity Crisis':'Fragmented or ambiguous compositions, mixed light sources, subject relationship to environment feels unstable.',
-  'Bittersweet':'Warm visuals with an undertone of loss — golden light, but something is ending. Beauty and grief coexist.'
+  'Bittersweet':'Warm visuals with an undertone of loss — golden light, but something is ending. Beauty and grief coexist.',
+  'Freedom / Escape':'Open roads, wide skies, motion away from confinement. Wind, speed, horizon lines — the frame keeps opening up.',
+  'Triumph / Pride':'Victory energy — low heroic angles, rising light, subjects standing tall. Everything builds visually toward a peak moment.',
+  'Desire / Seduction':'Magnetic pull between subject and camera — close framing, held gazes, warm low light, unhurried pacing.'
 };
 
 function updateGenreDesc(){
   var v=document.getElementById('genre').value;
   var d=document.getElementById('genreDesc');
   if(d)d.textContent=GENRE_DESC[v]||'';
+  var mp=document.getElementById('mvPanel');
+  if(mp){mp.style.display=(v==='Music Video')?'block':'none';if(v==='Music Video')renderMVPanel();}
+  var dp=document.getElementById('dramaPanel');
+  if(dp)dp.style.display=(v==='Drama Reel (Vertical)')?'block':'none';
+}
+// ═══ MV MODE UI (v12o) ═══
+var mvUIBound=false;
+function renderMVPanel(){
+  if(!S.mv)S.mv={genre:'',template:'',sections:[],musicNotes:'',songEnd:''};
+  if(S.mv.musicNotes===undefined)S.mv.musicNotes='';
+  if(S.mv.songEnd===undefined)S.mv.songEnd='';
+  S.mv.sections.forEach(function(x){if(x.start===undefined)x.start='';});
+  var gSel=document.getElementById('mvGenre'),tSel=document.getElementById('mvTemplate'),secBox=document.getElementById('mvSections');
+  if(!gSel||!tSel||!secBox)return;
+  if(!gSel.options.length){
+    gSel.innerHTML='<option value="">Select treatment...</option>'+Object.keys(MV_GENRE_DICT).map(function(k){return '<option value="'+k+'">'+MV_GENRE_DICT[k].l+'</option>';}).join('');
+    tSel.innerHTML='<option value="">Select template (or build manually)...</option>'+MV_STRUCTURE_TEMPLATES.map(function(t){return '<option value="'+t.id+'">'+t.l+'</option>';}).join('');
+  }
+  gSel.value=S.mv.genre||'';tSel.value=S.mv.template||'';
+  var mnEl=document.getElementById('mvMusicNotes');
+  if(mnEl&&document.activeElement!==mnEl)mnEl.value=S.mv.musicNotes||'';
+  var seEl=document.getElementById('mvSongEnd');
+  if(seEl&&document.activeElement!==seEl)seEl.value=S.mv.songEnd||'';
+  var gd=document.getElementById('mvGenreDesc');
+  if(gd)gd.textContent=(MV_GENRE_DICT[S.mv.genre]||{}).look||'';
+  var rows=S.mv.sections.map(function(sec,i){
+    var opts='';for(var e=1;e<=5;e++)opts+='<option value="'+e+'"'+(sec.energy===e?' selected':'')+'>'+e+'</option>';
+    return '<div style="display:flex;gap:6px;align-items:center;margin-bottom:4px;">'
+      +'<input class="inp" data-mv-name="'+i+'" value="'+String(sec.name||'').replace(/"/g,'&quot;')+'" placeholder="Section name" style="flex:1;">'
+      +'<select class="inp" data-mv-energy="'+i+'" style="width:70px;">'+opts+'</select>'
+      +'<input class="inp" data-mv-start="'+i+'" value="'+String(sec.start||'')+'" placeholder="0:00" title="Actual start time of this section in the generated song (m:ss) \u2014 fill after the song exists" style="width:58px;">'
+      +'<button class="btnG" type="button" data-mv-del="'+i+'" style="padding:4px 8px;">&#10005;</button>'
+      +'</div>';
+  }).join('');
+  secBox.innerHTML=rows||'<div style="font-size:10px;color:#52525b;">No sections yet &mdash; pick a template or add manually.</div>';
+  if(!mvUIBound){
+    mvUIBound=true;
+    var mp=document.getElementById('mvPanel');
+    gSel.addEventListener('change',function(){S.mv.genre=gSel.value;save();renderMVPanel();});
+    tSel.addEventListener('change',function(){
+      S.mv.template=tSel.value;
+      var t=MV_STRUCTURE_TEMPLATES.find(function(x){return x.id===tSel.value;});
+      if(t)S.mv.sections=t.sections.map(function(s){return{name:s[0],energy:s[1],start:''};});
+      save();renderMVPanel();
+    });
+    document.getElementById('mvAddSection').addEventListener('click',function(){
+      S.mv.sections.push({name:'',energy:3,start:''});save();renderMVPanel();
+    });
+    mp.addEventListener('input',function(ev){
+      var n=ev.target.getAttribute('data-mv-name');
+      if(n!==null){S.mv.sections[+n].name=ev.target.value;save();}
+      var st=ev.target.getAttribute('data-mv-start');
+      if(st!==null){S.mv.sections[+st].start=ev.target.value;save();}
+    });
+    document.getElementById('mvMusicNotes').addEventListener('input',function(ev){
+      S.mv.musicNotes=ev.target.value;save();
+    });
+    document.getElementById('mvSunoBtn').addEventListener('click',function(){
+      var box=document.getElementById('mvSunoBox');
+      box.textContent=bldSuno();box.style.display='block';
+      document.getElementById('mvSunoCp').style.display='inline-flex';
+    });
+    document.getElementById('mvSongEnd').addEventListener('input',function(ev){S.mv.songEnd=ev.target.value;save();});
+    document.getElementById('mvAudioBtn').addEventListener('click',function(){
+      var box=document.getElementById('mvAudioBox');
+      box.textContent=bldAudioPrompt();box.style.display='block';
+      document.getElementById('mvAudioCp').style.display='inline-flex';
+    });
+    document.getElementById('mvTsImport').addEventListener('click',function(){
+      document.getElementById('mvTsMsg').textContent=importMVTimestamps(document.getElementById('mvTsPaste').value);
+    });
+    mp.addEventListener('change',function(ev){
+      var e=ev.target.getAttribute('data-mv-energy');
+      if(e!==null){S.mv.sections[+e].energy=+ev.target.value;save();}
+    });
+    mp.addEventListener('click',function(ev){
+      var d=ev.target.getAttribute('data-mv-del');
+      if(d!==null){S.mv.sections.splice(+d,1);save();renderMVPanel();}
+    });
+  }
 }
 function updateMoodDesc(){
   var v=document.getElementById('mood').value;
@@ -2541,7 +2908,13 @@ function genSceneTechPrompt(){
       +'3. Choose camera movement only if it adds storytelling value. Static is valid and often preferable. Options: '+MOVEMENT_OPTS.join(', ')+'. One choice per scene.\n'
       +'4. Choose lens type, focal length, aperture downstream of shot choice. Lens: '+DD_REAL.lensType.map(function(l){return l.split('—')[0].trim();}).join(', ')+'. Focal length: '+DD_REAL.focalLength.map(function(l){return l.split('—')[0].trim();}).join(', ')+'. Aperture: '+DD_REAL.aperture.map(function(l){return l.split('—')[0].trim();}).join(', ')+'.\n'
       +'5. Choose lighting and light quality. Prefer 1-2 per scene. Lighting: '+CHIP.lighting.join(', ')+'. Light quality: '+CHIP.lightQuality.join(', ')+'.\n'
-      +'6. Think across the full sequence — create intentional visual rhythm.\n\n';
+      +'6. Think across the full sequence — create intentional visual rhythm.\n\n'
+      +'STYLE AUTHORITY — the governing VISUAL STYLE outranks every per-scene choice:\n'
+      +'- All LIGHTING and LIGHT_QUALITY choices must serve the governing visual style grade, never fight it.\n'
+      +'- Soft / faded / pastel / dreamy / nostalgic styles: forbid Low Key, Chiaroscuro and Split lighting unless the scene script explicitly demands it — default to soft motivated sources.\n'
+      +'- Noir / moody / high-contrast styles: avoid High Key and flat Ring Light — protect the shadows.\n'
+      +'- Anamorphic lens picks must match style character: Hawk V-Lite = clean modern widescreen, JDC Xtal Xpress = halation glow and gritty vintage chaos, Panavision C-Series = retro 70s drama. Never pick JDC for clean commercial work.\n'
+      +'- Arriflex 16SR only when the style calls for documentary, home-movie or grainy indie nostalgia.\n\n';
     var projectRules2='PROJECT-LEVEL DECISIONS (choose ONCE for the whole project):\n'
       +'- Camera body: ONE choice. Options: '+DD_REAL.cameraBody.join(', ')+'.\n'
       +'- Visual look: ONE choice. Options: '+DD_REAL.visualLook.map(function(l){return l.split('—')[0].trim();}).join(', ')+'.\n\n';
@@ -2555,26 +2928,7 @@ function genSceneTechPrompt(){
       storytelling:'MOTIVATED AND EMOTIONAL — slow push-ins for intimacy, reveals (Dolly Out, Rise + Tilt) for discovery; movement follows feeling, never spectacle.',
       testimonial:'STILL AND PRESENT — Static / Locked-off or breathing Handheld only.'
     };
-    // Music Video: movement energy follows the song's tempo, not the content intent
-    var mvEnergyMap={
-      slow_ballad:'SLOW AND EMOTIONAL — long Dolly In pushes, breathing Handheld, slow Arc moves; the camera holds on the performance. No whip pans, no crash zooms.',
-      mid_tempo:'GROOVING AND FLUID — Steadicam and Tracking Shot locked to the artist\'s movement, smooth Arcs; the camera moves in the pocket of the beat.',
-      upbeat:'DRIVING AND KINETIC — Tracking Shot, 360 Orbit (kinetic), Whip Pan between setups; constant forward momentum, movement lands on the beat.',
-      high_energy:'EXPLOSIVE AND AGGRESSIVE — Crash Zoom, Whip Pan, Snorricam, Push-in + Dutch Roll; speed-ramp pacing in MOVEMENT_NOTES; every chorus scene gets a bold signature move.'
-    };
-    var isMVE=S.proj.type==='musicvideo';
-    var mvE2=isMVE&&S.proj.mvTempo&&mvEnergyMap[S.proj.mvTempo]?mvEnergyMap[S.proj.mvTempo]:null;
-    var energyNote=mvE2
-      ?'MOVEMENT ENERGY — music video, movement synced to the song tempo:\n'+mvE2+'\nEnergy rises into every chorus; the boldest move belongs to the final chorus.\n\n'
-      :(S.proj.intent&&energyMap[S.proj.intent]?'MOVEMENT ENERGY — the movement language of this project:\n'+energyMap[S.proj.intent]+'\nVary the rhythm across the sequence: the boldest moves belong to the hook and the climax.\n\n':'');
-    // STYLE AUTHORITY — the #1 cause of inconsistent output was the AI DP choosing dramatic
-    // high-contrast lighting (Chiaroscuro/Backlit/Hard) that fights a soft/faded governing grade.
-    // The style is the boss; lighting choices must produce its tonal character, not average against it.
-    var styleAuthNote=sa?'STYLE AUTHORITY — CRITICAL:\nThe VISUAL STYLE above is the governing color grade and tonal character of this entire project. Every LIGHTING and LIGHT_QUALITY choice MUST produce that character on screen:\n'
-      +'- Match its contrast level. If the style describes soft, faded, calm, low-contrast, desaturated, or gentle tones: DO NOT choose Chiaroscuro, Backlit / Silhouette, hard dramatic contrast, or heavy rim lighting. Choose lighting that renders soft and gentle.\n'
-      +'- If the style describes bold, dramatic, high-contrast, or moody tones: lean into hard directional setups.\n'
-      +'- When a scene feels dramatic but the style calls for restraint, THE STYLE WINS — express the drama through framing, movement, and staging instead of light contrast.\n'
-      +'- A coherent sequence renders every scene inside ONE tonal world. Never mix calm-faded scenes with punchy-dramatic scenes in the same project.\n\n':'';
+    var energyNote=S.proj.intent&&energyMap[S.proj.intent]?'MOVEMENT ENERGY — the movement language of this project:\n'+energyMap[S.proj.intent]+'\nVary the rhythm across the sequence: the boldest moves belong to the hook and the climax.\n\n':'';
     // Recognized style carries a canonical camera package — the AI DP should treat it as
     // the default rig; the user can still override any dropdown manually after Apply.
     var rsRig=resolveStyle();
@@ -2585,7 +2939,7 @@ function genSceneTechPrompt(){
     var fmt2='OUTPUT FORMAT — CRITICAL:\nFirst line:\nPROJECT_CAMERA_BODY: [choice] | PROJECT_VISUAL_LOOK: [choice]\n\n'
       +'Then one line per scene:\nSCENE_[nn] | SHOT_TYPE: [value] | MOVEMENT: [value] | MOVEMENT_NOTES: [short value or NONE] | LENS_TYPE: [value] | FOCAL_LENGTH: [value] | APERTURE: [value] | LIGHTING: [1-2 values comma-separated] | LIGHT_QUALITY: [1-2 values comma-separated]\n\n'
       +'STRICT: NEVER use | inside field values. No markdown, no preamble. Generate exactly '+emptyScenes.length+' scene lines, SCENE_01 through SCENE_'+String(emptyScenes.length).padStart(2,'0')+'.';
-    prompt=(intros[S.aiTool]||intros.chatgpt)+'MODE: REALISTIC\nPROJECT TYPE: '+(p.type||'')+(p.genre?'\nGENRE: '+p.genre:'')+(p.platform?'\nPLATFORM: '+p.platform:'')+(sa?'\nVISUAL STYLE: '+sa:'')+(p.emotionalCore?'\nEMOTIONAL CORE: '+p.emotionalCore:'')+(intentEntry()?'\nCONTENT INTENT: '+intentEntry().label+' — '+intentEntry().director:'')+talkingHead+charCtx+sceneCtx+task2+rules2+projectRules2+styleAuthNote+energyNote+rigNote+fmt2;
+    prompt=(intros[S.aiTool]||intros.chatgpt)+'MODE: REALISTIC\nPROJECT TYPE: '+(p.type||'')+(p.genre?'\nGENRE: '+p.genre:'')+(p.platform?'\nPLATFORM: '+p.platform:'')+(sa?'\nVISUAL STYLE: '+sa:'')+(p.emotionalCore?'\nEMOTIONAL CORE: '+p.emotionalCore:'')+(intentEntry()?'\nCONTENT INTENT: '+intentEntry().label+' — '+intentEntry().director:'')+talkingHead+charCtx+sceneCtx+task2+rules2+projectRules2+energyNote+rigNote+fmt2;
   }
 
   var box=document.getElementById('techPromptBox');
@@ -2722,7 +3076,7 @@ function parseSceneTechSuggestions(){
 function addScene(){
   if(S.scenes.length>=20){alert('Max 20 scenes');return;}
   S.scenes.push({
-    id:Date.now(),title:'',script:'',dialog:'',showDialog:false,
+    id:Date.now(),title:'',script:'',dialog:'',showDialog:S.proj.genre==='Drama Reel (Vertical)',
     location:'',time:'',beat:'',mood:'',
     brollOnly:false,collapsed:false,
     shotType:'',shotNotes:'',movement:'',movementNotes:'',
@@ -2999,6 +3353,8 @@ function renderScenes(){
         h+='<div style="margin-bottom:10px;"><label class="lbl">Lighting Setup</label>'+rChips(sc.id,'lighting')+'</div>';
         h+='<div style="margin-bottom:10px;"><label class="lbl">Light Quality</label>'+rChips(sc.id,'lightQuality')+'</div>';
         h+='<div><label class="lbl">Visual Look / Stock <span style="font-size:9px;color:#52525b;">(</span><button style="font-size:9px;color:#84CC16;background:none;border:none;cursor:pointer;padding:0;font-family:DM Sans,sans-serif;" data-applyall="visualLook" data-scid="'+sc.id+'">Apply to all</button><span style="font-size:9px;color:#52525b;">)</span></label>'+mkDD(sc.id,'visualLook',DD_REAL.visualLook,'Look...')+'</div>';
+        var ockb=function(f,lbl){return '<label style="display:flex;align-items:center;gap:6px;font-size:11px;color:#d4d4d8;cursor:pointer;padding:5px 9px;background:#18181b;border:1px solid #27272a;border-radius:6px;"><input type="checkbox" data-scf="'+f+'" data-scid="'+sc.id+'"'+(sc[f]?' checked':'')+' style="accent-color:#84CC16;cursor:pointer;">'+lbl+'</label>';};
+        h+='<div style="grid-column:1/-1;margin-top:4px;"><label class="lbl">Optical Character <span style="font-size:9px;color:#52525b;">film feel for direct image models (</span><button style="font-size:9px;color:#84CC16;background:none;border:none;cursor:pointer;padding:0;font-family:DM Sans,sans-serif;" data-applyoptical data-scid="'+sc.id+'">Apply to all</button><span style="font-size:9px;color:#52525b;">)</span></label><div style="display:flex;flex-wrap:wrap;gap:8px;">'+ockb('halationDiff','🌅 Halation Diffusion')+ockb('lensAberr','🔮 Lens Aberrations')+ockb('softFocus','🫧 Soft Focus')+'</div></div>';
       }
       h+='</div>';
     }
@@ -3035,6 +3391,15 @@ function renderScenes(){
   });
   c.querySelectorAll('[data-togsc]').forEach(function(el){el.addEventListener('click',function(){togSc(parseInt(this.getAttribute('data-togsc')));});});
   c.querySelectorAll('[data-rmsc]').forEach(function(el){el.addEventListener('click',function(){removeScene(parseInt(this.getAttribute('data-rmsc')));});});
+  c.querySelectorAll('[data-applyoptical]').forEach(function(el){
+    el.addEventListener('click',function(){
+      var sid=parseInt(this.getAttribute('data-scid'));
+      var src=S.scenes.find(function(s){return s.id===sid;});
+      if(!src)return;
+      S.scenes.forEach(function(s){s.halationDiff=!!src.halationDiff;s.lensAberr=!!src.lensAberr;s.softFocus=!!src.softFocus;});
+      save();renderScenes();
+    });
+  });
   c.querySelectorAll('[data-applyall]').forEach(function(el){
     el.addEventListener('click',function(){
       var field=this.getAttribute('data-applyall');
@@ -3355,8 +3720,9 @@ function bldStoryboardGridPromptRealistic(){
 
   var h='Style: shot on a real camera, photographic — not rendered, not illustrated, not CGI. '+(sb.colorGrade?sb.colorGrade+' grading. ':'')+(charDesc?'Protagonist: '+charDesc+'. ':'')+'Use @product as the exact reference for the product in every relevant frame — match label, color, and shape exactly.\n\n';
 
-  var sbClean=finishLevel()==='clean';
-  h+=(sbClean?PHOTOREALISM_TECHNICAL:(PHOTOREALISM_TECHNICAL+PHOTOREALISM_AESTHETIC))+'\n';
+  var cvsEl3=document.getElementById('customVisualStyle');
+  var hasCustomStyle3=cvsEl3&&cvsEl3.value.trim();
+  h+=(hasCustomStyle3?PHOTOREALISM_TECHNICAL:(PHOTOREALISM_TECHNICAL+PHOTOREALISM_AESTHETIC))+'\n';
 
   h+='Layout: '+layout.cols+'x'+layout.rows+' grid storyboard, '+n+' numbered panels (small number badge bottom-left of each panel), '+layout.sheetDesc+'.\n\n';
   h+=bldStoryboardPanelStructure(useCaption,n);
@@ -3364,7 +3730,7 @@ function bldStoryboardGridPromptRealistic(){
   h+=bldStoryboardPanelList(panels,useCaption);
   h+='\nOutput as a single '+sb.outputAspectRatio+' image, '+n+' panels, clean white gutters between panels, consistent lighting progression panel 1 to panel '+n+', consistent character identity and outfit across all panels.\n\n';
   h+='IMPORTANT: Avoid clip art, stock-photo cliches, generic AI-look gradients, or overdesigned decorative elements. This should look like a real production storyboard for a commercial shoot, not generic AI art. Be specific and concrete in every panel — no vague or filler description.\n\n';
-  h+='NEGATIVE PROMPT (avoid these): '+(sbClean?PHOTOREALISM_NEGATIVE_TECHNICAL:PHOTOREALISM_NEGATIVE)+'.';
+  h+='NEGATIVE PROMPT (avoid these): '+(hasCustomStyle3?PHOTOREALISM_NEGATIVE_TECHNICAL:PHOTOREALISM_NEGATIVE)+'.';
   return h;
 }
 
@@ -3579,10 +3945,10 @@ var STYLE_DICT=[
    comp:'perfectly symmetrical composition, subject dead-center on the vertical axis, flat frontal planimetric camera at 90 degrees to the background, one-point perspective, meticulous tableau staging',
    grade:'pastel palette of powder pink, mint green, mustard yellow and cream, flat even lighting with minimal shadows, storybook production design, hyper-tidy set dressing, whimsical deadpan tone'},
   {aliases:['wong kar-wai','wong kar wai','temporal disorientation'],medium:'film',rig:{cam:'ARRI Alexa Mini LF',lens:'Vintage Spherical — Soft classic',focal:'28mm — Street natural',aperture:'f/1.4 — Creamy separation',look:'Warm Kodak — Nostalgic film warmth'},
-   comp:'close cropped intimate framing, subjects glimpsed through doorways and reflections, foreground obstruction layering',
-   grade:'saturated warm amber and deep teal, smeared neon reflections, nostalgic urban haze, slow-shutter motion echo'},
+   comp:'subject pushed off-centre and cropped by the frame edge, seen past an out-of-focus doorframe or hanging object that occupies one third of the foreground, camera close with a wide lens',
+   grade:'tungsten amber, jade green and deep red practicals with sodium street light bleeding in, one bare bulb blooming in frame, high contrast with the shadow side falling to black'},
   {aliases:['a24','arthouse','unglamorous truth'],medium:'film',rig:{cam:'ARRI Alexa Mini LF',lens:'Vintage Spherical — Soft classic',focal:'35mm — Human-eye perspective',aperture:'f/1.8 — Sharp subject soft BG',look:'Desaturated Matte — Indie gritty'},
-   comp:'off-center naturalistic framing with negative space, patient static wides mixed with intimate handheld closeness',
+   comp:'subject placed to one side with a shoulder cut off by the frame edge, an unarranged everyday object close to the lens filling one corner, camera at the standing height of a person who happens to be there',
    grade:'desaturated muted palette, available-light realism, soft window light, visible grain, unpolished honest texture'},
   {aliases:['fincher'],formal:true,medium:'digital',rig:{cam:'RED Dragon 6K',lens:'Prime — Fixed focal, sharp',focal:'50mm — True-to-life standard',aperture:'f/2.8 — Commercial standard',look:'Moody Low-key — Deep shadows'},
    comp:'locked-down precise framing, centered symmetry with clinical detachment, camera slightly below eye level',
@@ -3619,51 +3985,7 @@ var STYLE_DICT=[
    grade:'warm watercolor washes, soft rounded forms, painterly cloud-filled skies, nostalgic pastoral glow'}
 ];
 
-// ─── MUSIC VIDEO TREATMENT DICTIONARY ───
-// MV is NOT narrative filmmaking with music — performance energy, beat-synced movement
-// and stylization replace continuity logic. Director styles (Wes/A24/Fincher) are built
-// for storytelling continuity and land wrong on MV; these treatments replace them when
-// project type = musicvideo. Same shape as STYLE_DICT so the whole pipeline
-// (comp slot 1.5, grade, formal, rig, medium, exposure, optics) works unchanged.
-var MV_STYLE_DICT={
-  performance_raw:{label:'Performance Raw — intimate single-take energy',medium:'film',
-    rig:{cam:'ARRI Alexa Mini LF',lens:'Vintage Spherical — Soft classic',focal:'35mm — Human-eye perspective',aperture:'f/2.0 — Sharp subject soft BG',look:'Desaturated Matte — Indie gritty'},
-    aliases:[],
-    comp:'intimate performance framing, the artist center-weighted and dominant, camera breathing with the performance, imperfect human handheld closeness',
-    grade:'raw available-light realism, honest skin texture, muted palette with warm practicals, visible grain, single-take emotional intensity'},
-  choreo_cinematic:{label:'Choreography Cinematic — precise blocking, dance-first',formal:true,medium:'digital',
-    rig:{cam:'ARRI Alexa Mini LF',lens:'Prime — Fixed focal, sharp',focal:'24mm — Wide cinematic',aperture:'f/4.0 — Moderate depth',look:'High-end Commercial — Clean crisp'},
-    aliases:[],
-    comp:'full-body choreography framing with headroom and floor visible, precise symmetrical blocking, formation geometry readable, wide masters intercut with punchy tights',
-    grade:'polished controlled lighting with strong directional key, bold clean color separation, deep focus keeping every dancer sharp, seamless studio or architectural backdrop'},
-  visual_concept:{label:'Visual Concept — surreal artistic imagery',medium:'film',
-    rig:{cam:'ARRI Alexa Mini LF',lens:'Anamorphic — Oval bokeh, lens flares',focal:'50mm — True-to-life standard',aperture:'f/2.8 — Commercial standard',look:'Moody Low-key — Deep shadows'},
-    aliases:[],
-    comp:'painterly deliberate tableau framing, non-literal symbolic staging, bold negative space, the frame composed as a striking single image',
-    grade:'heavy expressive color grade, saturated monochromatic washes, hard sculptural light and deep shadow, dreamlike atmosphere, surreal art-directed production design'},
-  street_lifestyle:{label:'Street / Lifestyle — golden hour movement, fashion-forward',medium:'film',
-    rig:{cam:'ARRI Alexa Mini LF',lens:'Vintage Spherical — Soft classic',focal:'35mm — Human-eye perspective',aperture:'f/1.8 — Sharp subject soft BG',look:'Warm Kodak — Nostalgic film warmth'},
-    aliases:[],
-    comp:'artist moving through real locations, walking-toward-camera energy, environment as texture behind the subject, low sun backlight positioning',
-    grade:'golden hour warmth, sun flare kissing the lens, rich skin tones, fashion-forward styling emphasis, effortless cool urban texture'},
-  hype_energy:{label:'Hype / Energy — bold, aggressive, rapid',medium:'digital',
-    rig:{cam:'Sony Venice 2',lens:'Anamorphic — Oval bokeh, lens flares',focal:'24mm — Wide cinematic',aperture:'f/2.8 — Commercial standard',look:'Moody Low-key — Deep shadows'},
-    aliases:[],
-    comp:'aggressive wide-angle proximity distorting toward the lens, dynamic low and canted angles, in-your-face confrontational framing',
-    grade:'bold saturated color blasts, hard strobing contrast, crushed blacks with neon accents, lens distortion energy, maximalist attitude'}
-};
-function mvEntry(){
-  return S.proj.type==='musicvideo'&&S.proj.mvStyle&&MV_STYLE_DICT[S.proj.mvStyle]?MV_STYLE_DICT[S.proj.mvStyle]:null;
-}
-
-function isPerfDialog(sc){
-  return !!(sc.dialog&&/^PERFORMANCE/i.test(sc.dialog.trim()));
-}
-
 function resolveStyle(){
-  // Music Video treatment replaces director-style resolution entirely — MV grammar wins.
-  var mv=mvEntry();
-  if(mv)return mv;
   var cvs=document.getElementById('customVisualStyle');
   var custom=cvs?cvs.value.trim():'';
   var raw=(custom||S.proj.visualStyle||'').toLowerCase();
@@ -3721,6 +4043,25 @@ var LOOK_DICT = {
   'ARRI Alexa Mini LF':{img:'large-format digital cinema rendering, gentle filmic highlight roll-off, natural skin tone response, true cinematic depth',vid:'cinema-grade highlight roll-off, natural skin tones held under motion'},
   'RED Dragon 6K':{img:'razor-sharp 6K detail, controlled contrast curve, deep color depth, crisp micro-texture',vid:'crisp detail retained during movement, controlled contrast'},
   'Sony FX3':{img:'clean full-frame digital look, low-light clarity, mild highlight bloom, neutral color science',vid:'clean low-light image, stable neutral color'},
+  // ── Higgsfield-native camera bodies ──
+  'ARRI Alexa 35':{img:'ARRI Alexa 35 color science, warm filmic response, organic highlight roll-off, cinema-grade latitude',vid:'warm filmic ARRI color and highlight roll-off held steady'},
+  'Arriflex 16SR':{img:'Arriflex 16SR 16mm film capture, coarse organic grain, nostalgic documentary texture, softly halated highlights',vid:'coarse 16mm film grain and documentary texture held constant'},
+  'Sony Venice':{img:'Sony Venice rendering, natural true-to-life skin tones, deep clean blacks, gentle low-light response',vid:'natural Venice skin tones and deep blacks preserved in motion'},
+  'RED V-Raptor':{img:'RED V-Raptor sensor rendering, razor-fine digital detail, wide dynamic range, neutral modern color, crisp not warm',vid:'crisp neutral RED detail held steady, no added saturation'},
+  'Panavision DXL2':{img:'Panavision DXL2 rendering, rich full-bodied color, smooth cinematic digital feel',vid:'rich Panavision color, smooth digital motion'},
+  'IMAX':{img:'large-format IMAX capture, immense detail, deep clarity, monumental sense of scale',vid:'large-format clarity and scale maintained'},
+  // ── Higgsfield-native lenses ──
+  'Cooke S4':{img:'Cooke S4 rendering (the Cooke Look), flattering skin, gentle elegant focus roll-off, human not clinical',vid:'gentle Cooke roll-off and skin rendering held'},
+  'ARRI Signature Prime':{img:'ARRI Signature Prime, refined premium sharpness, smooth controlled contrast, subtle warmth',vid:'refined Signature sharpness and smooth contrast held'},
+  'Zeiss Ultra Prime':{img:'Zeiss Ultra Prime, clean high-contrast sharpness, modern precise detail, neutral rendering',vid:'clean Zeiss sharpness and neutral rendering held'},
+  'Canon K-35':{img:'Canon K-35 rendering, warm color, gentle softness, flattering low-contrast flares, 70s-80s filmic',vid:'warm K-35 softness and flares persist'},
+  'Helios 44':{img:'Helios lens, swirly vintage bokeh, characterful imperfect rendering, nostalgic falloff',vid:'Helios swirly bokeh and nostalgic falloff persist'},
+  'Petzval':{img:'Petzval lens, dreamy swirly bokeh, soft romantic falloff, artistic vignette',vid:'Petzval dreamy swirl and vignette persist'},
+  'Hawk V-Lite':{img:'Hawk V-Lite anamorphic, clean controlled modern anamorphic, gentle oval bokeh, restrained subtle flares',vid:'gentle Hawk oval bokeh and restrained flares persist across frames'},
+  'JDC Xtal Xpress':{img:'JDC Xtal Xpress anamorphic, crystal-coating halation and diffusion glow, wild uncontrolled horizontal flares, low contrast, gritty vintage softness, oval bokeh',vid:'JDC halation glow, wild horizontal flares and gritty vintage softness persist'},
+  'Panavision C-Series':{img:'Panavision C-Series anamorphic, oval bokeh, horizontal flares, retro dramatic character',vid:'C-Series oval bokeh and flares persist'},
+  'Lensbaby':{img:'Lensbaby selective plane of focus, deliberate optical imperfection, experimental blur',vid:'Lensbaby selective focus plane held'},
+  'Laowa Macro':{img:'Laowa macro magnification, razor-thin focus plane, intense micro-texture, background dissolved into color',vid:'razor-thin Laowa macro focus held on subject'},
   'Sony Venice 2':{img:'premium full-frame cinema rendering, smooth tonal gradation, rich shadow detail, film-like color response',vid:'smooth tonal gradation, rich shadow detail preserved in motion'},
   'Blackmagic URSA Mini Pro':{img:'filmic gamma curve, soft contrast, slightly organic sensor texture',vid:'soft filmic contrast maintained'},
   'Canon EOS C70':{img:'warm Canon color science, pleasing skin tones, gentle contrast',vid:'warm consistent skin tones'},
@@ -3762,7 +4103,8 @@ var LOOK_DICT = {
   'Ring Light':{img:'ring-light frontal glow, circular catchlights in the eyes, flat even beauty illumination',vid:'ring catchlights constant'},
   'Backlit / Silhouette':{img:'strong backlight, silhouette edge glow, atmospheric halo around the subject',vid:'backlight halo constant'},
   'Chiaroscuro':{img:'chiaroscuro painting light — extreme light-dark interplay, sculptural shadow shapes, Caravaggio contrast',vid:'chiaroscuro contrast held'},
-  'Practical Only':{img:'lit only by in-scene practical sources — lamps, screens, neon — motivated realistic falloff, mixed color temperatures',vid:'practical-source motivation constant'}
+  'Practical Only':{img:'lit only by in-scene practical sources — lamps, screens, in-scene fixtures — motivated realistic falloff, mixed color temperatures',vid:'practical-source motivation constant'},
+  'Direct Flash':{img:'lit by a direct on-camera flash: whatever is nearest the lens is the brightest thing in frame and close to blowing out, a hard shadow falls on the surface directly behind the subject, and the far corners of the room drop away to black',vid:'direct on-camera flash constant'}
 };
 
 // ─── KINEMATICS DICTIONARY ───
@@ -3863,9 +4205,10 @@ function cleanInstr(){
 function effRig(sc){
   var rs=resolveStyle();
   var rig=(rs&&rs.rig)||{};
-  // Shot-on-Phone project type supplies the phone package as the fallback rig
-  // (style rig still wins over this fallback; manual scene fields win over everything).
-  if(S.proj.type==='phoneshoot'&&!rig.cam)rig={cam:'iPhone 15 Pro Cinematic',lens:'Prime — Fixed focal, sharp',focal:'28mm — Street natural',aperture:'f/1.8 — Sharp subject soft BG',look:rig.look||''};
+  // Shot-on-Phone: supply a phone body as fallback so mediumFor() reads 'phone',
+  // but DO NOT emit a lens/focal/aperture — naming pro glass triggers the model's
+  // aesthetic mode and re-introduces the AI-slop look on phone shots.
+  if(S.proj.type==='phoneshoot'&&!rig.cam)rig={cam:'iPhone (handheld)',lens:'',focal:'',aperture:'',look:rig.look||''};
   return{
     cameraBody:sc.cameraBody||rig.cam||'',
     lensType:sc.lensType||rig.lens||'',
@@ -3880,10 +4223,8 @@ function effRig(sc){
 // the correct species (film: halation+crush; digital: rolloff; phone: HDR+clipping+noise).
 function mediumFor(sc){
   var r=effRig(sc);
-  if(/iphone|gopro|phone/i.test(r.cameraBody))return'phone';
-  // Shot-on-Phone project type forces the phone pipeline end-to-end, UNLESS the user
-  // manually picked a non-phone camera body (explicit dropdown choice always wins).
   if(S.proj.type==='phoneshoot'&&!sc.cameraBody)return'phone';
+  if(/iphone|gopro|phone/i.test(r.cameraBody))return'phone';
   var rs=resolveStyle();
   if(rs&&rs.medium)return rs.medium;
   if(/kodak|fuji|super 8|vision3|velvia|400h|b&w/i.test(r.visualLook))return'film';
@@ -3942,12 +4283,12 @@ function opticArtifacts(sc,tier){
     if(bright)a.push('warm orange-red halation bleeding around the bright light sources');
     if(hardSide)a.push('thin atmospheric haze rendering the hard light as visible shafts, dust caught in the beam');
     if(fin==='raw')a.push('1/48 shutter feel — hands and hair in micro-motion softly blurred');
-    if(lens.indexOf('anamorphic')>-1)a.push('horizontal anamorphic flare streak, oval bokeh falloff');
-    else if(lens.indexOf('vintage')>-1)a.push('gentle chromatic fringing on high-contrast edges, soft veiling glare lifting the blacks near the light source');
+    if(/anamorphic|hawk|jdc|panavision c/.test(lens))a.push('horizontal anamorphic flare streak, oval bokeh falloff');
+    else if(/vintage|helios|petzval|canon k/.test(lens))a.push('gentle chromatic fringing on high-contrast edges, soft veiling glare lifting the blacks near the light source');
   } else {
     if(bright)a.push('controlled specular bloom with gentle highlight rolloff');
-    if(lens.indexOf('anamorphic')>-1)a.push('restrained horizontal anamorphic flare, oval bokeh');
-    else if(lens.indexOf('vintage')>-1)a.push('subtle chromatic fringing on contrast edges');
+    if(/anamorphic|hawk|jdc|panavision c/.test(lens))a.push('restrained horizontal anamorphic flare, oval bokeh');
+    else if(/vintage|helios|petzval|canon k/.test(lens))a.push('subtle chromatic fringing on contrast edges');
     if(hardSide)a.push('light atmospheric haze giving natural depth separation');
     if(fin==='raw')a.push('180-degree shutter motion feel on any movement');
   }
@@ -3955,73 +4296,99 @@ function opticArtifacts(sc,tier){
   return a.slice(0,budget).join('; ');
 }
 
-// ─── FILMIC OPTICS (depth + lens softness) ───
-// The real-camera tells the references share are OPTICAL, not skin-surface: shallow depth with
-// genuine focus falloff, layered depth planes, gentle lens softness (NOT clinical sharpness),
-// and natural motion blur. This operates at the FRAME level and never touches skin detail —
-// the "too sharp / too clear / too perfect" fix without over-texturing faces. Aperture- and
-// shot-aware so it never contradicts the deep-focus / bokeh negatives.
-function filmicOptics(sc){
-  var fin=finishLevel();
+// ─── HIGGSFIELD CINEMA STUDIO REPLICATION ───
+// Higgsfield renders real optical physics per named camera/lens. We can't run their
+// renderer, but we can borrow their vocabulary: named-gear tokens ("Shot on Sony Venice,
+// Cooke S4 lens") map to real color science / bokeh in the image model's training,
+// which beats DESCRIBING the effect ("shallow DoF, soft falloff" = a caption, not a lens).
+// Rule: name the instrument, let the model's training do the optical work.
+var HIGGS_CAM={
+  'RED V-Raptor':'RED V-Raptor sensor — razor-fine 8K digital detail, wide dynamic range, neutral modern color built for grading, crisp not warm',
+  'Sony Venice':'Sony Venice sensor — natural true-to-life skin tones, deep clean blacks, gentle low-light response',
+  'ARRI Alexa 35':'ARRI Alexa 35 — warm filmic color, organic highlight roll-off, cinema-grade latitude',
+  'IMAX':'large-format IMAX capture — immense detail, deep clarity, monumental sense of scale',
+  'Panavision DXL2':'Panavision DXL2 — rich full-bodied color, smooth cinematic digital rendering',
+  'Arriflex 16SR':'Arriflex 16SR 16mm film — coarse organic 16mm grain, nostalgic documentary texture, softly halated highlights, handheld-era intimacy'
+};
+var HIGGS_LENS={
+  'Cooke S4':'Cooke S4 lens (the Cooke Look) — flattering skin, gentle elegant focus roll-off, human not clinical',
+  'Zeiss Ultra Prime':'Zeiss Ultra Prime — clean high-contrast sharpness, modern precise detail, neutral rendering',
+  'ARRI Signature Prime':'ARRI Signature Prime — refined premium sharpness, smooth controlled contrast, subtle warmth',
+  'Canon K-35':'Canon K-35 lens — warm color, gentle softness, flattering low-contrast flares (70s New Hollywood glass)',
+  'Helios 44':'Helios lens — swirly vintage bokeh, characterful imperfect rendering, nostalgic falloff',
+  'Petzval':'Petzval lens — dreamy swirly bokeh, soft romantic falloff, artistic vignette',
+  'Hawk V-Lite':'Hawk V-Lite anamorphic — clean controlled modern anamorphic, gentle oval bokeh, restrained subtle flares, widescreen elegance without vintage chaos',
+  'JDC Xtal Xpress':'JDC Xtal Xpress anamorphic — crystal-coating halation and diffusion glow around highlights, wild uncontrolled horizontal flares, low contrast, gritty vintage softness, oval bokeh (90s war-film anamorphic)',
+  'Panavision C-Series':'Panavision C-Series anamorphic — oval bokeh, horizontal flares, retro dramatic character (70s blockbuster-era anamorphic)',
+  'Lensbaby':'Lensbaby — selective plane of focus, deliberate optical imperfection, experimental blur',
+  'Laowa Macro':'Laowa macro — extreme close-up magnification, razor-thin focus, intense micro-texture'
+};
+// Map the already-resolved rig + style grade to the nearest Higgsfield camera+lens.
+// Auto-fill from tech suggestion flows straight in; explicit dropdown overrides.
+function higgsRig(sc){
   var er=effRig(sc);
-  var m=(er.aperture||'').match(/f\/(\d+(?:\.\d+)?)/i);
-  var fn=m?parseFloat(m[1]):0; // 0 = unset
-  var wideShot=/^(WS|Extreme Wide|FS)$/.test(sc.shotType||'');
-  var parts=[];
-  // Depth of field — shot-type first (a wide landscape must not get creamy bokeh), then aperture.
-  if(wideShot||fn>5.6){
-    parts.push('deep focus carried by real atmospheric perspective — haze and air density softening, desaturating and lowering the contrast of the distant planes, layered depth between foreground, subject and background');
-  } else if(fn===0||fn<=2.8){
-    parts.push('shallow depth of field, the subject in crisp focus while the background melts into soft creamy separation with natural focus falloff between clearly layered depth planes');
-  } else {
-    parts.push('moderate depth of field, the subject cleanly separated from a gently softened background across layered depth planes');
+  var rs=resolveStyle();
+  var ctx=(((rs&&rs.grade)||'')+' '+(er.visualLook||'')).toLowerCase();
+  var cam=(er.cameraBody||'').toLowerCase();
+  var lens=(er.lensType||'').toLowerCase();
+  // 1) Native pick: the Scene Editor / tech-suggestion already speaks Higgsfield — use it.
+  var C=HIGGS_CAM[er.cameraBody]?er.cameraBody:null;
+  var L=HIGGS_LENS[er.lensType]?er.lensType:null;
+  // 2) Legacy auto-map: translate any STYLE_DICT / old-vocab rig to the nearest Higgsfield gear.
+  if(!C){
+    if(/red|dragon|raptor/.test(cam))C='RED V-Raptor';
+    else if(/imax|65mm|drone|mavic|aerial/.test(cam)||/monumental|epic|vast|imax|immense/.test(ctx))C='IMAX';
+    else if(/panavision|dxl/.test(cam)||/bleach|blade runner|revenant/.test(ctx))C='Panavision DXL2';
+    else if(/16mm|arriflex|super 16|bolex/.test(cam)||/documentary|home[- ]movie|grainy 16|indie film|found footage/.test(ctx))C='Arriflex 16SR';
+    else if(/arri|alexa/.test(cam)||/warm|kodak|nostalg|golden|amber|magic-hour/.test(ctx))C='ARRI Alexa 35';
+    else C='Sony Venice';
   }
-  // Global lens softness — the direct antidote to clinical over-sharpness. Skipped only on a
-  // deliberate CLEAN finish (commercial polish intentionally wants crispness).
-  if(fin!=='clean')parts.push('organic optical rendering rather than clinical digital sharpness — a gentle lens softness and micro-contrast rolloff that reads as captured through real glass, edges easing off toward the frame corners');
-  // Motion blur — only where the shot actually moves, and only on the balanced finish (raw already
-  // gets shutter feel from opticArtifacts; clean stays crisp). Movement-gated so still shots stay still.
-  var moving=sc.movement&&sc.movement.toLowerCase().indexOf('static')<0;
-  if(moving&&fin==='balanced')parts.push('subtle natural motion blur on anything in motion, consistent with a 180-degree shutter, never frozen razor-sharp');
-  return parts.join('; ');
+  if(!L){
+    if(/anamorphic/.test(lens))L=/sci|neon|cyber|future|dystop/.test(ctx)?'JDC Xtal Xpress':'Hawk V-Lite';
+    else if(/macro/.test(lens))L='Laowa Macro';
+    else if(/tilt|lensbaby|selective/.test(lens))L='Lensbaby';
+    else if(/vintage/.test(lens))L=/warm|kodak|70s|80s|amber/.test(ctx)?'Canon K-35':'Helios 44';
+    else if(/dreamy|romantic|pastel|whimsical/.test(ctx))L='Petzval';
+    else if(/warm|kodak|nostalg|golden|magic-hour/.test(ctx))L='Canon K-35';
+    else if(/clean|commercial|crisp|clinical|modern|polished|upscale/.test(ctx))L=/premium|high-end|upscale|refined/.test(ctx)?'ARRI Signature Prime':'Zeiss Ultra Prime';
+    else L='Cooke S4';
+  }
+  return{cam:C,lens:L,focal:er.focalLength,aperture:er.aperture};
 }
-
-// ─── EYE DETAIL DERIVER ───
-// The #1 uncanny-valley tell is dead eyes. Causal tokens only (what the eyes SEE and
-// what LIGHT hits the cornea) — never adjective praise ("beautiful realistic eyes"
-// over-renders into glossy CGI). Gated to ECU/CU/MCU where eyes actually resolve;
-// wide shots waste attention budget on invisible detail. Budget: max 4 img tokens.
-// Kling deliberately gets NOTHING (MOTION_TEXTURE already covers blink; verbose eye
-// grammar degrades Kling). Seedance gets +2 motion tokens MOTION_TEXTURE lacks.
-var EYE_SHOTS={'ECU':1,'CU':1,'MCU':1};
-function eyeDetail(sc,tier){
-  if(!sc.shotType||!EYE_SHOTS[sc.shotType])return'';
-  if(sc.brollOnly)return'';
-  if(sc.shotType==='POV')return'';
-  var lit=arrS(sc.lighting).toLowerCase()+' '+arrS(sc.lightQuality).toLowerCase();
-  var env=((sc.location||'')+' '+(sc.time||'')).toLowerCase();
-  // Catchlight bound to the scene's actual light source — a catchlight that matches
-  // the key light is what reads as "alive"; a generic one reads as painted-on.
-  var src;
-  if(/window/.test(lit+' '+env))src='the window light';
-  else if(/golden|sunset|sunrise|sun|dawn|dusk|noon|day|morning|afternoon/.test(lit+' '+env))src='the sunlight';
-  else if(/neon/.test(lit+' '+env))src='the neon signs';
-  else if(/practical|lamp|candle|screen|tv|fire/.test(lit+' '+env))src='the practical lights';
-  else src='the soft key light';
-  var a=['a small catchlight from '+src+' reflected in the cornea, consistent with the scene lighting'];
-  a.push('a thin natural moisture sheen on the eyes, subtle wet highlight along the lower waterline');
-  // Micro-asymmetry fights robotic mirror-eyes — but contradicts formalist symmetry styles.
-  var rsE=resolveStyle();
-  if(!(rsE&&rsE.formal))a.push('the two eyes naturally non-identical — slight asymmetry in lid and gaze');
-  // Gaze intent: eyes that are LOOKING at something read as human; empty stare reads as a doll.
-  var hasDlgE=sc.showDialog&&sc.dialog&&sc.dialog.trim()&&sc.dialog.trim().toUpperCase()!=='NONE';
-  var intE=S.proj.intent||'';
-  if(hasDlgE||intE==='ugc_review'||intE==='testimonial')a.push('gaze focused directly into the lens with present, engaged intent');
-  else if(sc.script)a.push('gaze focused with clear intent on what the subject is doing or seeing in the scene');
-  else a.push('gaze resting on a specific point with quiet intent, never an empty stare');
-  var out=a.slice(0,4).join('; ');
-  if(tier==='seed')out+='; tiny natural eye movements between fixations, the gaze settling and tracking with intent as the action unfolds';
-  return out;
+// Compose the named-gear sentence + character descriptors.
+function higgsRigToken(sc){
+  var hr=higgsRig(sc);
+  var focal=hr.focal?hr.focal.split('—')[0].split('-')[0].trim():'';
+  var ap=hr.aperture?hr.aperture.split('—')[0].split('-')[0].trim():'';
+  var gear='Shot on '+hr.cam+', '+hr.lens+' lens';
+  if(focal)gear+=', '+focal;
+  if(ap)gear+=', '+ap;
+  return{line:gear,camD:HIGGS_CAM[hr.cam]||'',lensD:HIGGS_LENS[hr.lens]||'',cam:hr.cam,lens:hr.lens,focal:focal,ap:ap};
+}
+// Phone amateur-capture vocabulary — NO gear names (naming a lens = AI-slop trigger).
+// Describe the careless capture; cut all quality words. This is the whole phone realism play.
+// v13f: the tone line previously said high global contrast with hard-clipping highlights.
+// That is a cheap camera or a hard JPEG, not an iPhone. Local tone mapping does the opposite:
+// it holds highlights back and keeps shadows open, so the frame reads flat and soft with high
+// micro-contrast from sharpening. Mapping the light that is there is device character; adding
+// brightness to the whole frame would override the lighting chips, so it stays out.
+// v13d: DEVICE CHARACTER ONLY. This used to dictate framing (the shot chips own that),
+// force an on-camera flash at night and apply HDR/night-mode brightening (the lighting
+// chips own that), and ask for motion blur and sensor noise (capture artefacts, which
+// never rendered in any test). Choosing a phone must change how the image is RENDERED,
+// never what was lit or how it was framed.
+function phoneCapture(sc){
+  return '26mm-equivalent wide lens on a small phone sensor, held close to the subject: whatever is nearest the lens renders noticeably larger than it should be, the face widens slightly toward the centre of the frame, and the background falls away wide and far behind. Deep depth of field, with the near subject, the middle of the room and the far background all holding the same sharpness and no subject separation anywhere. Mild barrel distortion and slightly soft corners. Aggressive computational sharpening over-renders fabric weave and skin texture and leaves a thin bright halo along high-contrast edges. Phone tone mapping: highlights held back rather than allowed to clip, midtones sitting slightly flat, skin rendered soft and low in contrast, colour saturated without becoming harsh';
+}
+// Grade-only look tokens (lighting + visual look) — EXCLUDES camera/lens so the
+// Higgsfield named-gear token owns the optics and nothing double-describes it (anti-clash).
+function lookTokensGrade(sc,target){
+  var toks=[];
+  function add(key){if(!key)return;var e=LOOK_DICT[key];toks.push(e?e[target]:key);}
+  var er=effRig(sc);
+  (sc.lighting||[]).forEach(add);
+  add(er.visualLook);
+  return dedupPhrases(toks.join(', '));
 }
 
 function lookTokens(sc,target){
@@ -4231,6 +4598,64 @@ function diegeticAudio(sc){
 
 // REALISTIC IMAGE PROMPT — slot hierarchy; shot composition first, identity lock early,
 // look-tokens (img tier) replace flat camera labels; brand DNA sanitized and appended last.
+// ─── OPTICAL CHARACTER (per-scene toggles) ───
+// Higgsfield's renderer produces film grain, halation bloom and lens imperfection for free.
+// Banana Pro / GPT don't — they need it stated as a finished-film PROPERTY of the image.
+// These opt-in toggles inject one short line each; off = zero tokens. Scene-aware so a
+// halation bloom in a dark scene glows only on practicals instead of washing the frame.
+function opticalChar(sc){
+  if(mediumFor(sc)==='phone')return{}; // phone=raw: no cinema optical language (Pro-Mist/film grain = cinema leak)
+  var env=((sc.time||'')+' '+arrS(sc.lighting)+' '+(sc.location||'')).toLowerCase();
+  var dark=/night|neon|low[- ]?key|dark|dim|evening|club|\bbar\b|moonlit|dusk/.test(env);
+  var o={};
+  if(sc.halationDiff){
+    o.halation=dark
+      ?'subtle diffusion halation blooming only around the in-scene practical lights, soft organic glow, blacks kept clean and deep'
+      :'a soft diffusion-filter bloom on the highlights (Black Pro-Mist character), gentle warm halation glow washing the highlights, organic and filmic not clinical';
+  }
+  if(sc.lensAberr){
+    o.aberr='authentic cinema-lens character: faint chromatic-aberration fringing on high-contrast edges, mild optical vignetting and a slight barrel distortion toward the frame edges, imperfect like real glass';
+  }
+  if(sc.softFocus){
+    o.soft='softened overall sharpness with a gentle organic focus, detail slightly diffused rather than clinically razor-sharp';
+  }
+  if(sc.halationDiff){
+    var filmLook=((sc.visualLook||'')+(sc.lensType||'')).toLowerCase();
+    o.grain=/digital clean|zeiss ultra|arri signature/.test(filmLook)
+      ?'visible photographic grain texture distributed evenly across the entire frame like real celluloid film stock, not clean or noiseless'
+      :'clearly visible coarse analog film grain spread across the entire image, every part of the frame carries grain texture, this is shot on real film stock not digital';
+  }
+  return o;
+}
+// ── FILTER-SAFE REWRITE (v12z) ──────────────────────────────────────
+// Generates a master prompt you paste into an AI tool (ChatGPT/Claude/Gemini) together with a
+// rejected Seedance/Higgsfield prompt. The AI tool does the CONTEXTUAL reframing that regex
+// substitution cannot: community + 2026 guides find these filters judge whole-scene INTENT, not
+// individual words, so word-swapping alone fails. This encodes the six techniques that actually
+// pass: spectacle-not-violence, front-loaded film framing, positive restatement of negatives,
+// register consistency, reference-image-carries-identity, and probabilistic retry.
+// NOT a bypass: it reframes false-positive wording for legitimately creative scenes; genuinely
+// graphic/realistic-violence content is a hard block no rewrite will (or should) pass.
+function bldFilterSafe(){
+  var intro={chatgpt:'You are a Seedance / Higgsfield prompt engineer who specializes in passing strict content filters for legitimate cinematic work.\n\n',
+             claude:'You are a Seedance / Higgsfield prompt engineer who specializes in passing strict content filters for legitimate cinematic work.\n\n',
+             gemini:'Act as a Seedance / Higgsfield prompt engineer who specializes in passing strict content filters for legitimate cinematic work.\n\n'};
+  var out=(intro[S.aiTool]||intro.chatgpt);
+  out+='I will paste a video prompt below that got rejected by the content filter even though the scene is fictional and non-graphic (e.g. sci-fi, action, thriller). Rewrite it so it passes, WITHOUT changing what the shot actually looks like.\n\n';
+  out+='HOW THESE FILTERS WORK (apply all of it):\n';
+  out+='1. SPECTACLE, NOT VIOLENCE. These filters judge the whole scene\u2019s intent, so remove literal action verbs (fight, kill, attack, shoot, battle, destroy, blood) and instead describe the VISUAL EFFECTS that action produces \u2014 sparks, energy clash, debris, smoke trails, muzzle flash, dust, shockwaves, scattered light. Write like a director describing a shot, not a novelist describing harm.\n';
+  out+='2. FRONT-LOAD FILM FRAMING. Open with production context that signals creative intent \u2014 e.g. "A dramatic film still from a sci-fi feature:", "A cinematic action sequence:", "VFX-heavy movie shot:". This sets the interpretation before the filter reads the action.\n';
+  out+='3. RESTATE NEGATIVES POSITIVELY. Convert any "no X" / "avoid X" phrasing into positive description (e.g. "no anatomy distortion" \u2192 "natural, correct proportions"). Negative phrasing containing charged words can itself trigger the filter. Do not output any AVOID/negative block.\n';
+  out+='4. KEEP REGISTER CONSISTENT. One graphic word in an otherwise cinematic prompt still triggers rejection. Every clause must read as film-craft vocabulary \u2014 no leftover blunt terms anywhere.\n';
+  out+='5. LET THE IMAGE CARRY IDENTITY. Describe people by role in the scene (the lead figure, the armored soldiers), not by name; keep any @Image / @Audio reference tags exactly as written.\n';
+  out+='6. PRESERVE STRUCTURE. Keep the shot list, timing, camera-move grammar, aspect ratio, and reference tags intact \u2014 only the wording of subjects/actions changes.\n\n';
+  out+='ALSO: add "cinematic atmosphere" and "no spoken dialogue" if not present (they help the classifier read intent). Keep it stylized where possible \u2014 these filters are more permissive on creature/sci-fi/stylized content than on realistic human violence.\n\n';
+  out+='OUTPUT: respond with ONLY the rewritten prompt inside one fenced code block (```), nothing else. If the scene as written is genuinely graphic real-world violence that no reframing can legitimately pass, say so in one line instead of rewriting.\n\n';
+  out+='RETRY NOTE (for me, not part of the output): these filters are partly probabilistic \u2014 if a clean rewrite still gets rejected, re-submitting the exact same prompt passes ~30\u201340% of the time on borderline scenes.\n\n';
+  out+='--- PASTE THE REJECTED PROMPT BELOW THIS LINE ---\n[paste your Seedance/Higgsfield prompt here]';
+  return out;
+}
+
 function bldImg(sc){
   var p=S.proj;
   var pts=[];
@@ -4265,26 +4690,26 @@ function bldImg(sc){
   // 5. Optics + light as physical rendering consequences (Look-Token Dictionary, img tier).
   // effRig: recognized style supplies its canonical camera package where the user left blanks.
   var er=effRig(sc);
-  var fl=er.focalLength?er.focalLength.replace('—','–'):'';
-  var ap=er.aperture?er.aperture.replace('—','–'):'';
-  var optics=[fl,ap].filter(Boolean).join(', ');
-  var lookImg=lookTokens(sc,'img');
-  if(lookImg)pts.push('RENDERING: '+lookImg+(optics?', '+optics:''));
-  else if(optics)pts.push('RENDERING: '+optics);
+  var medImg=mediumFor(sc);
+  if(medImg==='phone'){
+    // Phone: amateur-capture vocabulary, zero named gear (see phoneCapture rationale).
+    pts.push('CAPTURE: '+phoneCapture(sc));
+  } else {
+    // Realistic non-phone: Higgsfield named-gear token replaces effect descriptions.
+    var hrt=bldImg._hrt=higgsRigToken(sc);
+    pts.push('CINEMA RIG: '+hrt.line+([hrt.camD,hrt.lensD].filter(Boolean).length?' — '+[hrt.camD,hrt.lensD].filter(Boolean).join('; '):''));
+  }
+  // GRADE = lighting + visual look only (camera/lens live in the rig token above).
+  var lookImg=lookTokensGrade(sc,'img');
+  if(lookImg)pts.push('GRADE: '+lookImg);
   var lq=arrS(sc.lightQuality);
   if(lq)pts.push(lq+' light quality');
-  // 5.5 Exposure decision + scene-motivated optical artifacts (medium-aware, finish-gated).
-  // This is what breaks the AI's "perfectly balanced" calculation into a celluloid capture.
-  var exp=exposureDecision(sc);
+  // 5.5 Exposure + optical artifacts. Skipped for phone (phoneCapture already carries
+  // the phone exposure/defect signature — stacking both would clash and read as a filter).
+  var exp=medImg==='phone'?'':exposureDecision(sc);
   if(exp)pts.push('EXPOSURE: '+exp);
-  var oa=opticArtifacts(sc,'img');
+  var oa=medImg==='phone'?'':opticArtifacts(sc,'img');
   if(oa)pts.push('OPTICS: '+oa);
-  // 5.55 Filmic optics — depth, focus falloff, lens softness, motion blur (frame-level, not skin)
-  var fo=filmicOptics(sc);
-  if(fo)pts.push('DEPTH & LENS: '+fo);
-  // 5.6 Eye life — gated to CU/MCU/ECU (eyeDetail handles the gate + formal skip)
-  var eyeI=eyeDetail(sc,'img');
-  if(eyeI)pts.push('EYES: '+eyeI);
 
   // 6. Brand DNA / custom instructions (sanitized, appended near-last — cannot override composition)
   var instr=cleanInstr();
@@ -4298,13 +4723,21 @@ function bldImg(sc){
   var hasCustomStyle=cvsEl&&cvsEl.value.trim();
   var formalStyle=rsImg&&rsImg.formal;
   var baseStack=PHOTOREALISM_TECHNICAL;
-  if(mediumFor(sc)==='phone')baseStack=baseStack.replace('fine photographic grain, subtle halation on bright highlights','fine digital noise texture, computational sharpness signature');
-  // CANDID gate now follows Texture Finish, NOT custom-style presence. Old logic dropped the
-  // anti-gloss imperfection tokens the moment a style reference was pasted — exactly backwards
-  // for faded/raw references (Super 8, documentary): those NEED the imperfection tokens to win
-  // against the model's glossy bias. Only formal styles and an explicit CLEAN finish drop them.
-  pts.push((formalStyle||finishLevel()==='clean')?baseStack:(baseStack+PHOTOREALISM_AESTHETIC));
-  var ar=p.platform&&p.platform.indexOf('9:16')>-1?'9:16':p.platform&&p.platform.indexOf('4:5')>-1?'4:5':p.platform&&p.platform.indexOf('2.39')>-1?'2.39:1':'16:9';
+  // v13c fix: this used to swap the grain/halation phrase, which change #4 removed \u2014 the
+  // replace silently matched nothing and the phone branch became dead code. It now swaps the
+  // new focus phrase for its phone opposite: a small sensor holds everything in focus and the
+  // computational pipeline lifts the shadows, which is the reverse of the cinema decision.
+  if(mediumFor(sc)==='phone'){
+    baseStack=baseStack.replace('one plane of focus placed on a specific named surface with everything outside it left unresolved, shadows left unfilled wherever no light reaches','near and far rendered equally sharp by a small sensor with no subject separation');
+    // v13e: this clause sat immediately before the one above and asks for the opposite.
+    // Small sensors do not layer depth; leaving both in produced partial separation.
+    baseStack=baseStack.replace('atmospheric depth layering between foreground and background, ','');
+  }
+  pts.push((hasCustomStyle||formalStyle)?baseStack:(baseStack+PHOTOREALISM_AESTHETIC));
+  if(mediumFor(sc)!=='phone')pts.push(defectTokens());
+  var oc=opticalChar(sc);var ocP=[oc.halation,oc.aberr,oc.soft,oc.grain].filter(Boolean);
+  if(ocP.length)pts.push('OPTICAL CHARACTER: '+ocP.join('; '));
+  var ar=(!p.platform&&p.genre==='Drama Reel (Vertical)')?'9:16':p.platform&&p.platform.indexOf('9:16')>-1?'9:16':p.platform&&p.platform.indexOf('4:5')>-1?'4:5':p.platform&&p.platform.indexOf('2.39')>-1?'2.39:1':'16:9';
   var out=joinProse(pts)+'.\nAspect ratio: '+ar+'.';
   var assetBlock=assetSectionFor(sc,true);
   if(assetBlock)out+='\n\n'+assetBlock;
@@ -4314,23 +4747,117 @@ function bldImg(sc){
   return out;
 }
 
+// ═══ CONCISE CINEMATIC PROSE MODE (Higgsfield-ready, ≤2500 chars) ═══
+// Image models trained on caption/photo pairs respond better to natural causal prose
+// than to labeled blocks. Grammar forces reconciliation ("Shot on X, for shallow DoF")
+// and the single anti-AI closing sentence replaces the 30-item AVOID checklist.
+// Hard-capped at 2500 chars so the whole thing pastes into Higgsfield Cinema Studio.
+function pClean(x){return(x||'').replace(/\s+/g,' ').replace(/\s+([,.;])/g,'$1').replace(/,\s*,/g,',').replace(/\.\s*\./g,'.').trim();}
+function pCap(x){return x?x.charAt(0).toUpperCase()+x.slice(1):x;}
+// Auto-derived color temperature from time + lighting (zero extra input).
+function deriveKelvin(sc){
+  var env=((sc.time||'')+' '+arrS(sc.lighting)+' '+arrS(sc.lightQuality)+' '+(sc.location||'')).toLowerCase();
+  if(/candle|firelight|tungsten|lamp|warm|golden hour|sunset|sunrise/.test(env))return'warm 3000K tungsten-gold light';
+  if(/neon|nightclub|\bbar\b|cyber|mixed light/.test(env))return'mixed neon color temperature with magenta and cyan casts';
+  if(/dawn|daybreak/.test(env))return'cool-warm 4500K dawn transition light';
+  if(/evening/.test(env))return'warm 3500K early-evening light';
+  if(/night|moonlit|moon|blue hour|dusk/.test(env))return'cool 4000K low light';
+  if(/overcast|cloud|shade|fog|rain|mist/.test(env))return'flat 6500K overcast light';
+  if(/office|fluorescent|hospital|store|supermarket/.test(env))return'neutral 4500K fluorescent light';
+  if(/day|noon|morning|sunny|bright|window|exterior|outdoor/.test(env))return'clean 5600K daylight';
+  return'natural 5200K light';
+}
+// Aperture → depth-of-field consequence, stated causally.
+function pDof(ap){
+  var a=(ap||'').toLowerCase();
+  if(/f\/1\.[024]|f\/1\.8/.test(a))return'a shallow depth of field that dissolves the background into soft light';
+  if(/f\/2(\D|$)|f\/2\.[08]/.test(a))return'gentle subject separation against a softly blurred background';
+  if(/f\/4|f\/5\.6/.test(a))return'a moderate depth of field holding the subject and its near surroundings';
+  if(/f\/8|f\/11|f\/16/.test(a))return'deep focus with the whole scene rendered sharp';
+  return'natural focus separation';
+}
+function identityProse(sc){
+  var r=resolveIdentity(sc);
+  if(!r.entries.length)return'';
+  return r.entries.slice(0,2).map(function(e){return e.name+', '+e.token;}).join('; ');
+}
+function bldImgProse(sc){
+  var p=S.proj;
+  var medP=mediumFor(sc);
+  var comp=shotToComposition(sc.shotType);
+  // [priority, sentence] — higher priority survives the 2500-char trim.
+  var L=[];
+  var subj=(sc.script||'the subject').trim();
+  var shotClause=sc.shotType?(sc.shotType.toLowerCase()+(comp?', '+comp:'')):'';
+  L.push([10,pCap(pClean(subj+(shotClause?' — '+shotClause:'')))+'.']);
+  var idp=identityProse(sc);
+  if(idp)L.push([9,pCap(pClean(idp))+', rendered with this exact appearance.']);
+  var loc=[];if(sc.location)loc.push(sc.location);if(sc.time)loc.push(sc.time);
+  if(loc.length)L.push([6,pCap(pClean('set in '+loc.join(', ')))+'.']);
+  if(medP==='phone'){
+    L.push([8,pCap(phoneCapture(sc))+'.']);
+  } else {
+    var hrt=higgsRigToken(sc);
+    L.push([8,pClean(hrt.line+', for '+pDof(hrt.ap))+'.']);
+    var chr=pClean([hrt.camD,hrt.lensD].filter(Boolean).join('; '));
+    if(chr)L.push([4,pCap(chr)+'.']);
+  }
+  var lit=arrS(sc.lighting),lq=arrS(sc.lightQuality);
+  L.push([7,pCap(pClean('lit by '+(lit?lit+', ':'')+deriveKelvin(sc)+(lq?', '+lq+' quality':'')))+'.']);
+  if(medP!=='phone'){var exp=exposureDecision(sc);if(exp)L.push([5,pCap(pClean(exp))+'.']);}
+  var lkG=lookTokensGrade(sc,'img');
+  if(lkG)L.push([4,pCap(pClean(lkG))+'.']);
+  if(sc.mood)L.push([3,pCap(sc.mood)+' atmosphere.']);
+  var oc=opticalChar(sc);
+  if(oc.halation)L.push([7,pCap(oc.halation)+'.']);
+  if(oc.aberr)L.push([6,pCap(oc.aberr)+'.']);
+  if(oc.soft)L.push([6,pCap(oc.soft)+'.']);
+  if(oc.grain)L.push([9,pCap(oc.grain)+'.']);
+  var instr=cleanInstr();
+  if(instr)L.push([5,pClean(instr)+(/[.!?]$/.test(instr)?'':'.')]);
+  var closer=medP==='phone'
+    ?'It should read as a phone photograph: the same sharpness held from near to far, texture over-rendered by computational sharpening, and skin left with its real pores and marks.'
+    :'It should read as a real photograph: one motivated light source with its shadows left unfilled, the plane of focus placed on one specific surface, and everything outside that plane left unresolved.';
+  L.push([10,closer]);
+  var ar=(!p.platform&&p.genre==='Drama Reel (Vertical)')?'9:16':p.platform&&p.platform.indexOf('9:16')>-1?'9:16':p.platform&&p.platform.indexOf('4:5')>-1?'4:5':p.platform&&p.platform.indexOf('2.39')>-1?'2.39:1':'16:9';
+  var tail=' Aspect ratio '+ar+'.';
+  var assetBlock=assetSectionFor(sc,true);
+  var reserve=assetBlock?(assetBlock.length+2):0;
+  var cap=Math.max(1400,2500-reserve);
+  // assemble in original order; if over cap, drop lowest-priority sentences first.
+  var idxKeep=L.map(function(_,i){return i;});
+  function build(){return idxKeep.map(function(i){return L[i][1];}).join(' ')+tail;}
+  var body=build();
+  while(body.length>cap&&idxKeep.length>1){
+    var worst=-1,wp=999;
+    idxKeep.forEach(function(i){if(L[i][0]<wp){wp=L[i][0];worst=i;}});
+    idxKeep=idxKeep.filter(function(i){return i!==worst;});
+    body=build();
+  }
+  var out=body;
+  if(assetBlock)out+='\n\n'+assetBlock;
+  if(out.length>2500)out=out.slice(0,2497).replace(/\s+\S*$/,'')+'…';
+  return out;
+}
 function bldNeg(sc){
   var neg=['blurry','distorted anatomy','deformed hands','extra fingers','extra limbs','watermark','text overlay','low quality','pixelated','AI artifacts','photo collage','split screen','grid layout','multiple panels','storyboard sheet'];
-  // Anti-airbrush aesthetic negatives follow Texture Finish (clean finish = polished look is
-  // intentional, drop them); a pasted style reference no longer silently removes them.
-  var negList=(finishLevel()==='clean'?PHOTOREALISM_NEGATIVE_TECHNICAL:PHOTOREALISM_NEGATIVE).split(', ');
+  var cvsEl2=document.getElementById('customVisualStyle');
+  var hasCustomStyle2=cvsEl2&&cvsEl2.value.trim();
+  var negList=(hasCustomStyle2?PHOTOREALISM_NEGATIVE_TECHNICAL:PHOTOREALISM_NEGATIVE).split(', ');
   // Formalist styles (Wes Anderson, Fincher, Commercial) REQUIRE symmetry / centered
   // composition / controlled lighting — prohibiting them in AVOID (recency position) is
   // exactly why the style never landed. Prune the contradicting tokens.
   var rsNeg=resolveStyle();
   if(rsNeg&&rsNeg.formal)negList=negList.filter(function(t){return !/symmetry|centered|studio-perfect/i.test(t);});
+  // Halation Diffusion ON: 'HDR glow' in AVOID fights the positive halation ask — model averages both back to clean. Prune it.
+  if(sc.halationDiff)negList=negList.filter(function(t){return !/HDR glow/i.test(t);});
   neg=neg.concat(negList);
   var ap=sc.aperture||'',ln=sc.lensType||'',pt=S.proj.type||'';
   if(ap.indexOf('f/1.2')>-1||ap.indexOf('f/1.4')>-1)neg.push('sharp background','deep focus background');
   if(ap.indexOf('f/11')>-1||ap.indexOf('f/16')>-1)neg.push('bokeh','background blur');
   if(ln.indexOf('Fisheye')>-1)neg.push('straight lines');
   if(pt==='sliceoflife'||pt==='documentary')neg.push('overly polished','artificial studio lighting');
-  if(pt==='phoneshoot')neg.push('cinematic anamorphic look','professional studio lighting','tripod-perfect composition','shallow cinema depth of field');
+  if(pt==='phoneshoot')neg.push('cinematic anamorphic look','professional studio lighting','tripod-perfect composition','shallow cinema depth of field','film grain','lens flare');
   return neg.join(', ');
 }
 
@@ -4355,6 +4882,7 @@ function bldKling(sc){
     if(hasDlg)parts.push('[DIALOG] "'+sc.dialog.trim()+'" — lip sync, natural delivery');
     if(sc.shotType)parts.push('[SHOT] '+sc.shotType+(shotToComposition(sc.shotType)?' — '+shotToComposition(sc.shotType):''));
     if(kin)parts.push('[CAMERA] '+kin);
+    if(p.genre==='Music Video'&&sc.mvEnergy&&MV_ENERGY_DICT[sc.mvEnergy])parts.push('[MV GRAMMAR] '+MV_ENERGY_DICT[sc.mvEnergy].cam+' — one dominant camera motion only');
     if(art)parts.push('[STYLE] '+art);
     if(col)parts.push('[COLOR] '+col);
     if(energy)parts.push('[ENERGY] '+energy);
@@ -4376,6 +4904,7 @@ function bldKling(sc){
   if(sc.location||sc.time)parts.push('LOCATION: '+(sc.location||'')+(sc.time?' at '+sc.time:''));
   var camLine=(shotToLabel(sc.shotType)||'')+(kin?(sc.shotType?' — ':'')+kin:'');
   if(camLine)parts.push('CAMERA: '+camLine);
+  if(p.genre==='Music Video'&&sc.mvEnergy&&MV_ENERGY_DICT[sc.mvEnergy])parts.push('MV CAMERA GRAMMAR ('+(sc.section||'section')+'): '+MV_ENERGY_DICT[sc.mvEnergy].cam+' — exactly ONE dominant camera motion in this shot');
   // Style anchor only for txt2vid (img2vid style is locked in the source image)
   if(!isI2V&&sa)parts.push('STYLE: '+sa.split('.')[0]);
   // Mood drives motion energy & performance pacing even in img2vid (vibe is not in the pixels)
@@ -4391,7 +4920,7 @@ function bldKling(sc){
   if(oaK)parts.push('OPTICS: '+oaK);
   // Compact end-state — undirected clips drift
   parts.push('END: '+deriveLastFrame(sc));
-  if(hasDlg)parts.push(isPerfDialog(sc)?'PERFORMANCE: the artist lip-syncs and performs to their track — expressive singing mouth movement, emotionally connected delivery, performance energy in the whole body':'DIALOG: "'+sc.dialog.trim()+'" — natural lip sync');
+  if(hasDlg)parts.push('DIALOG: "'+sc.dialog.trim()+'" — natural lip sync');
   if(instr)parts.push('NOTE: '+instr);
   var fmt=p.platform&&p.platform.indexOf('9:16')>-1?'9:16':p.platform&&p.platform.indexOf('16:9')>-1?'16:9':'9:16';
   parts.push('OUTPUT: '+fmt+', 4-6s, no anatomy distortion');
@@ -4418,10 +4947,12 @@ function bldSeed(sc){
   if(lock)parts.push(lock);
   // Slot 2: action
   if(sc.script)parts.push('ACTION: '+sc.script);
-  if(hasDlg)parts.push(isPerfDialog(sc)?'PERFORMANCE: the artist lip-syncs and performs to their track — expressive singing mouth movement, breath and phrasing visible, emotionally connected delivery, performance energy in the whole body':'DIALOGUE: "'+sc.dialog.trim()+'" — precise lip sync, natural mouth movement');
+  if(hasDlg)parts.push('DIALOGUE: "'+sc.dialog.trim()+'" — precise lip sync, natural mouth movement');
   // Slot 3: kinematics
   if(sc.shotType)parts.push('SHOT TYPE: '+(isAnim?sc.shotType+(shotToComposition(sc.shotType)?' — '+shotToComposition(sc.shotType):''):shotToLabel(sc.shotType)));
   if(kin)parts.push('CAMERA MOVEMENT: '+kin);
+  if(p.genre==='Music Video'&&sc.mvEnergy&&MV_ENERGY_DICT[sc.mvEnergy])parts.push('MV CAMERA GRAMMAR ('+(sc.section||'section')+'): '+MV_ENERGY_DICT[sc.mvEnergy].cam+' — exactly ONE dominant camera motion in this shot');
+  if(p.genre==='Music Video')parts.push('MUSIC SYNC: upload the song as @Audio1 — @Audio1 defines beat timing, camera rhythm, and cut pacing; motion accents land on the beat');
   // Slot 4: environment
   if(sc.location||sc.time)parts.push('LOCATION: '+(sc.location||'')+(sc.time?' at '+sc.time:''));
   if(sc.mood)parts.push('MOOD: '+sc.mood);
@@ -4448,10 +4979,6 @@ function bldSeed(sc){
     var medS=mediumFor(sc);
     parts.push('MOTION REALISM: '+MOTION_TEXTURE.seed+(medS==='phone'?'; authentic phone capture — handheld micro-jitter survives stabilization, momentary exposure adaptation and brief focus hunting as the camera moves':''));
     parts.push('AMBIENT MOTION: '+ambientMotion(sc));
-    var eyeS=eyeDetail(sc,'seed');
-    if(eyeS)parts.push('EYE LIFE: '+eyeS);
-    var foS=filmicOptics(sc);
-    if(foS)parts.push('DEPTH & LENS: '+foS);
     var expS=exposureDecision(sc);
     if(expS)parts.push('EXPOSURE: '+expS);
     var oaS=opticArtifacts(sc,'seed');
@@ -4461,7 +4988,7 @@ function bldSeed(sc){
   } else {
     parts.push('QUALITY: Fluid natural motion, no glitch, no anatomy distortion');
   }
-  var ar=p.platform&&p.platform.indexOf('9:16')>-1?'9:16':p.platform&&p.platform.indexOf('2.39')>-1?'2.39:1':'16:9';
+  var ar=(!p.platform&&p.genre==='Drama Reel (Vertical)')?'9:16':p.platform&&p.platform.indexOf('9:16')>-1?'9:16':p.platform&&p.platform.indexOf('2.39')>-1?'2.39:1':'16:9';
   parts.push('OUTPUT: '+ar+', 4-6 seconds');
   // Slot 8: bookend anchor (recency bias exploit)
   if(bookend)parts.push(bookend);
@@ -4490,14 +5017,224 @@ function bldAnimImg(sc){
   var instr=cleanInstr();
   if(instr)pts.push(instr);
   pts.push('High quality illustration, sharp clean artwork, professional animation production quality');
-  var ar=p.platform&&p.platform.indexOf('9:16')>-1?'9:16':p.platform&&p.platform.indexOf('4:5')>-1?'4:5':'16:9';
+  var ar=(!p.platform&&p.genre==='Drama Reel (Vertical)')?'9:16':p.platform&&p.platform.indexOf('9:16')>-1?'9:16':p.platform&&p.platform.indexOf('4:5')>-1?'4:5':'16:9';
   var animOut=joinProse(pts)+'.\nAspect ratio: '+ar+'.';
   var animAssetBlock=assetSectionFor(sc,true);
   return animAssetBlock?animOut+'\n\n'+animAssetBlock:animOut;
 }
 
+// ═══ SEEDANCE BLOCK PLAN (v12p) ═══
+// Groups scenes into <=15s / <=3-shot Seedance generations. Boundary is strict:
+// MV -> song section changes; non-MV -> location+time changes (shared-anchor continuity rule).
+function sceneDur(sc){
+  // v12v: Seedance minimum is 4s per shot — everything clamps to >=4.
+  var d=parseInt(String(sc.duration||'').replace(/[^0-9]/g,''),10);
+  if(d&&d>0)return Math.min(Math.max(d,4),15);
+  if(S.proj.genre==='Music Video'&&sc.mvEnergy){if(sc.mvEnergy>=3)return 4;return 6;}
+  return 5;
+}
+function blockKey(sc){
+  if(S.proj.genre==='Music Video')return 'sec:'+(sc.section||'').toLowerCase().trim();
+  return 'loc:'+((sc.location||'')+'|'+(sc.time||'')).toLowerCase().trim();
+}
+var blockPackMode=null; // transient: 'strict' | 'pack'; default strict for MV, pack otherwise
+function packModeActive(){return blockPackMode!==null?blockPackMode:(S.proj.genre==='Music Video'?'strict':'pack');}
+function setPackMode(m){blockPackMode=m;genAll();}
+function buildBlockPlan(){
+  var blocks=[],cur=null,strict=packModeActive()==='strict';
+  S.scenes.forEach(function(sc){
+    var d=sceneDur(sc),k=blockKey(sc);
+    var mustBreak=!cur||sc.blockBreak||(strict&&cur.key!==k)||cur.dur+d>15||cur.scenes.length>=3;
+    if(mustBreak){cur={key:k,dur:0,scenes:[]};blocks.push(cur);}
+    cur.scenes.push(sc);cur.dur+=d;
+  });
+  var t=0;
+  blocks.forEach(function(b){b.audioStart=t;t+=b.dur;});
+  // v12u — if actual song timestamps exist, re-anchor each section's first block to the real section start.
+  // Block VIDEO length stays as-is (video==audio segment length); only the audio POSITION moves.
+  blocks.syncActive=false;blocks.syncWarn=[];
+  var tl=mvSyncTimeline();
+  if(tl){
+    blocks.syncActive=true;
+    // v13a B2: occurrence-aware anchoring. The old pointer could only move FORWARD through the
+    // timeline, so any section reappearing later in shot order (a second Chorus run, an inserted
+    // Intro shot, or two table rows sharing one name) silently inherited the previous section's
+    // clock and was skipped by the coverage count. Now each CONTIGUOUS RUN of blocks sharing a
+    // key claims the next unused timeline entry with that key; a run with no entry left is marked
+    // unanchored (estimated time) and reported, instead of being quietly wrong.
+    var occ={},used={},ti;
+    for(ti=0;ti<tl.length;ti++){if(!occ[tl[ti].key]){occ[tl[ti].key]=[];used[tl[ti].key]=0;}occ[tl[ti].key].push(ti);}
+    var covered=tl.map(function(){return 0;});
+    var prevKey=null,cursor=-1,tt=0,orphan={};
+    blocks.forEach(function(b){
+      if(b.key!==prevKey){
+        var list=occ[b.key];
+        if(list&&used[b.key]<list.length){cursor=list[used[b.key]++];tt=tl[cursor].start;}
+        else{cursor=-1;orphan[b.key]=(orphan[b.key]||0)+1;}
+        prevKey=b.key;
+      }
+      b.syncAnchored=cursor>=0;
+      b.audioStart=tt;tt+=b.dur;
+      if(cursor>=0)covered[cursor]+=b.dur;
+    });
+    tl.forEach(function(seg,i){
+      if(seg.end!==null&&seg.end!==undefined){
+        var actual=seg.end-seg.start,diff=covered[i]-actual;
+        if(Math.abs(diff)>2)blocks.syncWarn.push(seg.name+': shots cover '+covered[i]+'s but the real song section is '+actual+'s ('+(diff>0?'+':'')+diff+'s) \u2014 add/trim shots or accept the gap');
+      }
+    });
+    var ok;for(ok in orphan){if(Object.prototype.hasOwnProperty.call(orphan,ok)){
+      blocks.syncWarn.push('\u201c'+String(ok).replace('sec:','')+'\u201d has '+orphan[ok]+' more shot run'+(orphan[ok]>1?'s':'')+' than the song table has rows with that name \u2014 those blocks fall back to ESTIMATED audio times. Add the repeat row (e.g. \u201cChorus 2\u201d) to the MV table, or put the shots in song order.');
+    }}
+  }
+  return blocks;
+}
+function fmtMMSS(s){var m=Math.floor(s/60),r=s%60;return m+':'+(r<10?'0':'')+r;}
+function parseMMSS(v){var m=String(v||'').trim().match(/^(\d+):([0-5]?\d)$/);return m?(+m[1])*60+(+m[2]):null;}
+// Actual-song timeline from MV section Start times. Usable only if MV + strict pack mode + ALL sections have valid,
+// non-decreasing timestamps. Returns null otherwise (block plan falls back to energy estimates unchanged).
+function mvSyncTimeline(){
+  if(S.proj.genre!=='Music Video'||packModeActive()!=='strict'||!S.mv||!S.mv.sections.length)return null;
+  var tl=[],prev=-1;
+  for(var i=0;i<S.mv.sections.length;i++){
+    var st=parseMMSS(S.mv.sections[i].start);
+    if(st===null||st<prev)return null;
+    tl.push({key:'sec:'+String(S.mv.sections[i].name||'').toLowerCase().trim(),name:S.mv.sections[i].name||('Section '+(i+1)),start:st});
+    prev=st;
+  }
+  var end=parseMMSS(S.mv.songEnd);
+  for(var j=0;j<tl.length;j++)tl[j].end=(j+1<tl.length)?tl[j+1].start:end;
+  return tl;
+}
+function bldSeedBlock(b,idx){
+  var p=S.proj,isMV=p.genre==='Music Video';
+  var isI2V=S.videoMode==='img2vid';var vMode=isI2V?'img2vid':'txt2vid';
+  var first=b.scenes[0],last=b.scenes[b.scenes.length-1];
+  var parts=[];
+  // Global anchor line: montage declaration + governing look — every shot inherits it
+  var anchor='Montage, multi-shot '+(isMV?'music video':'cinematic sequence')+", don't use one camera angle or single cut";
+  if(isMV&&MV_GENRE_DICT[S.mv&&S.mv.genre])anchor+='. '+MV_GENRE_DICT[S.mv.genre].look;
+  else{var lv=lookTokens(first,'vid');if(lv)anchor+='. '+lv;}
+  parts.push(anchor);
+  // v12v — multi-reference legend for img2vid: @Image1..N mapped to characters + linked non-character assets.
+  if(isI2V){
+    var refs=[],seen={};
+    b.scenes.forEach(function(sc){
+      resolveIdentity(sc).entries.forEach(function(e){
+        if(!seen['c:'+e.name]){seen['c:'+e.name]=1;refs.push(e.name+' (character)');}
+      });
+      (S.assetLinks||[]).filter(function(l){return l.sceneId===sc.id;}).forEach(function(l){
+        var a=(S.assets||[]).find(function(x){return x.id===l.assetId;});
+        if(a&&a.type!=='character'&&!seen['a:'+a.id]){seen['a:'+a.id]=1;refs.push((a.name||'asset')+' ('+(a.type||'asset')+')');}
+      });
+    });
+    if(refs.length){
+      var legend='REFERENCE MAP: '+refs.map(function(r,i){return '@Image'+(i+1)+' = '+r;}).join(' \u00b7 ');
+      legend+=' \u2014 every time a name above appears in this prompt it refers to that reference image; match each subject exactly to its reference; product appearance must be IDENTICAL to its reference in every frame';
+      parts.push(legend);
+    }
+  }
+  var lock=identityLockLines(first,vMode);
+  if(lock)parts.push(lock);
+  var uniformLoc=b.scenes.every(function(s){return blockKey(s)===blockKey(first);});
+  if(uniformLoc&&(first.location||first.time))parts.push('LOCATION (all shots): '+(first.location||'')+(first.time?' at '+first.time:''));
+  // Numbered time-coded shots: one framing + one action + one motivated camera move each
+  var t=0;
+  b.scenes.forEach(function(sc,i){
+    var d=sceneDur(sc);
+    var seg='[SHOT '+(i+1)+' — '+t+'-'+(t+d)+'s] ';
+    var fr=shotToLabel(sc.shotType)||sc.shotType||'';
+    if(fr)seg+=fr+'. ';
+    if(!uniformLoc&&(sc.location||sc.time))seg+='Hard cut to '+(sc.location||'new setting')+(sc.time?' at '+sc.time:'')+': ';
+    if(sc.script)seg+=sc.script;
+    var kin=buildKinematics(sc,'seed');
+    if(kin)seg+=' Camera: '+kin+'.';
+    if(isMV&&sc.mvEnergy&&MV_ENERGY_DICT[sc.mvEnergy])seg+=' ['+MV_ENERGY_DICT[sc.mvEnergy].l+': one dominant motion — '+MV_ENERGY_DICT[sc.mvEnergy].cam+']';
+    // v13g: block prompts never read sc.dialog, so every multi-shot generation came out silent
+    // even when the single-scene prompt carried the line. Drama Reel lives on this path.
+    if(sc.showDialog&&sc.dialog&&sc.dialog.trim()&&sc.dialog.trim().toUpperCase()!=='NONE')seg+=' Dialogue (lip-sync, spoken within this shot): "'+sc.dialog.trim()+'"';
+    parts.push(seg);
+    t+=d;
+  });
+  if(isMV){
+    parts.push('MUSIC SYNC: cut the song to '+fmtMMSS(b.audioStart)+'–'+fmtMMSS(b.audioStart+b.dur)+' and upload that segment as @Audio1 — @Audio1 defines beat timing, camera rhythm, and cut pacing; motion accents land on the beat');
+  } else {
+    // v13g: voice presence follows ANY shot in the block, not just the first one.
+    var anyDlg=b.scenes.some(function(s){return s.showDialog&&s.dialog&&s.dialog.trim()&&s.dialog.trim().toUpperCase()!=='NONE';});
+    parts.push(diegeticAudio(anyDlg?Object.assign({},first,{showDialog:true,dialog:'line'}):first));
+  }
+  parts.push('LAST FRAME: '+deriveLastFrame(last));
+  var ar=(!p.platform&&p.genre==='Drama Reel (Vertical)')?'9:16':p.platform&&p.platform.indexOf('9:16')>-1?'9:16':p.platform&&p.platform.indexOf('2.39')>-1?'2.39:1':'16:9';
+  parts.push('OUTPUT: '+ar+', '+b.dur+' seconds, hard cuts between shots, no anatomy distortion');
+  var bookend=bookendAnchor(first,vMode);
+  if(bookend)parts.push(bookend);
+  var out=parts.filter(Boolean).join('\n');
+  var ab=assetSectionFor(first,true);
+  if(ab)out+='\n\n'+ab;
+  // 2000-char budget (research: trim duplicate style language first, keep timing + constraints)
+  if(out.length>2000&&!isMV){out=out.replace(anchor,anchor.split('. ')[0]);}
+  return out;
+}
+var blockPlanOn=null; // transient; default ON for Music Video
+function blockPlanActive(){return blockPlanOn===null?S.proj.genre==='Music Video':blockPlanOn;}
+function toggleBlockPlan(){blockPlanOn=!blockPlanActive();genAll();}
+function toggleBlockBreak(id){
+  var sc=S.scenes.find(function(s){return String(s.id)===String(id);});
+  if(sc){sc.blockBreak=!sc.blockBreak;save();genAll();}
+}
+function renderBlockPlan(){
+  var blocks=buildBlockPlan();
+  var isMV=S.proj.genre==='Music Video';
+  var h='<div class="card" style="border-color:#84CC1633;margin-bottom:14px;">';
+  h+='<div style="font-size:12px;font-weight:600;color:#a3e635;margin-bottom:8px;">&#127916; SEEDANCE BLOCK PLAN &mdash; '+blocks.length+' generation'+(blocks.length>1?'s':'')+' &middot; '+blocks.reduce(function(a,b){return a+b.dur;},0)+'s total</div>';
+  var pm=packModeActive();
+  h+='<div style="display:flex;gap:6px;margin-bottom:8px;">';
+  h+='<span style="font-size:10px;padding:3px 10px;border-radius:14px;cursor:pointer;border:1px solid '+(pm==='strict'?'#a3e635':'#2a2e2a')+';color:'+(pm==='strict'?'#a3e635':'#71717a')+';" data-packmode="strict" title="Break blocks at '+(S.proj.genre==='Music Video'?'song section':'location/time')+' changes — strongest continuity anchor">Strict boundaries</span>';
+  h+='<span style="font-size:10px;padding:3px 10px;border-radius:14px;cursor:pointer;border:1px solid '+(pm==='pack'?'#a3e635':'#2a2e2a')+';color:'+(pm==='pack'?'#a3e635':'#71717a')+';" data-packmode="pack" title="Pack scenes into the fewest generations — only 15s / 3-shot / manual breaks apply">Max pack</span>';
+  h+='</div>';
+  if(blocks.syncActive){
+    h+='<div style="font-size:10px;color:#4ade80;margin-bottom:6px;">&#9201; SYNC ON &mdash; audio segments use ACTUAL song timestamps from the MV table.</div>';
+    blocks.syncWarn.forEach(function(w){h+='<div style="font-size:10px;color:#fbbf24;margin-bottom:4px;">&#9888; '+w+'</div>';});
+  }
+  h+='<div style="font-size:10px;color:#71717a;margin-bottom:10px;">Each block = one Seedance generation (&le;15s, &le;3 shots). '+(isMV?'Cut the song to each AUDIO SEGMENT and upload as @Audio1 per block.':(pm==='strict'?'Blocks break at every location + time change.':'Max pack: scenes are packed into the fewest generations \u2014 one block may span more than one location.'))+' Use &#9986; to force a block break before a scene.</div>';
+  blocks.forEach(function(b,i){
+    var prompt=bldSeedBlock(b,i);
+    // v13a C2: a Max-pack block can cross locations \u2014 label every distinct one, not just the first.
+    var label;
+    if(isMV){label=escapeHtml(b.scenes[0].section||'Section');}
+    else{
+      var locs=[];
+      b.scenes.forEach(function(sc){var L=(sc.location||'Location')+(sc.time?' \u00b7 '+sc.time:'');if(locs.indexOf(L)<0)locs.push(L);});
+      label=escapeHtml(locs.join(' \u2192 '));
+    }
+    var exp=!!blkExpanded[i];
+    h+='<div style="margin-bottom:10px;background:#141714;border:1px solid #2a2e2a;border-radius:9px;padding:10px 12px;">';
+    h+='<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:'+(exp?'6px':'0')+';">';
+    h+='<span class="bA">BLOCK '+(i+1)+'</span><span class="bB">'+label+'</span>';
+    h+='<span style="font-size:10px;color:#71717a;font-family:JetBrains Mono;">'+b.scenes.length+' shot'+(b.scenes.length>1?'s':'')+' &middot; '+b.dur+'s'+(isMV?' &middot; AUDIO '+fmtMMSS(b.audioStart)+'&ndash;'+fmtMMSS(b.audioStart+b.dur)+((blocks.syncActive&&!b.syncAnchored)?' (est)':''):'')+'</span>';
+    // char-count meta stays in the always-visible header so warnings survive collapse
+    h+='<span style="font-size:9px;color:'+(prompt.length>2000?'#fbbf24':'#52525b')+';font-family:JetBrains Mono;">'+prompt.length+'c'+(prompt.length>2000?' &#9888;':'')+'</span>';
+    h+='<button class="btnG" style="margin-left:auto;padding:3px 10px;font-size:10px;" data-blkexp="'+i+'">'+(exp?'Collapse &#9650;':'Expand &#9660;')+'</button>';
+    h+='<button class="btnG" style="padding:3px 10px;font-size:10px;" data-cpblk="blkP_'+i+'">&#128203; Copy</button></div>';
+    // body only when expanded; <pre> is always in the DOM (display:none when collapsed) so Copy reads its text
+    h+='<div style="display:'+(exp?'block':'none')+';">';
+    h+='<div style="display:flex;gap:4px;flex-wrap:wrap;margin:6px 0;">';
+    b.scenes.forEach(function(sc){
+      h+='<span style="font-size:9px;padding:2px 6px;border-radius:4px;background:#1f231f;color:#a1a1aa;border:1px solid '+(sc.blockBreak?'#a3e635':'#2a2e2a')+';cursor:pointer;" data-blkbreak="'+sc.id+'" title="Toggle: start a new block at this scene">&#9986; '+escapeHtml(sc.title||'Scene')+'</span>';
+    });
+    h+='</div>';
+    h+='<div style="font-size:9px;color:#52525b;margin-bottom:4px;">'+prompt.length+' chars'+(prompt.length>2000?' &mdash; &#9888; over 2000, trim style language':'')+'</div>';
+    h+='</div>';
+    h+='<pre id="blkP_'+i+'" style="white-space:pre-wrap;font-size:10px;color:#d4d4d8;font-family:JetBrains Mono;line-height:1.5;margin:'+(exp?'6px 0 0':'0')+';max-height:220px;overflow:auto;display:'+(exp?'block':'none')+';">'+prompt.replace(/</g,'&lt;')+'</pre>';
+    h+='</div>';
+  });
+  h+='</div>';
+  return h;
+}
+
 // ═══ GENERATE ALL ═══
 var outExpanded={}; // transient expand state — survives re-render, not persisted
+var blkExpanded={}; // transient per-block expand state for the Seedance block plan; default collapsed
 function genAll(){
   var c=document.getElementById('outBox');
   if(!S.scenes.length){
@@ -4520,8 +5257,14 @@ function genAll(){
   if(sa)h+='<div style="font-size:10px;color:#52525b;font-family:JetBrains Mono;line-height:1.5;border-top:1px solid #2a2e2a;margin-top:6px;padding-top:6px;">'+sa+'</div>';
   h+='</div>';
 
+  // Block plan (Seedance multi-shot generations) — default ON for MV, opt-in otherwise
+  h+='<div style="margin-bottom:14px;display:flex;gap:8px;flex-wrap:wrap;"><button class="'+(blockPlanActive()?'btnP':'btnG')+'" id="blkToggleBtn" style="font-size:11px;">&#127916; Block Plan (Seedance &le;15s multi-shot): '+(blockPlanActive()?'ON':'OFF')+'</button>';
+  h+='<button class="btnG" id="filterSafeBtn" style="font-size:11px;" title="When a Seedance/Higgsfield prompt gets rejected: generates a rewrite instruction to paste into your AI tool along with the blocked prompt. Reframes false-positive wording without changing the shot.">&#128737; Filter-Safe Rewrite</button></div>';
+  h+='<div id="filterSafeBox" class="sBox" style="display:none;white-space:pre-wrap;margin-bottom:14px;position:relative;"></div>';
+  if(blockPlanActive())h+=renderBlockPlan();
+
   S.scenes.forEach(function(sc,idx){
-    var imgP=isAnim?bldAnimImg(sc):bldImg(sc);
+    var imgP=isAnim?bldAnimImg(sc):(S.proj.promptFormat==='concise'?bldImgProse(sc):bldImg(sc));
     var kP=bldKling(sc),sP=bldSeed(sc);
     var hasDlg=sc.dialog&&sc.dialog.trim()&&sc.dialog.trim().toUpperCase()!=='NONE';
     var isDone=sc.progress&&sc.progress.generated;
@@ -4532,9 +5275,11 @@ function genAll(){
     // Header row: number, title, badges, generated toggle, expand
     h+='<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 12px;">';
     h+='<div style="width:26px;height:26px;background:linear-gradient(135deg,#84CC16,#65a30d);border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:Bebas Neue;font-size:14px;color:#0a0f0a;flex-shrink:0;">S'+(idx+1)+'</div>';
-    h+='<span style="font-family:Bebas Neue;font-size:16px;color:#a3e635;letter-spacing:.04em;">'+(sc.title||'SCENE '+(idx+1))+'</span>';
+    h+='<span style="font-family:Bebas Neue;font-size:16px;color:#a3e635;letter-spacing:.04em;">'+escapeHtml(sc.title||'SCENE '+(idx+1))+'</span>';
     if(sc.beat)h+='<span class="bB" style="font-size:9px;">'+sc.beat+'</span>';
     if(sc.shotType)h+='<span class="bA" style="font-size:9px;">'+sc.shotType+'</span>';
+    var wideFace=(sc.shotType==='WS'||sc.shotType==='Extreme Wide');
+    if(wideFace)h+='<span title="Face renders small in wide shots \u2014 fix with a Nano Banana edit pass after generating" style="background:#f59e0b22;color:#fbbf24;border:1px solid #f59e0b33;border-radius:20px;padding:2px 8px;font-size:9px;">&#9888; face small</span>';
     if(sc.brollOnly)h+='<span style="background:#2a2e2a;color:#71717a;border-radius:20px;padding:2px 8px;font-size:9px;">B-roll</span>';
     if(hasDlg)h+='<span class="bA" style="font-size:9px;">&#128172; DIALOG</span>';
     h+='<div style="flex:1;"></div>';
@@ -4558,6 +5303,7 @@ function genAll(){
     h+='<div id="oe'+sc.id+'" style="display:'+(isExp?'block':'none')+';border-top:1px solid #2a2e2a;padding:10px 12px;">';
     if(sc.script)h+='<div style="padding:7px 10px;background:#0d0f0d;border-radius:5px;border-left:3px solid #84CC1644;font-size:11px;color:#71717a;font-style:italic;margin-bottom:10px;">'+sc.script+'</div>';
     h+='<div style="margin-bottom:4px;display:flex;gap:5px;align-items:center;"><span class="bA">Image Prompt</span><span style="font-size:10px;color:#52525b;">GPT Image 2 / Nano Banana Pro / Higgsfield · negative embedded as AVOID block</span></div>';
+    if(wideFace)h+='<div style="padding:6px 10px;background:#f59e0b11;border:1px solid #f59e0b33;border-radius:5px;font-size:10px;color:#fbbf24;margin-bottom:6px;">&#9888; Wide shot \u2014 face will render small and may distort (pixel budget). After generating, run an edit pass in Nano Banana: <i>"keep everything identical, redraw only the face to match reference"</i>.</div>';
     h+='<div class="pbox" style="margin-bottom:10px;">'+escapeHtml(imgP)+'<button class="cpBtn" data-cpel="oi'+sc.id+'">Copy</button></div>';
     h+='<div style="margin-bottom:4px;display:flex;gap:5px;"><span class="bP">Kling AI</span>'+(hasDlg?'<span class="bA" style="font-size:9px;">&#128172; Dialog</span>':'')+'</div>';
     h+='<div class="pbox" style="margin-bottom:10px;">'+escapeHtml(kP)+'<button class="cpBtn" data-cpel="ok'+sc.id+'">Copy</button></div>';
@@ -4569,6 +5315,22 @@ function genAll(){
   });
 
   c.innerHTML=h;
+  var btb=document.getElementById('blkToggleBtn');
+  if(btb)btb.addEventListener('click',toggleBlockPlan);
+  var fsb=document.getElementById('filterSafeBtn');
+  if(fsb)fsb.addEventListener('click',function(){
+    var box=document.getElementById('filterSafeBox');
+    if(box.style.display==='block'){box.style.display='none';return;}
+    box.textContent=bldFilterSafe();box.style.display='block';
+    var cp=document.createElement('button');cp.className='btnG';cp.textContent='\uD83D\uDCCB Copy';
+    cp.style.cssText='position:absolute;top:6px;right:6px;font-size:10px;padding:3px 8px;';
+    cp.onclick=function(){doCopy(bldFilterSafe(),cp);};
+    box.appendChild(cp);
+  });
+  c.querySelectorAll('[data-cpblk]').forEach(function(el){el.addEventListener('click',function(){cpEl(this.getAttribute('data-cpblk'),this);});});
+  c.querySelectorAll('[data-packmode]').forEach(function(el){el.addEventListener('click',function(){setPackMode(this.getAttribute('data-packmode'));});});
+  c.querySelectorAll('[data-blkbreak]').forEach(function(el){el.addEventListener('click',function(){toggleBlockBreak(this.getAttribute('data-blkbreak'));});});
+  c.querySelectorAll('[data-blkexp]').forEach(function(el){el.addEventListener('click',function(){var i=this.getAttribute('data-blkexp');blkExpanded[i]=!blkExpanded[i];genAll();});});
   c.querySelectorAll('[data-outexp]').forEach(function(el){
     el.addEventListener('click',function(){
       var id=Number(this.getAttribute('data-outexp'));
@@ -4600,7 +5362,7 @@ function copyAll(){
       all+='SCENE '+(i+1)+': '+(sc.title||'Untitled')+'\n'+'-'.repeat(40)+'\n';
       if(sc.script)all+='ACTION: '+sc.script+'\n';
       if(sc.dialog&&sc.dialog.trim()!=='NONE')all+='DIALOG: '+sc.dialog+'\n';
-      all+='\nIMAGE:\n'+(isAnim?bldAnimImg(sc):bldImg(sc))+'\n';
+      all+='\nIMAGE:\n'+(isAnim?bldAnimImg(sc):(S.proj.promptFormat==='concise'?bldImgProse(sc):bldImg(sc)))+'\n';
       all+='\nKLING:\n'+bldKling(sc)+'\n\nSEEDANCE:\n'+bldSeed(sc)+'\n\n'+'='.repeat(60)+'\n\n';
     });
   }
@@ -4661,10 +5423,14 @@ function doReset(){
 }
 function doResetConfirm(){
   var bar=document.getElementById('resetBar');if(bar)bar.style.display='none';
-  S={proj:{type:'',platform:'',genre:'',mood:'',visualStyle:'',emotionalCore:'',intent:'',texFinish:'',mvStyle:'',mvTempo:'',mvGenre:'',mvArc:'',mode:'realistic'},videoMode:'img2vid',dna:{name:'',audience:'',tone:'',title:'',coreMessage:'',painPoint:'',instructions:''},viralNotes:'',chars:[],scenes:[],assets:[],assetLinks:[],aiTool:'chatgpt',storyboard:Object.assign({},SB_DEFAULT,{panels:[]}),aiDirector:Object.assign({},AID_DEFAULT,{cinema:Object.assign({},AID_DEFAULT.cinema,{savedPrompts:[]}),banana:Object.assign({},AID_DEFAULT.banana,{savedPrompts:[]})})};
+  S={proj:{type:'',platform:'',genre:'',mood:'',visualStyle:'',customVisualStyle:'',emotionalCore:'',intent:'',texFinish:'',mode:'realistic',promptFormat:'',dramaBrandMode:'ambient'},videoMode:'img2vid',dna:{name:'',audience:'',tone:'',title:'',coreMessage:'',painPoint:'',instructions:''},viralNotes:'',chars:[],scenes:[],assets:[],assetLinks:[],aiTool:'chatgpt',mv:{genre:'',template:'',sections:[],musicNotes:'',songEnd:''},storyboard:Object.assign({},SB_DEFAULT,{panels:[]}),aiDirector:Object.assign({},AID_DEFAULT,{cinema:Object.assign({},AID_DEFAULT.cinema,{savedPrompts:[]}),banana:Object.assign({},AID_DEFAULT.banana,{savedPrompts:[]})})};
   ['cah8','cah7','cah6'].forEach(function(k){localStorage.removeItem(k);});
-  ['platform','genre','mood','visualStyle','emotionalCore','dnaName','dnaAudience','dnaTone','dnaInstructions','dnaTitle','dnaCoreMessage','dnaPainPoint'].forEach(function(f){var el=document.getElementById(f);if(el)el.value='';});
+  // v13a B1: every id collectForm() reads MUST be cleared here, or save() re-injects the old value into S.
+  ['platform','genre','mood','visualStyle','customVisualStyle','emotionalCore','intent','texFinish','promptFormat','viralNotes','dnaName','dnaAudience','dnaTone','dnaInstructions','dnaTitle','dnaCoreMessage','dnaPainPoint'].forEach(function(f){var el=document.getElementById(f);if(el)el.value='';});
+  var dbmEl=document.getElementById('dramaBrandMode');if(dbmEl)dbmEl.value='ambient';
+  blockPlanOn=null;blockPackMode=null;blkExpanded={};outExpanded={};
   renderPT();renderChars();renderScenes();renderPanels();populateStyleDropdown();applyStoryboardForm();aidApplyForm();
+  renderMVPanel();updateGenreDesc();initCoreSettingDescs();
   document.getElementById('sbOutBox').innerHTML='<div style="text-align:center;padding:24px 12px;color:#52525b;font-size:12px;">Add panels and generate.</div>';
   var sref=document.getElementById('sbScriptRef');if(sref)sref.value='';
   document.getElementById('sbNarrativeArc').value='';
