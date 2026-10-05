@@ -530,7 +530,11 @@ textarea.inp{resize:vertical;min-height:70px;}
           <button class="outBtn" id="vidTxt2" onclick="setVidMode('txt2vid',this)" title="Generate video from text — include character description">Txt&#8594;Vid</button>
         </div>
         <button class="btnG" onclick="genAll()">&#8634; Regen</button>
-        <button class="btnP" onclick="copyAll()">Copy All</button>
+        <select class="inp" id="exportImgModel" onchange="save()" title="Image model written into the production file" style="width:auto;font-size:11px;padding:5px 8px;">
+          <option value="gpt_image_2">GPT Image 2</option>
+          <option value="nano_banana_pro">Nano Banana Pro</option>
+        </select>
+        <button class="btnP" onclick="exportProduction()" title="Download one .md file with every image and video prompt, ready for Higgsfield Supercomputer or Claude + Higgsfield MCP">&#8595; Export Production .md</button>
       </div>
     </div>
     <div id="outBox">
@@ -969,7 +973,7 @@ textarea.inp{resize:vertical;min-height:70px;}
 <div style="max-width:860px;margin:0 auto;padding:20px 16px 32px;border-top:1px solid #1a1d1a;margin-top:8px;">
   <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
     <div style="font-size:10px;color:#3f3f46;font-family:'JetBrains Mono',monospace;">
-      CineAI Hub v13g &nbsp;·&nbsp; Prompt format: Kling 3.0 / Seedance 2.0 / GPT Image 2 &nbsp;·&nbsp; Last updated: Oct 2026
+      CineAI Hub v13h &nbsp;·&nbsp; Prompt format: Kling 3.0 / Seedance 2.0 / GPT Image 2 &nbsp;·&nbsp; Last updated: Oct 2026
     </div>
     <div style="font-size:10px;color:#3f3f46;">
       Open source · <a href="https://github.com" style="color:#52525b;text-decoration:none;">GitHub</a> · Zero API keys required
@@ -979,7 +983,7 @@ textarea.inp{resize:vertical;min-height:70px;}
 
 <script>
 var S = {
-  proj:{type:'',platform:'',genre:'',mood:'',visualStyle:'',customVisualStyle:'',emotionalCore:'',intent:'',texFinish:'',mode:'realistic',promptFormat:'',dramaBrandMode:'ambient'},
+  proj:{type:'',platform:'',genre:'',mood:'',visualStyle:'',customVisualStyle:'',emotionalCore:'',intent:'',texFinish:'',mode:'realistic',promptFormat:'',dramaBrandMode:'ambient',exportImgModel:'gpt_image_2'},
   dna:{name:'',audience:'',tone:'',instructions:'',title:'',coreMessage:'',painPoint:''},
   viralNotes:'',
   chars:[],scenes:[],
@@ -1583,7 +1587,7 @@ function migratePanelSchema(p){
 }
 function collectForm(){
   collectStoryboardForm();
-  ['platform','genre','mood','visualStyle','emotionalCore','intent','texFinish','promptFormat','dramaBrandMode'].forEach(function(f){var el=document.getElementById(f);if(el)S.proj[f]=el.value;});
+  ['platform','genre','mood','visualStyle','emotionalCore','intent','texFinish','promptFormat','dramaBrandMode','exportImgModel'].forEach(function(f){var el=document.getElementById(f);if(el)S.proj[f]=el.value;});
   var cvsEl=document.getElementById('customVisualStyle');if(cvsEl)S.proj.customVisualStyle=cvsEl.value;
   ['name','audience','tone','instructions','title','coreMessage','painPoint'].forEach(function(f){
     var el=document.getElementById('dna'+f.charAt(0).toUpperCase()+f.slice(1));
@@ -1592,7 +1596,7 @@ function collectForm(){
   var vn=document.getElementById('viralNotes');if(vn)S.viralNotes=vn.value;
 }
 function applyForm(){
-  ['platform','genre','mood','emotionalCore','intent','texFinish','promptFormat','dramaBrandMode'].forEach(function(f){var el=document.getElementById(f);if(el&&S.proj[f])el.value=S.proj[f];});
+  ['platform','genre','mood','emotionalCore','intent','texFinish','promptFormat','dramaBrandMode','exportImgModel'].forEach(function(f){var el=document.getElementById(f);if(el&&S.proj[f])el.value=S.proj[f];});
   var cvsEl2=document.getElementById('customVisualStyle');if(cvsEl2&&S.proj.customVisualStyle)cvsEl2.value=S.proj.customVisualStyle;
   ['name','audience','tone','instructions','title','coreMessage','painPoint'].forEach(function(f){
     var el=document.getElementById('dna'+f.charAt(0).toUpperCase()+f.slice(1));
@@ -5353,20 +5357,131 @@ function genAll(){
   });
 }
 
-// ═══ COPY ALL ═══
-function copyAll(){
-  var all='CINEAI HUB v12 — EXPORT\n'+'='.repeat(60)+'\nSTYLE: '+styleAnch()+'\n\n';
-  {
-    var isAnim=S.proj.mode==='animated';
-    S.scenes.forEach(function(sc,i){
-      all+='SCENE '+(i+1)+': '+(sc.title||'Untitled')+'\n'+'-'.repeat(40)+'\n';
-      if(sc.script)all+='ACTION: '+sc.script+'\n';
-      if(sc.dialog&&sc.dialog.trim()!=='NONE')all+='DIALOG: '+sc.dialog+'\n';
-      all+='\nIMAGE:\n'+(isAnim?bldAnimImg(sc):(S.proj.promptFormat==='concise'?bldImgProse(sc):bldImg(sc)))+'\n';
-      all+='\nKLING:\n'+bldKling(sc)+'\n\nSEEDANCE:\n'+bldSeed(sc)+'\n\n'+'='.repeat(60)+'\n\n';
+// ═══ EXPORT PRODUCTION .md (v13h) ═══
+// One file an agent (Higgsfield Supercomputer, or Claude + Higgsfield MCP) can execute end to end.
+// Prompts are emitted FINAL: the file tells the executor to use them verbatim, generate every
+// image first, stop for approval, and only then run video. Replaces the old clipboard copyAll().
+var EXPORT_IMG_MODELS={gpt_image_2:'GPT Image 2',nano_banana_pro:'Nano Banana Pro'};
+function exportAR(){
+  var p=S.proj;
+  if(!p.platform&&p.genre==='Drama Reel (Vertical)')return '9:16';
+  if(p.platform&&p.platform.indexOf('9:16')>-1)return '9:16';
+  if(p.platform&&p.platform.indexOf('4:5')>-1)return '4:5';
+  if(p.platform&&p.platform.indexOf('2.39')>-1)return '21:9';
+  return '16:9';
+}
+// Same ordering bldSeedBlock uses for its @Image legend: characters first, then linked
+// non-character assets, de-duplicated in scene order. Keeping it identical is what lets the
+// file tell the executor exactly which upload is @Image1, @Image2, ...
+function exportRefsFor(scenes){
+  var out=[],seen={};
+  scenes.forEach(function(sc){
+    resolveIdentity(sc).entries.forEach(function(e){
+      var k='c:'+e.name;if(!seen[k]){seen[k]=1;out.push({key:k,name:e.name,type:'character',desc:e.token});}
     });
+    (S.assetLinks||[]).filter(function(l){return l.sceneId===sc.id;}).forEach(function(l){
+      var a=(S.assets||[]).find(function(x){return x.id===l.assetId;});
+      if(a&&a.type!=='character'){var k='a:'+a.id;if(!seen[k]){seen[k]=1;out.push({key:k,name:a.name||'asset',type:a.type||'asset',desc:compressWords(a.description||'',20)});}}
+    });
+  });
+  return out;
+}
+function exportProduction(){
+  collectForm();
+  if(!S.scenes.length){alert('No scenes to export yet.');return;}
+  var p=S.proj,d=S.dna,isAnim=p.mode==='animated',isI2V=S.videoMode==='img2vid',isMV=p.genre==='Music Video';
+  var imgModelId=p.exportImgModel||'gpt_image_2',imgModel=EXPORT_IMG_MODELS[imgModelId]||imgModelId;
+  var ar=exportAR(),title=(d.title||d.name||'Untitled project').trim();
+  var pad=function(n){return(n<10?'0':'')+n;};
+  // Global reference registry
+  var refs=exportRefsFor(S.scenes),refId={};
+  refs.forEach(function(r,i){refId[r.key]='REF-'+pad(i+1);});
+  var refLine=function(list){return list.length?list.map(function(r){return refId[r.key]+' ('+r.name+')';}).join(', '):'none';};
+  // Video units: Block Plan blocks when active, otherwise one video per scene
+  var useBlocks=blockPlanActive(),units=[];
+  if(useBlocks){
+    buildBlockPlan().forEach(function(b,i){units.push({scenes:b.scenes,dur:b.dur,prompt:bldSeedBlock(b,i),audio:isMV?(fmtMMSS(b.audioStart)+'–'+fmtMMSS(b.audioStart+b.dur)):''});});
+  }else{
+    S.scenes.forEach(function(sc){units.push({scenes:[sc],dur:sceneDur(sc),prompt:bldSeed(sc),audio:''});});
   }
-  doCopy(all,null);alert('All prompts copied!');
+  var sceneIdx={};S.scenes.forEach(function(sc,i){sceneIdx[sc.id]=i;});
+  var L=[];
+  L.push('# '+title+' — Production Package');
+  L.push('');
+  L.push('Exported from CineAI Hub v13h · '+new Date().toISOString().slice(0,10)+' · '+S.scenes.length+' images · '+units.length+' videos · aspect '+ar);
+  L.push('');
+  L.push('## EXECUTION RULES — read before doing anything');
+  L.push('');
+  L.push('1. **Every prompt in this file is FINAL.** Use each one exactly as written, character for character. Do not rewrite, shorten, expand, translate, merge, or "improve" any prompt, and do not add style words, quality words or negative prompts of your own.');
+  L.push('2. **Phase 1 — images only.** Generate every `IMG` item in order with the image model below. When all are done, STOP. Show all images and wait for the user to approve them. Do not start any video before approval.');
+  L.push('3. If the user rejects an image, regenerate it with the SAME prompt (new seed only). Never edit the prompt to fix it.');
+  L.push('4. **Phase 2 — video.** Only after approval. Each `VID` uses the approved image named in its START FRAME as the start image, plus the references it lists, attached in the order shown.');
+  L.push('5. If a generation fails, retry once with the identical settings. If it fails again, mark it FAILED in the checklist, continue with the next item, and report all failures at the end.');
+  L.push('6. Keep the checklist at the bottom up to date so the run can resume from where it stopped.');
+  L.push('');
+  L.push('## SETTINGS');
+  L.push('');
+  L.push('- Image model: **'+imgModel+'** (Higgsfield id `'+imgModelId+'`), aspect '+ar);
+  L.push('- Video model: **Seedance 2.0** (Higgsfield id `seedance_2_0`), aspect '+ar+', '+(isI2V?'image-to-video from the approved start frame':'text-to-video'));
+  L.push('- Video audio: generate native audio ON'+(isMV?' — except where an AUDIO SEGMENT is listed: then upload that cut of the song as the audio reference':''));
+  L.push('');
+  L.push('## REFERENCES — upload these first');
+  L.push('');
+  if(refs.length){
+    L.push('Ask the user for one image per slot before Phase 1. Attach a slot to every item that lists it.');
+    L.push('');
+    refs.forEach(function(r){L.push('- **'+refId[r.key]+'** — '+r.name+' ('+r.type+')'+(r.desc?': '+r.desc:''));});
+  }else{
+    L.push('None registered. Generate without reference images.');
+  }
+  L.push('');
+  L.push('---');
+  L.push('');
+  L.push('## PHASE 1 — IMAGES ('+S.scenes.length+')');
+  L.push('');
+  S.scenes.forEach(function(sc,i){
+    var id='IMG-'+pad(i+1);
+    var prompt=isAnim?bldAnimImg(sc):(p.promptFormat==='concise'?bldImgProse(sc):bldImg(sc));
+    L.push('### '+id+' — '+(sc.title||('Scene '+(i+1))));
+    L.push('- Model: `'+imgModelId+'` · Aspect: '+ar);
+    L.push('- References: '+refLine(exportRefsFor([sc])));
+    L.push('');
+    L.push('```text');L.push(prompt);L.push('```');
+    L.push('');
+  });
+  L.push('---');
+  L.push('');
+  L.push('## PHASE 2 — VIDEOS ('+units.length+') — only after the user approves Phase 1');
+  L.push('');
+  units.forEach(function(u,i){
+    var id='VID-'+pad(i+1),first=u.scenes[0];
+    var ordered=exportRefsFor(u.scenes);
+    L.push('### '+id+' — '+u.scenes.map(function(sc){return 'IMG-'+pad(sceneIdx[sc.id]+1);}).join(' + ')+' · '+u.dur+'s');
+    L.push('- Model: `seedance_2_0` · Duration: '+u.dur+'s · Aspect: '+ar);
+    if(isI2V)L.push('- START FRAME: approved **IMG-'+pad(sceneIdx[first.id]+1)+'**');
+    if(isI2V&&ordered.length)L.push('- Attach in this exact order: '+ordered.map(function(r,k){return '@Image'+(k+1)+' = '+refId[r.key]+' ('+r.name+')';}).join(' · '));
+    if(u.audio)L.push('- AUDIO SEGMENT: cut the song to '+u.audio+' and upload it as the audio reference (@Audio1)');
+    L.push('');
+    L.push('```text');L.push(u.prompt);L.push('```');
+    L.push('');
+  });
+  L.push('---');
+  L.push('');
+  L.push('## CHECKLIST');
+  L.push('');
+  if(refs.length)L.push('- [ ] References uploaded ('+refs.length+')');
+  S.scenes.forEach(function(sc,i){L.push('- [ ] IMG-'+pad(i+1));});
+  L.push('- [ ] **User approved all images**');
+  units.forEach(function(u,i){L.push('- [ ] VID-'+pad(i+1));});
+  var md=L.join('\n')+'\n';
+  var slug=title.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'project';
+  var blob=new Blob([md],{type:'text/markdown'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=slug+'_production_'+new Date().toISOString().slice(0,10)+'.md';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  setTimeout(function(){URL.revokeObjectURL(a.href);},1000);
+  return md;
 }
 
 // ═══ EXPORT / IMPORT / RESET ═══
@@ -5423,11 +5538,12 @@ function doReset(){
 }
 function doResetConfirm(){
   var bar=document.getElementById('resetBar');if(bar)bar.style.display='none';
-  S={proj:{type:'',platform:'',genre:'',mood:'',visualStyle:'',customVisualStyle:'',emotionalCore:'',intent:'',texFinish:'',mode:'realistic',promptFormat:'',dramaBrandMode:'ambient'},videoMode:'img2vid',dna:{name:'',audience:'',tone:'',title:'',coreMessage:'',painPoint:'',instructions:''},viralNotes:'',chars:[],scenes:[],assets:[],assetLinks:[],aiTool:'chatgpt',mv:{genre:'',template:'',sections:[],musicNotes:'',songEnd:''},storyboard:Object.assign({},SB_DEFAULT,{panels:[]}),aiDirector:Object.assign({},AID_DEFAULT,{cinema:Object.assign({},AID_DEFAULT.cinema,{savedPrompts:[]}),banana:Object.assign({},AID_DEFAULT.banana,{savedPrompts:[]})})};
+  S={proj:{type:'',platform:'',genre:'',mood:'',visualStyle:'',customVisualStyle:'',emotionalCore:'',intent:'',texFinish:'',mode:'realistic',promptFormat:'',dramaBrandMode:'ambient',exportImgModel:'gpt_image_2'},videoMode:'img2vid',dna:{name:'',audience:'',tone:'',title:'',coreMessage:'',painPoint:'',instructions:''},viralNotes:'',chars:[],scenes:[],assets:[],assetLinks:[],aiTool:'chatgpt',mv:{genre:'',template:'',sections:[],musicNotes:'',songEnd:''},storyboard:Object.assign({},SB_DEFAULT,{panels:[]}),aiDirector:Object.assign({},AID_DEFAULT,{cinema:Object.assign({},AID_DEFAULT.cinema,{savedPrompts:[]}),banana:Object.assign({},AID_DEFAULT.banana,{savedPrompts:[]})})};
   ['cah8','cah7','cah6'].forEach(function(k){localStorage.removeItem(k);});
   // v13a B1: every id collectForm() reads MUST be cleared here, or save() re-injects the old value into S.
   ['platform','genre','mood','visualStyle','customVisualStyle','emotionalCore','intent','texFinish','promptFormat','viralNotes','dnaName','dnaAudience','dnaTone','dnaInstructions','dnaTitle','dnaCoreMessage','dnaPainPoint'].forEach(function(f){var el=document.getElementById(f);if(el)el.value='';});
   var dbmEl=document.getElementById('dramaBrandMode');if(dbmEl)dbmEl.value='ambient';
+  var eimEl=document.getElementById('exportImgModel');if(eimEl)eimEl.value='gpt_image_2';
   blockPlanOn=null;blockPackMode=null;blkExpanded={};outExpanded={};
   renderPT();renderChars();renderScenes();renderPanels();populateStyleDropdown();applyStoryboardForm();aidApplyForm();
   renderMVPanel();updateGenreDesc();initCoreSettingDescs();
